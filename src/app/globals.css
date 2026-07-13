@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-950 text-white antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, rgba(212, 165, 55, 0.08), transparent 60%),
+    radial-gradient(800px 500px at 100% 100%, rgba(23, 138, 76, 0.06), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Thin, luxe scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-white/10;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-white/20;
+}
+
+/* Gold sheen text helper */
+.text-sheen {
+  @apply bg-gold-sheen bg-[length:200%_auto] bg-clip-text text-transparent;
+  animation: sheen 3s linear infinite;
+}
