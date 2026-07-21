@@ -63,15 +63,18 @@ add_action( 'wp_enqueue_scripts', function () {
 	);
 	wp_enqueue_style( 'agenturf', get_stylesheet_uri(), array( 'agenturf-fonts' ), AGENTURF_VERSION );
 
-	if ( is_user_logged_in() ) {
+	$apercu       = isset( $_GET['apercu'] ) ? sanitize_key( wp_unslash( $_GET['apercu'] ) ) : '';
+	$show_landing = ( ! is_user_logged_in() ) || 'portail' === $apercu;
+
+	if ( $show_landing ) {
+		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), AGENTURF_VERSION, true );
+	} else {
 		wp_enqueue_script( 'agenturf-sim', get_template_directory_uri() . '/assets/js/simulator.js', array(), AGENTURF_VERSION, true );
 		wp_add_inline_script(
 			'agenturf-sim',
 			'window.QUINTE_SIM_CFG = ' . wp_json_encode( array( 'race' => agenturf_race_data() ) ) . ';',
 			'before'
 		);
-	} else {
-		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), AGENTURF_VERSION, true );
 	}
 } );
 

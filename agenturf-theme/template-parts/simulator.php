@@ -35,6 +35,7 @@ $nb   = count( $race['horses'] );
 		<div class="controls">
 			<button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
 			<button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
+			<button class="btn btn-mc" id="btnMC">📊 100 courses en 1 clic</button>
 			<div class="speedctl">Vitesse
 				<select id="speed">
 					<option value="1">Réelle ×1</option>
@@ -52,6 +53,20 @@ $nb   = count( $race['horses'] );
 			<div class="panel">
 				<h3>Commentaires — micro <?php echo esc_html( $meta['track'] ); ?></h3>
 				<div id="feed"><p>Les partants se dirigent vers les stalles… choisis un scénario et lance la course.</p></div>
+			</div>
+		</div>
+
+		<div id="mcbox">
+			<div class="panel">
+				<h3>📊 Statistiques sur 100 courses — scénario actuel</h3>
+				<div class="mc-grid">
+					<div id="mcbars"></div>
+					<div>
+						<h3>Combinaisons les plus fréquentes</h3>
+						<div id="mccombos"></div>
+					</div>
+				</div>
+				<p class="mc-note">% = victoires · T5 = présences dans les 5 premiers. Change de scénario puis relance pour comparer.</p>
 			</div>
 		</div>
 

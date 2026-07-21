@@ -19,11 +19,13 @@ Text Domain: agenturf
 
 /* =============== base =============== */
 :root{
-  --nuit:#12203a; --nuit2:#1b2f52;
+  /* palette « pelouse & or » : vert hippodrome profond + doré trophée */
+  --nuit:#0c3b26; --nuit2:#155e38;
   --gazon:#2f7d46; --gazon2:#256637;
-  --craie:#f4f0e4; --rail:#ffffff;
-  --pmu:#e4322b; --or:#e8b64c;
-  --encre:#18202e; --ligne:rgba(24,32,46,.14);
+  --craie:#f3f1e6; --rail:#ffffff;
+  --pmu:#c9971f; --or:#e3b64e;
+  --encre:#122019; --ligne:rgba(18,50,35,.16);
+  --cta:#b98a15;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -55,8 +57,8 @@ a{color:inherit}
   transition:background .18s,border-color .18s;
 }
 .topbar a.tb-btn:hover{background:rgba(255,255,255,.14);border-color:#fff}
-.topbar a.tb-btn.solid{background:var(--pmu);border-color:var(--pmu)}
-.topbar a.tb-btn.solid:hover{background:#c9271f}
+.topbar a.tb-btn.solid{background:var(--or);border-color:var(--or);color:#1c2e22}
+.topbar a.tb-btn.solid:hover{background:#d8a83e}
 .scrollbar{
   position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
   background:linear-gradient(90deg,var(--pmu),var(--or));
@@ -99,10 +101,10 @@ a{color:inherit}
 }
 .hero-cta{
   margin-top:26px;display:inline-flex;align-items:center;gap:10px;
-  background:var(--pmu);color:#fff;text-decoration:none;
+  background:var(--or);color:#1c2e22;text-decoration:none;
   font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.07em;
   font-size:1.1rem;border-radius:12px;padding:14px 30px;
-  box-shadow:0 10px 30px rgba(228,50,43,.45);
+  box-shadow:0 10px 30px rgba(201,151,31,.5);
   animation:heroChip 1s .8s ease backwards;
   transition:transform .15s;
 }
@@ -166,7 +168,7 @@ a{color:inherit}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .step{background:#fff;border:1.5px solid var(--ligne);border-radius:16px;padding:20px;position:relative}
 .step .num{
-  font-family:'Barlow Condensed';font-weight:900;font-size:2.6rem;color:rgba(228,50,43,.18);
+  font-family:'Barlow Condensed';font-weight:900;font-size:2.6rem;color:rgba(20,83,45,.18);
   position:absolute;top:8px;right:16px;line-height:1;
 }
 .step h3{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1.1rem;margin-bottom:6px}
@@ -250,7 +252,7 @@ h1.racetitle{
   font-family:inherit;transition:border-color .15s, transform .1s;
 }
 .scn:hover{border-color:var(--pmu)}
-.scn.active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(228,50,43,.18);transform:translateY(-1px)}
+.scn.active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(201,151,31,.28);transform:translateY(-1px)}
 .scn h3{font-family:'Barlow Condensed';font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
 .scn p{font-size:.8rem;color:#4b5563;margin-top:3px}
 .scn .prob{
@@ -293,7 +295,7 @@ button.btn{
   padding:11px 22px;cursor:pointer;transition:opacity .15s;
 }
 .btn:disabled{opacity:.45;cursor:default}
-.btn-go{background:var(--pmu);color:#fff}
+.btn-go{background:var(--or);color:#1c2e22}
 .btn-re{background:var(--encre);color:var(--craie)}
 .speedctl{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#4b5563}
 .speedctl select{font-family:inherit;padding:7px 10px;border-radius:8px;border:1.5px solid var(--ligne);background:#fff}
@@ -360,6 +362,25 @@ button.btn{
   .hero{height:100vh}
 }
 
+
+/* =============== Monte-Carlo : 100 courses en 1 clic =============== */
+.btn-mc{background:var(--nuit2);color:var(--craie)}
+#mcbox{display:none;margin-top:14px}
+#mcbox.show{display:block;animation:comboPopIn .4s ease}
+@keyframes comboPopIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mc-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media(max-width:700px){.mc-grid{grid-template-columns:1fr}}
+.mc-note{font-size:.78rem;color:#5b6474;margin-top:8px}
+.mcrow{display:flex;align-items:center;gap:9px;font-size:.84rem;margin:6px 0}
+.mcrow .num{font-weight:600;width:22px}
+.mcrow .nm{width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcrow .barwrap{flex:1;background:var(--craie);border:1px solid var(--ligne);border-radius:99px;height:14px;overflow:hidden}
+.mcrow .bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gazon),var(--or));width:0;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.mcrow .pct{width:96px;text-align:right;font-weight:600;font-size:.78rem;color:#1c4a30}
+.mc-combo{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:.84rem}
+.mc-combo .c{font-family:'Barlow Condensed';font-weight:900;letter-spacing:.05em;background:var(--nuit);color:var(--or);border-radius:8px;padding:3px 10px}
+.mc-combo .x{color:#5b6474;font-size:.74rem}
+
 </style>
 </head>
 <body>
@@ -378,7 +399,7 @@ button.btn{
       <video class="hero-video" id="heroVideo" src="https://videos.pexels.com/video-files/31653765/13486027_1920_1080_25fps.mp4" poster="https://images.pexels.com/videos/31653765/nanango-31653765.jpeg?auto=compress&w=1600" autoplay muted loop playsinline></video>
       <div class="hero-veil" id="heroVeil"></div>
       <div class="hero-inner" id="heroTitle">
-        <span class="hero-chip">Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30</span>
+        <span class="hero-chip">Quinté+ · Mercredi 22 juillet 2026 · R1 C8 · Départ 18h30</span>
         <h1 class="hero-h1">Le Quinté du jour,<br><em>simulé</em> avant d'être couru</h1>
         <p class="hero-sub">Analyse complète des partants, 6 scénarios pondérés par un modèle, et une course animée en direct — relance-la autant de fois que tu veux, chaque arrivée est différente.</p>
         <a class="hero-cta" href="#acces">🏇 Accéder au simulateur</a>
@@ -414,8 +435,8 @@ button.btn{
 
   <div class="gatewrap" id="acces">
     <div class="gatecard reveal">
-      <h2>La course du jour t'attend<br><em>Prix Impératrice Eugénie</em></h2>
-      <p>Vichy · 2 400 m — l'accès au simulateur est réservé aux membres. C'est gratuit et immédiat :</p>
+      <h2>La course du jour t'attend<br><em>Prix de Picpus</em></h2>
+      <p>Enghien · 2 875 m — l'accès au simulateur est réservé aux membres. C'est gratuit et immédiat :</p>
       <ul>
         <li>Simulations illimitées, chaque arrivée est différente</li>
         <li>Les 6 scénarios du modèle débloqués</li>
@@ -434,9 +455,9 @@ button.btn{
 
 <div class="wrap" id="simapp" style="display:none">
   <header class="card">
-    <div class="eyebrow">Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30</div>
-    <h1 class="racetitle">Prix Impératrice Eugénie<br>Vichy · 2 400 m</h1>
-    <div class="meta"><span>Handicap divisé · <b>52 800 €</b></span><span>Plat · herbe · <b>corde à droite</b></span><span>15 partants · 3 ans</span><span>Terrain <b>bon souple (3,4)</b> · 25° soleil</span></div>
+    <div class="eyebrow">Quinté+ · Mercredi 22 juillet 2026 · R1 C8 · Départ 18h30</div>
+    <h1 class="racetitle">Prix de Picpus<br>Enghien · 2 875 m</h1>
+    <div class="meta"><span>Trot attelé · <b>46 000 €</b></span><span>Autostart · <b>corde à gauche</b></span><span>15 partants · 4 ans</span><span>Mâles n'ayant pas gagné <b>71 000 €</b></span></div>
   </header>
 
   <section class="sim-section">
@@ -449,8 +470,8 @@ button.btn{
     <div class="trackbox">
       <canvas id="cv" width="1020" height="560"></canvas>
       <div class="hud">
-        <div class="badge" id="hudDist">2 400 m à parcourir</div>
-        <div class="badge">VICHY <em>·</em> R1C8</div>
+        <div class="badge" id="hudDist">2 875 m à parcourir</div>
+        <div class="badge">ENGHIEN <em>·</em> R1C8</div>
       </div>
       <div class="count" id="count"></div>
       <div class="flash" id="flash"></div>
@@ -458,6 +479,7 @@ button.btn{
     <div class="controls">
       <button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
       <button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
+      <button class="btn btn-mc" id="btnMC">📊 100 courses en 1 clic</button>
       <div class="speedctl">Vitesse
         <select id="speed">
           <option value="1">Réelle ×1</option>
@@ -469,8 +491,22 @@ button.btn{
 
     <div class="live">
       <div class="panel"><h3>Classement en direct</h3><div id="standings"></div></div>
-      <div class="panel"><h3>Commentaires — micro VICHY</h3>
+      <div class="panel"><h3>Commentaires — micro ENGHIEN</h3>
         <div id="feed"><p>Les partants se dirigent vers les stalles… choisis un scénario et lance la course.</p></div>
+      </div>
+    </div>
+
+    <div id="mcbox">
+      <div class="panel">
+        <h3>📊 Statistiques sur 100 courses — scénario actuel</h3>
+        <div class="mc-grid">
+          <div id="mcbars"></div>
+          <div>
+            <h3>Combinaisons les plus fréquentes</h3>
+            <div id="mccombos"></div>
+          </div>
+        </div>
+        <p class="mc-note">% = victoires · T5 = présences dans les 5 premiers. Change de scénario puis relance pour comparer.</p>
       </div>
     </div>
 
@@ -493,7 +529,7 @@ button.btn{
 </div>
 
 <script>
-window.QUINTE_SIM_CFG = {"race": {"meta": {"eyebrow": "Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30", "title": "Prix Impératrice Eugénie", "subtitle": "Vichy · 2 400 m", "track": "VICHY", "code": "R1C8", "distance": 2400, "info": ["Handicap divisé · <b>52 800 €</b>", "Plat · herbe · <b>corde à droite</b>", "15 partants · 3 ans", "Terrain <b>bon souple (3,4)</b> · 25° soleil"]}, "horses": [{"n": 1, "name": "Lohengreen", "jockey": "C. Demuro", "w": 60, "draw": 15, "val": 39, "odds": 7.6, "c": ["#5b2c8d", "#efe6f7"], "style": "stalker", "ab": 88, "vol": 0.9, "note": "5 podiums en 7 courses, 6e de son seul Quinté+ (lot plus relevé). Top-weight 60 kg + corde 15 : Escuder avoue « une petite rentrée, peut-être pas à 100% ». Classe au-dessus du lot mais tout est contre lui côté parcours.", "tags": [["base", "Classe pure"], ["risk", "60 kg + corde 15"], ["risk", "Rentrée"]]}, {"n": 2, "name": "Study Of Case", "jockey": "H. Besnier", "w": 59, "draw": 14, "val": 38, "odds": 20, "c": ["#2e7d32", "#dff2e0"], "style": "mid", "ab": 78, "vol": 1.0, "note": "Vient d'ouvrir son palmarès à Salon, mais sévèrement remonté au poids. Perret garde les œillères ; la distance ne devrait pas gêner. Outsider logique.", "tags": [["", "Œillères"], ["risk", "Pénalisé au poids"]]}, {"n": 3, "name": "Selvo", "jockey": "M. Guyon", "w": 59, "draw": 10, "val": 38, "odds": 8.2, "c": ["#1e4fd8", "#dbe6ff"], "style": "stalker", "ab": 81, "vol": 1.25, "note": "Poulain compliqué mais vainqueur d'un handicap à Saint-Cloud. Maxime Guyon dans le fauteuil : quand tout se passe bien, il a le niveau. Irrégularité = son seul vrai ennemi.", "tags": [["base", "M. Guyon"], ["risk", "Caractériel"]]}, {"n": 4, "name": "Hepburn", "jockey": "M. Grandin", "w": 56, "draw": 1, "val": 35, "odds": 9.3, "c": ["#1b8a3a", "#ffffff"], "style": "stalker", "ab": 85, "vol": 0.55, "note": "Jamais sortie des 5 premiers en 12 sorties. Grandin : « corde 1 idéale, je la monte dans le sillage des leaders, elle fera parler sa tenue ». La régularité incarnée sur un parcours taillé pour elle.", "tags": [["base", "Ultra régulière"], ["base", "Corde 1"]]}, {"n": 5, "name": "Yokozuna", "jockey": "J. Nicoleau", "w": 56, "draw": 12, "val": 35, "odds": 29, "c": ["#15151d", "#f2f2f2"], "style": "leader", "ab": 71, "vol": 1.1, "note": "A trop tiré à Angers sur 3 000 m, d'où le raccourcissement. S'il accepte de se canaliser en tête, il peut durer plus longtemps que prévu.", "tags": [["risk", "Tire fort"], ["", "Animateur probable"]]}, {"n": 6, "name": "Martaghalya", "jockey": "T. Bachelot", "w": 56, "draw": 5, "val": 35, "odds": 26.7, "c": ["#f2c200", "#1b2a6b"], "style": "closer", "ab": 76, "vol": 1.0, "note": "Vient de gagner à Nantes en accélérant le long du rail. Trois courses, déjà du métier. Progression rapide, mais saut de catégorie réel.", "tags": [["", "En progrès"], ["risk", "Manque d'expérience"]]}, {"n": 7, "name": "I Am Maelia", "jockey": "M. Vélon", "w": 55.5, "draw": 8, "val": 34.5, "odds": 21.7, "c": ["#e88bc4", "#ffffff"], "style": "mid", "ab": 74, "vol": 1.0, "note": "Placée fidèle (1p 4p 8p 5p 3p 3p). Il lui manque le punch final des meilleurs, mais elle grappille des places quand ça bouscule devant.", "tags": [["", "Placée fidèle"]]}, {"n": 8, "name": "Derbycat", "jockey": "T. Piccone", "w": 55.5, "draw": 9, "val": 34.5, "odds": 14.2, "c": ["#f5f6fa", "#20315c"], "style": "mid", "ab": 79, "vol": 0.95, "note": "Écurie Pantall, débuts dans les handicaps après 3p 7p 1p. Quand Pantall cible un Quinté avec deux partants, méfiance maximale.", "tags": [["base", "Effet Pantall"]]}, {"n": 9, "name": "Anodiac", "jockey": "P. Remoué", "w": 55, "draw": 4, "val": 34, "odds": 14.3, "c": ["#23232b", "#e8e8e8"], "style": "leader", "ab": 78, "vol": 0.9, "note": "Gouyette : « il s'était imposé en handicap à Dieppe malgré un mauvais déroulement, c'est un lutteur avec un excellent mental ». Aguerri, compétitif sur 2 400 m. Le coup de poker préféré des turfistes avisés.", "tags": [["base", "Lutteur"], ["", "Coup de poker"]]}, {"n": 10, "name": "Loving Queen", "jockey": "F. Véron", "w": 54.5, "draw": 11, "val": 33.5, "odds": 13.7, "c": ["#7b1f24", "#e8c9a0"], "style": "leader", "ab": 75, "vol": 1.0, "note": "1p 1p 0p 7p 6p… souffle le chaud et le froid. Aime courir près de la tête ; si le rythme est raisonnable, elle peut voler une place.", "tags": [["risk", "Inconstante"]]}, {"n": 11, "name": "Lovatree Paris", "jockey": "A. Madamet", "w": 54, "draw": 6, "val": 33, "odds": 19.7, "c": ["#6a1b9a", "#ffd54f"], "style": "mid", "ab": 73, "vol": 1.0, "note": "Que des 4e récemment (4p 4p 4p 1p…). Honnête, mais il lui faut une hécatombe devant pour entrer dans le trio.", "tags": [["", "Éternelle 4e"]]}, {"n": 12, "name": "Derni Chop", "jockey": "L. Plommée", "w": 53, "draw": 13, "val": 32, "odds": 15.5, "c": ["#64b5f6", "#ffffff"], "style": "closer", "ab": 72, "vol": 1.05, "note": "4p 2p 2p 3p 6p : finit toujours ses courses. Poids léger, finisseur — le profil type de la 4e/5e place qui fait le rapport.", "tags": [["", "Finisseur"], ["base", "53 kg"]]}, {"n": 13, "name": "Autoroute", "jockey": "A. Crastus", "w": 52.5, "draw": 3, "val": 31.5, "odds": 10.4, "c": ["#e6c229", "#1b1b1b"], "style": "stalker", "ab": 80, "vol": 0.85, "note": "2e cartouche Pantall : 2p 2p 1p 0p 6p, 52,5 kg seulement et corde 3. Débuts en handicap avec ambitions déclarées. Le piège classique du jour.", "tags": [["base", "Effet Pantall"], ["base", "Poids plume"]]}, {"n": 14, "name": "Zarababy", "jockey": "L. Boisseau", "w": 52, "draw": 7, "val": 31, "odds": 5.3, "c": ["#f26522", "#ffe6d5"], "style": "closer", "ab": 87, "vol": 0.8, "note": "Artu : « elle vient de très bien courir dans un Quinté+ à Longchamp, elle fait tout ce qu'on lui demande entre 2 000 et 2 400 m ». 3e d'un lot plus huppé le 18 juin, 52 kg, de la marge en valeur 31. LA favorite logique — 36% des pronos la voient gagner.", "tags": [["base", "Favorite"], ["base", "52 kg + marge"], ["risk", "Doit finir de loin"]]}, {"n": 15, "name": "Kristal", "jockey": "C. Pacaut", "w": 51, "draw": 2, "val": 29.5, "odds": 34.2, "c": ["#8e1d2f", "#f0f0f0"], "style": "mid", "ab": 63, "vol": 1.1, "note": "Jamais mieux que 5e en neuf sorties, découvre la distance, porte une livre de plus que son poids réel. Fradet lui-même n'y croit qu'à moitié.", "tags": [["risk", "Limité"]]}], "scenarios": [{"id": "logique", "title": "① La course de bon sens", "prob": "~34%", "desc": "Zarababy vient de l'arrière-garde comme à Longchamp, Hepburn suit les leaders à la corde, Lohengreen fait sa classe malgré 60 kg. Les 319 pronos de la communauté ont raison.", "bias": {"14": 1.06, "4": 1.05, "1": 1.03}, "pace": "normal"}, {"id": "escuder", "title": "② Le doublé Escuder", "prob": "~18%", "desc": "Les deux pensionnaires de Christophe Escuder verrouillent la course : Hepburn dicte depuis la corde 1, Lohengreen surgit malgré le poids. Zarababy enfermée trop longtemps.", "bias": {"4": 1.1, "1": 1.09, "14": 0.95}, "pace": "lent"}, {"id": "pantall", "title": "③ Le piège Pantall", "prob": "~15%", "desc": "Henri-Alex Pantall n'envoie jamais deux chevaux pour rien : Autoroute (52,5 kg, corde 3) et Derbycat débarquent en handicap avec des ambitions cachées. Les cotes moyennes explosent.", "bias": {"13": 1.12, "8": 1.09, "14": 0.98, "1": 0.97}, "pace": "normal"}, {"id": "poids", "title": "④ La revanche des poids plume", "prob": "~14%", "desc": "9 kg d'écart sur 2 400 m, ça se paie cash dans la montée finale : Lohengreen cale à 200 m, les 52-53 kg (Zarababy, Autoroute, Derni Chop, Kristal) trustent l'arrivée.", "bias": {"14": 1.07, "13": 1.07, "12": 1.1, "15": 1.12, "1": 0.88, "2": 0.94, "3": 0.95}, "pace": "rapide"}, {"id": "outsiders", "title": "⑤ Le coup du lutteur", "prob": "~11%", "desc": "Anodiac, « lutteur à l'excellent mental », vole le départ et résiste à tout le monde. Loving Queen et Yokozuna profitent d'un train débridé qui piège les favoris.", "bias": {"9": 1.14, "10": 1.09, "5": 1.1, "14": 0.96, "4": 0.97, "1": 0.95}, "pace": "rapide"}, {"id": "chaos", "title": "⑥ Chaos à l'auvergnate", "prob": "~8%", "desc": "Terrain bon souple, 15 poulains de 3 ans inexpérimentés, un premier tournant musclé : tout peut arriver. Volatilité maximale, aucun cheval protégé.", "bias": {}, "chaos": 1.9, "pace": "rapide"}]}};
+window.QUINTE_SIM_CFG = {"race": {"meta": {"eyebrow": "Quinté+ · Mercredi 22 juillet 2026 · R1 C8 · Départ 18h30", "title": "Prix de Picpus", "subtitle": "Enghien · 2 875 m", "track": "ENGHIEN", "code": "R1C8", "distance": 2875, "baseSpeed": 13.4, "info": ["Trot attelé · <b>46 000 €</b>", "Autostart · <b>corde à gauche</b>", "15 partants · 4 ans", "Mâles n'ayant pas gagné <b>71 000 €</b>"]}, "horses": [{"n": 1, "name": "Magic John", "jockey": "P.-Y. Verva", "w": 56, "draw": 1, "val": 0, "odds": 8.3, "c": ["#8e1d2f", "#f0e6c8"], "style": "leader", "ab": 82, "vol": 1.15, "sub": "P.-Y. Verva · 5a 4a 4a 8a Da 5a 1a 1a · cote 8.3 · n°1 autostart", "note": "Cité outsider par les experts mais coté 8.3 seulement : le marché y croit. Deux Da dans la musique, mais des lignes de 1a solides et le n°1 derrière l'autostart — départ idéal s'il reste sage.", "tags": [["base", "N°1 autostart"], ["risk", "Fautif par moments"]]}, {"n": 2, "name": "Mermoz", "jockey": "L. Baudouin", "w": 56, "draw": 2, "val": 0, "odds": 58.1, "c": ["#2e5f8a", "#dce9f5"], "style": "mid", "ab": 70, "vol": 0.9, "sub": "L. Baudouin · 4a 5a 5a 3a 6a 2a · cote 58.1", "note": "Régulier mais un ton en dessous de ce lot : que des accessits récents (4a 5a 5a 3a). L'écurie Baudouin vise une place dans le rapport, pas la gagne.", "tags": [["", "Régulier"], ["risk", "Manque de pointe"]]}, {"n": 3, "name": "My Love Always", "jockey": "D. Thomain", "w": 56, "draw": 3, "val": 0, "odds": 32.2, "c": ["#e88bc4", "#ffffff"], "style": "closer", "ab": 74, "vol": 1.1, "sub": "D. Thomain · 8a 2a 4a 0a 1a · cote 32.2", "note": "Capable du meilleur (2a, 1a) comme du décevant (8a, 0a). David Thomain au sulky est une assurance ; s'il retrouve sa bonne version, il peut se glisser dans le quinté.", "tags": [["", "Inconstant"], ["base", "D. Thomain"]]}, {"n": 4, "name": "Meydan Voirons", "jockey": "A. Laurent", "w": 56, "draw": 4, "val": 0, "odds": 14.4, "c": ["#5b2c8d", "#efe6f7"], "style": "stalker", "ab": 81, "vol": 0.95, "sub": "A. Laurent · 1a 1a Da 5a 1a · cote 14.4", "note": "Le n°1 du pronostic Equidia : invaincu en deux sorties sur ce parcours d'Enghien, cinq succès en huit courses. Le duo père-fils Laurent le connaît par cœur. Un Da récent à surveiller.", "tags": [["base", "N°1 Equidia"], ["base", "2/2 sur le parcours"], ["risk", "Un Da récent"]]}, {"n": 5, "name": "Michel Martin", "jockey": "E. Raffin", "w": 56, "draw": 5, "val": 0, "odds": 51.5, "c": ["#15151d", "#f2f2f2"], "style": "mid", "ab": 71, "vol": 1.0, "sub": "E. Raffin · 7a 4m 3m 2a 0a · cote 51.5", "note": "Éric Raffin au sulky, et ce n'est jamais anodin. Mais la musique récente (7a, 4m, 3m) montre un plafond ; il faudrait un déroulement parfait pour accrocher le quinté.", "tags": [["base", "E. Raffin"], ["risk", "Musique moyenne"]]}, {"n": 6, "name": "Mars Cobba", "jockey": "Y. Lebourgeois", "w": 56, "draw": 6, "val": 0, "odds": 34.9, "c": ["#f2c200", "#1b2a6b"], "style": "closer", "ab": 74, "vol": 1.0, "sub": "Y. Lebourgeois · 6a 2a 7a 9a · cote 34.9", "note": "Yoann Lebourgeois reprend un cheval qui alterne (2a puis 9a). Une fin de course affûtée peut le faire entrer dans les cinq à belle cote.", "tags": [["", "Finisseur à cote"]]}, {"n": 7, "name": "More Love Ducampus", "jockey": "A. Abrivard", "w": 56, "draw": 7, "val": 0, "odds": 49.6, "c": ["#1b8a3a", "#ffffff"], "style": "closer", "ab": 72, "vol": 1.05, "sub": "A. Abrivard · 2a 2a 1a 9a 6a · cote 49.6", "note": "Deux 2a récents avant un passage à vide. L'écurie Abrivard sait cibler ses objectifs — la cote est grosse pour un cheval qui vient de courir deux fois deuxième.", "tags": [["", "Écurie Abrivard"], ["risk", "Irrégulier"]]}, {"n": 8, "name": "Misti de Corday", "jockey": "A. Desmottes", "w": 56, "draw": 8, "val": 0, "odds": 58.9, "c": ["#7b1f24", "#e8c9a0"], "style": "leader", "ab": 71, "vol": 1.3, "sub": "A. Desmottes · 2a Da 3a Da 6a · cote 58.9", "note": "Du talent (2a, 3a, des victoires l'an passé) mais des Da à répétition : un cheval à risque total. Soit il fait le parcours au trot et surprend, soit il saute dès le premier tournant.", "tags": [["risk", "Fautif chronique"], ["", "Coup de folie"]]}, {"n": 9, "name": "Montana Kalouma", "jockey": "T. Duvaldestin", "w": 56, "draw": 9, "val": 0, "odds": 8.3, "c": ["#f26522", "#ffe6d5"], "style": "leader", "ab": 85, "vol": 1.2, "sub": "Théo Duvaldestin · 1a Da Da 1a 1a · cote 8.3", "note": "Base des experts : cinq succès en dix courses, vainqueur le 26 juin sur ce tracé, présenté plaqué des quatre pieds. Théo Duvaldestin le drive pour son père. Tout est là… s'il reste au trot (trois Da dans la musique).", "tags": [["base", "Base des pronos"], ["base", "Vainqueur sur le tracé"], ["risk", "3 Da récents"]]}, {"n": 10, "name": "Mercure d'Elle", "jockey": "B. Rochard", "w": 56, "draw": 10, "val": 0, "odds": 4.4, "c": ["#1e4fd8", "#dbe6ff"], "style": "stalker", "ab": 87, "vol": 0.9, "sub": "B. Rochard · 3a 1a 6a Da 1a · cote 4.4", "note": "Le favori de la cote (4.4) : quatre victoires dans ses sept dernières sorties, une pointe de vitesse au-dessus du lot. Benjamin Rochard n'aura qu'à suivre puis déboîter.", "tags": [["base", "Favori"], ["base", "Pointe de vitesse"]]}, {"n": 11, "name": "Mister Charly", "jockey": "F. Lagadeuc", "w": 56, "draw": 11, "val": 0, "odds": 74.4, "c": ["#6a1b9a", "#ffd54f"], "style": "mid", "ab": 67, "vol": 1.0, "sub": "F. Lagadeuc · 9a 4a 7a 6a · cote 74.4", "note": "Musique terne (9a 4a 7a 6a) et plus grosse cote du champ ou presque. Il faudrait une hécatombe de disqualifications devant lui.", "tags": [["risk", "Limité"]]}, {"n": 12, "name": "Maradona Ellis", "jockey": "E. Allard", "w": 56, "draw": 12, "val": 0, "odds": 59.8, "c": ["#64b5f6", "#ffffff"], "style": "mid", "ab": 69, "vol": 1.0, "sub": "E. Allard · 7a 0a 6a 6a 3a · cote 59.8 · 2e ligne", "note": "Deuxième ligne de l'autostart et des performances en retrait (7a, 0a, 6a). Une place de 5e serait déjà un exploit.", "tags": [["risk", "2e ligne"], ["risk", "En méforme"]]}, {"n": 13, "name": "Maverick de Fael", "jockey": "M. Abrivard", "w": 56, "draw": 13, "val": 0, "odds": 4.0, "c": ["#e6c229", "#1b1b1b"], "style": "stalker", "ab": 88, "vol": 0.7, "sub": "M. Abrivard · 1a 2a 2a 4a 1a · cote 4.0 · 2e ligne", "note": "Co-favori et deuxième cartouche Duvaldestin : 1a 2a 2a 4a 1a 2a 1a 1a — jamais une faute, jamais loin. Sa seule sortie à Enghien ? Une victoire. Matthieu Abrivard drive la régularité incarnée, malgré la 2e ligne.", "tags": [["base", "Co-favori"], ["base", "Jamais de faute"], ["risk", "2e ligne"]]}, {"n": 14, "name": "Mourillon", "jockey": "M. Mottier", "w": 56, "draw": 14, "val": 0, "odds": 7.2, "c": ["#0e7490", "#d0f0f7"], "style": "closer", "ab": 84, "vol": 1.0, "sub": "M. Mottier · 2a 3a 0a 4a 3a Da 1a · cote 7.2 · 2e ligne", "note": "Troisième larron des pronos : Matthieu Mottier l'entraîne et le drive, et il vient de bien courir (2a, 3a). Un finisseur qui adore les parcours sinueux d'Enghien.", "tags": [["base", "Chance régulière"], ["", "Finisseur"]]}, {"n": 15, "name": "Maestro du Choquel", "jockey": "G. Gelormini", "w": 56, "draw": 15, "val": 0, "odds": 72.2, "c": ["#23232b", "#e8e8e8"], "style": "closer", "ab": 68, "vol": 1.35, "sub": "G. Gelormini · Da Da 6a 3a Da · cote 72.2 · 2e ligne", "note": "Gabriele Gelormini tente de canaliser un cheval qui vient de se disqualifier deux fois. Totale incertitude — l'outsider des outsiders cité par la presse.", "tags": [["risk", "Da Da récents"], ["", "Outsider presse"]]}], "scenarios": [{"id": "logique", "title": "① La course des favoris", "prob": "~32%", "desc": "Mercure d'Elle (4.4) et Maverick de Fael (4.0) se neutralisent puis dominent : le favori déboîte dans la montée, le régulier répond. Montana Kalouma complète sans faute. Les experts ont raison.", "bias": {"10": 1.07, "13": 1.06, "9": 1.03, "14": 1.02}, "pace": "normal"}, {"id": "duvaldestin", "title": "② Le doublé Duvaldestin", "prob": "~18%", "desc": "Théo Duvaldestin (Montana Kalouma) et Matthieu Abrivard (Maverick de Fael) verrouillent la course pour l'entraînement Duvaldestin : un devant, un en embuscade. Le favori enfermé à la corde.", "bias": {"9": 1.09, "13": 1.08, "10": 0.96}, "pace": "lent"}, {"id": "fautes", "title": "③ L'hécatombe des fautifs", "prob": "~16%", "desc": "Premier tournant d'Enghien musclé : les fautifs chroniques (Montana Kalouma, Misti de Corday, Maestro du Choquel) sautent. Les trotteurs sages — Maverick, Mourillon, Magic John — trustent l'arrivée.", "bias": {"13": 1.06, "14": 1.06, "1": 1.06, "4": 1.03, "9": 0.9, "8": 0.88, "15": 0.88}, "pace": "normal"}, {"id": "mourillon", "title": "④ Le coup Mottier", "prob": "~13%", "desc": "Matthieu Mottier, entraîneur-driver, connaît chaque virage d'Enghien : Mourillon vient de l'arrière-garde dans les 500 derniers mètres pendant que les favoris se marquent. Magic John résiste devant.", "bias": {"14": 1.09, "1": 1.06, "4": 0.98, "10": 0.97}, "pace": "rapide"}, {"id": "outsiders", "title": "⑤ La surprise Abrivard", "prob": "~12%", "desc": "More Love Ducampus (49.6 !) retrouve ses lignes de 2a 2a, My Love Always sa bonne version, et Mars Cobba finit fort : les grosses cotes font exploser le rapport.", "bias": {"7": 1.1, "3": 1.08, "6": 1.08, "10": 0.97, "13": 0.97}, "pace": "rapide"}, {"id": "chaos", "title": "⑥ Chaos à Enghien", "prob": "~9%", "desc": "15 mâles de 4 ans, un autostart nerveux, des Da partout dans les musiques : tout peut arriver au petit trot d'Enghien. Volatilité maximale, aucun cheval protégé.", "bias": {}, "chaos": 1.9, "pace": "rapide"}]}};
 </script>
 <script>
 /* AgenTurf — animations de la landing (scroll-driven, zéro dépendance). */
@@ -587,6 +623,7 @@ const HORSES = RACE.horses || [];
 const SCENARIOS = RACE.scenarios || [];
 const META = RACE.meta || {};
 const DIST = META.distance || 2400;
+const BASEV = META.baseSpeed || 16.2;
 if (!HORSES.length || !document.getElementById("cv")) return;
 
 let scenario = SCENARIOS[0];
@@ -615,7 +652,7 @@ HORSES.forEach(h => {
    <div class="silkbig" style="background:${h.c[0]}"><span>${h.n}</span></div>
    <div>
      <h4>${h.name}</h4>
-     <div class="sub">${h.jockey} · ${h.w} kg · corde ${h.draw} · val. ${h.val} · cote ${h.odds}</div>
+     <div class="sub">${h.sub || `${h.jockey} · ${h.w} kg · corde ${h.draw} · val. ${h.val} · cote ${h.odds}`}</div>
      <p>${h.note}</p>${tags}
    </div>`;
   cards.appendChild(d);
@@ -662,29 +699,31 @@ function styleProfile(style) {
   return f => 1.0;
 }
 
+function initRunner(h) {
+  const chaos = scenario.chaos || 1;
+  const bias = (scenario.bias && scenario.bias[h.n]) || 1;
+  const wAdj = (56 - h.w) * 0.9;
+  const drawAdj = h.draw >= 12 ? -1.6 : h.draw <= 4 ? .7 : 0;
+  const base = (h.ab + wAdj + drawAdj) * bias;
+  const luck = 1 + (Math.random() * 2 - 1) * 0.048 * h.vol * chaos;
+  return {
+    h, prof: styleProfile(h.style),
+    /* écart d'aptitude compressé (x0.35) pour des arrivées serrées et réalistes */
+    speed0: BASEV * (1 + (base / 86 - 1) * 0.28) * luck,
+    dist: 0, done: false, timeFin: 0,
+    lane: 1 + Math.min(h.draw - 1, 10) * 0.32 + Math.random() * .3,
+    phase: Math.random() * Math.PI * 2,
+    wob: .8 + Math.random() * .6,
+  };
+}
+
 function resetRace(soft) {
   cancelAnimationFrame(raf); running = false; finished = false; tSim = 0;
-  commentFlags = {}; finishCount = 0; confetti = [];
+  commentFlags = {}; finishCount = 0; confetti = []; dust = [];
   $("resultbox").style.display = "none";
   $("btnStart").disabled = false;
   $("count").innerHTML = "";
-  const chaos = scenario.chaos || 1;
-  runners = HORSES.map(h => {
-    const bias = (scenario.bias && scenario.bias[h.n]) || 1;
-    const wAdj = (56 - h.w) * 0.9;
-    const drawAdj = h.draw >= 12 ? -1.6 : h.draw <= 4 ? .7 : 0;
-    const base = (h.ab + wAdj + drawAdj) * bias;
-    const luck = 1 + (Math.random() * 2 - 1) * 0.028 * h.vol * chaos;
-    return {
-      h, prof: styleProfile(h.style),
-      /* écart d'aptitude compressé (x0.35) pour des arrivées serrées et réalistes */
-      speed0: 16.2 * (1 + (base / 86 - 1) * 0.35) * luck,
-      dist: 0, done: false, timeFin: 0,
-      lane: 1 + Math.min(h.draw - 1, 10) * 0.32 + Math.random() * .3,
-      phase: Math.random() * Math.PI * 2,
-      wob: .8 + Math.random() * .6,
-    };
-  });
+  runners = HORSES.map(initRunner);
   if (!soft) say("Nouvelle simulation prête. Les chevaux retournent aux stalles.", false);
   drawFrame(0);
   renderStandings();
@@ -711,80 +750,171 @@ function renderStandings() {
 }
 
 /* --- dessin --- */
+let trackCache = null; // la piste ne bouge pas : rendue une fois hors écran
 function drawTrack() {
+  if (!trackCache) {
+    trackCache = document.createElement("canvas");
+    trackCache.width = W; trackCache.height = H;
+    renderTrack(trackCache.getContext("2d"));
+  }
   ctx.clearRect(0, 0, W, H);
-  const sky = ctx.createLinearGradient(0, 0, 0, H * .24);
-  sky.addColorStop(0, "#a8c8e4"); sky.addColorStop(1, "#cfe0cd");
-  ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H * .24);
-  ctx.fillStyle = "#2f7d46"; ctx.fillRect(0, H * .24, W, H * .76);
-  ctx.fillStyle = "rgba(18,32,58,.25)";
-  for (let i = 0; i < 9; i++) ctx.fillRect(70 + i * 32, H * .24 - 26, 22, 26);
-  ctx.fillStyle = "rgba(18,32,58,.5)"; ctx.fillRect(60, H * .24 - 6, 300, 6);
+  ctx.drawImage(trackCache, 0, 0);
+}
+function renderTrack(c) {
+  const keep = ctx;
+  // ciel du soir
+  const sky = c.createLinearGradient(0, 0, 0, H * .24);
+  sky.addColorStop(0, "#a8c8e4"); sky.addColorStop(1, "#d6e4cf");
+  c.fillStyle = sky; c.fillRect(0, 0, W, H * .24);
+  const lawn = c.createLinearGradient(0, H * .24, 0, H);
+  lawn.addColorStop(0, "#37884e"); lawn.addColorStop(1, "#276a3c");
+  c.fillStyle = lawn; c.fillRect(0, H * .24, W, H * .76);
+  // tribune + foule pointilliste
+  c.fillStyle = "#1d3a2b"; c.fillRect(58, H * .24 - 34, 306, 34);
+  c.fillStyle = "rgba(255,255,255,.85)"; c.fillRect(58, H * .24 - 38, 306, 5);
+  for (let i = 0; i < 130; i++) {
+    c.fillStyle = ["#e3b64e","#e8e2d2","#c96f6f","#7fa8d8","#d8d8d8"][i % 5];
+    c.globalAlpha = .55 + Math.random() * .4;
+    c.beginPath();
+    c.arc(64 + Math.random() * 294, H * .24 - 6 - Math.random() * 24, 1.6, 0, 7);
+    c.fill();
+  }
+  c.globalAlpha = 1;
+  // arbres décor
+  [[30, H*.24+16],[W-42, H*.24+30],[W-90, H*.24+10]].forEach(([x,y]) => {
+    c.fillStyle = "#1f5c33"; c.beginPath(); c.arc(x, y, 13, 0, 7); c.fill();
+    c.fillStyle = "#2c7040"; c.beginPath(); c.arc(x - 6, y + 5, 9, 0, 7); c.fill();
+  });
 
   const inner = T.r - 14, outer = T.r + T.lanes * T.laneW + 16;
-  ring(outer, "#3b8f52"); ring(outer - 3, "#57a86b");
-  ring(outer - 6, "#4f9e63");
-  ringBand(inner, outer - 8, "#57a86b");
-  ringFill(inner, "#2c7040");
-  ring(inner, "#ffffff", 2.5); ring(outer - 8, "#ffffff", 2.5);
-  ctx.strokeStyle = "#fff"; ctx.lineWidth = 4; ctx.setLineDash([7, 5]);
-  ctx.beginPath(); ctx.moveTo(T.cx, T.cy + inner + 2); ctx.lineTo(T.cx, T.cy + outer - 8); ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = "#e4322b"; ctx.fillRect(T.cx - 2, T.cy + outer - 4, 4, 18);
-  ctx.font = "700 13px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
-  ctx.fillText("ARRIVÉE", T.cx - 26, T.cy + outer + 30);
-  // nom de l'hippodrome au centre
-  ctx.fillStyle = "rgba(255,255,255,.45)";
-  ctx.font = "900 30px 'Barlow Condensed'"; ctx.textAlign = "center";
-  ctx.fillText((META.track || "") + " · " + DIST.toLocaleString("fr-FR") + " M", T.cx, T.cy + 8);
-  ctx.textAlign = "start";
+  // haie extérieure
+  ringC(c, outer + 3, "#1d5230", 9);
+  // surface : bandes de tonte alternées
+  const nBands = 6, bw = (outer - 8 - inner) / nBands;
+  for (let i = 0; i < nBands; i++) {
+    ringBandC(c, inner + i * bw, inner + (i + 1) * bw, i % 2 ? "#5aa96d" : "#519c63");
+  }
+  // pelouse intérieure + plan d'eau
+  ringFillC(c, inner, "#2c7040");
+  c.fillStyle = "rgba(140,190,225,.8)";
+  c.beginPath(); c.ellipse(T.cx + 88, T.cy + 14, 52, 20, 0, 0, 7); c.fill();
+  c.fillStyle = "rgba(255,255,255,.25)";
+  c.beginPath(); c.ellipse(T.cx + 78, T.cy + 9, 18, 5, -.3, 0, 7); c.fill();
+  // lices blanches + piquets
+  ringC(c, inner, "#ffffff", 2.5); ringC(c, outer - 8, "#ffffff", 2.5);
+  c.fillStyle = "#ffffff";
+  for (let d = 0; d < PERIM; d += 42) {
+    const pi2 = TPgeneric(d, -1.6), po = TPgeneric(d, T.lanes + .9);
+    c.fillRect(pi2.x - 1, pi2.y - 4, 2, 4);
+    c.fillRect(po.x - 1, po.y - 4, 2, 4);
+  }
+  // ligne d'arrivée damier
+  const fy1 = T.cy + inner + 2, fy2 = T.cy + outer - 8, seg = (fy2 - fy1) / 10;
+  for (let i = 0; i < 10; i++) {
+    c.fillStyle = i % 2 ? "#122019" : "#ffffff";
+    c.fillRect(T.cx - 3, fy1 + i * seg, 6, seg);
+  }
+  // poteau doré
+  c.fillStyle = "#c9971f"; c.fillRect(T.cx - 2, fy2 - 2, 4, 20);
+  c.beginPath(); c.arc(T.cx, fy2 + 20, 4, 0, 7); c.fill();
+  c.font = "700 13px 'Barlow Condensed'"; c.fillStyle = "#fff";
+  c.fillText("ARRIVÉE", T.cx - 26, fy2 + 34);
+  // nom de l'hippodrome
+  c.fillStyle = "rgba(255,255,255,.5)";
+  c.font = "900 30px 'Barlow Condensed'"; c.textAlign = "center";
+  c.fillText((META.track || "") + " · " + DIST.toLocaleString("fr-FR") + " M", T.cx - 60, T.cy + 8);
+  c.textAlign = "start";
 }
-function ring(R, color, w) {
-  ctx.strokeStyle = color; ctx.lineWidth = w || 6;
-  ctx.beginPath(); tracePath(R); ctx.stroke();
+function TPgeneric(d, lane) { return TP(d, lane); }
+function ringC(c, R, color, w) {
+  c.strokeStyle = color; c.lineWidth = w || 6;
+  c.beginPath(); tracePathC(c, R); c.stroke();
 }
-function ringBand(Ri, Ro, color) {
-  ctx.strokeStyle = color; ctx.lineWidth = Ro - Ri;
-  ctx.beginPath(); tracePath((Ri + Ro) / 2); ctx.stroke();
+function ringBandC(c, Ri, Ro, color) {
+  c.strokeStyle = color; c.lineWidth = Ro - Ri;
+  c.beginPath(); tracePathC(c, (Ri + Ro) / 2); c.stroke();
 }
-function ringFill(R, color) {
-  ctx.fillStyle = color; ctx.beginPath(); tracePath(R); ctx.fill();
+function ringFillC(c, R, color) {
+  c.fillStyle = color; c.beginPath(); tracePathC(c, R); c.fill();
 }
-function tracePath(R) {
+function tracePathC(c, R) {
   const hs = T.straight / 2, cl = T.cx - hs, cr = T.cx + hs;
-  ctx.moveTo(cr, T.cy - R);
-  ctx.arc(cr, T.cy, R, -Math.PI / 2, Math.PI / 2);
-  ctx.lineTo(cl, T.cy + R);
-  ctx.arc(cl, T.cy, R, Math.PI / 2, Math.PI * 1.5);
-  ctx.closePath();
+  c.moveTo(cr, T.cy - R);
+  c.arc(cr, T.cy, R, -Math.PI / 2, Math.PI / 2);
+  c.lineTo(cl, T.cy + R);
+  c.arc(cl, T.cy, R, Math.PI / 2, Math.PI * 1.5);
+  c.closePath();
 }
 
-function drawHorse(r, t) {
+let dust = [];
+function drawHorse(r, t, isLeader) {
   const pt = TP(r.dist * M, r.lane);
   const g = r.done ? 0.4 : 1;
   const bob = Math.sin(t * 14 * r.wob + r.phase) * 1.6 * g;
+  // halo doré discret sous le leader
+  if (isLeader && running) {
+    ctx.fillStyle = "rgba(227,182,78,.3)";
+    ctx.beginPath(); ctx.ellipse(pt.x, pt.y + 6, 17, 6, 0, 0, 7); ctx.fill();
+  }
   ctx.save();
   ctx.translate(pt.x, pt.y + bob);
   const dir = TP(r.dist * M + 4, r.lane);
   const ang = Math.atan2(dir.y - pt.y, dir.x - pt.x);
   ctx.rotate(ang);
   const legT = t * 16 * r.wob + r.phase;
-  ctx.fillStyle = "rgba(0,0,0,.22)"; ctx.beginPath(); ctx.ellipse(0, 7, 11, 3, 0, 0, 7); ctx.fill();
-  ctx.strokeStyle = "#6b4a2b"; ctx.lineWidth = 2;
+  // ombre
+  ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.beginPath(); ctx.ellipse(0, 7.5, 12, 3, 0, 0, 7); ctx.fill();
+  // jambes au galop (avant / arrière déphasées)
+  ctx.strokeStyle = "#5d3d21"; ctx.lineWidth = 2.1; ctx.lineCap = "round";
   for (let i = 0; i < 4; i++) {
-    const sw = Math.sin(legT + i * Math.PI / 1.6) * 4 * g;
-    ctx.beginPath(); ctx.moveTo(-6 + i * 4, 3); ctx.lineTo(-6 + i * 4 + sw, 8); ctx.stroke();
+    const sw = Math.sin(legT + (i < 2 ? 0 : Math.PI * .9) + i * .5) * 4.6 * g;
+    ctx.beginPath(); ctx.moveTo(-7 + i * 4.6, 3); ctx.lineTo(-7 + i * 4.6 + sw, 8.4); ctx.stroke();
   }
-  ctx.fillStyle = "#8a5a33"; ctx.beginPath(); ctx.ellipse(0, 0, 11, 4.6, 0, 0, 7); ctx.fill();
-  ctx.strokeStyle = "#5d3d21"; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(-10, -1); ctx.lineTo(-14, 2); ctx.stroke();
-  ctx.fillStyle = "#8a5a33"; ctx.beginPath(); ctx.ellipse(11, -3, 4.6, 2.6, .5, 0, 7); ctx.fill();
-  ctx.fillStyle = r.h.c[0]; ctx.beginPath(); ctx.ellipse(0, -6, 4.6, 4, 0, 0, 7); ctx.fill();
-  ctx.fillStyle = r.h.c[1]; ctx.beginPath(); ctx.arc(1, -9.5, 2.4, 0, 7); ctx.fill();
+  // queue fouettée
+  ctx.strokeStyle = "#4a3019"; ctx.lineWidth = 2.4;
+  ctx.beginPath(); ctx.moveTo(-11, -2);
+  ctx.quadraticCurveTo(-15, 0 + Math.sin(legT) * 1.6, -17, 3.5 + Math.sin(legT * .7) * 1.2);
+  ctx.stroke();
+  // corps en dégradé (robe)
+  const robe = ctx.createLinearGradient(0, -5, 0, 5);
+  robe.addColorStop(0, "#96683c"); robe.addColorStop(1, "#6f4a26");
+  ctx.fillStyle = robe;
+  ctx.beginPath(); ctx.ellipse(0, 0, 11.5, 4.9, 0, 0, 7); ctx.fill();
+  // encolure + tête + oreille
+  ctx.beginPath(); ctx.ellipse(9.5, -3.4, 5.2, 2.9, .55, 0, 7); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(13.6, -5.4, 2.6, 1.5, .5, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#4a3019"; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(13.4, -7); ctx.lineTo(14.4, -8.6); ctx.stroke();
+  // crinière
+  ctx.strokeStyle = "#3d2814"; ctx.lineWidth = 1.8;
+  ctx.beginPath(); ctx.moveTo(5, -4.6); ctx.quadraticCurveTo(9, -6.6, 12, -6); ctx.stroke();
+  // jockey : buste penché + bras + casaque
+  ctx.fillStyle = r.h.c[0];
+  ctx.beginPath(); ctx.ellipse(-.5, -6.6, 4.8, 4, -.35, 0, 7); ctx.fill();
+  ctx.strokeStyle = r.h.c[0]; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(2, -6); ctx.lineTo(7.5, -4); ctx.stroke(); // bras vers les rênes
+  ctx.fillStyle = r.h.c[1];
+  ctx.beginPath(); ctx.arc(1.2, -10.4, 2.5, 0, 7); ctx.fill();
+  ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = .8;
+  ctx.beginPath(); ctx.arc(1.2, -10.4, 2.5, 0, 7); ctx.stroke();
   ctx.restore();
+  // poussière derrière les sabots
+  if (running && !r.done && Math.random() < .3) {
+    const back = TP(r.dist * M - 9, r.lane);
+    dust.push({ x: back.x, y: back.y + 5, a: .3, s: 1.5 + Math.random() * 2 });
+  }
+  // dossard
   ctx.font = "700 11px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
   ctx.strokeStyle = "rgba(0,0,0,.6)"; ctx.lineWidth = 2.5;
-  ctx.strokeText(r.h.n, pt.x - 4, pt.y - 12 + bob); ctx.fillText(r.h.n, pt.x - 4, pt.y - 12 + bob);
+  ctx.strokeText(r.h.n, pt.x - 4, pt.y - 14 + bob); ctx.fillText(r.h.n, pt.x - 4, pt.y - 14 + bob);
+}
+function drawDust() {
+  dust = dust.filter(d => d.a > .02);
+  dust.forEach(d => {
+    ctx.fillStyle = "rgba(222,214,190," + d.a + ")";
+    ctx.beginPath(); ctx.arc(d.x, d.y - (.3 - d.a) * 14, d.s, 0, 7); ctx.fill();
+    d.a *= .9; d.s += .3;
+  });
 }
 
 /* --- confettis (arrivée du vainqueur) --- */
@@ -811,7 +941,9 @@ function drawConfetti() {
 
 function drawFrame(t) {
   drawTrack();
-  [...runners].sort((a, b) => a.lane - b.lane).forEach(r => drawHorse(r, t));
+  drawDust();
+  const leadN = runners.length ? [...runners].sort((a, b) => b.dist - a.dist)[0].h.n : 0;
+  [...runners].sort((a, b) => a.lane - b.lane).forEach(r => drawHorse(r, t, r.h.n === leadN));
   drawConfetti();
 }
 
@@ -835,7 +967,7 @@ function step() {
     const fatigue = 1 - Math.max(0, f - .85) * 0.10 * (r.h.w - 51) / 9;
     const noise = 1 + (Math.random() * 2 - 1) * 0.012 * chaos;
     /* aspiration : un cheval décroché profite du sillage et recolle au peloton */
-    const catchup = 1 + Math.min(0.05, Math.max(0, leadDist - r.dist) * (f > 0.7 ? 0.0011 : 0.0006));
+    const catchup = 1 + Math.min(0.075, Math.max(0, leadDist - r.dist) * (f > 0.7 ? 0.0016 : 0.0009));
     const v = r.speed0 * prof * fatigue * noise * paceK * catchup;
     r.dist += v * dt;
     if (f > 0.28 && r.lane > 1.2) r.lane -= dt * 0.55;
@@ -884,7 +1016,7 @@ function showResult() {
     `<div class="n" style="background:${r.h.c[0]};animation-delay:${i * 0.18}s">${r.h.n}</div>`).join("");
   $("resList").innerHTML = order.slice(0, 7).map((r, i) => {
     const gap = i === 0 ? `en ${fmtTime(r.timeFin)}` : `à ${((r.timeFin - order[0].timeFin) * 4.2).toFixed(1)} L`;
-    return `<li><b>${r.h.n} — ${r.h.name}</b> (${r.h.jockey}, ${r.h.w} kg) · ${gap}</li>`;
+    return `<li><b>${r.h.n} — ${r.h.name}</b> (${r.h.jockey}) · ${gap}</li>`;
   }).join("");
   $("resultbox").style.display = "block";
   say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
@@ -917,6 +1049,76 @@ $("btnStart").onclick = () => {
   startWithCountdown();
 };
 $("btnReset").onclick = () => resetRace(false);
+
+/* =========================================================
+   MONTE-CARLO — 100 courses instantanées (outil pro)
+   Même physique que la course animée, sans affichage.
+   ========================================================= */
+function simulateOnce() {
+  const chaos = scenario.chaos || 1;
+  const paceK = paceMap[scenario.pace || "normal"];
+  const rs = HORSES.map(initRunner);
+  const fin = [];
+  let t = 0;
+  const dt = 0.4;
+  while (fin.length < rs.length && t < 900) {
+    const leadDist = rs.reduce((m, r) => Math.max(m, r.dist), 0);
+    rs.forEach(r => {
+      if (r.done) return;
+      const f = r.dist / DIST;
+      const prof = r.prof(f);
+      const fatigue = 1 - Math.max(0, f - .85) * 0.10 * (r.h.w - 51) / 9;
+      const noise = 1 + (Math.random() * 2 - 1) * 0.012 * chaos;
+      const catchup = 1 + Math.min(0.075, Math.max(0, leadDist - r.dist) * (f > 0.7 ? 0.0016 : 0.0009));
+      const v = r.speed0 * prof * fatigue * noise * paceK * catchup;
+      const prev = r.dist;
+      r.dist += v * dt;
+      if (r.dist >= DIST) {
+        r.done = true;
+        r.timeFin = t + (DIST - prev) / (v || 1); // franchissement précis dans le pas de temps
+        fin.push(r);
+      }
+    });
+    t += dt;
+  }
+  fin.sort((a, b) => a.timeFin - b.timeFin);
+  return fin.map(r => r.h.n);
+}
+
+function runMonteCarlo() {
+  const N = 100;
+  const wins = {}, top5s = {}, combos = {};
+  HORSES.forEach(h => { wins[h.n] = 0; top5s[h.n] = 0; });
+  for (let i = 0; i < N; i++) {
+    const order = simulateOnce();
+    wins[order[0]]++;
+    order.slice(0, 5).forEach(n => top5s[n]++);
+    const key = order.slice(0, 5).join("-");
+    combos[key] = (combos[key] || 0) + 1;
+  }
+  // classement par % de victoires
+  const byWin = [...HORSES].sort((a, b) => (wins[b.n] - wins[a.n]) || (top5s[b.n] - top5s[a.n]));
+  $("mcbars").innerHTML = byWin.slice(0, 8).map(h => `
+    <div class="mcrow">
+      <span class="silk" style="background:${h.c[0]}"></span>
+      <span class="num">${h.n}</span>
+      <span class="nm">${h.name}</span>
+      <div class="barwrap"><div class="bar" data-w="${wins[h.n]}"></div></div>
+      <span class="pct">${wins[h.n]}% · T5 ${top5s[h.n]}%</span>
+    </div>`).join("");
+  const topCombos = Object.entries(combos).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  $("mccombos").innerHTML = topCombos.map(([k, v]) =>
+    `<div class="mc-combo"><span class="c">${k}</span><span class="x">sortie ${v} fois / ${N}</span></div>`).join("");
+  const box = $("mcbox");
+  box.classList.add("show");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    box.querySelectorAll(".bar").forEach(b => { b.style.width = Math.min(100, parseInt(b.dataset.w, 10) * 2.2) + "%"; });
+  }));
+  say(`📊 ${N} courses simulées avec le scénario « ${scenario.title.replace(/^[①-⑳] /, "")} » — ${byWin[0].name} gagne ${wins[byWin[0].n]} fois.`, true);
+  box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+if ($("btnMC")) $("btnMC").onclick = runMonteCarlo;
+
 
 resetRace(true);
 })();

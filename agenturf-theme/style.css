@@ -10,11 +10,13 @@ Text Domain: agenturf
 
 /* =============== base =============== */
 :root{
-  --nuit:#12203a; --nuit2:#1b2f52;
+  /* palette « pelouse & or » : vert hippodrome profond + doré trophée */
+  --nuit:#0c3b26; --nuit2:#155e38;
   --gazon:#2f7d46; --gazon2:#256637;
-  --craie:#f4f0e4; --rail:#ffffff;
-  --pmu:#e4322b; --or:#e8b64c;
-  --encre:#18202e; --ligne:rgba(24,32,46,.14);
+  --craie:#f3f1e6; --rail:#ffffff;
+  --pmu:#c9971f; --or:#e3b64e;
+  --encre:#122019; --ligne:rgba(18,50,35,.16);
+  --cta:#b98a15;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -46,8 +48,8 @@ a{color:inherit}
   transition:background .18s,border-color .18s;
 }
 .topbar a.tb-btn:hover{background:rgba(255,255,255,.14);border-color:#fff}
-.topbar a.tb-btn.solid{background:var(--pmu);border-color:var(--pmu)}
-.topbar a.tb-btn.solid:hover{background:#c9271f}
+.topbar a.tb-btn.solid{background:var(--or);border-color:var(--or);color:#1c2e22}
+.topbar a.tb-btn.solid:hover{background:#d8a83e}
 .scrollbar{
   position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
   background:linear-gradient(90deg,var(--pmu),var(--or));
@@ -90,10 +92,10 @@ a{color:inherit}
 }
 .hero-cta{
   margin-top:26px;display:inline-flex;align-items:center;gap:10px;
-  background:var(--pmu);color:#fff;text-decoration:none;
+  background:var(--or);color:#1c2e22;text-decoration:none;
   font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.07em;
   font-size:1.1rem;border-radius:12px;padding:14px 30px;
-  box-shadow:0 10px 30px rgba(228,50,43,.45);
+  box-shadow:0 10px 30px rgba(201,151,31,.5);
   animation:heroChip 1s .8s ease backwards;
   transition:transform .15s;
 }
@@ -157,7 +159,7 @@ a{color:inherit}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .step{background:#fff;border:1.5px solid var(--ligne);border-radius:16px;padding:20px;position:relative}
 .step .num{
-  font-family:'Barlow Condensed';font-weight:900;font-size:2.6rem;color:rgba(228,50,43,.18);
+  font-family:'Barlow Condensed';font-weight:900;font-size:2.6rem;color:rgba(20,83,45,.18);
   position:absolute;top:8px;right:16px;line-height:1;
 }
 .step h3{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1.1rem;margin-bottom:6px}
@@ -241,7 +243,7 @@ h1.racetitle{
   font-family:inherit;transition:border-color .15s, transform .1s;
 }
 .scn:hover{border-color:var(--pmu)}
-.scn.active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(228,50,43,.18);transform:translateY(-1px)}
+.scn.active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(201,151,31,.28);transform:translateY(-1px)}
 .scn h3{font-family:'Barlow Condensed';font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
 .scn p{font-size:.8rem;color:#4b5563;margin-top:3px}
 .scn .prob{
@@ -284,7 +286,7 @@ button.btn{
   padding:11px 22px;cursor:pointer;transition:opacity .15s;
 }
 .btn:disabled{opacity:.45;cursor:default}
-.btn-go{background:var(--pmu);color:#fff}
+.btn-go{background:var(--or);color:#1c2e22}
 .btn-re{background:var(--encre);color:var(--craie)}
 .speedctl{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#4b5563}
 .speedctl select{font-family:inherit;padding:7px 10px;border-radius:8px;border:1.5px solid var(--ligne);background:#fff}
@@ -350,3 +352,22 @@ button.btn{
   .reveal{opacity:1;transform:none}
   .hero{height:100vh}
 }
+
+
+/* =============== Monte-Carlo : 100 courses en 1 clic =============== */
+.btn-mc{background:var(--nuit2);color:var(--craie)}
+#mcbox{display:none;margin-top:14px}
+#mcbox.show{display:block;animation:comboPopIn .4s ease}
+@keyframes comboPopIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mc-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media(max-width:700px){.mc-grid{grid-template-columns:1fr}}
+.mc-note{font-size:.78rem;color:#5b6474;margin-top:8px}
+.mcrow{display:flex;align-items:center;gap:9px;font-size:.84rem;margin:6px 0}
+.mcrow .num{font-weight:600;width:22px}
+.mcrow .nm{width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcrow .barwrap{flex:1;background:var(--craie);border:1px solid var(--ligne);border-radius:99px;height:14px;overflow:hidden}
+.mcrow .bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gazon),var(--or));width:0;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.mcrow .pct{width:96px;text-align:right;font-weight:600;font-size:.78rem;color:#1c4a30}
+.mc-combo{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:.84rem}
+.mc-combo .c{font-family:'Barlow Condensed';font-weight:900;letter-spacing:.05em;background:var(--nuit);color:var(--or);border-radius:8px;padding:3px 10px}
+.mc-combo .x{color:#5b6474;font-size:.74rem}
