@@ -3,885 +3,957 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prix Impératrice Eugénie — Simulateur Quinté+ (démo)</title>
+<title>AgenTurf — Le Quinté du jour, simulé (démo du thème)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;background:#f4f0e4}
-/* =====================================================
-   Quinté+ Simulator Pro — styles
-   Scopé sous .qs-wrap pour ne pas entrer en conflit
-   avec le thème WordPress.
-   ===================================================== */
-.qs-wrap{
+/*
+Theme Name: AgenTurf
+Theme URI: https://github.com/muhmett/agenturf
+Author: AgenTurf
+Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
+Version: 1.0.0
+License: GPL-2.0-or-later
+Text Domain: agenturf
+*/
+
+/* =============== base =============== */
+:root{
   --nuit:#12203a; --nuit2:#1b2f52;
   --gazon:#2f7d46; --gazon2:#256637;
-  --craie:#f4f0e4; --pmu:#e4322b; --or:#e8b64c;
+  --craie:#f4f0e4; --rail:#ffffff;
+  --pmu:#e4322b; --or:#e8b64c;
   --encre:#18202e; --ligne:rgba(24,32,46,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
   font-family:'Barlow',system-ui,sans-serif;
-  color:var(--encre);
-  background:var(--craie);
-  line-height:1.45;
-  max-width:1080px;margin:0 auto;padding:0 14px 60px;
-  -webkit-text-size-adjust:100%;
+  background:var(--craie);color:var(--encre);line-height:1.45;
 }
-.qs-wrap *,.qs-wrap *::before,.qs-wrap *::after{box-sizing:border-box}
-.qs-wrap h1,.qs-wrap h2,.qs-wrap h3,.qs-wrap h4,.qs-wrap p,.qs-wrap ul,.qs-wrap ol{margin:0;padding:0}
-.qs-wrap ul{list-style:none}
-.qs-wrap button{font-family:inherit}
+button{font-family:inherit}
+a{color:inherit}
 
-/* ---------- entête programme ---------- */
-.qs-header{
+/* =============== topbar =============== */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px;
+  background:linear-gradient(180deg,rgba(10,16,30,.78),rgba(10,16,30,.45) 70%,transparent);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.topbar .logo{
+  font-family:'Barlow Condensed';font-weight:900;font-size:1.35rem;letter-spacing:.12em;
+  color:#fff;text-decoration:none;text-transform:uppercase;
+}
+.topbar .logo em{color:var(--or);font-style:normal}
+.topbar .actions{display:flex;gap:10px;align-items:center}
+.topbar a.tb-btn{
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  font-size:.92rem;text-decoration:none;color:#fff;
+  border:1.5px solid rgba(255,255,255,.55);border-radius:99px;padding:7px 16px;
+  transition:background .18s,border-color .18s;
+}
+.topbar a.tb-btn:hover{background:rgba(255,255,255,.14);border-color:#fff}
+.topbar a.tb-btn.solid{background:var(--pmu);border-color:var(--pmu)}
+.topbar a.tb-btn.solid:hover{background:#c9271f}
+.scrollbar{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
+  background:linear-gradient(90deg,var(--pmu),var(--or));
+}
+
+/* =============== landing : hero vidéo =============== */
+.hero{height:240vh;position:relative}
+.hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#0b1322}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform-origin:center;will-change:transform;
+}
+.hero-veil{
+  position:absolute;inset:0;opacity:.3;will-change:opacity;
+  background:linear-gradient(180deg,rgba(10,16,30,.55) 0%,rgba(10,16,30,.25) 40%,rgba(10,16,30,.9) 100%);
+}
+.hero-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  color:#fff;padding:0 18px;will-change:transform,opacity;
+}
+.hero-chip{
+  font-family:'Barlow Condensed';font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  font-size:.8rem;color:var(--or);
+  border:1px solid rgba(232,182,76,.5);border-radius:99px;padding:6px 16px;
+  background:rgba(10,16,30,.4);
+  animation:heroChip 1s .2s ease backwards;
+}
+@keyframes heroChip{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero-h1{
+  font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.3rem,7.5vw,4.6rem);line-height:1.0;margin:18px 0 12px;
+  text-shadow:0 6px 30px rgba(0,0,0,.55);
+  animation:heroChip 1s .4s ease backwards;
+}
+.hero-h1 em{font-style:normal;color:var(--or)}
+.hero-sub{
+  font-size:clamp(.95rem,2.4vw,1.15rem);opacity:.92;max-width:640px;
+  animation:heroChip 1s .6s ease backwards;
+}
+.hero-cta{
+  margin-top:26px;display:inline-flex;align-items:center;gap:10px;
+  background:var(--pmu);color:#fff;text-decoration:none;
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  font-size:1.1rem;border-radius:12px;padding:14px 30px;
+  box-shadow:0 10px 30px rgba(228,50,43,.45);
+  animation:heroChip 1s .8s ease backwards;
+  transition:transform .15s;
+}
+.hero-cta:hover{transform:translateY(-2px)}
+.hero-cue{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  color:#fff;opacity:.85;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  text-align:center;
+}
+.hero-cue::after{
+  content:"";display:block;margin:8px auto 0;width:1.5px;height:34px;
+  background:linear-gradient(180deg,#fff,transparent);
+  animation:cue 1.6s ease infinite;
+}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top}45%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+
+/* =============== landing : sections =============== */
+.land-section{max-width:1060px;margin:0 auto;padding:74px 16px 10px}
+.land-h2{
+  font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.6rem,4.5vw,2.3rem);letter-spacing:.03em;
+  display:flex;align-items:center;gap:12px;margin-bottom:8px;
+}
+.land-h2 .tick{width:30px;height:5px;background:var(--pmu);border-radius:3px;flex-shrink:0}
+.land-lead{color:#4b5563;max-width:680px;margin-bottom:28px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.tool{
+  background:#fff;border:1.5px solid var(--ligne);border-radius:16px;padding:22px 20px;
+  transition:transform .2s,box-shadow .2s;
+}
+.tool:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(18,32,58,.12)}
+.tool .ico{
+  width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;background:var(--craie);border:1.5px solid var(--ligne);margin-bottom:14px;
+}
+.tool h3{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1.2rem;margin-bottom:6px}
+.tool p{font-size:.88rem;color:#4b5563}
+.tool .mini{
+  display:inline-block;margin-top:12px;font-size:.68rem;font-weight:600;
+  background:#eaf6ee;border:1px solid #bcdcc6;color:#1f5c33;border-radius:99px;padding:2px 10px;
+}
+
+.counters{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;
+  margin-top:34px;
+}
+.counter{
+  background:var(--nuit);color:var(--craie);border-radius:14px;padding:18px 14px;text-align:center;
+}
+.counter b{
+  display:block;font-family:'Barlow Condensed';font-weight:900;font-size:2.2rem;color:var(--or);
+  line-height:1;
+}
+.counter span{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.step{background:#fff;border:1.5px solid var(--ligne);border-radius:16px;padding:20px;position:relative}
+.step .num{
+  font-family:'Barlow Condensed';font-weight:900;font-size:2.6rem;color:rgba(228,50,43,.18);
+  position:absolute;top:8px;right:16px;line-height:1;
+}
+.step h3{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1.1rem;margin-bottom:6px}
+.step p{font-size:.86rem;color:#4b5563}
+
+/* =============== landing : CTA finale =============== */
+.gatewrap{max-width:1060px;margin:60px auto 0;padding:0 16px 70px}
+.gatecard{
+  background:linear-gradient(160deg,var(--nuit),var(--nuit2));
+  border-radius:22px;color:var(--craie);text-align:center;
+  padding:52px 26px 44px;position:relative;overflow:hidden;
+}
+.gatecard::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:6px;
+  background:repeating-linear-gradient(90deg,var(--pmu) 0 26px,var(--craie) 26px 34px);opacity:.9;
+}
+.gatecard h2{
+  font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.05;
+}
+.gatecard h2 em{font-style:normal;color:var(--or)}
+.gatecard>p{opacity:.9;max-width:560px;margin:12px auto 0;font-size:.95rem}
+.gatecard ul{list-style:none;display:inline-block;text-align:left;margin:20px auto 4px}
+.gatecard ul li{margin:7px 0;font-size:.92rem}
+.gatecard ul li::before{content:"✔";color:var(--or);font-weight:700;margin-right:10px}
+.google-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  margin-top:22px;background:#fff;color:#1f2733;text-decoration:none;
+  border-radius:99px;padding:13px 30px;font-weight:600;font-size:1rem;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .15s;
+}
+.google-cta:hover{transform:translateY(-2px)}
+.google-cta svg{width:21px;height:21px;flex-shrink:0}
+.gate-note{font-size:.74rem;opacity:.65;margin-top:14px}
+
+.land-footer{
+  max-width:1060px;margin:0 auto;padding:0 16px 46px;
+  font-size:.74rem;color:#7a828f;
+}
+.land-footer hr{border:none;border-top:1px solid var(--ligne);margin-bottom:12px}
+
+/* =====================================================
+   SIMULATEUR (membres connectés)
+   ===================================================== */
+.wrap{max-width:1060px;margin:0 auto;padding:70px 14px 60px}
+
+header.card{
   background:linear-gradient(160deg,var(--nuit) 0%,var(--nuit2) 70%);
-  color:var(--craie);
-  border-radius:0 0 18px 18px;
-  padding:28px 22px 24px;
-  position:relative;overflow:hidden;
+  color:var(--craie);border-radius:0 0 18px 18px;
+  padding:26px 20px 22px;position:relative;overflow:hidden;
 }
-.qs-header::before{ /* reflet qui balaie le header */
-  content:"";position:absolute;top:0;bottom:0;width:38%;
-  background:linear-gradient(105deg,transparent,rgba(255,255,255,.07) 45%,rgba(255,255,255,.14) 50%,rgba(255,255,255,.07) 55%,transparent);
-  animation:qsShine 6s ease-in-out infinite;
-}
-@keyframes qsShine{0%{left:-45%}55%,100%{left:110%}}
-.qs-header::after{
+header.card::after{
   content:"";position:absolute;inset:auto 0 0 0;height:5px;
-  background:repeating-linear-gradient(90deg,var(--pmu) 0 26px,var(--craie) 26px 34px);
-  opacity:.9;
+  background:repeating-linear-gradient(90deg,var(--pmu) 0 26px,var(--craie) 26px 34px);opacity:.9;
 }
-.qs-eyebrow{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.22em;
+.eyebrow{
+  font-family:'Barlow Condensed';font-weight:700;letter-spacing:.22em;
   text-transform:uppercase;font-size:.78rem;color:var(--or);
 }
-.qs-h1{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+h1.racetitle{
+  font-family:'Barlow Condensed';font-weight:900;
   font-size:clamp(1.9rem,6vw,3rem);line-height:1.02;
   text-transform:uppercase;letter-spacing:.01em;margin:.2em 0 .35em;
 }
-.qs-meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.86rem;opacity:.92}
-.qs-meta b{color:var(--or)}
-.qs-depart{
-  display:inline-flex;align-items:center;gap:7px;margin-top:14px;
-  background:rgba(228,50,43,.16);border:1px solid rgba(228,50,43,.55);
-  color:#ffd9d7;border-radius:99px;padding:5px 14px;
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;font-size:.9rem;
-}
-.qs-depart .dot{width:8px;height:8px;border-radius:50%;background:var(--pmu);animation:qsPulse 1.4s infinite}
-@keyframes qsPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.45}}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.86rem;opacity:.92}
+.meta b{color:var(--or)}
 
-/* ---------- sections + apparition au scroll ---------- */
-.qs-section{margin-top:36px}
-.qs-reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.qs-reveal.qs-in{opacity:1;transform:none}
-.qs-h2{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;
+.sim-section{margin-top:34px}
+.sim-h2{
+  font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;
   font-size:1.45rem;letter-spacing:.03em;
-  display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;
 }
-.qs-h2 .qs-tick{width:26px;height:4px;background:var(--pmu);display:inline-block;border-radius:2px}
-.qs-h2 small{font-family:'Barlow',sans-serif;font-weight:500;text-transform:none;letter-spacing:0;font-size:.8rem;color:#5b6474}
+.sim-h2 .tick{width:26px;height:4px;background:var(--pmu);display:inline-block;border-radius:2px}
+.sim-h2 small{font-family:'Barlow';font-weight:500;text-transform:none;letter-spacing:0;font-size:.8rem;color:#5b6474}
 
-/* ---------- scénarios ---------- */
-.qs-scenarios{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:10px}
-.qs-scn{
+.scenarios{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.scn{
   text-align:left;background:#fff;border:1.5px solid var(--ligne);
-  border-radius:12px;padding:12px 14px;cursor:pointer;position:relative;
-  transition:border-color .18s,transform .18s,box-shadow .18s;
+  border-radius:12px;padding:12px 14px;cursor:pointer;
+  font-family:inherit;transition:border-color .15s, transform .1s;
 }
-.qs-scn:hover{border-color:var(--pmu);transform:translateY(-2px);box-shadow:0 8px 18px rgba(18,32,58,.10)}
-.qs-scn.qs-active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(228,50,43,.18);transform:translateY(-1px)}
-.qs-scn h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
-.qs-scn p{font-size:.8rem;color:#4b5563;margin-top:3px}
-.qs-scn .qs-prob{
+.scn:hover{border-color:var(--pmu)}
+.scn.active{border-color:var(--pmu);box-shadow:0 0 0 2px rgba(228,50,43,.18);transform:translateY(-1px)}
+.scn h3{font-family:'Barlow Condensed';font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
+.scn p{font-size:.8rem;color:#4b5563;margin-top:3px}
+.scn .prob{
   display:inline-block;margin-top:7px;font-size:.7rem;font-weight:600;
   background:var(--craie);border:1px solid var(--ligne);border-radius:99px;padding:2px 9px;
 }
-.qs-scn.qs-locked{opacity:.78}
-.qs-scn .qs-lock{
-  position:absolute;top:8px;right:10px;font-size:.95rem;
-  filter:grayscale(.2);
-}
-.qs-scn.qs-locked.qs-deny{animation:qsDeny .4s}
-@keyframes qsDeny{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
-/* ---------- piste ---------- */
-.qs-trackbox{
-  background:linear-gradient(180deg,#9fc3e0 0%,#cfe0cd 20%,var(--gazon) 20%);
+.trackbox{
+  background:linear-gradient(180deg,#9fc3e0 0%,#c9dcc9 22%,var(--gazon) 22%);
   border-radius:16px;overflow:hidden;border:1.5px solid rgba(0,0,0,.15);
   position:relative;
 }
-.qs-trackbox canvas{display:block;width:100%;height:auto}
-.qs-hud{
+.trackbox canvas{display:block;width:100%;height:auto}
+.hud{
   position:absolute;top:10px;left:10px;right:10px;
   display:flex;justify-content:space-between;gap:8px;pointer-events:none;
 }
-.qs-badge{
+.badge{
   background:rgba(18,32,58,.86);color:var(--craie);
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;
+  font-family:'Barlow Condensed';font-weight:700;font-size:.95rem;
   padding:5px 12px;border-radius:8px;letter-spacing:.05em;
 }
-.qs-badge em{color:var(--or);font-style:normal}
-.qs-badge.qs-hot{background:var(--pmu);animation:qsPulse 1s infinite}
-.qs-live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pmu);margin-right:6px;vertical-align:1px;animation:qsPulse 1.2s infinite}
-
-/* compte à rebours */
-.qs-count{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  pointer-events:none;
+.badge em{color:var(--or);font-style:normal}
+.count{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
 }
-.qs-count span{
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3rem,12vw,6.5rem);
+.count span{
+  font-family:'Barlow Condensed';font-weight:900;font-size:clamp(3rem,12vw,6.5rem);
   color:#fff;text-shadow:0 4px 22px rgba(0,0,0,.45);
-  animation:qsCount .9s ease both;
+  animation:countPop .9s ease both;
 }
-@keyframes qsCount{0%{transform:scale(2.2);opacity:0}25%{transform:scale(1);opacity:1}80%{opacity:1}100%{transform:scale(.85);opacity:0}}
-.qs-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .12s}
-.qs-flash.qs-on{opacity:.85}
+@keyframes countPop{0%{transform:scale(2.2);opacity:0}25%{transform:scale(1);opacity:1}80%{opacity:1}100%{transform:scale(.85);opacity:0}}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .12s}
+.flash.on{opacity:.85}
 
-/* ---------- contrôles ---------- */
-.qs-controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
-.qs-btn{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
+button.btn{
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;
   letter-spacing:.06em;font-size:1rem;border:none;border-radius:10px;
-  padding:11px 22px;cursor:pointer;transition:opacity .15s,transform .12s;
+  padding:11px 22px;cursor:pointer;transition:opacity .15s;
 }
-.qs-btn:active{transform:scale(.97)}
-.qs-btn:disabled{opacity:.45;cursor:default}
-.qs-btn-go{background:var(--pmu);color:#fff;box-shadow:0 6px 16px rgba(228,50,43,.35)}
-.qs-btn-re{background:var(--encre);color:var(--craie)}
-.qs-speed{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#4b5563}
-.qs-speed select{font-family:inherit;padding:7px 10px;border-radius:8px;border:1.5px solid var(--ligne);background:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-go{background:var(--pmu);color:#fff}
+.btn-re{background:var(--encre);color:var(--craie)}
+.speedctl{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#4b5563}
+.speedctl select{font-family:inherit;padding:7px 10px;border-radius:8px;border:1.5px solid var(--ligne);background:#fff}
 
-/* ---------- direct ---------- */
-.qs-live-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:14px;margin-top:14px}
-@media(max-width:700px){.qs-live-grid{grid-template-columns:1fr}}
-.qs-panel{background:#fff;border:1.5px solid var(--ligne);border-radius:12px;padding:14px}
-.qs-panel h3{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+.live{display:grid;grid-template-columns:1fr 1.25fr;gap:14px;margin-top:14px}
+@media(max-width:700px){.live{grid-template-columns:1fr}}
+.panel{background:#fff;border:1.5px solid var(--ligne);border-radius:12px;padding:14px}
+.panel h3{
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;
   font-size:1rem;letter-spacing:.06em;margin-bottom:9px;color:#3a4354;
 }
-.qs-standings{position:relative;min-height:150px}
-.qs-strow{
-  position:absolute;left:0;right:0;height:26px;
-  display:flex;align-items:center;gap:9px;font-size:.85rem;
-  transition:top .45s cubic-bezier(.22,1,.36,1);
-}
-.qs-strow .pos{font-family:'Barlow Condensed',sans-serif;font-weight:900;width:20px;color:#6b7280}
-.qs-strow.qs-top5 .pos{color:var(--pmu)}
-.qs-silk{width:16px;height:16px;border-radius:4px 4px 7px 7px;flex-shrink:0;border:1px solid rgba(0,0,0,.25)}
-.qs-strow .num{font-weight:600;width:22px}
-.qs-strow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qs-strow .gap{margin-left:auto;font-size:.72rem;color:#8a94a6;flex-shrink:0}
-.qs-feed{display:flex;flex-direction:column;gap:7px;max-height:236px;overflow-y:auto;font-size:.85rem}
-.qs-feed p{padding-left:10px;border-left:3px solid var(--or);color:#333;animation:qsFeedIn .35s ease}
-.qs-feed p.qs-hotline{border-left-color:var(--pmu);font-weight:600}
-@keyframes qsFeedIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+#standings{display:flex;flex-direction:column;gap:6px;min-height:150px}
+.strow{display:flex;align-items:center;gap:9px;font-size:.86rem}
+.strow .pos{font-family:'Barlow Condensed';font-weight:900;width:20px;color:#6b7280}
+.silk{width:16px;height:16px;border-radius:4px 4px 7px 7px;flex-shrink:0;border:1px solid rgba(0,0,0,.25)}
+.strow .num{font-weight:600;width:22px}
+.strow .gap{margin-left:auto;font-size:.72rem;color:#8a94a6}
+#feed{display:flex;flex-direction:column-reverse;gap:7px;max-height:230px;overflow-y:auto;font-size:.85rem}
+#feed p{padding-left:10px;border-left:3px solid var(--or);color:#333}
+#feed p.hot{border-left-color:var(--pmu);font-weight:600}
 
-/* ---------- arrivée ---------- */
-.qs-resultbox{display:none;margin-top:14px}
-.qs-resultbox.qs-show{display:block;animation:qsRise .5s ease}
-@keyframes qsRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.qs-arrivee{background:var(--encre);color:var(--craie);border-radius:12px;padding:18px;position:relative;overflow:hidden}
-.qs-arrivee h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;font-size:1.3rem;color:var(--or);letter-spacing:.05em}
-.qs-combo{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
-.qs-combo .n{
+#resultbox{display:none;margin-top:14px}
+.arrivee{background:var(--encre);color:var(--craie);border-radius:12px;padding:18px}
+.arrivee h3{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.3rem;color:var(--or);letter-spacing:.05em}
+.combo{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.combo .n{
   width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;color:#fff;
+  font-family:'Barlow Condensed';font-weight:900;font-size:1.4rem;color:#fff;
   border:2px solid rgba(255,255,255,.35);
-  opacity:0;animation:qsPop .45s cubic-bezier(.34,1.56,.64,1) forwards;
+  opacity:0;animation:comboPop .45s cubic-bezier(.34,1.56,.64,1) forwards;
 }
-.qs-combo .n:first-child{outline:3px solid var(--or);outline-offset:2px}
-@keyframes qsPop{from{opacity:0;transform:scale(.3) rotate(-8deg)}to{opacity:1;transform:scale(1)}}
-.qs-arrivee ol{margin:8px 0 0 20px;font-size:.88rem;padding:0}
-.qs-arrivee ol li{margin:3px 0}
-.qs-arrivee .qs-note{font-size:.75rem;color:#aab3c2;margin-top:12px}
+.combo .n:first-child{outline:3px solid var(--or);outline-offset:2px}
+@keyframes comboPop{from{opacity:0;transform:scale(.3) rotate(-8deg)}to{opacity:1;transform:scale(1)}}
+.arrivee ol{margin:8px 0 0 20px;font-size:.88rem}
+.arrivee ol li{margin:3px 0}
+.arrivee .note{font-size:.75rem;color:#aab3c2;margin-top:12px}
 
-/* ---------- fiches chevaux ---------- */
-.qs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
-.qs-horse{
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.horse{
   background:#fff;border:1.5px solid var(--ligne);border-radius:12px;padding:12px 14px;
-  display:flex;gap:11px;transition:transform .18s,box-shadow .18s;
+  display:flex;gap:11px;
 }
-.qs-horse:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(18,32,58,.10)}
-.qs-silkbig{width:34px;height:38px;border-radius:8px 8px 14px 14px;flex-shrink:0;border:1.5px solid rgba(0,0,0,.25);position:relative}
-.qs-silkbig span{
+.horse .silkbig{width:34px;height:38px;border-radius:8px 8px 14px 14px;flex-shrink:0;border:1.5px solid rgba(0,0,0,.25);position:relative}
+.horse .silkbig span{
   position:absolute;top:-9px;left:50%;transform:translateX(-50%);
-  background:var(--encre);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  background:var(--encre);color:#fff;font-family:'Barlow Condensed';font-weight:700;
   font-size:.72rem;border-radius:5px;padding:0 5px;
 }
-.qs-horse h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.06rem;text-transform:uppercase}
-.qs-horse .sub{font-size:.72rem;color:#6b7280;margin-bottom:4px}
-.qs-horse p{font-size:.79rem;color:#374151}
-.qs-tag{
+.horse h4{font-family:'Barlow Condensed';font-weight:700;font-size:1.06rem;text-transform:uppercase}
+.horse .sub{font-size:.72rem;color:#6b7280;margin-bottom:4px}
+.horse p{font-size:.79rem;color:#374151}
+.tag{
   display:inline-block;font-size:.66rem;font-weight:600;border-radius:99px;
   padding:1.5px 8px;margin:4px 4px 0 0;background:var(--craie);border:1px solid var(--ligne);
 }
-.qs-tag.base{background:#eaf6ee;border-color:#bcdcc6;color:#1f5c33}
-.qs-tag.risk{background:#fdeeee;border-color:#f2c1be;color:#a32620}
+.tag.base{background:#eaf6ee;border-color:#bcdcc6;color:#1f5c33}
+.tag.risk{background:#fdeeee;border-color:#f2c1be;color:#a32620}
 
-/* ---------- emplacements pub (vides = invisibles) ---------- */
-.qs-ad{margin-top:26px;text-align:center}
-.qs-ad:empty{display:none}
-
-.qs-disclaimer{margin-top:26px;font-size:.74rem;color:#7a828f;border-top:1px solid var(--ligne);padding-top:12px}
-
-/* ---------- porte d'inscription (freemium) ---------- */
-.qs-gate{
-  position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
-  background:rgba(12,18,32,.72);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
-  padding:18px;animation:qsGateBg .3s ease;
-}
-@keyframes qsGateBg{from{opacity:0}to{opacity:1}}
-.qs-gate[hidden]{display:none}
-.qs-gate-card{
-  background:#fff;border-radius:18px;max-width:420px;width:100%;
-  padding:28px 26px 22px;text-align:center;color:var(--encre);
-  animation:qsGateIn .45s cubic-bezier(.34,1.56,.64,1);
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
-}
-@keyframes qsGateIn{from{opacity:0;transform:translateY(30px) scale(.92)}to{opacity:1;transform:none}}
-.qs-gate-ico{font-size:2.6rem;margin-bottom:6px;animation:qsFloat 2.6s ease-in-out infinite}
-@keyframes qsFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.qs-gate-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;font-size:1.45rem;line-height:1.1}
-.qs-gate-card>p{font-size:.9rem;color:#4b5563;margin-top:8px}
-.qs-gate-card ul{margin:14px 0 4px;text-align:left;display:inline-block}
-.qs-gate-card ul li{font-size:.88rem;margin:5px 0;padding-left:2px}
-.qs-gate-card ul li::before{content:"✔";color:#1f8a3d;font-weight:700;margin-right:8px}
-.qs-google-btn{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  margin:16px auto 0;max-width:300px;
-  background:#fff;border:1.5px solid #d5d9e2;border-radius:99px;
-  padding:11px 20px;font-weight:600;font-size:.95rem;color:#1f2733;
-  text-decoration:none;transition:box-shadow .18s,transform .12s;
-}
-.qs-google-btn:hover{box-shadow:0 6px 18px rgba(18,32,58,.18);transform:translateY(-1px)}
-.qs-google-btn svg{width:20px;height:20px;flex-shrink:0}
-.qs-gate-later{
-  margin-top:12px;background:none;border:none;color:#8a94a6;font-size:.8rem;
-  cursor:pointer;text-decoration:underline;
-}
-.qs-gate-note{font-size:.72rem;color:#9aa2b0;margin-top:10px}
+.disclaimer{margin-top:26px;font-size:.74rem;color:#7a828f;border-top:1px solid var(--ligne);padding-top:12px}
 
 @media (prefers-reduced-motion:reduce){
-  .qs-wrap *{animation:none!important;transition:none!important}
-  .qs-reveal{opacity:1;transform:none}
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .hero{height:100vh}
 }
 
 </style>
 </head>
 <body>
-<div class="qs-wrap" id="qsApp">
+<div class="scrollbar" id="scrollbar"></div>
+<nav class="topbar">
+  <a class="logo" href="#">AGEN<em>TURF</em></a>
+  <div class="actions">
+    <a class="tb-btn solid" href="#" id="tbLogin">Se connecter</a>
+    <a class="tb-btn" href="#" id="tbLogout" style="display:none">Déconnexion (démo)</a>
+  </div>
+</nav>
 
-	<header class="qs-header">
-		<div class="qs-eyebrow" id="qsEyebrow"></div>
-		<h1 class="qs-h1" id="qsTitle"></h1>
-		<div class="qs-meta" id="qsMeta"></div>
-		<div class="qs-depart"><span class="dot"></span> SIMULATION DISPONIBLE</div>
-	</header>
+<div id="landing">
+  <div class="hero" id="hero">
+    <div class="hero-sticky">
+      <video class="hero-video" id="heroVideo" src="https://videos.pexels.com/video-files/31653765/13486027_1920_1080_25fps.mp4" poster="https://images.pexels.com/videos/31653765/nanango-31653765.jpeg?auto=compress&w=1600" autoplay muted loop playsinline></video>
+      <div class="hero-veil" id="heroVeil"></div>
+      <div class="hero-inner" id="heroTitle">
+        <span class="hero-chip">Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30</span>
+        <h1 class="hero-h1">Le Quinté du jour,<br><em>simulé</em> avant d'être couru</h1>
+        <p class="hero-sub">Analyse complète des partants, 6 scénarios pondérés par un modèle, et une course animée en direct — relance-la autant de fois que tu veux, chaque arrivée est différente.</p>
+        <a class="hero-cta" href="#acces">🏇 Accéder au simulateur</a>
+      </div>
+      <div class="hero-cue">Fais défiler</div>
+    </div>
+  </div>
 
-	<section class="qs-section qs-reveal">
-		<h2 class="qs-h2"><span class="qs-tick"></span>Choisis ton scénario <small>chaque scénario recalibre la simulation</small></h2>
-		<div class="qs-scenarios" id="qsScenarios"></div>
-	</section>
+  <section class="land-section">
+    <h2 class="land-h2 reveal"><span class="tick"></span>Les outils AgenTurf</h2>
+    <p class="land-lead reveal">Tout ce qu'il faut pour lire la course avant tout le monde — mis à jour chaque jour de Quinté+.</p>
+    <div class="tools">
+      <div class="tool reveal"><div class="ico">🏇</div><h3>Simulateur en direct</h3><p>La course animée sur la piste : départ, train, rabattement à la corde, emballage final. Classement en direct et commentaires comme au micro de l'hippodrome.</p><span class="mini">Arrivée différente à chaque lancement</span></div>
+      <div class="tool reveal d1"><div class="ico">🎯</div><h3>6 scénarios pondérés</h3><p>Course de bon sens, coup d'écurie, revanche des poids plume, chaos total… chaque scénario recalibre le modèle avec sa probabilité estimée.</p><span class="mini">Probabilités du modèle</span></div>
+      <div class="tool reveal d2"><div class="ico">📋</div><h3>Partants décryptés</h3><p>Valeur handicap, poids, corde, musique, style de course et avis entraîneurs — chaque partant analysé en une fiche claire.</p><span class="mini">Mise à jour quotidienne</span></div>
+    </div>
+    <div class="counters">
+      <div class="counter reveal"><b data-count="15">0</b><span>partants analysés</span></div>
+      <div class="counter reveal d1"><b data-count="6">0</b><span>scénarios de course</span></div>
+      <div class="counter reveal d2"><b>∞</b><span>simulations</span></div>
+      <div class="counter reveal d3"><b>100<small>%</small></b><span>gratuit</span></div>
+    </div>
+  </section>
 
-	<section class="qs-section qs-reveal">
-		<h2 class="qs-h2"><span class="qs-tick"></span>La course en direct</h2>
-		<div class="qs-trackbox">
-			<canvas id="qsCanvas" width="1060" height="600"></canvas>
-			<div class="qs-hud">
-				<div class="qs-badge" id="qsHudDist"></div>
-				<div class="qs-badge"><span class="qs-live"></span><span id="qsBadgeTrack"></span></div>
-			</div>
-			<div class="qs-count" id="qsCount"></div>
-			<div class="qs-flash" id="qsFlash"></div>
-		</div>
-		<div class="qs-controls">
-			<button type="button" class="qs-btn qs-btn-go" id="qsStart">🏇 Lancer la course</button>
-			<button type="button" class="qs-btn qs-btn-re" id="qsReset">↺ Nouvelle simulation</button>
-			<div class="qs-speed">Vitesse
-				<select id="qsSpeedSel">
-					<option value="1">Réelle ×1</option>
-					<option value="2" selected>Rapide ×2</option>
-					<option value="4">Turbo ×4</option>
-				</select>
-			</div>
-		</div>
+  <section class="land-section">
+    <h2 class="land-h2 reveal"><span class="tick"></span>Comment ça marche</h2>
+    <div class="steps">
+      <div class="step reveal"><span class="num">1</span><h3>Connecte-toi avec Google</h3><p>Un clic, aucune carte bancaire. Ton compte débloque tous les outils, tous les jours.</p></div>
+      <div class="step reveal d1"><span class="num">2</span><h3>Choisis ton scénario</h3><p>Lis l'analyse des partants, puis choisis le scénario de course auquel tu crois.</p></div>
+      <div class="step reveal d2"><span class="num">3</span><h3>Lance la simulation</h3><p>Regarde la course se jouer et compare les combinaisons qui reviennent le plus souvent.</p></div>
+    </div>
+  </section>
 
-		<div class="qs-live-grid">
-			<div class="qs-panel">
-				<h3>Classement en direct</h3>
-				<div class="qs-standings" id="qsStandings"></div>
-			</div>
-			<div class="qs-panel">
-				<h3>Commentaires — micro de l'hippodrome</h3>
-				<div class="qs-feed" id="qsFeed"></div>
-			</div>
-		</div>
+  <div class="gatewrap" id="acces">
+    <div class="gatecard reveal">
+      <h2>La course du jour t'attend<br><em>Prix Impératrice Eugénie</em></h2>
+      <p>Vichy · 2 400 m — l'accès au simulateur est réservé aux membres. C'est gratuit et immédiat :</p>
+      <ul>
+        <li>Simulations illimitées, chaque arrivée est différente</li>
+        <li>Les 6 scénarios du modèle débloqués</li>
+        <li>L'analyse complète des 15 partants</li>
+        <li>Le Quinté+ du jour, chaque jour</li>
+      </ul>
+      <br>
+      <a class="google-cta" href="#" id="googleBtn"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.6 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg> Continuer avec Google</a>
+      <p class="gate-note">Démo : le bouton simule la connexion Google et ouvre le simulateur.</p>
+    </div>
+  </div>
 
-		<div class="qs-resultbox" id="qsResultbox">
-			<div class="qs-arrivee">
-				<h3>Arrivée officielle — combinaison Quinté+</h3>
-				<div class="qs-combo" id="qsCombo"></div>
-				<ol id="qsResList"></ol>
-				<p class="qs-note">Simulation basée sur les valeurs handicap, poids, musiques, cordes et avis entraîneurs du jour. Chaque lancement produit une arrivée différente — comme la vraie course, rien n'est garanti.</p>
-			</div>
-		</div>
-	</section>
-
-	<div class="qs-ad"></div>
-
-	<section class="qs-section qs-reveal">
-		<h2 class="qs-h2"><span class="qs-tick"></span>Les partants décryptés <small>valeur · poids · style de course · avis</small></h2>
-		<div class="qs-grid" id="qsCards"></div>
-	</section>
-
-	<div class="qs-ad"></div>
-
-	<p class="qs-disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
-
-	<div class="qs-gate" id="qsGate" hidden>
-		<div class="qs-gate-card">
-			<div class="qs-gate-ico">🏇</div>
-			<h3>Ta simulation gratuite est utilisée</h3>
-			<p>Crée un compte gratuit en 5 secondes pour continuer :</p>
-			<ul>
-				<li>Simulations illimitées, à chaque lancement une arrivée différente</li>
-				<li>Les 6 scénarios du modèle débloqués</li>
-				<li>Le Quinté+ du jour analysé, chaque jour</li>
-			</ul>
-			<a class="qs-google-btn" id="qsGoogleBtn" href="#" rel="nofollow">
-				<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.6 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-				Continuer avec Google
-			</a>
-			<button type="button" class="qs-gate-later" id="qsGateLater">Plus tard — je regarde encore l'analyse</button>
-			<p class="qs-gate-note">Gratuit. Aucune carte bancaire. Juste ton compte Google.</p>
-		</div>
-	</div>
-
+  <footer class="land-footer"><hr>Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</footer>
 </div>
+
+
+<div class="wrap" id="simapp" style="display:none">
+  <header class="card">
+    <div class="eyebrow">Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30</div>
+    <h1 class="racetitle">Prix Impératrice Eugénie<br>Vichy · 2 400 m</h1>
+    <div class="meta"><span>Handicap divisé · <b>52 800 €</b></span><span>Plat · herbe · <b>corde à droite</b></span><span>15 partants · 3 ans</span><span>Terrain <b>bon souple (3,4)</b> · 25° soleil</span></div>
+  </header>
+
+  <section class="sim-section">
+    <h2 class="sim-h2"><span class="tick"></span>Choisis ton scénario <small>chaque scénario recalibre la simulation</small></h2>
+    <div class="scenarios" id="scenarios"></div>
+  </section>
+
+  <section class="sim-section">
+    <h2 class="sim-h2"><span class="tick"></span>La course en direct</h2>
+    <div class="trackbox">
+      <canvas id="cv" width="1020" height="560"></canvas>
+      <div class="hud">
+        <div class="badge" id="hudDist">2 400 m à parcourir</div>
+        <div class="badge">VICHY <em>·</em> R1C8</div>
+      </div>
+      <div class="count" id="count"></div>
+      <div class="flash" id="flash"></div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
+      <button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
+      <div class="speedctl">Vitesse
+        <select id="speed">
+          <option value="1">Réelle ×1</option>
+          <option value="2" selected>Rapide ×2</option>
+          <option value="4">Turbo ×4</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="live">
+      <div class="panel"><h3>Classement en direct</h3><div id="standings"></div></div>
+      <div class="panel"><h3>Commentaires — micro VICHY</h3>
+        <div id="feed"><p>Les partants se dirigent vers les stalles… choisis un scénario et lance la course.</p></div>
+      </div>
+    </div>
+
+    <div id="resultbox">
+      <div class="arrivee">
+        <h3>Arrivée officielle — combinaison Quinté+</h3>
+        <div class="combo" id="combo"></div>
+        <ol id="resList"></ol>
+        <p class="note">Simulation basée sur les valeurs handicap, poids, musiques, cordes et avis entraîneurs du jour. Chaque lancement produit une arrivée différente — comme la vraie course, rien n'est garanti.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sim-section">
+    <h2 class="sim-h2"><span class="tick"></span>Les 15 partants décryptés <small>valeur · poids · style de course · avis</small></h2>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <p class="disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
+</div>
+
 <script>
-window.QUINTE_SIM_CFG = {"loggedIn": false, "loginUrl": "#connexion-google", "race": {"meta": {"eyebrow": "Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30", "title": "Prix Impératrice Eugénie", "subtitle": "Vichy · 2 400 m", "track": "VICHY", "code": "R1C8", "distance": 2400, "info": ["Handicap divisé · <b>52 800 €</b>", "Plat · herbe · <b>corde à droite</b>", "15 partants · 3 ans", "Terrain <b>bon souple (3,4)</b> · 25° soleil"]}, "horses": [{"n": 1, "name": "Lohengreen", "jockey": "C. Demuro", "w": 60, "draw": 15, "val": 39, "odds": 7.6, "c": ["#5b2c8d", "#efe6f7"], "style": "stalker", "ab": 88, "vol": 0.9, "note": "5 podiums en 7 courses, 6e de son seul Quinté+ (lot plus relevé). Top-weight 60 kg + corde 15 : Escuder avoue « une petite rentrée, peut-être pas à 100% ». Classe au-dessus du lot mais tout est contre lui côté parcours.", "tags": [["base", "Classe pure"], ["risk", "60 kg + corde 15"], ["risk", "Rentrée"]]}, {"n": 2, "name": "Study Of Case", "jockey": "H. Besnier", "w": 59, "draw": 14, "val": 38, "odds": 20, "c": ["#2e7d32", "#dff2e0"], "style": "mid", "ab": 78, "vol": 1.0, "note": "Vient d'ouvrir son palmarès à Salon, mais sévèrement remonté au poids. Perret garde les œillères ; la distance ne devrait pas gêner. Outsider logique.", "tags": [["", "Œillères"], ["risk", "Pénalisé au poids"]]}, {"n": 3, "name": "Selvo", "jockey": "M. Guyon", "w": 59, "draw": 10, "val": 38, "odds": 8.2, "c": ["#1e4fd8", "#dbe6ff"], "style": "stalker", "ab": 81, "vol": 1.25, "note": "Poulain compliqué mais vainqueur d'un handicap à Saint-Cloud. Maxime Guyon dans le fauteuil : quand tout se passe bien, il a le niveau. Irrégularité = son seul vrai ennemi.", "tags": [["base", "M. Guyon"], ["risk", "Caractériel"]]}, {"n": 4, "name": "Hepburn", "jockey": "M. Grandin", "w": 56, "draw": 1, "val": 35, "odds": 9.3, "c": ["#1b8a3a", "#ffffff"], "style": "stalker", "ab": 85, "vol": 0.55, "note": "Jamais sortie des 5 premiers en 12 sorties. Grandin : « corde 1 idéale, je la monte dans le sillage des leaders, elle fera parler sa tenue ». La régularité incarnée sur un parcours taillé pour elle.", "tags": [["base", "Ultra régulière"], ["base", "Corde 1"]]}, {"n": 5, "name": "Yokozuna", "jockey": "J. Nicoleau", "w": 56, "draw": 12, "val": 35, "odds": 29, "c": ["#15151d", "#f2f2f2"], "style": "leader", "ab": 71, "vol": 1.1, "note": "A trop tiré à Angers sur 3 000 m, d'où le raccourcissement. S'il accepte de se canaliser en tête, il peut durer plus longtemps que prévu.", "tags": [["risk", "Tire fort"], ["", "Animateur probable"]]}, {"n": 6, "name": "Martaghalya", "jockey": "T. Bachelot", "w": 56, "draw": 5, "val": 35, "odds": 26.7, "c": ["#f2c200", "#1b2a6b"], "style": "closer", "ab": 76, "vol": 1.0, "note": "Vient de gagner à Nantes en accélérant le long du rail. Trois courses, déjà du métier. Progression rapide, mais saut de catégorie réel.", "tags": [["", "En progrès"], ["risk", "Manque d'expérience"]]}, {"n": 7, "name": "I Am Maelia", "jockey": "M. Vélon", "w": 55.5, "draw": 8, "val": 34.5, "odds": 21.7, "c": ["#e88bc4", "#ffffff"], "style": "mid", "ab": 74, "vol": 1.0, "note": "Placée fidèle (1p 4p 8p 5p 3p 3p). Il lui manque le punch final des meilleurs, mais elle grappille des places quand ça bouscule devant.", "tags": [["", "Placée fidèle"]]}, {"n": 8, "name": "Derbycat", "jockey": "T. Piccone", "w": 55.5, "draw": 9, "val": 34.5, "odds": 14.2, "c": ["#f5f6fa", "#20315c"], "style": "mid", "ab": 79, "vol": 0.95, "note": "Écurie Pantall, débuts dans les handicaps après 3p 7p 1p. Quand Pantall cible un Quinté avec deux partants, méfiance maximale.", "tags": [["base", "Effet Pantall"]]}, {"n": 9, "name": "Anodiac", "jockey": "P. Remoué", "w": 55, "draw": 4, "val": 34, "odds": 14.3, "c": ["#23232b", "#e8e8e8"], "style": "leader", "ab": 78, "vol": 0.9, "note": "Gouyette : « il s'était imposé en handicap à Dieppe malgré un mauvais déroulement, c'est un lutteur avec un excellent mental ». Aguerri, compétitif sur 2 400 m. Le coup de poker préféré des turfistes avisés.", "tags": [["base", "Lutteur"], ["", "Coup de poker"]]}, {"n": 10, "name": "Loving Queen", "jockey": "F. Véron", "w": 54.5, "draw": 11, "val": 33.5, "odds": 13.7, "c": ["#7b1f24", "#e8c9a0"], "style": "leader", "ab": 75, "vol": 1.0, "note": "1p 1p 0p 7p 6p… souffle le chaud et le froid. Aime courir près de la tête ; si le rythme est raisonnable, elle peut voler une place.", "tags": [["risk", "Inconstante"]]}, {"n": 11, "name": "Lovatree Paris", "jockey": "A. Madamet", "w": 54, "draw": 6, "val": 33, "odds": 19.7, "c": ["#6a1b9a", "#ffd54f"], "style": "mid", "ab": 73, "vol": 1.0, "note": "Que des 4e récemment (4p 4p 4p 1p…). Honnête, mais il lui faut une hécatombe devant pour entrer dans le trio.", "tags": [["", "Éternelle 4e"]]}, {"n": 12, "name": "Derni Chop", "jockey": "L. Plommée", "w": 53, "draw": 13, "val": 32, "odds": 15.5, "c": ["#64b5f6", "#ffffff"], "style": "closer", "ab": 72, "vol": 1.05, "note": "4p 2p 2p 3p 6p : finit toujours ses courses. Poids léger, finisseur — le profil type de la 4e/5e place qui fait le rapport.", "tags": [["", "Finisseur"], ["base", "53 kg"]]}, {"n": 13, "name": "Autoroute", "jockey": "A. Crastus", "w": 52.5, "draw": 3, "val": 31.5, "odds": 10.4, "c": ["#e6c229", "#1b1b1b"], "style": "stalker", "ab": 80, "vol": 0.85, "note": "2e cartouche Pantall : 2p 2p 1p 0p 6p, 52,5 kg seulement et corde 3. Débuts en handicap avec ambitions déclarées. Le piège classique du jour.", "tags": [["base", "Effet Pantall"], ["base", "Poids plume"]]}, {"n": 14, "name": "Zarababy", "jockey": "L. Boisseau", "w": 52, "draw": 7, "val": 31, "odds": 5.3, "c": ["#f26522", "#ffe6d5"], "style": "closer", "ab": 87, "vol": 0.8, "note": "Artu : « elle vient de très bien courir dans un Quinté+ à Longchamp, elle fait tout ce qu'on lui demande entre 2 000 et 2 400 m ». 3e d'un lot plus huppé le 18 juin, 52 kg, de la marge en valeur 31. LA favorite logique — 36% des pronos la voient gagner.", "tags": [["base", "Favorite"], ["base", "52 kg + marge"], ["risk", "Doit finir de loin"]]}, {"n": 15, "name": "Kristal", "jockey": "C. Pacaut", "w": 51, "draw": 2, "val": 29.5, "odds": 34.2, "c": ["#8e1d2f", "#f0f0f0"], "style": "mid", "ab": 63, "vol": 1.1, "note": "Jamais mieux que 5e en neuf sorties, découvre la distance, porte une livre de plus que son poids réel. Fradet lui-même n'y croit qu'à moitié.", "tags": [["risk", "Limité"]]}], "scenarios": [{"id": "logique", "title": "① La course de bon sens", "prob": "~34%", "desc": "Zarababy vient de l'arrière-garde comme à Longchamp, Hepburn suit les leaders à la corde, Lohengreen fait sa classe malgré 60 kg. Les 319 pronos de la communauté ont raison.", "bias": {"14": 1.06, "4": 1.05, "1": 1.03}, "pace": "normal"}, {"id": "escuder", "title": "② Le doublé Escuder", "prob": "~18%", "desc": "Les deux pensionnaires de Christophe Escuder verrouillent la course : Hepburn dicte depuis la corde 1, Lohengreen surgit malgré le poids. Zarababy enfermée trop longtemps.", "bias": {"4": 1.1, "1": 1.09, "14": 0.95}, "pace": "lent"}, {"id": "pantall", "title": "③ Le piège Pantall", "prob": "~15%", "desc": "Henri-Alex Pantall n'envoie jamais deux chevaux pour rien : Autoroute (52,5 kg, corde 3) et Derbycat débarquent en handicap avec des ambitions cachées. Les cotes moyennes explosent.", "bias": {"13": 1.12, "8": 1.09, "14": 0.98, "1": 0.97}, "pace": "normal"}, {"id": "poids", "title": "④ La revanche des poids plume", "prob": "~14%", "desc": "9 kg d'écart sur 2 400 m, ça se paie cash dans la montée finale : Lohengreen cale à 200 m, les 52-53 kg (Zarababy, Autoroute, Derni Chop, Kristal) trustent l'arrivée.", "bias": {"14": 1.07, "13": 1.07, "12": 1.1, "15": 1.12, "1": 0.88, "2": 0.94, "3": 0.95}, "pace": "rapide"}, {"id": "outsiders", "title": "⑤ Le coup du lutteur", "prob": "~11%", "desc": "Anodiac, « lutteur à l'excellent mental », vole le départ et résiste à tout le monde. Loving Queen et Yokozuna profitent d'un train débridé qui piège les favoris.", "bias": {"9": 1.14, "10": 1.09, "5": 1.1, "14": 0.96, "4": 0.97, "1": 0.95}, "pace": "rapide"}, {"id": "chaos", "title": "⑥ Chaos à l'auvergnate", "prob": "~8%", "desc": "Terrain bon souple, 15 poulains de 3 ans inexpérimentés, un premier tournant musclé : tout peut arriver. Volatilité maximale, aucun cheval protégé.", "bias": {}, "chaos": 1.9, "pace": "rapide"}]}};
+window.QUINTE_SIM_CFG = {"race": {"meta": {"eyebrow": "Quinté+ · Mardi 21 juillet 2026 · R1 C8 · Départ 18h30", "title": "Prix Impératrice Eugénie", "subtitle": "Vichy · 2 400 m", "track": "VICHY", "code": "R1C8", "distance": 2400, "info": ["Handicap divisé · <b>52 800 €</b>", "Plat · herbe · <b>corde à droite</b>", "15 partants · 3 ans", "Terrain <b>bon souple (3,4)</b> · 25° soleil"]}, "horses": [{"n": 1, "name": "Lohengreen", "jockey": "C. Demuro", "w": 60, "draw": 15, "val": 39, "odds": 7.6, "c": ["#5b2c8d", "#efe6f7"], "style": "stalker", "ab": 88, "vol": 0.9, "note": "5 podiums en 7 courses, 6e de son seul Quinté+ (lot plus relevé). Top-weight 60 kg + corde 15 : Escuder avoue « une petite rentrée, peut-être pas à 100% ». Classe au-dessus du lot mais tout est contre lui côté parcours.", "tags": [["base", "Classe pure"], ["risk", "60 kg + corde 15"], ["risk", "Rentrée"]]}, {"n": 2, "name": "Study Of Case", "jockey": "H. Besnier", "w": 59, "draw": 14, "val": 38, "odds": 20, "c": ["#2e7d32", "#dff2e0"], "style": "mid", "ab": 78, "vol": 1.0, "note": "Vient d'ouvrir son palmarès à Salon, mais sévèrement remonté au poids. Perret garde les œillères ; la distance ne devrait pas gêner. Outsider logique.", "tags": [["", "Œillères"], ["risk", "Pénalisé au poids"]]}, {"n": 3, "name": "Selvo", "jockey": "M. Guyon", "w": 59, "draw": 10, "val": 38, "odds": 8.2, "c": ["#1e4fd8", "#dbe6ff"], "style": "stalker", "ab": 81, "vol": 1.25, "note": "Poulain compliqué mais vainqueur d'un handicap à Saint-Cloud. Maxime Guyon dans le fauteuil : quand tout se passe bien, il a le niveau. Irrégularité = son seul vrai ennemi.", "tags": [["base", "M. Guyon"], ["risk", "Caractériel"]]}, {"n": 4, "name": "Hepburn", "jockey": "M. Grandin", "w": 56, "draw": 1, "val": 35, "odds": 9.3, "c": ["#1b8a3a", "#ffffff"], "style": "stalker", "ab": 85, "vol": 0.55, "note": "Jamais sortie des 5 premiers en 12 sorties. Grandin : « corde 1 idéale, je la monte dans le sillage des leaders, elle fera parler sa tenue ». La régularité incarnée sur un parcours taillé pour elle.", "tags": [["base", "Ultra régulière"], ["base", "Corde 1"]]}, {"n": 5, "name": "Yokozuna", "jockey": "J. Nicoleau", "w": 56, "draw": 12, "val": 35, "odds": 29, "c": ["#15151d", "#f2f2f2"], "style": "leader", "ab": 71, "vol": 1.1, "note": "A trop tiré à Angers sur 3 000 m, d'où le raccourcissement. S'il accepte de se canaliser en tête, il peut durer plus longtemps que prévu.", "tags": [["risk", "Tire fort"], ["", "Animateur probable"]]}, {"n": 6, "name": "Martaghalya", "jockey": "T. Bachelot", "w": 56, "draw": 5, "val": 35, "odds": 26.7, "c": ["#f2c200", "#1b2a6b"], "style": "closer", "ab": 76, "vol": 1.0, "note": "Vient de gagner à Nantes en accélérant le long du rail. Trois courses, déjà du métier. Progression rapide, mais saut de catégorie réel.", "tags": [["", "En progrès"], ["risk", "Manque d'expérience"]]}, {"n": 7, "name": "I Am Maelia", "jockey": "M. Vélon", "w": 55.5, "draw": 8, "val": 34.5, "odds": 21.7, "c": ["#e88bc4", "#ffffff"], "style": "mid", "ab": 74, "vol": 1.0, "note": "Placée fidèle (1p 4p 8p 5p 3p 3p). Il lui manque le punch final des meilleurs, mais elle grappille des places quand ça bouscule devant.", "tags": [["", "Placée fidèle"]]}, {"n": 8, "name": "Derbycat", "jockey": "T. Piccone", "w": 55.5, "draw": 9, "val": 34.5, "odds": 14.2, "c": ["#f5f6fa", "#20315c"], "style": "mid", "ab": 79, "vol": 0.95, "note": "Écurie Pantall, débuts dans les handicaps après 3p 7p 1p. Quand Pantall cible un Quinté avec deux partants, méfiance maximale.", "tags": [["base", "Effet Pantall"]]}, {"n": 9, "name": "Anodiac", "jockey": "P. Remoué", "w": 55, "draw": 4, "val": 34, "odds": 14.3, "c": ["#23232b", "#e8e8e8"], "style": "leader", "ab": 78, "vol": 0.9, "note": "Gouyette : « il s'était imposé en handicap à Dieppe malgré un mauvais déroulement, c'est un lutteur avec un excellent mental ». Aguerri, compétitif sur 2 400 m. Le coup de poker préféré des turfistes avisés.", "tags": [["base", "Lutteur"], ["", "Coup de poker"]]}, {"n": 10, "name": "Loving Queen", "jockey": "F. Véron", "w": 54.5, "draw": 11, "val": 33.5, "odds": 13.7, "c": ["#7b1f24", "#e8c9a0"], "style": "leader", "ab": 75, "vol": 1.0, "note": "1p 1p 0p 7p 6p… souffle le chaud et le froid. Aime courir près de la tête ; si le rythme est raisonnable, elle peut voler une place.", "tags": [["risk", "Inconstante"]]}, {"n": 11, "name": "Lovatree Paris", "jockey": "A. Madamet", "w": 54, "draw": 6, "val": 33, "odds": 19.7, "c": ["#6a1b9a", "#ffd54f"], "style": "mid", "ab": 73, "vol": 1.0, "note": "Que des 4e récemment (4p 4p 4p 1p…). Honnête, mais il lui faut une hécatombe devant pour entrer dans le trio.", "tags": [["", "Éternelle 4e"]]}, {"n": 12, "name": "Derni Chop", "jockey": "L. Plommée", "w": 53, "draw": 13, "val": 32, "odds": 15.5, "c": ["#64b5f6", "#ffffff"], "style": "closer", "ab": 72, "vol": 1.05, "note": "4p 2p 2p 3p 6p : finit toujours ses courses. Poids léger, finisseur — le profil type de la 4e/5e place qui fait le rapport.", "tags": [["", "Finisseur"], ["base", "53 kg"]]}, {"n": 13, "name": "Autoroute", "jockey": "A. Crastus", "w": 52.5, "draw": 3, "val": 31.5, "odds": 10.4, "c": ["#e6c229", "#1b1b1b"], "style": "stalker", "ab": 80, "vol": 0.85, "note": "2e cartouche Pantall : 2p 2p 1p 0p 6p, 52,5 kg seulement et corde 3. Débuts en handicap avec ambitions déclarées. Le piège classique du jour.", "tags": [["base", "Effet Pantall"], ["base", "Poids plume"]]}, {"n": 14, "name": "Zarababy", "jockey": "L. Boisseau", "w": 52, "draw": 7, "val": 31, "odds": 5.3, "c": ["#f26522", "#ffe6d5"], "style": "closer", "ab": 87, "vol": 0.8, "note": "Artu : « elle vient de très bien courir dans un Quinté+ à Longchamp, elle fait tout ce qu'on lui demande entre 2 000 et 2 400 m ». 3e d'un lot plus huppé le 18 juin, 52 kg, de la marge en valeur 31. LA favorite logique — 36% des pronos la voient gagner.", "tags": [["base", "Favorite"], ["base", "52 kg + marge"], ["risk", "Doit finir de loin"]]}, {"n": 15, "name": "Kristal", "jockey": "C. Pacaut", "w": 51, "draw": 2, "val": 29.5, "odds": 34.2, "c": ["#8e1d2f", "#f0f0f0"], "style": "mid", "ab": 63, "vol": 1.1, "note": "Jamais mieux que 5e en neuf sorties, découvre la distance, porte une livre de plus que son poids réel. Fradet lui-même n'y croit qu'à moitié.", "tags": [["risk", "Limité"]]}], "scenarios": [{"id": "logique", "title": "① La course de bon sens", "prob": "~34%", "desc": "Zarababy vient de l'arrière-garde comme à Longchamp, Hepburn suit les leaders à la corde, Lohengreen fait sa classe malgré 60 kg. Les 319 pronos de la communauté ont raison.", "bias": {"14": 1.06, "4": 1.05, "1": 1.03}, "pace": "normal"}, {"id": "escuder", "title": "② Le doublé Escuder", "prob": "~18%", "desc": "Les deux pensionnaires de Christophe Escuder verrouillent la course : Hepburn dicte depuis la corde 1, Lohengreen surgit malgré le poids. Zarababy enfermée trop longtemps.", "bias": {"4": 1.1, "1": 1.09, "14": 0.95}, "pace": "lent"}, {"id": "pantall", "title": "③ Le piège Pantall", "prob": "~15%", "desc": "Henri-Alex Pantall n'envoie jamais deux chevaux pour rien : Autoroute (52,5 kg, corde 3) et Derbycat débarquent en handicap avec des ambitions cachées. Les cotes moyennes explosent.", "bias": {"13": 1.12, "8": 1.09, "14": 0.98, "1": 0.97}, "pace": "normal"}, {"id": "poids", "title": "④ La revanche des poids plume", "prob": "~14%", "desc": "9 kg d'écart sur 2 400 m, ça se paie cash dans la montée finale : Lohengreen cale à 200 m, les 52-53 kg (Zarababy, Autoroute, Derni Chop, Kristal) trustent l'arrivée.", "bias": {"14": 1.07, "13": 1.07, "12": 1.1, "15": 1.12, "1": 0.88, "2": 0.94, "3": 0.95}, "pace": "rapide"}, {"id": "outsiders", "title": "⑤ Le coup du lutteur", "prob": "~11%", "desc": "Anodiac, « lutteur à l'excellent mental », vole le départ et résiste à tout le monde. Loving Queen et Yokozuna profitent d'un train débridé qui piège les favoris.", "bias": {"9": 1.14, "10": 1.09, "5": 1.1, "14": 0.96, "4": 0.97, "1": 0.95}, "pace": "rapide"}, {"id": "chaos", "title": "⑥ Chaos à l'auvergnate", "prob": "~8%", "desc": "Terrain bon souple, 15 poulains de 3 ans inexpérimentés, un premier tournant musclé : tout peut arriver. Volatilité maximale, aucun cheval protégé.", "bias": {}, "chaos": 1.9, "pace": "rapide"}]}};
 </script>
 <script>
-/* =====================================================
-   Quinté+ Simulator Pro — moteur de course + freemium
-   Config attendue : window.QUINTE_SIM_CFG = {
-     loggedIn: bool,      // utilisateur WordPress connecté ?
-     loginUrl: string,    // URL de connexion (Google via Nextend)
-     race: {...}          // données de la course du jour (JSON admin)
-   }
-   ===================================================== */
+/* AgenTurf — animations de la landing (scroll-driven, zéro dépendance). */
 (function () {
   "use strict";
 
-  var CFG = window.QUINTE_SIM_CFG || {};
-  var DATA = CFG.race;
-  var root = document.getElementById("qsApp");
-  if (!DATA || !root) return;
+  var hero = document.getElementById("hero");
+  var video = document.getElementById("heroVideo");
+  var veil = document.getElementById("heroVeil");
+  var title = document.getElementById("heroTitle");
+  var bar = document.getElementById("scrollbar");
+  var ticking = false;
 
-  var LOGGED = !!CFG.loggedIn;
-  var LOGIN_URL = CFG.loginUrl || "#";
-  var FREE_RUNS = 1; // essais gratuits avant inscription
-  var LS_KEY = "qsim_runs_" + (DATA.meta.code || "race");
+  function update() {
+    ticking = false;
+    var y = window.scrollY || window.pageYOffset;
+    var doc = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (doc > 0 ? (y / doc) * 100 : 0) + "%";
+    if (!hero) return;
+    var span = hero.offsetHeight - window.innerHeight;
+    var p = span > 0 ? Math.min(1, Math.max(0, y / span)) : 0;
+    // la vidéo zoome doucement et s'assombrit pendant que le client descend
+    if (video) video.style.transform = "scale(" + (1 + p * 0.18) + ")";
+    if (veil) veil.style.opacity = String(0.3 + p * 0.55);
+    // le titre monte en parallaxe puis s'efface
+    if (title) {
+      title.style.transform = "translateY(" + (-p * 70) + "px)";
+      title.style.opacity = String(Math.max(0, 1 - Math.max(0, p - 0.45) * 2.4));
+    }
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
 
-  var HORSES = DATA.horses;
-  var SCENARIOS = DATA.scenarios;
-  var DIST = DATA.meta.distance || 2400;
-
-  function $(id) { return document.getElementById(id); }
-  function usedRuns() { return parseInt(localStorage.getItem(LS_KEY) || "0", 10) || 0; }
-  function addRun() { try { localStorage.setItem(LS_KEY, String(usedRuns() + 1)); } catch (e) {} }
-  function canRun() { return LOGGED || usedRuns() < FREE_RUNS; }
-  function fmtM(m) { return Math.max(0, Math.round(m / 10) * 10).toLocaleString("fr-FR"); }
-
-  /* =============== RENDU DE L'INTERFACE =============== */
-  (function renderHeader() {
-    var m = DATA.meta;
-    $("qsEyebrow").textContent = m.eyebrow;
-    $("qsTitle").innerHTML = m.title + "<br>" + m.subtitle;
-    $("qsMeta").innerHTML = m.info.map(function (i) { return "<span>" + i + "</span>"; }).join("");
-    $("qsBadgeTrack").innerHTML = m.track + " <em>·</em> " + m.code;
-    $("qsHudDist").textContent = fmtM(DIST) + " m à parcourir";
-  })();
-
-  var scenario = SCENARIOS[0];
-  var scBox = $("qsScenarios");
-  SCENARIOS.forEach(function (s, i) {
-    var locked = !LOGGED && i > 0; // invités : seul le scénario ① est ouvert
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "qs-scn" + (i === 0 ? " qs-active" : "") + (locked ? " qs-locked" : "");
-    b.innerHTML = "<h3>" + s.title + "</h3><p>" + s.desc + "</p>" +
-      '<span class="qs-prob">Probabilité estimée ' + s.prob + "</span>" +
-      (locked ? '<span class="qs-lock">🔒</span>' : "");
-    b.addEventListener("click", function () {
-      if (locked) {
-        b.classList.remove("qs-deny"); void b.offsetWidth; b.classList.add("qs-deny");
-        showGate();
-        return;
-      }
-      Array.prototype.forEach.call(scBox.children, function (x) { x.classList.remove("qs-active"); });
-      b.classList.add("qs-active");
-      scenario = s;
-      resetRace();
-      say("Scénario chargé : " + s.title.replace(/^[①-⑥]\s*/, "") + ". Lance la course !", true);
-    });
-    scBox.appendChild(b);
-  });
-
-  var cards = $("qsCards");
-  HORSES.forEach(function (h) {
-    var d = document.createElement("div");
-    d.className = "qs-horse qs-reveal";
-    var tags = (h.tags || []).map(function (t) {
-      return '<span class="qs-tag ' + t[0] + '">' + t[1] + "</span>";
-    }).join("");
-    d.innerHTML =
-      '<div class="qs-silkbig" style="background:' + h.c[0] + '"><span>' + h.n + "</span></div>" +
-      "<div><h4>" + h.name + "</h4>" +
-      '<div class="sub">' + h.jockey + " · " + h.w + " kg · corde " + h.draw + " · val. " + h.val + " · cote " + h.odds + "</div>" +
-      "<p>" + h.note + "</p>" + tags + "</div>";
-    cards.appendChild(d);
-  });
-
-  /* apparition au scroll */
+  /* apparitions au scroll */
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("qs-in"); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    Array.prototype.forEach.call(root.querySelectorAll(".qs-reveal"), function (el) { io.observe(el); });
-  } else {
-    Array.prototype.forEach.call(root.querySelectorAll(".qs-reveal"), function (el) { el.classList.add("qs-in"); });
-  }
-
-  /* =============== GÉOMÉTRIE DE LA PISTE =============== */
-  var cv = $("qsCanvas"), ctx = cv.getContext("2d");
-  var W = cv.width, H = cv.height;
-  var TR = { cx: W / 2, cy: H / 2 + 12, S: 400, R: 118, laneW: 7, margin: 13 };
-  var PER = 2 * TR.S + 2 * Math.PI * TR.R;
-  var LAPS = 1.55;
-  var pxPerM = (LAPS * PER) / DIST;
-  var dFin = TR.S * 0.82;                 // arrivée sur la ligne droite du bas
-  var d0 = dFin - DIST * pxPerM;          // stalles de départ
-
-  /* point sur la piste : d = distance le long du rail (px), lane = écart vers l'extérieur */
-  function point(d, lane) {
-    var R = TR.R + TR.margin + lane * TR.laneW;
-    var hs = TR.S / 2, arc = Math.PI * TR.R;
-    var s = ((d % PER) + PER) % PER, th, ccx;
-    if (s < TR.S) return { x: TR.cx + hs - s, y: TR.cy + R };
-    s -= TR.S;
-    if (s < arc) {
-      th = Math.PI / 2 + (s / arc) * Math.PI; ccx = TR.cx - hs;
-      return { x: ccx + R * Math.cos(th), y: TR.cy + R * Math.sin(th) };
-    }
-    s -= arc;
-    if (s < TR.S) return { x: TR.cx - hs + s, y: TR.cy - R };
-    s -= TR.S;
-    th = 3 * Math.PI / 2 + (s / arc) * Math.PI; ccx = TR.cx + hs;
-    return { x: ccx + R * Math.cos(th), y: TR.cy + R * Math.sin(th) };
-  }
-  function heading(d, lane) {
-    var a = point(d, lane), b = point(d + 4, lane);
-    return Math.atan2(b.y - a.y, b.x - a.x);
-  }
-
-  function stadium(c, R) {
-    var hs = TR.S / 2;
-    c.beginPath();
-    c.moveTo(TR.cx - hs, TR.cy - R);
-    c.lineTo(TR.cx + hs, TR.cy - R);
-    c.arc(TR.cx + hs, TR.cy, R, -Math.PI / 2, Math.PI / 2);
-    c.lineTo(TR.cx - hs, TR.cy + R);
-    c.arc(TR.cx - hs, TR.cy, R, Math.PI / 2, 3 * Math.PI / 2);
-    c.closePath();
-  }
-
-  function drawTrack() {
-    ctx.clearRect(0, 0, W, H);
-    // tribunes stylisées en haut
-    ctx.fillStyle = "rgba(255,255,255,.16)";
-    for (var t = 0; t < 5; t++) ctx.fillRect(TR.cx - 150 + t * 4, 16 + t * 7, 300 - t * 8, 5);
-    // surface de course
-    var Rout = TR.R + TR.margin + 15.6 * TR.laneW;
-    stadium(ctx, Rout + 8); ctx.fillStyle = "#5e9c53"; ctx.fill();
-    stadium(ctx, Rout + 8); ctx.strokeStyle = "rgba(255,255,255,.9)"; ctx.lineWidth = 2.5; ctx.stroke();
-    // bandes de tonte
-    for (var l = 0; l < 15; l += 2) {
-      var Ra = TR.R + TR.margin + l * TR.laneW, Rb = Ra + TR.laneW;
-      stadium(ctx, Rb); ctx.fillStyle = l % 4 ? "#639f57" : "#5b9950"; ctx.fill();
-      stadium(ctx, Ra); ctx.fillStyle = l % 4 ? "#5b9950" : "#639f57"; ctx.fill();
-    }
-    // rond central
-    stadium(ctx, TR.R + 4); ctx.fillStyle = "#2f7d46"; ctx.fill();
-    stadium(ctx, TR.R + 4); ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 3; ctx.stroke();
-    // plan d'eau + nom
-    ctx.fillStyle = "rgba(140,190,225,.85)";
-    ctx.beginPath(); ctx.ellipse(TR.cx + 70, TR.cy + 8, 60, 24, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = "rgba(255,255,255,.5)";
-    ctx.font = "900 34px 'Barlow Condensed',sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText((DATA.meta.track || "") + " · " + fmtM(DIST) + " M", TR.cx - 40, TR.cy + 6);
-    // poteaux des 200m / 400m / 600m
-    [200, 400, 600].forEach(function (m) {
-      var d = dFin - m * pxPerM;
-      var a = point(d, -0.6), b = point(d, 15.4);
-      ctx.strokeStyle = "rgba(255,255,255,.4)"; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      ctx.fillStyle = "rgba(255,255,255,.8)"; ctx.font = "700 11px 'Barlow Condensed',sans-serif";
-      ctx.fillText(m + "", b.x, b.y + 14);
-    });
-    // ligne d'arrivée (damier)
-    var fa = point(dFin, -0.6), fb = point(dFin, 15.4);
-    var steps = 12;
-    for (var i = 0; i < steps; i++) {
-      var x1 = fa.x + (fb.x - fa.x) * (i / steps), y1 = fa.y + (fb.y - fa.y) * (i / steps);
-      var x2 = fa.x + (fb.x - fa.x) * ((i + 1) / steps), y2 = fa.y + (fb.y - fa.y) * ((i + 1) / steps);
-      ctx.strokeStyle = i % 2 ? "#111" : "#fff"; ctx.lineWidth = 5;
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-    }
-    // stalles au départ (avant le lancement)
-    if (state.phase === "idle" || state.phase === "count") {
-      var sa = point(d0, -0.6), sb = point(d0, 15.4);
-      ctx.strokeStyle = "rgba(255,255,255,.85)"; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(sa.x, sa.y); ctx.lineTo(sb.x, sb.y); ctx.stroke();
-      ctx.fillStyle = "rgba(18,32,58,.85)"; ctx.font = "700 12px 'Barlow Condensed',sans-serif";
-      ctx.fillText("DÉPART", (sa.x + sb.x) / 2, (sa.y + sb.y) / 2 - 12);
-    }
-  }
-
-  /* =============== ÉTAT DE COURSE =============== */
-  var state = { phase: "idle", t: 0, mult: 2, order: [], confetti: [], dust: [] };
-  var runners = [];
-  var BASE_V = DIST / 146; // ~16.4 m/s -> course d'environ 2'26 en vitesse réelle
-
-  function makeRunners() {
-    runners = HORSES.map(function (h) {
-      return {
-        h: h, m: 0, lane: 1 + (h.draw - 1) * 0.95, ns: 0,
-        form: 1 + (Math.random() - 0.5) * 0.02 * h.vol,
-        phase: Math.random() * Math.PI * 2,
-        finished: false, fTime: 0
-      };
-    });
-  }
-
-  function styleFactor(st, p) {
-    if (st === "leader") return p < 0.22 ? 1.045 : p < 0.8 ? 1.006 : 0.978;
-    if (st === "closer") return p < 0.35 ? 0.968 : p < 0.75 ? 0.995 : 1.055;
-    if (st === "stalker") return p < 0.22 ? 1.014 : p < 0.8 ? 1.0 : 1.018;
-    return p < 0.8 ? 0.999 : 1.012; // mid
-  }
-
-  function tick(dt) {
-    var chaos = scenario.chaos || 1;
-    var paceK = scenario.pace === "rapide" ? 1.5 : scenario.pace === "lent" ? 0.55 : 1;
-    runners.forEach(function (r) {
-      if (r.finished) { r.m += BASE_V * 0.85 * dt; return; }
-      var h = r.h, p = r.m / DIST;
-      var ab = 1 + ((h.ab - 77) / 77) * 0.042;
-      var sf = styleFactor(h.style, p);
-      if (h.style === "leader" && scenario.pace === "rapide" && p < 0.5) sf += 0.018;
-      var wf = p > 0.72 ? 1 + (55.5 - h.w) * 0.0038 * (0.6 + 0.4 * paceK) : 1;
-      var bias = (scenario.bias && scenario.bias[String(h.n)]) || 1;
-      var bf = 1 + (bias - 1) * (0.55 + p * 0.75); // le biais du scénario pèse surtout en fin de course
-      var fat = p > 0.78 ? 1 - (p - 0.78) * 0.05 * paceK : 1;
-      r.ns += (Math.random() - 0.5) * 0.016 * h.vol * chaos;
-      r.ns *= 0.994;
-      var lim = 0.035 * h.vol * chaos;
-      if (r.ns > lim) r.ns = lim; if (r.ns < -lim) r.ns = -lim;
-      var v = BASE_V * ab * sf * wf * bf * fat * r.form * (1 + r.ns);
-      r.m += v * dt;
-      if (r.m >= DIST && !r.finished) {
-        r.finished = true; r.fTime = state.t + (r.m - DIST) / v;
-        state.order.push(r);
-        onFinish(r);
-      }
-    });
-    // rabattement progressif vers la corde selon le classement
-    var sorted = standings();
-    sorted.forEach(function (r, i) {
-      var p = r.m / DIST;
-      var target = p < 0.06 ? r.lane : 0.6 + i * 0.55 + Math.sin(r.phase + state.t) * 0.22;
-      r.lane += (target - r.lane) * Math.min(1, dt * 0.7);
-    });
-    state.t += dt;
-  }
-
-  function standings() {
-    return runners.slice().sort(function (a, b) {
-      var fa = a.finished, fb = b.finished;
-      if (fa && fb) return a.fTime - b.fTime;
-      if (fa) return -1; if (fb) return 1;
-      return b.m - a.m;
-    });
-  }
-
-  /* =============== DESSIN DES CHEVAUX =============== */
-  function drawHorse(r) {
-    var d = d0 + r.m * pxPerM;
-    var pt = point(d, r.lane), ang = heading(d, r.lane);
-    var bounce = Math.abs(Math.sin(state.t * 13 + r.phase)) * 2;
-    ctx.save();
-    ctx.translate(pt.x, pt.y - bounce);
-    ctx.rotate(ang);
-    // ombre
-    ctx.fillStyle = "rgba(0,0,0,.22)";
-    ctx.beginPath(); ctx.ellipse(0, 5 + bounce, 11, 3, 0, 0, Math.PI * 2); ctx.fill();
-    // jambes (galop)
-    ctx.strokeStyle = "#3d2b1f"; ctx.lineWidth = 1.6;
-    var k = Math.sin(state.t * 13 + r.phase) * 4;
-    ctx.beginPath();
-    ctx.moveTo(-6, 2); ctx.lineTo(-8 - k, 7);
-    ctx.moveTo(-3, 2); ctx.lineTo(-2 + k, 7);
-    ctx.moveTo(4, 2); ctx.lineTo(3 - k, 7);
-    ctx.moveTo(7, 2); ctx.lineTo(9 + k, 7);
-    ctx.stroke();
-    // corps
-    ctx.fillStyle = "#6b4a2f";
-    ctx.beginPath(); ctx.ellipse(0, 0, 10, 4.4, 0, 0, Math.PI * 2); ctx.fill();
-    // encolure + tête
-    ctx.beginPath(); ctx.ellipse(9, -2.5, 4.5, 2.4, 0.5, 0, Math.PI * 2); ctx.fill();
-    // casaque (jockey)
-    ctx.fillStyle = r.h.c[0];
-    ctx.beginPath(); ctx.ellipse(-1, -4.5, 4, 3.4, -0.25, 0, Math.PI * 2); ctx.fill();
-    // casque
-    ctx.fillStyle = r.h.c[1];
-    ctx.beginPath(); ctx.arc(0.5, -7.4, 2.2, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-    // dossard
-    ctx.save();
-    ctx.translate(pt.x, pt.y - bounce - 14);
-    ctx.fillStyle = "rgba(18,32,58,.88)";
-    ctx.beginPath();
-    var bw = r.h.n > 9 ? 9 : 7;
-    ctx.roundRect ? (ctx.roundRect(-bw, -7, bw * 2, 13, 3), ctx.fill())
-                  : ctx.fillRect(-bw, -7, bw * 2, 13);
-    ctx.fillStyle = "#fff"; ctx.font = "700 10px 'Barlow Condensed',sans-serif";
-    ctx.textAlign = "center"; ctx.fillText(String(r.h.n), 0, 3);
-    ctx.restore();
-    // poussière derrière les 3 premiers
-    if (state.phase === "run" && Math.random() < 0.25) {
-      var back = point(d - 10, r.lane);
-      state.dust.push({ x: back.x, y: back.y, a: 0.35, r: 1.5 + Math.random() * 2 });
-    }
-  }
-
-  function drawDust() {
-    state.dust = state.dust.filter(function (p) { return p.a > 0.02; });
-    state.dust.forEach(function (p) {
-      ctx.fillStyle = "rgba(222,214,190," + p.a + ")";
-      ctx.beginPath(); ctx.arc(p.x, p.y - (0.35 - p.a) * 18, p.r, 0, Math.PI * 2); ctx.fill();
-      p.a *= 0.92; p.r += 0.25;
-    });
-  }
-
-  function drawConfetti() {
-    state.confetti.forEach(function (c) {
-      ctx.save();
-      ctx.translate(c.x, c.y); ctx.rotate(c.rot);
-      ctx.fillStyle = c.col; ctx.fillRect(-c.s / 2, -c.s / 4, c.s, c.s / 2);
-      ctx.restore();
-      c.x += c.vx; c.y += c.vy; c.vy += 0.08; c.rot += c.vr;
-    });
-    state.confetti = state.confetti.filter(function (c) { return c.y < H + 20; });
-  }
-
-  function spawnConfetti() {
-    var cols = ["#e4322b", "#e8b64c", "#2f7d46", "#1e4fd8", "#f26522", "#ffffff"];
-    for (var i = 0; i < 160; i++) {
-      state.confetti.push({
-        x: Math.random() * W, y: -20 - Math.random() * 160,
-        vx: (Math.random() - 0.5) * 1.6, vy: 1 + Math.random() * 2.4,
-        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.25,
-        s: 6 + Math.random() * 6, col: cols[(Math.random() * cols.length) | 0]
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
       });
+    }, { threshold: 0.15 });
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) { el.classList.add("in"); });
+  }
+
+  /* compteurs animés */
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+    var t0 = null, dur = 1100;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      var eased = 1 - Math.pow(1 - k, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (k < 1) requestAnimationFrame(frame);
     }
+    requestAnimationFrame(frame);
   }
-
-  /* =============== CLASSEMENT + COMMENTAIRES =============== */
-  var stBox = $("qsStandings"), rows = {};
-  function buildRows() {
-    stBox.innerHTML = ""; rows = {};
-    HORSES.forEach(function (h) {
-      var r = document.createElement("div");
-      r.className = "qs-strow";
-      r.innerHTML = '<span class="pos">–</span><span class="qs-silk" style="background:' + h.c[0] + '"></span>' +
-        '<span class="num">' + h.n + '</span><span class="nm">' + h.name + '</span><span class="gap"></span>';
-      stBox.appendChild(r); rows[h.n] = r;
-    });
-    stBox.style.height = (HORSES.length * 27) + "px";
-    layoutRows(runners.slice());
-  }
-  function layoutRows(sorted) {
-    sorted.forEach(function (r, i) {
-      var el = rows[r.h.n]; if (!el) return;
-      el.style.top = (i * 27) + "px";
-      el.classList.toggle("qs-top5", i < 5);
-      el.querySelector(".pos").textContent = (i + 1) + "";
-      var lead = sorted[0];
-      // 1 longueur ≈ 2,4 m ; après la ligne, l'écart se fige au temps de passage
-      var leadM = lead.finished ? DIST : lead.m;
-      var selfM = r.finished ? DIST : r.m;
-      var gapL = (leadM - selfM) / 2.4;
-      if (lead.finished && r.finished) gapL = (r.fTime - lead.fTime) * BASE_V / 2.4;
-      el.querySelector(".gap").textContent =
-        i === 0 ? "tête" : gapL < 0.25 ? "nez" : "+" + (gapL < 10 ? gapL.toFixed(1) : Math.round(gapL)) + " L";
+  if ("IntersectionObserver" in window) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), function (el) { cio.observe(el); });
+  } else {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), function (el) {
+      el.textContent = el.getAttribute("data-count");
     });
   }
+})();
 
-  var feed = $("qsFeed");
-  function say(txt, hot) {
-    var p = document.createElement("p");
-    if (hot) p.className = "qs-hotline";
-    p.textContent = txt;
-    feed.insertBefore(p, feed.firstChild);
-    while (feed.children.length > 30) feed.removeChild(feed.lastChild);
-  }
+</script>
+<script>
+/* =========================================================
+   AgenTurf — moteur du simulateur Quinté+
+   Basé sur la maquette validée ; les données viennent de
+   window.QUINTE_SIM_CFG.race (JSON « Quinté du jour »).
+   Ajouts : compte à rebours, photo-finish, confettis.
+   ========================================================= */
+(function () {
+"use strict";
 
-  var MILES = [
-    { m: 100, f: function (s) { return "Top départ ! Bonne sortie de stalles, " + s[0].h.name + " et " + s[1].h.name + " impriment le tempo."; } },
-    { m: DIST - 2000, f: function (s) { return "Passage devant les tribunes : " + s[0].h.name + " mène, " + s[1].h.name + " dans son sillage, " + s[2].h.name + " bien placé à la corde."; } },
-    { m: DIST - 1600, f: function (s) { return "Mi-course. Le train est " + (scenario.pace === "rapide" ? "très soutenu" : scenario.pace === "lent" ? "faux, tout le monde se regarde" : "régulier") + ". " + s[s.length - 1].h.name + " ferme la marche."; } },
-    { m: DIST - 1000, f: function (s) { return "Dernier tournant en vue ! " + s[0].h.name + " toujours devant, " + s[3].h.name + " et " + s[4].h.name + " se rapprochent à l'extérieur."; } },
-    { m: DIST - 600, f: function (s) { return "600 mètres ! " + s[1].h.name + " attaque " + s[0].h.name + " — les finisseurs se lancent !"; }, hot: true },
-    { m: DIST - 400, f: function (s) { return "Ligne droite finale ! " + s[0].h.name + " résiste, " + s[1].h.name + " revient très fort !"; }, hot: true },
-    { m: DIST - 200, f: function (s) { return "Derniers 200 mètres — " + s[0].h.name + ", " + s[1].h.name + ", " + s[2].h.name + ", ils sont trois pour la gagne !"; }, hot: true }
-  ];
-  var nextMile = 0;
+const CFG = window.QUINTE_SIM_CFG || {};
+const RACE = CFG.race || {};
+const HORSES = RACE.horses || [];
+const SCENARIOS = RACE.scenarios || [];
+const META = RACE.meta || {};
+const DIST = META.distance || 2400;
+if (!HORSES.length || !document.getElementById("cv")) return;
 
-  function onFinish(r) {
-    var pos = state.order.length;
-    if (pos === 1) {
-      $("qsFlash").classList.add("qs-on");
-      setTimeout(function () { $("qsFlash").classList.remove("qs-on"); }, 160);
-      var margin = runners.filter(function (x) { return !x.finished; })
-        .reduce(function (mx, x) { return Math.max(mx, x.m); }, 0);
-      var gap = (DIST - margin) / 2.4;
-      say(gap < 0.6 ? "PHOTO-FINISH !!! " + r.h.name + " l'emporte d'un nez !" :
-        r.h.name + " (" + r.h.n + ") s'impose ! " + r.h.jockey + " lève sa cravache !", true);
-      spawnConfetti();
-    } else if (pos <= 5) {
-      say(pos + "e : " + r.h.name + " (" + r.h.n + ").");
-    }
-    if (pos === 5) showResult();
-  }
+let scenario = SCENARIOS[0];
+const $ = id => document.getElementById(id);
 
-  function showResult() {
-    var top5 = state.order.slice(0, 5);
-    var combo = $("qsCombo");
-    combo.innerHTML = "";
-    top5.forEach(function (r, i) {
-      var n = document.createElement("div");
-      n.className = "n"; n.style.background = r.h.c[0];
-      n.style.animationDelay = (i * 0.18) + "s";
-      n.textContent = r.h.n;
-      combo.appendChild(n);
-    });
-    var list = $("qsResList"); list.innerHTML = "";
-    standings().forEach(function (r) {
-      var li = document.createElement("li");
-      li.innerHTML = "<b>" + r.h.name + "</b> (" + r.h.n + ") — " + r.h.jockey;
-      list.appendChild(li);
-    });
-    var box = $("qsResultbox");
-    box.classList.add("qs-show");
-    box.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    // fin d'essai gratuit -> proposer l'inscription après la 1re course
-    if (!LOGGED && usedRuns() >= FREE_RUNS) setTimeout(showGate, 3800);
-  }
+/* ---------- scénarios ---------- */
+const scBox = $("scenarios");
+SCENARIOS.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.className = "scn" + (i === 0 ? " active" : "");
+  b.innerHTML = `<h3>${s.title}</h3><p>${s.desc}</p><span class="prob">Probabilité estimée ${s.prob}</span>`;
+  b.onclick = () => {
+    document.querySelectorAll(".scn").forEach(x => x.classList.remove("active"));
+    b.classList.add("active"); scenario = s; resetRace(true);
+    say(`Scénario chargé : ${s.title.replace(/^[①-⑳] /, "")}. Lance la course !`, true);
+  };
+  scBox.appendChild(b);
+});
 
-  /* =============== BOUCLE PRINCIPALE =============== */
-  var last = 0, raf = 0;
-  function loop(ts) {
-    if (!last) last = ts;
-    var dt = Math.min(0.05, (ts - last) / 1000) * state.mult;
-    last = ts;
-    if (state.phase === "run") tick(dt);
-    drawTrack();
-    drawDust();
-    standings().slice().reverse().forEach(drawHorse);
-    drawConfetti();
-    if (state.phase === "run") {
-      var lead = standings()[0];
-      var rest = DIST - lead.m;
-      var hud = $("qsHudDist");
-      hud.textContent = rest <= 210 ? "DERNIERS 200 M !" : fmtM(rest) + " m à parcourir";
-      hud.classList.toggle("qs-hot", rest <= 210);
-      if (nextMile < MILES.length && lead.m >= MILES[nextMile].m) {
-        var s = standings();
-        say(MILES[nextMile].f(s), !!MILES[nextMile].hot);
-        nextMile++;
-      }
-      if ((loop.k = (loop.k || 0) + 1) % 12 === 0) layoutRows(standings());
-      if (state.order.length >= HORSES.length) state.phase = "done";
-    }
-    if (state.phase !== "idle" || state.confetti.length) raf = requestAnimationFrame(loop);
-    else { raf = 0; last = 0; }
-  }
-  function ensureLoop() { if (!raf) { last = 0; raf = requestAnimationFrame(loop); } }
+/* ---------- fiches partants ---------- */
+const cards = $("cards");
+HORSES.forEach(h => {
+  const d = document.createElement("div"); d.className = "horse";
+  const tags = (h.tags || []).map(t => `<span class="tag ${t[0]}">${t[1]}</span>`).join("");
+  d.innerHTML = `
+   <div class="silkbig" style="background:${h.c[0]}"><span>${h.n}</span></div>
+   <div>
+     <h4>${h.name}</h4>
+     <div class="sub">${h.jockey} · ${h.w} kg · corde ${h.draw} · val. ${h.val} · cote ${h.odds}</div>
+     <p>${h.note}</p>${tags}
+   </div>`;
+  cards.appendChild(d);
+});
 
-  /* =============== CONTRÔLES =============== */
-  var btnStart = $("qsStart"), btnReset = $("qsReset"), selSpeed = $("qsSpeedSel");
-  selSpeed.addEventListener("change", function () { state.mult = parseFloat(selSpeed.value); });
-  state.mult = parseFloat(selSpeed.value);
+/* =========================================================
+   MOTEUR DE COURSE
+   ========================================================= */
+const cv = $("cv"), ctx = cv.getContext("2d");
+const W = 1020, H = 560;
 
-  btnStart.addEventListener("click", function () {
-    if (state.phase !== "idle") return;
-    if (!canRun()) { showGate(); return; }
-    if (!LOGGED) addRun();
-    startCountdown();
+/* --- géométrie piste : stade, sens horaire (corde à droite) --- */
+const T = { cx: W / 2, cy: H / 2 + 18, straight: 330, r: 150, lanes: 15, laneW: 8.5 };
+const PERIM = 2 * T.straight + 2 * Math.PI * T.r;
+function TP(d, lane) {
+  const R = T.r + lane * T.laneW;
+  const hs = T.straight / 2;
+  const arc = Math.PI * T.r;
+  let s = ((d % PERIM) + PERIM) % PERIM;
+  const cl = T.cx - hs, cr = T.cx + hs;
+  if (s < hs) return { x: T.cx - s, y: T.cy + R, ang: Math.PI };
+  s -= hs;
+  if (s < arc) { const f = s / arc;
+    return { x: cl - R * Math.sin(f * Math.PI), y: T.cy + R * Math.cos(f * Math.PI) }; }
+  s -= arc;
+  if (s < T.straight) return { x: cl + s, y: T.cy - R };
+  s -= T.straight;
+  if (s < arc) { const f = s / arc;
+    return { x: cr + R * Math.sin(f * Math.PI), y: T.cy - R * Math.cos(f * Math.PI) }; }
+  s -= arc;
+  return { x: cr - s, y: T.cy + R };
+}
+
+const M = PERIM / DIST; // 1 tour = la distance du jour, arrivée au centre de la droite basse
+
+let runners = [], running = false, finished = false, raf = null, tSim = 0;
+let commentFlags = {}, finishCount = 0, confetti = [];
+const closerNames = HORSES.filter(h => h.style === "closer").map(h => h.name).slice(0, 2).join(" et ") || "les finisseurs";
+
+function styleProfile(style) {
+  if (style === "leader")  return f => f < .25 ? 1.045 : f < .75 ? 1.005 : .974;
+  if (style === "stalker") return f => f < .25 ? 1.015 : f < .8 ? 1.0 : 1.014;
+  if (style === "closer")  return f => f < .3 ? .958 : f < .72 ? .992 : 1.05;
+  return f => 1.0;
+}
+
+function resetRace(soft) {
+  cancelAnimationFrame(raf); running = false; finished = false; tSim = 0;
+  commentFlags = {}; finishCount = 0; confetti = [];
+  $("resultbox").style.display = "none";
+  $("btnStart").disabled = false;
+  $("count").innerHTML = "";
+  const chaos = scenario.chaos || 1;
+  runners = HORSES.map(h => {
+    const bias = (scenario.bias && scenario.bias[h.n]) || 1;
+    const wAdj = (56 - h.w) * 0.9;
+    const drawAdj = h.draw >= 12 ? -1.6 : h.draw <= 4 ? .7 : 0;
+    const base = (h.ab + wAdj + drawAdj) * bias;
+    const luck = 1 + (Math.random() * 2 - 1) * 0.028 * h.vol * chaos;
+    return {
+      h, prof: styleProfile(h.style),
+      /* écart d'aptitude compressé (x0.35) pour des arrivées serrées et réalistes */
+      speed0: 16.2 * (1 + (base / 86 - 1) * 0.35) * luck,
+      dist: 0, done: false, timeFin: 0,
+      lane: 1 + Math.min(h.draw - 1, 10) * 0.32 + Math.random() * .3,
+      phase: Math.random() * Math.PI * 2,
+      wob: .8 + Math.random() * .6,
+    };
   });
-  btnReset.addEventListener("click", function () {
-    if (!canRun() && state.phase !== "idle") { /* laisse finir */ }
-    resetRace();
-    say("Nouvelle simulation prête. Même scénario, nouvelle histoire — lance la course !");
+  if (!soft) say("Nouvelle simulation prête. Les chevaux retournent aux stalles.", false);
+  drawFrame(0);
+  renderStandings();
+}
+
+function say(txt, hot) {
+  const p = document.createElement("p"); p.textContent = txt; if (hot) p.className = "hot";
+  $("feed").appendChild(p);
+  $("feed").scrollTop = 0;
+}
+
+function renderStandings() {
+  const order = [...runners].sort((a, b) => b.dist - a.dist);
+  const lead = order[0]?.dist || 0;
+  $("standings").innerHTML = order.slice(0, 8).map((r, i) => {
+    const back = (lead - r.dist) / 2.6;
+    return `<div class="strow">
+      <span class="pos">${i + 1}${i === 0 ? "ᵉʳ" : "ᵉ"}</span>
+      <span class="silk" style="background:${r.h.c[0]}"></span>
+      <span class="num">${r.h.n}</span> ${r.h.name}
+      <span class="gap">${i === 0 ? (r.done ? "🏁" : "en tête") : back < 0.4 ? "nez" : back.toFixed(1) + " L"}</span>
+    </div>`;
+  }).join("");
+}
+
+/* --- dessin --- */
+function drawTrack() {
+  ctx.clearRect(0, 0, W, H);
+  const sky = ctx.createLinearGradient(0, 0, 0, H * .24);
+  sky.addColorStop(0, "#a8c8e4"); sky.addColorStop(1, "#cfe0cd");
+  ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H * .24);
+  ctx.fillStyle = "#2f7d46"; ctx.fillRect(0, H * .24, W, H * .76);
+  ctx.fillStyle = "rgba(18,32,58,.25)";
+  for (let i = 0; i < 9; i++) ctx.fillRect(70 + i * 32, H * .24 - 26, 22, 26);
+  ctx.fillStyle = "rgba(18,32,58,.5)"; ctx.fillRect(60, H * .24 - 6, 300, 6);
+
+  const inner = T.r - 14, outer = T.r + T.lanes * T.laneW + 16;
+  ring(outer, "#3b8f52"); ring(outer - 3, "#57a86b");
+  ring(outer - 6, "#4f9e63");
+  ringBand(inner, outer - 8, "#57a86b");
+  ringFill(inner, "#2c7040");
+  ring(inner, "#ffffff", 2.5); ring(outer - 8, "#ffffff", 2.5);
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 4; ctx.setLineDash([7, 5]);
+  ctx.beginPath(); ctx.moveTo(T.cx, T.cy + inner + 2); ctx.lineTo(T.cx, T.cy + outer - 8); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = "#e4322b"; ctx.fillRect(T.cx - 2, T.cy + outer - 4, 4, 18);
+  ctx.font = "700 13px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
+  ctx.fillText("ARRIVÉE", T.cx - 26, T.cy + outer + 30);
+  // nom de l'hippodrome au centre
+  ctx.fillStyle = "rgba(255,255,255,.45)";
+  ctx.font = "900 30px 'Barlow Condensed'"; ctx.textAlign = "center";
+  ctx.fillText((META.track || "") + " · " + DIST.toLocaleString("fr-FR") + " M", T.cx, T.cy + 8);
+  ctx.textAlign = "start";
+}
+function ring(R, color, w) {
+  ctx.strokeStyle = color; ctx.lineWidth = w || 6;
+  ctx.beginPath(); tracePath(R); ctx.stroke();
+}
+function ringBand(Ri, Ro, color) {
+  ctx.strokeStyle = color; ctx.lineWidth = Ro - Ri;
+  ctx.beginPath(); tracePath((Ri + Ro) / 2); ctx.stroke();
+}
+function ringFill(R, color) {
+  ctx.fillStyle = color; ctx.beginPath(); tracePath(R); ctx.fill();
+}
+function tracePath(R) {
+  const hs = T.straight / 2, cl = T.cx - hs, cr = T.cx + hs;
+  ctx.moveTo(cr, T.cy - R);
+  ctx.arc(cr, T.cy, R, -Math.PI / 2, Math.PI / 2);
+  ctx.lineTo(cl, T.cy + R);
+  ctx.arc(cl, T.cy, R, Math.PI / 2, Math.PI * 1.5);
+  ctx.closePath();
+}
+
+function drawHorse(r, t) {
+  const pt = TP(r.dist * M, r.lane);
+  const g = r.done ? 0.4 : 1;
+  const bob = Math.sin(t * 14 * r.wob + r.phase) * 1.6 * g;
+  ctx.save();
+  ctx.translate(pt.x, pt.y + bob);
+  const dir = TP(r.dist * M + 4, r.lane);
+  const ang = Math.atan2(dir.y - pt.y, dir.x - pt.x);
+  ctx.rotate(ang);
+  const legT = t * 16 * r.wob + r.phase;
+  ctx.fillStyle = "rgba(0,0,0,.22)"; ctx.beginPath(); ctx.ellipse(0, 7, 11, 3, 0, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#6b4a2b"; ctx.lineWidth = 2;
+  for (let i = 0; i < 4; i++) {
+    const sw = Math.sin(legT + i * Math.PI / 1.6) * 4 * g;
+    ctx.beginPath(); ctx.moveTo(-6 + i * 4, 3); ctx.lineTo(-6 + i * 4 + sw, 8); ctx.stroke();
+  }
+  ctx.fillStyle = "#8a5a33"; ctx.beginPath(); ctx.ellipse(0, 0, 11, 4.6, 0, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#5d3d21"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(-10, -1); ctx.lineTo(-14, 2); ctx.stroke();
+  ctx.fillStyle = "#8a5a33"; ctx.beginPath(); ctx.ellipse(11, -3, 4.6, 2.6, .5, 0, 7); ctx.fill();
+  ctx.fillStyle = r.h.c[0]; ctx.beginPath(); ctx.ellipse(0, -6, 4.6, 4, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = r.h.c[1]; ctx.beginPath(); ctx.arc(1, -9.5, 2.4, 0, 7); ctx.fill();
+  ctx.restore();
+  ctx.font = "700 11px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
+  ctx.strokeStyle = "rgba(0,0,0,.6)"; ctx.lineWidth = 2.5;
+  ctx.strokeText(r.h.n, pt.x - 4, pt.y - 12 + bob); ctx.fillText(r.h.n, pt.x - 4, pt.y - 12 + bob);
+}
+
+/* --- confettis (arrivée du vainqueur) --- */
+function spawnConfetti() {
+  const cols = ["#e4322b", "#e8b64c", "#2f7d46", "#1e4fd8", "#f26522", "#ffffff"];
+  for (let i = 0; i < 150; i++) {
+    confetti.push({
+      x: Math.random() * W, y: -20 - Math.random() * 140,
+      vx: (Math.random() - .5) * 1.6, vy: 1 + Math.random() * 2.4,
+      rot: Math.random() * Math.PI, vr: (Math.random() - .5) * .25,
+      s: 6 + Math.random() * 6, col: cols[(Math.random() * cols.length) | 0]
+    });
+  }
+}
+function drawConfetti() {
+  confetti.forEach(c => {
+    ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.rot);
+    ctx.fillStyle = c.col; ctx.fillRect(-c.s / 2, -c.s / 4, c.s, c.s / 2);
+    ctx.restore();
+    c.x += c.vx; c.y += c.vy; c.vy += 0.07; c.rot += c.vr;
   });
+  confetti = confetti.filter(c => c.y < H + 20);
+}
 
-  function startCountdown() {
-    state.phase = "count";
-    btnStart.disabled = true;
-    var cd = $("qsCount"), n = 3;
-    say("Ils sont tous dans les stalles… concentration à " + (DATA.meta.track || "l'hippodrome") + ".");
-    (function step() {
-      cd.innerHTML = "<span>" + (n > 0 ? n : "PARTEZ !") + "</span>";
-      if (n < 0) { cd.innerHTML = ""; startRace(); return; }
-      n--; setTimeout(step, 850);
-    })();
-    ensureLoop();
-  }
-
-  function startRace() {
-    state.phase = "run";
-    nextMile = 0;
-    ensureLoop();
-  }
-
-  function resetRace() {
-    state.phase = "idle"; state.t = 0; state.order = [];
-    state.confetti = []; state.dust = []; nextMile = 0;
-    makeRunners(); buildRows();
-    btnStart.disabled = false;
-    $("qsResultbox").classList.remove("qs-show");
-    $("qsHudDist").textContent = fmtM(DIST) + " m à parcourir";
-    $("qsHudDist").classList.remove("qs-hot");
-    $("qsCount").innerHTML = "";
-    drawTrack();
-    standings().slice().reverse().forEach(drawHorse);
-  }
-
-  /* =============== PORTE FREEMIUM =============== */
-  var gate = $("qsGate");
-  function showGate() { gate.hidden = false; }
-  gate.addEventListener("click", function (e) { if (e.target === gate) gate.hidden = true; });
-  $("qsGateLater").addEventListener("click", function () { gate.hidden = true; });
-  $("qsGoogleBtn").setAttribute("href", LOGIN_URL);
-
-  /* =============== GO =============== */
-  makeRunners(); buildRows();
+function drawFrame(t) {
   drawTrack();
-  standings().slice().reverse().forEach(drawHorse);
-  say("Les partants se dirigent vers les stalles… choisis un scénario et lance la course.");
+  [...runners].sort((a, b) => a.lane - b.lane).forEach(r => drawHorse(r, t));
+  drawConfetti();
+}
+
+/* --- boucle --- */
+const paceMap = { lent: .97, normal: 1, rapide: 1.035 };
+function step() {
+  if (!running) return;
+  const mult = parseFloat($("speed").value);
+  const dt = (1 / 60) * mult;
+  tSim += dt;
+  const paceK = paceMap[scenario.pace || "normal"];
+  const chaos = scenario.chaos || 1;
+
+  const leadDist = runners.reduce((m, r) => Math.max(m, r.dist), 0);
+  let allDone = true;
+  runners.forEach(r => {
+    if (r.done) return;
+    allDone = false;
+    const f = r.dist / DIST;
+    const prof = r.prof(f);
+    const fatigue = 1 - Math.max(0, f - .85) * 0.10 * (r.h.w - 51) / 9;
+    const noise = 1 + (Math.random() * 2 - 1) * 0.012 * chaos;
+    /* aspiration : un cheval décroché profite du sillage et recolle au peloton */
+    const catchup = 1 + Math.min(0.05, Math.max(0, leadDist - r.dist) * (f > 0.7 ? 0.0011 : 0.0006));
+    const v = r.speed0 * prof * fatigue * noise * paceK * catchup;
+    r.dist += v * dt;
+    if (f > 0.28 && r.lane > 1.2) r.lane -= dt * 0.55;
+    if (r.dist >= DIST) {
+      r.done = true; r.timeFin = tSim;
+      finishCount++;
+      if (finishCount === 1) { // photo-finish + confettis pour le vainqueur
+        $("flash").classList.add("on");
+        setTimeout(() => $("flash").classList.remove("on"), 160);
+        spawnConfetti();
+      }
+    }
+  });
+
+  const lead = [...runners].sort((a, b) => b.dist - a.dist);
+  const L = lead[0];
+  const mark = (m, txt, hot) => { if (L.dist >= m && !commentFlags[m]) { commentFlags[m] = 1; say(txt(L), hot); } };
+  mark(30,   l => `🏁 C'est parti pour le ${META.title || "Quinté du jour"} ! ${l.h.name} (${l.h.n}) prend les devants au premier passage.`, true);
+  mark(500,  l => `Après 500 m, ${l.h.name} imprime le rythme. ${lead[1].h.name} et ${lead[2].h.name} sont dans son sillage, le peloton est groupé.`);
+  mark(DIST / 2, l => `Mi-course ! ${l.h.name} toujours aux avant-postes. Les finisseurs comme ${closerNames} patientent à l'arrière.`);
+  mark(DIST - 600, l => `Dernier tournant ! ${l.h.name} attaque la corde, ${lead[1].h.name} vient le défier à l'extérieur — ça se déploie sur toute la piste !`, true);
+  mark(DIST - 300, l => `Plus que 300 mètres ! ${l.h.name} résiste, mais ${lead[1].h.name} et ${lead[2].h.name} reviennent très fort !`, true);
+  mark(DIST - 60,  l => `ILS SE JETTENT SUR LE POTEAU ! ${l.h.name} d'un côté, ${lead[1].h.name}… photo demandée !`, true);
+
+  $("hudDist").textContent = L.done ? "Arrivée !" : `${Math.max(0, Math.round(DIST - L.dist))} m à parcourir · ${tSim.toFixed(0)}s`;
+
+  drawFrame(tSim);
+  renderStandings();
+
+  if (allDone) { running = false; showResult(); confettiDrain(); return; }
+  raf = requestAnimationFrame(step);
+}
+
+/* laisse les confettis retomber après la course */
+function confettiDrain() {
+  if (!confetti.length || running) return;
+  drawFrame(tSim);
+  requestAnimationFrame(confettiDrain);
+}
+
+function showResult() {
+  finished = true;
+  const order = [...runners].sort((a, b) => a.timeFin - b.timeFin);
+  const top5 = order.slice(0, 5);
+  $("combo").innerHTML = top5.map((r, i) =>
+    `<div class="n" style="background:${r.h.c[0]};animation-delay:${i * 0.18}s">${r.h.n}</div>`).join("");
+  $("resList").innerHTML = order.slice(0, 7).map((r, i) => {
+    const gap = i === 0 ? `en ${fmtTime(r.timeFin)}` : `à ${((r.timeFin - order[0].timeFin) * 4.2).toFixed(1)} L`;
+    return `<li><b>${r.h.n} — ${r.h.name}</b> (${r.h.jockey}, ${r.h.w} kg) · ${gap}</li>`;
+  }).join("");
+  $("resultbox").style.display = "block";
+  say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
+  $("resultbox").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+function fmtTime(s) { const mm = Math.floor(s / 60), ss = (s % 60).toFixed(1); return `${mm}'${ss.padStart(4, "0")}"`; }
+
+/* --- compte à rebours puis départ --- */
+function startWithCountdown() {
+  const cd = $("count");
+  let n = 3;
+  $("btnStart").disabled = true;
+  say("Ils sont tous dans les stalles… concentration à " + (META.track || "l'hippodrome") + ".");
+  (function stepCd() {
+    cd.innerHTML = `<span>${n > 0 ? n : "PARTEZ !"}</span>`;
+    if (n < 0) {
+      cd.innerHTML = "";
+      running = true;
+      say(`Les stalles s'ouvrent… scénario « ${scenario.title.replace(/^[①-⑳] /, "")} » !`, true);
+      raf = requestAnimationFrame(step);
+      return;
+    }
+    n--; setTimeout(stepCd, 850);
+  })();
+}
+
+$("btnStart").onclick = () => {
+  if (running) return;
+  if (finished) resetRace(true);
+  startWithCountdown();
+};
+$("btnReset").onclick = () => resetRace(false);
+
+resetRace(true);
+})();
+
+</script>
+<script>
+
+/* Démo : connexion Google simulée */
+(function(){
+  var KEY='agenturf_demo_logged';
+  function showApp(){
+    document.getElementById('landing').style.display='none';
+    document.getElementById('simapp').style.display='block';
+    document.getElementById('tbLogin').style.display='none';
+    document.getElementById('tbLogout').style.display='';
+    window.scrollTo(0,0);
+    window.dispatchEvent(new Event('scroll'));
+  }
+  function showLanding(){
+    localStorage.removeItem(KEY);
+    document.getElementById('landing').style.display='';
+    document.getElementById('simapp').style.display='none';
+    document.getElementById('tbLogin').style.display='';
+    document.getElementById('tbLogout').style.display='none';
+    window.scrollTo(0,0);
+  }
+  document.getElementById('googleBtn').addEventListener('click',function(e){
+    e.preventDefault(); localStorage.setItem(KEY,'1'); showApp();
+  });
+  document.getElementById('tbLogin').addEventListener('click',function(e){
+    e.preventDefault();
+    document.getElementById('acces').scrollIntoView({behavior:'smooth'});
+  });
+  document.getElementById('tbLogout').addEventListener('click',function(e){
+    e.preventDefault(); showLanding();
+  });
+  if(localStorage.getItem(KEY)==='1') showApp();
 })();
 
 </script>

@@ -1,0 +1,74 @@
+<?php
+/** Simulateur — membres connectés. Le markup reprend la maquette validée ; les textes viennent du JSON du jour. */
+$race = agenturf_race_data();
+$meta = $race['meta'];
+$nb   = count( $race['horses'] );
+?>
+<div class="wrap" id="simapp">
+
+	<header class="card">
+		<div class="eyebrow"><?php echo esc_html( $meta['eyebrow'] ); ?></div>
+		<h1 class="racetitle"><?php echo esc_html( $meta['title'] ); ?><br><?php echo esc_html( $meta['subtitle'] ); ?></h1>
+		<div class="meta">
+			<?php foreach ( (array) $meta['info'] as $info ) : ?>
+				<span><?php echo wp_kses( $info, array( 'b' => array() ) ); ?></span>
+			<?php endforeach; ?>
+		</div>
+	</header>
+
+	<section class="sim-section">
+		<h2 class="sim-h2"><span class="tick"></span>Choisis ton scénario <small>chaque scénario recalibre la simulation</small></h2>
+		<div class="scenarios" id="scenarios"></div>
+	</section>
+
+	<section class="sim-section">
+		<h2 class="sim-h2"><span class="tick"></span>La course en direct</h2>
+		<div class="trackbox">
+			<canvas id="cv" width="1020" height="560"></canvas>
+			<div class="hud">
+				<div class="badge" id="hudDist"><?php echo esc_html( number_format( (int) $meta['distance'], 0, ',', ' ' ) ); ?> m à parcourir</div>
+				<div class="badge"><?php echo esc_html( $meta['track'] ); ?> <em>·</em> <?php echo esc_html( $meta['code'] ); ?></div>
+			</div>
+			<div class="count" id="count"></div>
+			<div class="flash" id="flash"></div>
+		</div>
+		<div class="controls">
+			<button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
+			<button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
+			<div class="speedctl">Vitesse
+				<select id="speed">
+					<option value="1">Réelle ×1</option>
+					<option value="2" selected>Rapide ×2</option>
+					<option value="4">Turbo ×4</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="live">
+			<div class="panel">
+				<h3>Classement en direct</h3>
+				<div id="standings"></div>
+			</div>
+			<div class="panel">
+				<h3>Commentaires — micro <?php echo esc_html( $meta['track'] ); ?></h3>
+				<div id="feed"><p>Les partants se dirigent vers les stalles… choisis un scénario et lance la course.</p></div>
+			</div>
+		</div>
+
+		<div id="resultbox">
+			<div class="arrivee">
+				<h3>Arrivée officielle — combinaison Quinté+</h3>
+				<div class="combo" id="combo"></div>
+				<ol id="resList"></ol>
+				<p class="note">Simulation basée sur les valeurs handicap, poids, musiques, cordes et avis entraîneurs du jour. Chaque lancement produit une arrivée différente — comme la vraie course, rien n'est garanti.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="sim-section">
+		<h2 class="sim-h2"><span class="tick"></span>Les <?php echo (int) $nb; ?> partants décryptés <small>valeur · poids · style de course · avis</small></h2>
+		<div class="grid" id="cards"></div>
+	</section>
+
+	<p class="disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
+</div>
