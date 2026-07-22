@@ -12,7 +12,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.3.0
+Version: 1.5.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -899,6 +899,98 @@ function renderStandings() {
   }
 }
 
+
+/* =========================================================
+   PEINTRE DE CHEVAL — silhouette réaliste partagée
+   Profil vers +x, ~44 px de long à l'échelle 1.
+   Galop transversal 4 temps, robes variées, tapis de selle
+   aux couleurs de la casaque avec le numéro.
+   ========================================================= */
+const ROBES = [
+  ["#8a5a33", "#6f4526"], ["#6f4a26", "#54371c"], ["#4a3019", "#38240f"],
+  ["#9b6f45", "#7d5735"], ["#83838d", "#6a6a74"], ["#5c4030", "#463023"]
+];
+function paintHorse(g, r, t, moving) {
+  const h = r.h;
+  const robe = ROBES[h.n % ROBES.length];
+  const cyc = (t * 2.1 * r.wob + r.phase / 3) % 1;
+  const P2 = Math.PI * 2;
+  const rock = moving ? Math.sin(cyc * P2) * 0.05 : 0;
+  g.rotate(rock);
+
+  drawLegPair(g, cyc, robe[1], true, moving);
+  g.strokeStyle = robe[1]; g.lineWidth = 2.6; g.lineCap = "round";
+  g.beginPath(); g.moveTo(-13, -4);
+  g.bezierCurveTo(-17, -2 + Math.sin(t * 3 + r.phase) * 1.5, -19, 2, -18.5, 6 + Math.sin(t * 2.2 + r.phase) * 1.5);
+  g.stroke();
+
+  const grad = g.createLinearGradient(0, -6, 0, 6);
+  grad.addColorStop(0, robe[0]); grad.addColorStop(1, robe[1]);
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(-8, -0.5, 6.4, 4.8, -0.12, 0, P2); g.fill();
+  g.beginPath(); g.ellipse(0, 0, 8.5, 4.9, 0, 0, P2); g.fill();
+  g.beginPath(); g.ellipse(7.5, -0.6, 5.6, 4.4, 0.1, 0, P2); g.fill();
+  g.beginPath();
+  g.moveTo(6, -4);
+  g.quadraticCurveTo(12, -7.5, 15.5, -8.5);
+  g.lineTo(17.5, -5.5);
+  g.quadraticCurveTo(12.5, -3.5, 9, -0.5);
+  g.closePath(); g.fill();
+  g.beginPath(); g.ellipse(17.6, -7.6, 3.6, 1.9, 0.32, 0, P2); g.fill();
+  g.beginPath(); g.ellipse(20.8, -6.6, 1.6, 1.05, 0.32, 0, P2); g.fill();
+  g.strokeStyle = robe[1]; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(16.6, -9.4); g.lineTo(17.4, -11.2); g.stroke();
+  g.lineWidth = 2;
+  g.beginPath(); g.moveTo(8, -4.6); g.quadraticCurveTo(12, -7.8, 15.6, -9); g.stroke();
+
+  g.fillStyle = h.c[0];
+  g.beginPath();
+  g.moveTo(-4.5, -3.4); g.lineTo(2.5, -3.4); g.lineTo(3.2, 3.4); g.lineTo(-5.2, 3.4);
+  g.closePath(); g.fill();
+  g.strokeStyle = "rgba(255,255,255,.75)"; g.lineWidth = .7; g.stroke();
+  g.fillStyle = "#fff"; g.font = "700 4.6px 'Barlow Condensed'";
+  g.textAlign = "center";
+  const flipX = g.getTransform().a < 0 ? -1 : 1; // annule le miroir pour le texte
+  g.save(); g.translate(-1, 1.8); g.scale(flipX, 1); g.fillText(String(h.n), 0, 0); g.restore();
+  g.textAlign = "start";
+
+  drawLegPair(g, cyc, robe[0], false, moving);
+
+  g.strokeStyle = "#20242c"; g.lineWidth = 1.6;                       // jambe + botte
+  g.beginPath(); g.moveTo(-0.4, -4.6); g.lineTo(0.8, -0.2); g.lineTo(2.6, 0.4); g.stroke();
+  g.fillStyle = h.c[0];                                               // buste compact penché
+  g.beginPath(); g.ellipse(0.2, -7.6, 3.9, 2.5, -0.55, 0, P2); g.fill();
+  g.strokeStyle = h.c[0]; g.lineWidth = 1.3;                          // bras fin vers les rênes
+  g.beginPath(); g.moveTo(2.4, -6.8); g.quadraticCurveTo(6, -6.2, 9.2, -5.2); g.stroke();
+  g.strokeStyle = "rgba(0,0,0,.5)"; g.lineWidth = .6;                 // rêne
+  g.beginPath(); g.moveTo(9.2, -5.2); g.lineTo(18.2, -6.4); g.stroke();
+  g.fillStyle = "#f5e9d8";                                            // nuque/visage esquissé
+  g.beginPath(); g.arc(3.4, -9.6, 1.1, 0, P2); g.fill();
+  g.fillStyle = h.c[1];                                               // casque devant
+  g.beginPath(); g.arc(3.6, -10.3, 2, 0, P2); g.fill();
+  g.strokeStyle = "rgba(0,0,0,.4)"; g.lineWidth = .7;
+  g.beginPath(); g.arc(3.6, -10.3, 2, 0, P2); g.stroke();
+}
+
+function drawLegPair(g, cyc, color, backSide, moving) {
+  const P2 = Math.PI * 2;
+  g.strokeStyle = color; g.lineWidth = backSide ? 1.9 : 2.3; g.lineCap = "round";
+  const legs = backSide
+    ? [{ hx: 8.6, ph: 0.62, front: true }, { hx: -8.2, ph: 0.12, front: false }]
+    : [{ hx: 7.2, ph: 0.5,  front: true }, { hx: -9.4, ph: 0.0,  front: false }];
+  legs.forEach(L => {
+    const k = moving ? Math.sin((cyc + L.ph) * P2) : 0;
+    const fold = moving ? Math.max(0, Math.sin((cyc + L.ph) * P2 + 1.1)) : 0;
+    const a1 = k * 0.62 + (L.front ? 0.06 : -0.06);
+    const bend = (L.front ? 1 : -1) * (0.3 + fold * 0.9);
+    const kx = L.hx + Math.sin(a1) * 4.6, ky = 2.6 + Math.cos(a1) * 4.6;
+    const fx = kx + Math.sin(a1 + bend) * 5.2, fy = ky + Math.cos(a1 + bend) * 5.2;
+    g.beginPath(); g.moveTo(L.hx, 2.2); g.lineTo(kx, ky); g.lineTo(fx, fy); g.stroke();
+    g.fillStyle = "#1c1410";
+    g.beginPath(); g.arc(fx, fy, backSide ? 0.9 : 1.1, 0, P2); g.fill();
+  });
+}
+
 /* --- dessin --- */
 let trackCache = null; // la piste ne bouge pas : rendue une fois hors écran
 function drawTrack() {
@@ -999,64 +1091,31 @@ function tracePathC(c, R) {
 let dust = [];
 function drawHorse(r, t, isLeader) {
   const pt = TP(r.dist * M, r.lane);
-  const g = r.done ? 0.4 : 1;
-  const bob = Math.sin(t * 14 * r.wob + r.phase) * 1.6 * g;
-  // halo doré discret sous le leader
+  const gDone = r.done ? 0.4 : 1;
+  const bob = Math.sin(t * 13 * r.wob + r.phase) * 1.5 * gDone;
   if (isLeader && running) {
     ctx.fillStyle = "rgba(227,182,78,.3)";
-    ctx.beginPath(); ctx.ellipse(pt.x, pt.y + 6, 17, 6, 0, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(pt.x, pt.y + 6, 16, 5.5, 0, 0, 7); ctx.fill();
   }
-  ctx.save();
-  ctx.translate(pt.x, pt.y + bob);
   const dir = TP(r.dist * M + 4, r.lane);
-  const ang = Math.atan2(dir.y - pt.y, dir.x - pt.x);
-  ctx.rotate(ang);
-  const legT = t * 16 * r.wob + r.phase;
-  // ombre
-  ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.beginPath(); ctx.ellipse(0, 7.5, 12, 3, 0, 0, 7); ctx.fill();
-  // jambes au galop (avant / arrière déphasées)
-  ctx.strokeStyle = "#5d3d21"; ctx.lineWidth = 2.1; ctx.lineCap = "round";
-  for (let i = 0; i < 4; i++) {
-    const sw = Math.sin(legT + (i < 2 ? 0 : Math.PI * .9) + i * .5) * 4.6 * g;
-    ctx.beginPath(); ctx.moveTo(-7 + i * 4.6, 3); ctx.lineTo(-7 + i * 4.6 + sw, 8.4); ctx.stroke();
-  }
-  // queue fouettée
-  ctx.strokeStyle = "#4a3019"; ctx.lineWidth = 2.4;
-  ctx.beginPath(); ctx.moveTo(-11, -2);
-  ctx.quadraticCurveTo(-15, 0 + Math.sin(legT) * 1.6, -17, 3.5 + Math.sin(legT * .7) * 1.2);
-  ctx.stroke();
-  // corps en dégradé (robe)
-  const robe = ctx.createLinearGradient(0, -5, 0, 5);
-  robe.addColorStop(0, "#96683c"); robe.addColorStop(1, "#6f4a26");
-  ctx.fillStyle = robe;
-  ctx.beginPath(); ctx.ellipse(0, 0, 11.5, 4.9, 0, 0, 7); ctx.fill();
-  // encolure + tête + oreille
-  ctx.beginPath(); ctx.ellipse(9.5, -3.4, 5.2, 2.9, .55, 0, 7); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(13.6, -5.4, 2.6, 1.5, .5, 0, 7); ctx.fill();
-  ctx.strokeStyle = "#4a3019"; ctx.lineWidth = 1.2;
-  ctx.beginPath(); ctx.moveTo(13.4, -7); ctx.lineTo(14.4, -8.6); ctx.stroke();
-  // crinière
-  ctx.strokeStyle = "#3d2814"; ctx.lineWidth = 1.8;
-  ctx.beginPath(); ctx.moveTo(5, -4.6); ctx.quadraticCurveTo(9, -6.6, 12, -6); ctx.stroke();
-  // jockey : buste penché + bras + casaque
-  ctx.fillStyle = r.h.c[0];
-  ctx.beginPath(); ctx.ellipse(-.5, -6.6, 4.8, 4, -.35, 0, 7); ctx.fill();
-  ctx.strokeStyle = r.h.c[0]; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(2, -6); ctx.lineTo(7.5, -4); ctx.stroke(); // bras vers les rênes
-  ctx.fillStyle = r.h.c[1];
-  ctx.beginPath(); ctx.arc(1.2, -10.4, 2.5, 0, 7); ctx.fill();
-  ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = .8;
-  ctx.beginPath(); ctx.arc(1.2, -10.4, 2.5, 0, 7); ctx.stroke();
+  const dx = dir.x - pt.x, dy = dir.y - pt.y;
+  const face = dx < 0 ? -1 : 1;
+  const tilt = Math.max(-.5, Math.min(.5, Math.atan2(dy, Math.abs(dx) + .001)));
+  ctx.fillStyle = "rgba(0,0,0,.25)";
+  ctx.beginPath(); ctx.ellipse(pt.x, pt.y + 6.5, 12, 2.8, 0, 0, 7); ctx.fill();
+  ctx.save();
+  ctx.translate(pt.x, pt.y + bob * .4);
+  ctx.rotate(tilt * face);
+  ctx.scale(face * 0.62, 0.62);
+  paintHorse(ctx, r, t, running && !r.done);
   ctx.restore();
-  // poussière derrière les sabots
   if (running && !r.done && Math.random() < .3) {
     const back = TP(r.dist * M - 9, r.lane);
     dust.push({ x: back.x, y: back.y + 5, a: .3, s: 1.5 + Math.random() * 2 });
   }
-  // dossard
   ctx.font = "700 11px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
   ctx.strokeStyle = "rgba(0,0,0,.6)"; ctx.lineWidth = 2.5;
-  ctx.strokeText(r.h.n, pt.x - 4, pt.y - 14 + bob); ctx.fillText(r.h.n, pt.x - 4, pt.y - 14 + bob);
+  ctx.strokeText(r.h.n, pt.x - 4, pt.y - 16 + bob); ctx.fillText(r.h.n, pt.x - 4, pt.y - 16 + bob);
 }
 function drawDust() {
   dust = dust.filter(d => d.a > .02);
@@ -1446,51 +1505,28 @@ function drawHorse3D(g, r, t) {
   const raw = TP(r.dist * M, lane3);
   const q = project(raw);
   const q2 = project(TP(r.dist * M + 6, lane3));
-  /* vue de profil : on retourne le sprite selon la direction, avec une
-     légère inclinaison dans les tournants (pas de rotation complète) */
   const dx = q2.x - q.x, dy = q2.y - q.y;
   const face = dx < 0 ? -1 : 1;
   const tilt = Math.max(-.45, Math.min(.45, Math.atan2(dy, Math.abs(dx) + .001)));
   const done = r.done ? 0.4 : 1;
-  const bob = Math.sin(t * 14 * r.wob + r.phase) * 1.6 * done;
-  const sc = q.s * 1.25;
+  const bob = Math.sin(t * 13 * r.wob + r.phase) * 1.5 * done;
+  const sc = q.s * 0.85;
+  g.fillStyle = "rgba(0,0,0,.28)";
+  g.beginPath(); g.ellipse(q.x, q.y + 6 * sc, 13 * sc, 2.6 * sc, 0, 0, 7); g.fill();
   g.save();
   g.translate(q.x, q.y + bob * sc * .4);
   g.rotate(tilt * face);
   g.scale(face * sc, sc);
-  const legT = t * 16 * r.wob + r.phase;
-  g.fillStyle = "rgba(0,0,0,.3)"; g.beginPath(); g.ellipse(0, 6.5, 11, 2.6, 0, 0, 7); g.fill();
-  g.strokeStyle = "#5d3d21"; g.lineWidth = 2; g.lineCap = "round";
-  for (let i = 0; i < 4; i++) {
-    const sw = Math.sin(legT + (i < 2 ? 0 : Math.PI * .9) + i * .5) * 4.4 * done;
-    g.beginPath(); g.moveTo(-7 + i * 4.6, 3); g.lineTo(-7 + i * 4.6 + sw, 8); g.stroke();
-  }
-  g.strokeStyle = "#4a3019"; g.lineWidth = 2.2;
-  g.beginPath(); g.moveTo(-11, -2);
-  g.quadraticCurveTo(-15, Math.sin(legT) * 1.6, -17, 3.5 + Math.sin(legT * .7) * 1.2);
-  g.stroke();
-  const robe = g.createLinearGradient(0, -5, 0, 5);
-  robe.addColorStop(0, "#96683c"); robe.addColorStop(1, "#6f4a26");
-  g.fillStyle = robe;
-  g.beginPath(); g.ellipse(0, 0, 11.5, 4.7, 0, 0, 7); g.fill();
-  g.beginPath(); g.ellipse(9.5, -3.4, 5.2, 2.8, .55, 0, 7); g.fill();
-  g.beginPath(); g.ellipse(13.6, -5.4, 2.6, 1.5, .5, 0, 7); g.fill();
-  g.fillStyle = r.h.c[0];
-  g.beginPath(); g.ellipse(-.5, -6.6, 4.8, 3.9, -.35, 0, 7); g.fill();
-  g.strokeStyle = r.h.c[0]; g.lineWidth = 2;
-  g.beginPath(); g.moveTo(2, -6); g.lineTo(7.5, -4); g.stroke();
-  g.fillStyle = r.h.c[1];
-  g.beginPath(); g.arc(1.2, -10.2, 2.5, 0, 7); g.fill();
+  paintHorse(g, r, t, running && !r.done);
   g.restore();
   // dossard au-dessus (hors miroir, toujours lisible)
   g.font = "700 " + Math.round(10 + 5 * q.d) + "px 'Barlow Condensed'";
   g.textAlign = "center";
   g.fillStyle = "#fff"; g.strokeStyle = "rgba(0,0,0,.65)"; g.lineWidth = 3;
-  g.strokeText(r.h.n, q.x, q.y - 15 * sc);
-  g.fillText(r.h.n, q.x, q.y - 15 * sc);
+  g.strokeText(r.h.n, q.x, q.y - 17 * sc);
+  g.fillText(r.h.n, q.x, q.y - 17 * sc);
   g.textAlign = "start";
 }
-
 
 
 resetRace(true);
