@@ -19,6 +19,116 @@ if (!HORSES.length || !document.getElementById("cv")) return;
 let scenario = SCENARIOS[0];
 const $ = id => document.getElementById(id);
 
+/* =========================================================
+   SON — synthèse Web Audio (aucun fichier, 0 dépendance)
+   Sabots au galop, rumeur de foule qui monte, cloche de
+   départ, clameur d'arrivée. Coupe/active par bouton 🔊.
+   ========================================================= */
+const Sound = (function () {
+  let ctx = null, master = null, noiseBuf = null;
+  let crowdSrc = null, crowdGain = null, hoofTimer = null;
+  let on = false;
+  try { on = localStorage.getItem("qs_sound") !== "0"; } catch (e) { on = true; }
+
+  function ensure() {
+    if (ctx) return true;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = on ? 0.85 : 0.0001;
+    master.connect(ctx.destination);
+    // buffer de bruit rose (réutilisé)
+    const len = ctx.sampleRate * 2;
+    noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0;
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1;
+      b0 = 0.99 * b0 + w * 0.05; b1 = 0.96 * b1 + w * 0.08; b2 = 0.57 * b2 + w * 0.42;
+      d[i] = (b0 + b1 + b2) * 0.3;
+    }
+    return true;
+  }
+  function resume() { if (ctx && ctx.state === "suspended") ctx.resume(); }
+
+  function clop(t, vol) {
+    const s = ctx.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
+    const bp = ctx.createBiquadFilter(); bp.type = "bandpass";
+    bp.frequency.value = 150 + Math.random() * 90; bp.Q.value = 1.4;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.10);
+    s.connect(bp); bp.connect(g); g.connect(master);
+    s.start(t); s.stop(t + 0.12);
+  }
+  function speedMul() { const v = $("speed"); return v ? parseFloat(v.value) || 1 : 1; }
+  function hoofLoop() {
+    if (!ctx) { hoofTimer = null; return; }
+    const stride = Math.max(0.16, 0.5 / speedMul());
+    const t0 = ctx.currentTime + 0.02;
+    [0, 0.12, 0.26, 0.35].forEach((f, i) => clop(t0 + f * stride, i === 0 ? 0.5 : 0.3));
+    hoofTimer = setTimeout(hoofLoop, stride * 1000);
+  }
+  function startCrowd() {
+    if (crowdSrc) return;
+    crowdSrc = ctx.createBufferSource(); crowdSrc.buffer = noiseBuf; crowdSrc.loop = true;
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 900;
+    crowdGain = ctx.createGain(); crowdGain.gain.value = 0.05;
+    crowdSrc.connect(lp); lp.connect(crowdGain); crowdGain.connect(master);
+    crowdSrc.start();
+  }
+
+  return {
+    isOn: () => on,
+    toggle() {
+      on = !on;
+      try { localStorage.setItem("qs_sound", on ? "1" : "0"); } catch (e) {}
+      if (ctx) master.gain.setTargetAtTime(on ? 0.85 : 0.0001, ctx.currentTime, 0.05);
+      return on;
+    },
+    bell() {
+      if (!ensure()) return; resume();
+      const t = ctx.currentTime;
+      [880, 1320].forEach((f, i) => {
+        const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
+        const g = ctx.createGain();
+        const t0 = t + i * 0.12;
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.linearRampToValueAtTime(0.5, t0 + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.4);
+        o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + 0.42);
+      });
+    },
+    start() {
+      if (!ensure()) return; resume();
+      startCrowd();
+      if (!hoofTimer) hoofLoop();
+    },
+    level(p) { // p = progression 0..1 -> rumeur qui monte
+      if (crowdGain && ctx) crowdGain.gain.setTargetAtTime(0.05 + p * p * 0.22, ctx.currentTime, 0.2);
+    },
+    roar() {
+      if (!ctx) return;
+      if (crowdGain) crowdGain.gain.setTargetAtTime(0.34, ctx.currentTime, 0.05);
+      const s = ctx.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 700; bp.Q.value = 0.6;
+      const g = ctx.createGain(); const t = ctx.currentTime;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(0.4, t + 0.15);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+      s.connect(bp); bp.connect(g); g.connect(master); s.start(t); s.stop(t + 1.7);
+      if (crowdGain) crowdGain.gain.setTargetAtTime(0.08, ctx.currentTime + 1.8, 0.6);
+    },
+    stopLoop() {
+      if (hoofTimer) { clearTimeout(hoofTimer); hoofTimer = null; }
+      if (crowdGain && ctx) crowdGain.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.15);
+      if (crowdSrc) { try { crowdSrc.stop(ctx.currentTime + 0.3); } catch (e) {} crowdSrc = null; crowdGain = null; }
+    }
+  };
+})();
+
 /* ---------- scénarios ---------- */
 const scBox = $("scenarios");
 SCENARIOS.forEach((s, i) => {
@@ -122,6 +232,7 @@ function initRunner(h) {
 
 function resetRace(soft) {
   cancelAnimationFrame(raf); running = false; finished = false; tSim = 0;
+  Sound.stopLoop();
   commentFlags = {}; finishCount = 0; confetti = []; dust = [];
   $("resultbox").style.display = "none";
   $("btnStart").disabled = false;
@@ -524,6 +635,7 @@ function step() {
         $("flash").classList.add("on");
         setTimeout(() => $("flash").classList.remove("on"), 160);
         spawnConfetti();
+        Sound.roar();                         // clameur d'arrivée
       }
     }
   });
@@ -541,12 +653,13 @@ function step() {
   const hudTxt = L.done ? "Arrivée !" : `${Math.max(0, Math.round(DIST - L.dist))} m à parcourir · ${tSim.toFixed(0)}s`;
   $("hudDist").textContent = hudTxt;
   if (cinemaOpen && $("cineDist")) $("cineDist").textContent = hudTxt;
+  Sound.level(Math.min(1, L.dist / DIST));    // la rumeur monte vers l'arrivée
 
   drawFrame(tSim);
   if (cinemaOpen) draw3D(tSim);
   renderStandings();
 
-  if (allDone) { running = false; showResult(); confettiDrain(); return; }
+  if (allDone) { running = false; Sound.stopLoop(); showResult(); confettiDrain(); return; }
   raf = requestAnimationFrame(step);
 }
 
@@ -595,9 +708,11 @@ function startWithCountdown() {
   say("Ils sont tous dans les stalles… concentration à " + (META.track || "l'hippodrome") + ".");
   (function stepCd() {
     cd.innerHTML = `<span>${n > 0 ? n : "PARTEZ !"}</span>`;
+    if (n === 0) Sound.bell();               // cloche de départ
     if (n < 0) {
       cd.innerHTML = "";
       running = true;
+      Sound.start();                          // sabots + rumeur de foule
       say(`Les stalles s'ouvrent… scénario « ${scenario.title.replace(/^[①-⑳] /, "")} » !`, true);
       raf = requestAnimationFrame(step);
       return;
@@ -749,9 +864,21 @@ function closeCinema() {
   const el = $("cinema");
   if (el) el.hidden = true;
   document.body.style.overflow = "";
+  if (!running) Sound.stopLoop();
 }
 if ($("cineClose")) $("cineClose").onclick = closeCinema;
 document.addEventListener("keydown", e => { if (e.key === "Escape" && cinemaOpen) closeCinema(); });
+
+/* --- bouton son 🔊/🔇 (page + direct) --- */
+function refreshSoundBtns() {
+  const label = Sound.isOn() ? "🔊 Son" : "🔇 Muet";
+  ["btnSound", "cineSound"].forEach(id => { const b = $(id); if (b) b.textContent = label; });
+}
+["btnSound", "cineSound"].forEach(id => {
+  const b = $(id);
+  if (b) b.onclick = () => { Sound.toggle(); refreshSoundBtns(); };
+});
+refreshSoundBtns();
 
 /* rangée écran (0 = loin/haut près de la lice, 1 = proche/bas près caméra) */
 function horseScreen(r) {

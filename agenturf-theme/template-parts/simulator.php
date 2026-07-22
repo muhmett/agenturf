@@ -36,6 +36,7 @@ $nb   = count( $race['horses'] );
 			<button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
 			<button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
 			<button class="btn btn-mc" id="btnMC">📊 100 courses en 1 clic</button>
+			<button class="btn btn-sound" id="btnSound" type="button">🔊 Son</button>
 			<div class="speedctl">Vitesse
 				<select id="speed">
 					<option value="1">Réelle ×1</option>
@@ -101,6 +102,7 @@ $nb   = count( $race['horses'] );
 				<div class="badge" id="cineDist"></div>
 				<div class="badge"><span class="cine-live">●</span> EN DIRECT · <?php echo esc_html( $meta['track'] ); ?></div>
 			</div>
+			<button type="button" class="cine-sound" id="cineSound">🔊 Son</button>
 			<div class="cine-pos" id="cinePos"></div>
 			<div class="cine-ticker" id="cineTicker"></div>
 			<div class="count" id="cineCount"></div>
