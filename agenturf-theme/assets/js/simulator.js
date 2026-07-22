@@ -721,11 +721,50 @@ function startWithCountdown() {
   })();
 }
 
+function launchRace() {
+  openCinema();
+  playIntroThen(startWithCountdown);
+}
+
+/* interstitiel publicitaire avant la course (1 fois sur N) */
+function maybeShowInterAd(next) {
+  const ad = CFG.interAd || {};
+  const box = $("interAd");
+  const freq = parseInt(ad.freq, 10) || 0;
+  if (!box || freq <= 0 || !(ad.img || ad.title)) { next(); return; }
+  let n = 0;
+  try { n = parseInt(localStorage.getItem("qs_ad_n") || "0", 10) || 0; } catch (e) {}
+  n++;
+  try { localStorage.setItem("qs_ad_n", String(n)); } catch (e) {}
+  if (n % freq !== 0) { next(); return; } // pas cette fois
+
+  $("interTitle").textContent = ad.title || "";
+  $("interTitle").style.display = ad.title ? "" : "none";
+  const img = $("interImg");
+  if (ad.img) { img.src = ad.img; img.style.display = ""; } else { img.style.display = "none"; }
+  $("interBtn").textContent = ad.btn || "Voir l'offre";
+  const link = $("interLink");
+  if (ad.link) { link.href = ad.link; link.style.pointerEvents = ""; } else { link.removeAttribute("href"); }
+  box.hidden = false;
+
+  const skip = Math.max(0, parseInt(ad.skip, 10) || 0);
+  const btn = $("interSkip");
+  let left = skip;
+  const go = () => { box.hidden = true; clearInterval(iv); next(); };
+  const tick = () => {
+    if (left <= 0) { btn.disabled = false; btn.textContent = "Passer et lancer la course ▸"; }
+    else { btn.disabled = true; btn.textContent = "Lancement dans " + left + " s…"; }
+    left--;
+  };
+  tick();
+  const iv = setInterval(() => { tick(); if (left < 0) clearInterval(iv); }, 1000);
+  btn.onclick = go;
+}
+
 $("btnStart").onclick = () => {
   if (running) return;
   if (finished) resetRace(true);
-  openCinema();
-  playIntroThen(startWithCountdown);
+  maybeShowInterAd(launchRace);
 };
 
 /* intro vidéo « ambiance TV » (optionnelle, configurée dans Quinté du jour) */

@@ -6,12 +6,31 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.10.0' );
+define( 'AGENTURF_VERSION', '1.11.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
 define( 'AGENTURF_OPT_CINE', 'agenturf_cine_intro' );
 define( 'AGENTURF_OPT_ACCESS', 'agenturf_access' ); // 'open' (tout le monde) ou 'members' (connexion requise)
+define( 'AGENTURF_OPT_INTER', 'agenturf_inter' );   // interstitiel avant la course (JSON)
+define( 'AGENTURF_OPT_ADHEAD', 'agenturf_ad_head' ); // code publicitaire (en-tête, réseaux type Adsterra/Monetag)
+
+/* Config de l'interstitiel « avant la course ». */
+function agenturf_inter_cfg() {
+	$raw = get_option( AGENTURF_OPT_INTER, '' );
+	$d   = json_decode( (string) $raw, true );
+	if ( ! is_array( $d ) ) {
+		$d = array();
+	}
+	return array(
+		'img'   => isset( $d['img'] ) ? $d['img'] : '',
+		'link'  => isset( $d['link'] ) ? $d['link'] : '',
+		'title' => isset( $d['title'] ) ? $d['title'] : '',
+		'btn'   => isset( $d['btn'] ) ? $d['btn'] : 'Voir l\'offre',
+		'skip'  => isset( $d['skip'] ) ? (int) $d['skip'] : 4,
+		'freq'  => isset( $d['freq'] ) ? (int) $d['freq'] : 0, // 0 = désactivé, N = 1 fois sur N
+	);
+}
 
 /* Mode d'accès : 'open' par défaut → le simulateur est visible sans connexion. */
 function agenturf_access_mode() {
@@ -96,6 +115,7 @@ add_action( 'wp_enqueue_scripts', function () {
 				'race'       => agenturf_race_data(),
 				'cineIntro'  => get_option( AGENTURF_OPT_CINE, '' ),
 				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
+				'interAd'    => agenturf_inter_cfg(),
 			) ) . ';',
 			'before'
 		);
@@ -182,6 +202,47 @@ function agenturf_admin_page() {
 				</tr>
 			</table>
 
+			<hr>
+			<h2 class="title">4. Publicité avant la course (interstitiel)</h2>
+			<?php $inter = agenturf_inter_cfg(); ?>
+			<p>S'affiche quand un visiteur clique sur <strong>« Lancer la course »</strong>. Parfait pour une offre d'affiliation (ZEturf, Unibet…). Laisse la fréquence à 0 pour désactiver.</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="inter_freq">Fréquence</label></th>
+					<td>
+						<input type="number" min="0" max="20" id="inter_freq" name="inter_freq" value="<?php echo (int) $inter['freq']; ?>" style="width:80px">
+						<p class="description">0 = désactivé · 1 = à chaque course · 2 = 1 course sur 2 · 3 = 1 sur 3… (recommandé : 2 ou 3, pour ne pas lasser).</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="inter_img">Image de la pub (URL)</label></th>
+					<td><input type="url" class="regular-text" id="inter_img" name="inter_img" value="<?php echo esc_attr( $inter['img'] ); ?>" placeholder="https://…/banniere.jpg">
+					<p class="description">Bannière/visuel de l'offre (téléverse dans Médias puis colle l'URL).</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="inter_link">Lien (affiliation)</label></th>
+					<td><input type="url" class="regular-text" id="inter_link" name="inter_link" value="<?php echo esc_attr( $inter['link'] ); ?>" placeholder="https://www.zeturf.fr/…ton-lien-affilié"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="inter_title">Titre</label></th>
+					<td><input type="text" class="regular-text" id="inter_title" name="inter_title" value="<?php echo esc_attr( $inter['title'] ); ?>" placeholder="Joue ce Quinté sur ZEturf — 100€ offerts"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="inter_btn">Texte du bouton</label></th>
+					<td><input type="text" class="regular-text" id="inter_btn" name="inter_btn" value="<?php echo esc_attr( $inter['btn'] ); ?>" placeholder="Voir l'offre"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="inter_skip">Délai avant « Passer » (s)</label></th>
+					<td><input type="number" min="0" max="15" id="inter_skip" name="inter_skip" value="<?php echo (int) $inter['skip']; ?>" style="width:80px">
+					<p class="description">Nombre de secondes avant que le bouton « Passer et lancer » apparaisse.</p></td>
+				</tr>
+			</table>
+
+			<hr>
+			<h2 class="title">5. Réseau publicitaire (code en-tête, optionnel)</h2>
+			<p>Colle ici le code fourni par ton réseau (<strong>Adsterra</strong>, <strong>Monetag</strong>, AdSense…). Il gère lui-même ses pubs/interstitiels au clic. Laisse vide si tu utilises seulement l'interstitiel d'affiliation ci-dessus.</p>
+			<textarea name="ad_head" rows="5" style="width:100%;font-family:monospace;font-size:12px;" placeholder="<script>…code du réseau…</script>"><?php echo esc_textarea( get_option( AGENTURF_OPT_ADHEAD, '' ) ); ?></textarea>
+
 			<p>
 				<?php submit_button( 'Enregistrer', 'primary', 'submit', false ); ?>
 				&nbsp;
@@ -213,6 +274,19 @@ add_action( 'admin_post_agenturf_save', function () {
 	/* mode d'accès */
 	$mode = isset( $_POST['access_mode'] ) && 'members' === $_POST['access_mode'] ? 'members' : 'open';
 	update_option( AGENTURF_OPT_ACCESS, $mode, false );
+
+	/* interstitiel avant course */
+	update_option( AGENTURF_OPT_INTER, wp_json_encode( array(
+		'img'   => isset( $_POST['inter_img'] ) ? esc_url_raw( wp_unslash( $_POST['inter_img'] ) ) : '',
+		'link'  => isset( $_POST['inter_link'] ) ? esc_url_raw( wp_unslash( $_POST['inter_link'] ) ) : '',
+		'title' => isset( $_POST['inter_title'] ) ? sanitize_text_field( wp_unslash( $_POST['inter_title'] ) ) : '',
+		'btn'   => isset( $_POST['inter_btn'] ) ? sanitize_text_field( wp_unslash( $_POST['inter_btn'] ) ) : 'Voir l\'offre',
+		'skip'  => isset( $_POST['inter_skip'] ) ? max( 0, min( 15, (int) $_POST['inter_skip'] ) ) : 4,
+		'freq'  => isset( $_POST['inter_freq'] ) ? max( 0, min( 20, (int) $_POST['inter_freq'] ) ) : 0,
+	) ), false );
+
+	/* code réseau publicitaire (brut, admin de confiance) */
+	update_option( AGENTURF_OPT_ADHEAD, isset( $_POST['ad_head'] ) ? trim( (string) wp_unslash( $_POST['ad_head'] ) ) : '', false );
 
 	if ( ! empty( $_POST['reset_default'] ) ) {
 		delete_option( AGENTURF_OPT_RACE );
@@ -513,6 +587,15 @@ add_action( 'template_redirect', function () {
 	echo wp_json_encode( $manifest, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 	exit;
 } );
+
+/* Code publicitaire des réseaux (Adsterra, Monetag, AdSense…) — sortie brute en tête.
+   Réservé à l'admin ; c'est leur script qui gère les interstitiels/pop au clic. */
+add_action( 'wp_head', function () {
+	$code = get_option( AGENTURF_OPT_ADHEAD, '' );
+	if ( $code ) {
+		echo "\n<!-- AgenTurf ad -->\n" . $code . "\n<!-- /AgenTurf ad -->\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+}, 20 );
 
 add_action( 'wp_head', function () {
 	$img = get_template_directory_uri() . '/assets/pwa/';

@@ -112,5 +112,17 @@ $nb   = count( $race['horses'] );
 		</div>
 	</div>
 
+	<div class="inter-ad" id="interAd" hidden>
+		<div class="inter-card">
+			<div class="inter-tag">Publicité</div>
+			<h3 id="interTitle"></h3>
+			<a id="interLink" href="#" target="_blank" rel="nofollow sponsored noopener">
+				<img id="interImg" alt="Offre partenaire">
+				<span class="inter-btn" id="interBtn">Voir l'offre</span>
+			</a>
+			<button type="button" class="inter-skip" id="interSkip"></button>
+		</div>
+	</div>
+
 	<p class="disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
 </div>
