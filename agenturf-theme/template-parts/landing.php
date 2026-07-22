@@ -113,9 +113,33 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 		</div>
 	</div>
 
+	<section class="land-section seo-section">
+		<h2 class="land-h2 reveal"><span class="tick"></span>Pronostic Quinté+ du jour, simulé avant la course</h2>
+		<div class="seo-grid">
+			<div class="seo-col reveal">
+				<h3>Le simulateur de Quinté+ nouvelle génération</h3>
+				<p>AgenTurf réunit tout ce que cherche un turfiste : le <strong>pronostic Quinté+ du jour</strong>, l'<strong>analyse des partants</strong>, les <strong>cotes PMU</strong>, les <strong>musiques</strong> et surtout une <strong>simulation de course en direct</strong>. Avant même le départ, tu vois la course se jouer sous tes yeux — départ, train, rabattement à la corde et emballage final — puis l'<strong>arrivée du Quinté+</strong> et la combinaison gagnante. Chaque lancement rejoue la course : tu compares les combinaisons qui reviennent le plus souvent.</p>
+				<p>Que tu joues le <strong>Quinté+</strong>, le <strong>Quarté+</strong>, le <strong>Tiercé</strong>, le <strong>2 sur 4</strong> ou le <strong>Multi</strong>, l'outil t'aide à construire ta base, tes tocards et tes chevaux de complément à partir des <strong>pronostics PMU</strong> et des avis de la presse (Equidia, Canalturf, ZEturf, Geny).</p>
+				<h3>Trot attelé, plat et obstacle</h3>
+				<p>Le simulateur s'adapte à la discipline : <strong>trot attelé</strong> (sulky et driver), <strong>trot monté</strong>, <strong>plat</strong> et <strong>obstacle</strong>, sur tous les hippodromes — Vincennes, Enghien, Chantilly, Deauville, Longchamp, ParisLongchamp, Cagnes-sur-Mer, Vichy, Auteuil et les réunions de province.</p>
+			</div>
+			<div class="seo-col reveal d1">
+				<h3>Questions fréquentes</h3>
+				<div class="faq">
+					<details><summary>C'est quoi le Quinté+ du jour ?</summary><p>Le Quinté+ est le pari phare du PMU : trouver les 5 premiers chevaux d'une course. AgenTurf te donne chaque jour les partants, les pronostics et une simulation animée de l'arrivée probable.</p></details>
+					<details><summary>Comment avoir le pronostic Quinté+ gratuit ?</summary><p>Crée un compte gratuit avec Google : tu débloques l'analyse complète des partants, les scénarios du modèle et les simulations illimitées, sans carte bancaire.</p></details>
+					<details><summary>Où voir l'arrivée du Quinté+ d'aujourd'hui ?</summary><p>La simulation te montre une arrivée probable ; l'arrivée officielle est publiée après la course. Consulte aussi nos archives quotidiennes de chaque Quinté analysé.</p></details>
+					<details><summary>Le simulateur donne-t-il des pronostics sûrs ?</summary><p>Non — aucun pronostic n'est garanti. C'est un outil d'analyse et de divertissement : les probabilités sont des estimations du modèle, pas des certitudes.</p></details>
+					<details><summary>Puis-je l'installer comme une application ?</summary><p>Oui : sur Android comme sur iPhone, tu peux ajouter AgenTurf à ton écran d'accueil et l'ouvrir comme une vraie app (voir le bouton « Installer l'app »).</p></details>
+				</div>
+			</div>
+		</div>
+		<p class="seo-tags reveal">Mots-clés : pronostic quinté demain · arrivée quinté du jour · quinté+ PMU gratuit · partants quinté · pronostic PMU · simulateur course de chevaux · tiercé quarté quinté · pronostic trot attelé · pronostic plat · cote PMU · base quinté · tocard du jour · quinté de demain · course en direct · Vincennes · Enghien · Deauville · ParisLongchamp.</p>
+	</section>
+
 	<footer class="land-footer">
 		<hr>
-		Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.
+		Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre. 18+ · Interdit aux mineurs.
 	</footer>
 
 </div>

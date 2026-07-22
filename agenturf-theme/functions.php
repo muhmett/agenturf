@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.6.0' );
+define( 'AGENTURF_VERSION', '1.7.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -446,3 +446,44 @@ add_action( 'admin_post_agenturf_check_update', function () {
 	wp_safe_redirect( admin_url( 'themes.php' ) );
 	exit;
 } );
+
+
+/* =====================================================
+   PWA — « Ajouter à l'écran d'accueil » (Android/iPhone)
+   Manifest servi dynamiquement pour avoir des URL absolues.
+   ===================================================== */
+add_action( 'template_redirect', function () {
+	if ( ! isset( $_GET['agenturf_manifest'] ) ) {
+		return;
+	}
+	$img = get_template_directory_uri() . '/assets/pwa/';
+	$manifest = array(
+		'name'             => get_bloginfo( 'name' ) . ' — Simulateur Quinté+',
+		'short_name'       => 'AgenTurf',
+		'description'      => 'Le Quinté+ du jour simulé avant d\'être couru : pronostics, analyse des partants et course en direct.',
+		'start_url'        => home_url( '/?utm_source=pwa' ),
+		'scope'            => home_url( '/' ),
+		'display'          => 'standalone',
+		'orientation'      => 'portrait',
+		'background_color' => '#0c3b26',
+		'theme_color'      => '#0c3b26',
+		'icons'            => array(
+			array( 'src' => $img . 'icon-192.png', 'sizes' => '192x192', 'type' => 'image/png', 'purpose' => 'any maskable' ),
+			array( 'src' => $img . 'icon-512.png', 'sizes' => '512x512', 'type' => 'image/png', 'purpose' => 'any maskable' ),
+		),
+	);
+	header( 'Content-Type: application/manifest+json; charset=utf-8' );
+	echo wp_json_encode( $manifest, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+	exit;
+} );
+
+add_action( 'wp_head', function () {
+	$img = get_template_directory_uri() . '/assets/pwa/';
+	echo '<link rel="manifest" href="' . esc_url( home_url( '/?agenturf_manifest=1' ) ) . '">' . "\n";
+	echo '<meta name="theme-color" content="#0c3b26">' . "\n";
+	echo '<meta name="mobile-web-app-capable" content="yes">' . "\n";
+	echo '<meta name="apple-mobile-web-app-capable" content="yes">' . "\n";
+	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">' . "\n";
+	echo '<meta name="apple-mobile-web-app-title" content="AgenTurf">' . "\n";
+	echo '<link rel="apple-touch-icon" href="' . esc_url( $img . 'icon-192.png' ) . '">' . "\n";
+}, 6 );

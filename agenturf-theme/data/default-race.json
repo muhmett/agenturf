@@ -30,7 +30,8 @@
         "src": "Les écuries",
         "txt": "L'entraînement <b>Th. Duvaldestin</b> présente deux cartouches (Montana Kalouma et Maverick de Fael) — quand la maison double sa mise dans un Quinté, c'est rarement pour figurer. <b>M. Mottier</b> entraîne et drive lui-même Mourillon, un profil qu'il réserve aux parcours qu'il connaît par cœur. Côté <b>N. Bridault</b> (Mister Charly, Maestro du Choquel), on parle surtout d'apprentissage."
       }
-    ]
+    ],
+    "discipline": "trot"
   },
   "horses": [
     {
@@ -564,6 +565,35 @@
       "desc": "15 mâles de 4 ans, un autostart nerveux, des Da partout dans les musiques : tout peut arriver au petit trot d'Enghien. Volatilité maximale, aucun cheval protégé.",
       "bias": {},
       "chaos": 1.9,
+      "pace": "rapide"
+    },
+    {
+      "id": "corde",
+      "title": "⑦ La prime à la corde",
+      "prob": "~10%",
+      "desc": "Départ autostart maîtrisé : les chevaux de première ligne (Magic John, Meydan Voirons) verrouillent la corde et ne lâchent rien. Les deuxièmes lignes restent enfermées à l'extérieur tout le parcours.",
+      "bias": {
+        "1": 1.08,
+        "4": 1.06,
+        "9": 1.04,
+        "13": 0.97,
+        "14": 0.96
+      },
+      "pace": "lent"
+    },
+    {
+      "id": "sprint",
+      "title": "⑧ Le sprint des finisseurs",
+      "prob": "~9%",
+      "desc": "Train d'enfer de bout en bout : les animateurs explosent dans les 400 derniers mètres et les purs finisseurs (Mourillon, Mercure d'Elle, My Love Always, Mars Cobba) déboulent tous ensemble sur le poteau.",
+      "bias": {
+        "14": 1.09,
+        "10": 1.06,
+        "3": 1.07,
+        "6": 1.07,
+        "1": 0.94,
+        "9": 0.95
+      },
       "pace": "rapide"
     }
   ]

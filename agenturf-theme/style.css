@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.6.0
+Version: 1.7.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -444,3 +444,34 @@ button.btn{
 .cine-intro[hidden]{display:none}
 .cine-intro video{width:100%;height:100%;object-fit:cover}
 .cine-intro .skip{position:absolute;bottom:14px;right:14px;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:6px 14px;cursor:pointer;font-size:.8rem}
+
+/* =============== PWA : bouton installer =============== */
+.pwa-install{
+  position:fixed;right:14px;bottom:14px;z-index:950;
+  background:var(--or);color:#1c2e22;border:none;border-radius:99px;
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  font-size:.92rem;padding:11px 18px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.3);
+  animation:heroChip .5s ease;
+}
+.pwa-install:hover{background:#d8a83e}
+.pwa-ios{
+  position:fixed;left:14px;right:14px;bottom:70px;z-index:951;max-width:420px;margin:0 auto;
+  background:var(--nuit);color:var(--craie);border-radius:14px;padding:14px 40px 14px 16px;
+  font-size:.9rem;box-shadow:0 14px 34px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);
+}
+.pwa-ios b{color:var(--or)}
+.pwa-ios .pwa-share{filter:grayscale(0)}
+.pwa-ios-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#9aa2b0;font-size:1rem;cursor:pointer}
+
+/* =============== section SEO =============== */
+.seo-section{padding-top:40px}
+.seo-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+@media(max-width:760px){.seo-grid{grid-template-columns:1fr}}
+.seo-col h3{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1.15rem;margin:14px 0 6px;color:#0c3b26}
+.seo-col p{font-size:.9rem;color:#41505c;margin-bottom:8px}
+.seo-col strong{color:#0c3b26}
+.faq details{background:#fff;border:1.5px solid var(--ligne);border-radius:10px;padding:10px 14px;margin-bottom:8px}
+.faq summary{font-family:'Barlow Condensed';font-weight:700;font-size:1rem;cursor:pointer;color:#122019}
+.faq details[open] summary{color:var(--pmu)}
+.faq p{font-size:.85rem;color:#41505c;margin-top:8px}
+.seo-tags{font-size:.76rem;color:#8a94a6;margin-top:18px;line-height:1.7}

@@ -188,6 +188,14 @@ const ROBES = [
   ["#8a5a33", "#6f4526"], ["#6f4a26", "#54371c"], ["#4a3019", "#38240f"],
   ["#9b6f45", "#7d5735"], ["#83838d", "#6a6a74"], ["#5c4030", "#463023"]
 ];
+/* discipline : 'trot' (sulky + driver) ou 'plat' (jockey monté) */
+const DISCIPLINE = (function () {
+  try {
+    if (META.discipline) return META.discipline;
+    const txt = (META.info || []).join(" ") + " " + (META.subtitle || "");
+    return /trot|attel|montÃ©|mont[ée]/i.test(txt) ? "trot" : "plat";
+  } catch (e) { return "trot"; }
+})();
 function paintHorse(g, r, t, moving) {
   const h = r.h;
   const robe = ROBES[h.n % ROBES.length];
@@ -234,20 +242,69 @@ function paintHorse(g, r, t, moving) {
 
   drawLegPair(g, cyc, robe[0], false, moving);
 
-  g.strokeStyle = "#20242c"; g.lineWidth = 1.6;                       // jambe + botte
+  if (DISCIPLINE === "trot") paintSulky(g, h, cyc, moving);
+  else paintJockey(g, h);
+}
+
+/* jockey monté (plat) — buste penché sur le garrot */
+function paintJockey(g, h) {
+  const P2 = Math.PI * 2;
+  g.strokeStyle = "#20242c"; g.lineWidth = 1.6;
   g.beginPath(); g.moveTo(-0.4, -4.6); g.lineTo(0.8, -0.2); g.lineTo(2.6, 0.4); g.stroke();
-  g.fillStyle = h.c[0];                                               // buste compact penché
+  g.fillStyle = h.c[0];
   g.beginPath(); g.ellipse(0.2, -7.6, 3.9, 2.5, -0.55, 0, P2); g.fill();
-  g.strokeStyle = h.c[0]; g.lineWidth = 1.3;                          // bras fin vers les rênes
+  g.strokeStyle = h.c[0]; g.lineWidth = 1.3;
   g.beginPath(); g.moveTo(2.4, -6.8); g.quadraticCurveTo(6, -6.2, 9.2, -5.2); g.stroke();
-  g.strokeStyle = "rgba(0,0,0,.5)"; g.lineWidth = .6;                 // rêne
+  g.strokeStyle = "rgba(0,0,0,.5)"; g.lineWidth = .6;
   g.beginPath(); g.moveTo(9.2, -5.2); g.lineTo(18.2, -6.4); g.stroke();
-  g.fillStyle = "#f5e9d8";                                            // nuque/visage esquissé
+  g.fillStyle = "#f5e9d8";
   g.beginPath(); g.arc(3.4, -9.6, 1.1, 0, P2); g.fill();
-  g.fillStyle = h.c[1];                                               // casque devant
+  g.fillStyle = h.c[1];
   g.beginPath(); g.arc(3.6, -10.3, 2, 0, P2); g.fill();
   g.strokeStyle = "rgba(0,0,0,.4)"; g.lineWidth = .7;
   g.beginPath(); g.arc(3.6, -10.3, 2, 0, P2); g.stroke();
+}
+
+/* attelage (trot) — sulky à roue fine + driver assis, jambes tendues,
+   rênes longues par-dessus le dos jusqu'au mors */
+function paintSulky(g, h, cyc, moving) {
+  const P2 = Math.PI * 2;
+  const AX = -21, AY = 4;                 // essieu / centre de roue
+  // brancards (shafts) du flanc du cheval à l'essieu
+  g.strokeStyle = "#2a2f38"; g.lineWidth = 1.1;
+  g.beginPath(); g.moveTo(-6, 1.4); g.lineTo(AX + 1, AY - 1); g.stroke();
+  g.beginPath(); g.moveTo(-6, -1.2); g.lineTo(AX + 2, AY - 3); g.stroke();
+  // roue fine (vue de côté : une seule visible)
+  const spin = moving ? cyc * P2 * 3 : 0;
+  g.strokeStyle = "#e9e4d6"; g.lineWidth = 1.4;
+  g.beginPath(); g.arc(AX, AY, 7.2, 0, P2); g.stroke();
+  g.strokeStyle = "rgba(210,205,190,.85)"; g.lineWidth = .6;
+  for (let k = 0; k < 6; k++) {
+    const a = spin + k * Math.PI / 3;
+    g.beginPath(); g.moveTo(AX, AY); g.lineTo(AX + Math.cos(a) * 6.8, AY + Math.sin(a) * 6.8); g.stroke();
+  }
+  g.fillStyle = "#333"; g.beginPath(); g.arc(AX, AY, 1.3, 0, P2); g.fill();
+  // siège
+  g.fillStyle = "#20242c";
+  g.beginPath(); g.moveTo(AX - 2, AY - 4); g.lineTo(AX + 4, AY - 4); g.lineTo(AX + 3, AY - 6); g.lineTo(AX - 1, AY - 6); g.closePath(); g.fill();
+  // driver : jambes tendues vers l'avant le long des brancards
+  g.strokeStyle = "#20242c"; g.lineWidth = 1.7; g.lineCap = "round";
+  g.beginPath(); g.moveTo(AX + 1, AY - 5); g.lineTo(-9, 0.4); g.lineTo(-4, 1.4); g.stroke();
+  // buste incliné en arrière (casaque)
+  g.fillStyle = h.c[0];
+  g.beginPath(); g.ellipse(AX + 1.5, AY - 8, 3.2, 4.2, 0.3, 0, P2); g.fill();
+  // bras tendus vers l'avant (guides)
+  g.strokeStyle = h.c[0]; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(AX + 3, AY - 8.5); g.quadraticCurveTo(-6, -6, 2, -4.5); g.stroke();
+  // guides (rênes) longues jusqu'au mors
+  g.strokeStyle = "rgba(20,20,20,.55)"; g.lineWidth = .6;
+  g.beginPath(); g.moveTo(2, -4.5); g.quadraticCurveTo(11, -6.5, 19.4, -6.2); g.stroke();
+  // tête + casque + lunettes
+  g.fillStyle = "#f0e2cf";
+  g.beginPath(); g.arc(AX + 2.4, AY - 12, 1.5, 0, P2); g.fill();
+  g.fillStyle = h.c[1];
+  g.beginPath(); g.arc(AX + 2.4, AY - 13, 2.1, Math.PI, P2); g.fill();
+  g.fillRect(AX + 0.3, AY - 13, 4.2, 1.1);
 }
 
 function drawLegPair(g, cyc, color, backSide, moving) {
@@ -656,9 +713,9 @@ if ($("btnMC")) $("btnMC").onclick = runMonteCarlo;
    ========================================================= */
 const CW = 1280, CH = 720;
 let cv3 = null, c3 = null;
-const RAIL_Y = 258;          // ligne de lice (haut de la piste)
-const ROW_TOP = RAIL_Y + 34; // première rangée de chevaux
-const ROW_BOT = CH - 66;     // dernière rangée (près de la caméra)
+const RAIL_Y = 244;          // ligne de lice (haut de la piste)
+const ROW_TOP = RAIL_Y + 40; // première rangée (le long de la corde)
+const ROW_BOT = RAIL_Y + 250; // dernière rangée (peloton groupé près de la corde)
 const PXM = 12.5;            // pixels par mètre (étalement horizontal)
 const CAM_X = CW * 0.66;     // le cheval de tête est ancré ici
 let camDist = 0;
@@ -702,7 +759,7 @@ function horseScreen(r) {
   return {
     x: CAM_X + (r.dist - camDist) * PXM,
     y: ROW_TOP + ln * (ROW_BOT - ROW_TOP),
-    sc: 1.25 + ln * 1.15,     // plus proche = plus grand
+    sc: 1.5 + ln * 0.8,       // léger effet de profondeur, gros plan
     ln
   };
 }
