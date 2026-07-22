@@ -115,6 +115,7 @@ $nb   = count( $race['horses'] );
 	<div class="inter-ad" id="interAd" hidden>
 		<div class="inter-card">
 			<div class="inter-tag">Publicité</div>
+			<div id="interSlot" class="inter-slot" hidden></div>
 			<h3 id="interTitle"></h3>
 			<a id="interLink" href="#" target="_blank" rel="nofollow sponsored noopener">
 				<img id="interImg" alt="Offre partenaire">

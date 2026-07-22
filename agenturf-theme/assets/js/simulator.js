@@ -726,31 +726,59 @@ function launchRace() {
   playIntroThen(startWithCountdown);
 }
 
+/* injecte un bloc HTML+JS de réseau pub et EXÉCUTE ses scripts
+   (innerHTML n'exécute pas les <script> : il faut les recréer) */
+function injectAdCode(container, html) {
+  container.innerHTML = html;
+  container.querySelectorAll("script").forEach((old) => {
+    const s = document.createElement("script");
+    for (const a of old.attributes) s.setAttribute(a.name, a.value);
+    s.text = old.textContent || "";
+    old.replaceWith(s);
+  });
+}
+
 /* interstitiel publicitaire avant la course (1 fois sur N) */
 function maybeShowInterAd(next) {
   const ad = CFG.interAd || {};
   const box = $("interAd");
   const freq = parseInt(ad.freq, 10) || 0;
-  if (!box || freq <= 0 || !(ad.img || ad.title)) { next(); return; }
+  if (!box || freq <= 0 || !(ad.img || ad.title || ad.code)) { next(); return; }
   let n = 0;
   try { n = parseInt(localStorage.getItem("qs_ad_n") || "0", 10) || 0; } catch (e) {}
   n++;
   try { localStorage.setItem("qs_ad_n", String(n)); } catch (e) {}
   if (n % freq !== 0) { next(); return; } // pas cette fois
 
-  $("interTitle").textContent = ad.title || "";
-  $("interTitle").style.display = ad.title ? "" : "none";
-  const img = $("interImg");
-  if (ad.img) { img.src = ad.img; img.style.display = ""; } else { img.style.display = "none"; }
-  $("interBtn").textContent = ad.btn || "Voir l'offre";
+  const slot = $("interSlot");
   const link = $("interLink");
-  if (ad.link) { link.href = ad.link; link.style.pointerEvents = ""; } else { link.removeAttribute("href"); }
+  const useCode = !!(ad.code && ad.code.trim());
+
+  if (useCode) {
+    // Pub VIDÉO / interstitiel du réseau : on affiche uniquement le code collé.
+    if (slot) { slot.hidden = false; injectAdCode(slot, ad.code); }
+    $("interTitle").style.display = "none";
+    if (link) link.style.display = "none";
+  } else {
+    if (slot) { slot.hidden = true; slot.innerHTML = ""; }
+    if (link) link.style.display = "";
+    $("interTitle").textContent = ad.title || "";
+    $("interTitle").style.display = ad.title ? "" : "none";
+    const img = $("interImg");
+    if (ad.img) { img.src = ad.img; img.style.display = ""; } else { img.style.display = "none"; }
+    $("interBtn").textContent = ad.btn || "Voir l'offre";
+    if (ad.link) { link.href = ad.link; link.style.pointerEvents = ""; } else { link.removeAttribute("href"); }
+  }
   box.hidden = false;
 
   const skip = Math.max(0, parseInt(ad.skip, 10) || 0);
   const btn = $("interSkip");
   let left = skip;
-  const go = () => { box.hidden = true; clearInterval(iv); next(); };
+  const go = () => {
+    box.hidden = true; clearInterval(iv);
+    if (slot) { slot.hidden = true; slot.innerHTML = ""; } // stoppe la pub vidéo
+    next();
+  };
   const tick = () => {
     if (left <= 0) { btn.disabled = false; btn.textContent = "Passer et lancer la course ▸"; }
     else { btn.disabled = true; btn.textContent = "Lancement dans " + left + " s…"; }

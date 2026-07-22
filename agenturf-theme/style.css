@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.11.0
+Version: 1.12.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -514,6 +514,9 @@ button.btn{
 .inter-card h3{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.35rem;line-height:1.1;margin:16px 6px 12px;color:var(--encre)}
 .inter-card a{display:block;text-decoration:none;color:inherit}
 .inter-card img{width:100%;border-radius:12px;display:block;margin-bottom:12px;border:1px solid var(--ligne)}
+.inter-slot{width:100%;min-height:60px;margin:14px 0 6px;overflow:hidden;border-radius:12px}
+.inter-slot[hidden]{display:none}
+.inter-slot img,.inter-slot iframe,.inter-slot video{max-width:100%;display:block;margin:0 auto;border:0}
 .inter-btn{display:inline-block;background:var(--pmu);color:#fff;font-family:'Barlow Condensed';font-weight:700;
   text-transform:uppercase;letter-spacing:.05em;border-radius:99px;padding:11px 26px;font-size:1rem}
 .inter-skip{margin-top:14px;background:none;border:none;color:#6b7280;font-size:.85rem;cursor:pointer;text-decoration:underline}

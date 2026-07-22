@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.11.0' );
+define( 'AGENTURF_VERSION', '1.12.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -27,6 +27,7 @@ function agenturf_inter_cfg() {
 		'link'  => isset( $d['link'] ) ? $d['link'] : '',
 		'title' => isset( $d['title'] ) ? $d['title'] : '',
 		'btn'   => isset( $d['btn'] ) ? $d['btn'] : 'Voir l\'offre',
+		'code'  => isset( $d['code'] ) ? $d['code'] : '', // code brut du réseau (vidéo/interstitiel)
 		'skip'  => isset( $d['skip'] ) ? (int) $d['skip'] : 4,
 		'freq'  => isset( $d['freq'] ) ? (int) $d['freq'] : 0, // 0 = désactivé, N = 1 fois sur N
 	);
@@ -116,7 +117,7 @@ add_action( 'wp_enqueue_scripts', function () {
 				'cineIntro'  => get_option( AGENTURF_OPT_CINE, '' ),
 				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
 				'interAd'    => agenturf_inter_cfg(),
-			) ) . ';',
+			), JSON_HEX_TAG | JSON_HEX_AMP ) . ';', // HEX_TAG : le code pub peut contenir </script>, on l'échappe pour ne pas casser la page
 			'before'
 		);
 	}
@@ -232,6 +233,13 @@ function agenturf_admin_page() {
 					<td><input type="text" class="regular-text" id="inter_btn" name="inter_btn" value="<?php echo esc_attr( $inter['btn'] ); ?>" placeholder="Voir l'offre"></td>
 				</tr>
 				<tr>
+					<th scope="row"><label for="inter_code">Code pub VIDÉO du réseau</label></th>
+					<td>
+						<textarea id="inter_code" name="inter_code" rows="5" style="width:100%;font-family:monospace;font-size:12px;" placeholder="<!-- Colle ici le code que ton réseau pub te donne (Adsterra, Monetag, HilltopAds…) --></p>"><?php echo esc_textarea( $inter['code'] ); ?></textarea>
+						<p class="description"><strong>Pour une pub VIDÉO :</strong> colle ici <em>uniquement</em> le code que ton réseau pub te donne (Adsterra « Interstitial/Video », Monetag « Vignette/Interstitial », HilltopAds « VAST Video », AdMaven…). Il s'affiche et se lance tout seul au clic sur « Lancer la course ». Tu n'as rien d'autre à faire. Laisse vide pour garder la pub image ci-dessus. La fréquence ci-dessus s'applique aussi au code vidéo.</p>
+					</td>
+				</tr>
+				<tr>
 					<th scope="row"><label for="inter_skip">Délai avant « Passer » (s)</label></th>
 					<td><input type="number" min="0" max="15" id="inter_skip" name="inter_skip" value="<?php echo (int) $inter['skip']; ?>" style="width:80px">
 					<p class="description">Nombre de secondes avant que le bouton « Passer et lancer » apparaisse.</p></td>
@@ -281,6 +289,7 @@ add_action( 'admin_post_agenturf_save', function () {
 		'link'  => isset( $_POST['inter_link'] ) ? esc_url_raw( wp_unslash( $_POST['inter_link'] ) ) : '',
 		'title' => isset( $_POST['inter_title'] ) ? sanitize_text_field( wp_unslash( $_POST['inter_title'] ) ) : '',
 		'btn'   => isset( $_POST['inter_btn'] ) ? sanitize_text_field( wp_unslash( $_POST['inter_btn'] ) ) : 'Voir l\'offre',
+		'code'  => isset( $_POST['inter_code'] ) ? trim( (string) wp_unslash( $_POST['inter_code'] ) ) : '', // brut : code réseau vidéo, admin de confiance
 		'skip'  => isset( $_POST['inter_skip'] ) ? max( 0, min( 15, (int) $_POST['inter_skip'] ) ) : 4,
 		'freq'  => isset( $_POST['inter_freq'] ) ? max( 0, min( 20, (int) $_POST['inter_freq'] ) ) : 0,
 	) ), false );
