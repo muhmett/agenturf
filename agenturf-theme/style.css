@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.0.0
+Version: 1.2.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -371,3 +371,42 @@ button.btn{
 .mc-combo{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:.84rem}
 .mc-combo .c{font-family:'Barlow Condensed';font-weight:900;letter-spacing:.05em;background:var(--nuit);color:var(--or);border-radius:8px;padding:3px 10px}
 .mc-combo .x{color:#5b6474;font-size:.74rem}
+
+
+/* =============== avis des professionnels =============== */
+.avisgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.avis{background:#fff;border:1.5px solid var(--ligne);border-radius:12px;padding:14px 16px;border-top:4px solid var(--or)}
+.avis h4{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1rem;letter-spacing:.05em;color:#1c4a30;margin-bottom:6px}
+.avis p{font-size:.84rem;color:#374151}
+.avis b{color:#0c3b26}
+.horse .musique{font-size:.7rem;color:#6b7280;margin-top:5px;font-family:monospace}
+
+/* =============== LE DIRECT (pop-up course) =============== */
+#cinema{position:fixed;inset:0;z-index:99990;background:rgba(6,14,10,.96);display:flex;align-items:center;justify-content:center;animation:qsGateBgIn .25s ease}
+@keyframes qsGateBgIn{from{opacity:0}to{opacity:1}}
+#cinema[hidden]{display:none}
+.cine-stage{position:relative;width:min(96vw,1280px);animation:cineIn .4s cubic-bezier(.22,1,.36,1)}
+@keyframes cineIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.cine-stage canvas{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.cine-hud{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}
+.cine-live{color:#ff5348;animation:qsLivePulse 1.2s infinite}
+@keyframes qsLivePulse{0%,100%{opacity:1}50%{opacity:.35}}
+.cine-pos{position:absolute;left:12px;top:56px;display:flex;flex-direction:column;gap:4px;pointer-events:none}
+.cp-row{display:flex;align-items:center;gap:7px;background:rgba(12,25,18,.82);border-radius:8px;padding:4px 10px 4px 6px;color:#f3f1e6;font-size:.8rem;backdrop-filter:blur(3px)}
+.cp-row.lead{border:1px solid var(--or)}
+.cp-pos{font-family:'Barlow Condensed';font-weight:900;width:14px;color:var(--or)}
+.cp-silk{width:13px;height:13px;border-radius:3px 3px 6px 6px;border:1px solid rgba(0,0,0,.3)}
+.cp-num{font-weight:700;width:20px}
+.cp-nm{white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.cine-ticker{position:absolute;left:12px;right:12px;bottom:14px;background:rgba(12,25,18,.86);color:#f3f1e6;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;font-size:.95rem;backdrop-filter:blur(3px)}
+.cine-ticker.hot{border-left-color:#ff5348;font-weight:600}
+.cine-ticker.pop{animation:tickerPop .3s ease}
+@keyframes tickerPop{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+.cine-close{position:absolute;top:-16px;right:-8px;background:#f3f1e6;color:#122019;border:none;border-radius:99px;padding:9px 16px;font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.cine-close:hover{background:#fff}
+.cine-result{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(8,18,12,.82);border-radius:14px;color:#f3f1e6;text-align:center;backdrop-filter:blur(4px);animation:qsGateBgIn .4s ease}
+.cine-result[hidden]{display:none}
+.cine-result h3{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.8rem;color:var(--or);letter-spacing:.05em}
+.cine-result .combo{justify-content:center}
+.cine-result p{font-size:1rem;margin-bottom:8px}
+@media(max-width:640px){.cine-pos{top:48px}.cp-nm{max-width:80px}.cine-close{top:-14px;right:0;padding:7px 12px}}

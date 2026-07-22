@@ -43,10 +43,20 @@ HORSES.forEach(h => {
    <div>
      <h4>${h.name}</h4>
      <div class="sub">${h.sub || `${h.jockey} · ${h.w} kg · corde ${h.draw} · val. ${h.val} · cote ${h.odds}`}</div>
-     <p>${h.note}</p>${tags}
+     <p>${h.note}</p>
+     ${h.musique ? `<p class="musique">Musique : ${h.musique}</p>` : ""}${tags}
    </div>`;
   cards.appendChild(d);
 });
+
+/* ---------- l'avis des professionnels ---------- */
+if (META.avis && document.getElementById("avisbox")) {
+  document.getElementById("avisbox").innerHTML = META.avis.map(a => `
+    <div class="avis">
+      <h4>${a.src}</h4>
+      <p>${a.txt}</p>
+    </div>`).join("");
+}
 
 /* =========================================================
    MOTEUR DE COURSE
@@ -79,6 +89,7 @@ function TP(d, lane) {
 const M = PERIM / DIST; // 1 tour = la distance du jour, arrivée au centre de la droite basse
 
 let runners = [], running = false, finished = false, raf = null, tSim = 0;
+let cinemaOpen = false;
 let commentFlags = {}, finishCount = 0, confetti = [];
 const closerNames = HORSES.filter(h => h.style === "closer").map(h => h.name).slice(0, 2).join(" et ") || "les finisseurs";
 
@@ -123,6 +134,12 @@ function say(txt, hot) {
   const p = document.createElement("p"); p.textContent = txt; if (hot) p.className = "hot";
   $("feed").appendChild(p);
   $("feed").scrollTop = 0;
+  const tk = $("cineTicker");
+  if (tk) {
+    tk.textContent = "🎙 " + txt;
+    tk.classList.toggle("hot", !!hot);
+    tk.classList.remove("pop"); void tk.offsetWidth; tk.classList.add("pop");
+  }
 }
 
 function renderStandings() {
@@ -137,6 +154,16 @@ function renderStandings() {
       <span class="gap">${i === 0 ? (r.done ? "🏁" : "en tête") : back < 0.4 ? "nez" : back.toFixed(1) + " L"}</span>
     </div>`;
   }).join("");
+  const cp = $("cinePos");
+  if (cp && cinemaOpen) {
+    cp.innerHTML = order.slice(0, 5).map((r, i) => `
+      <div class="cp-row${i === 0 ? " lead" : ""}">
+        <span class="cp-pos">${i + 1}</span>
+        <span class="cp-silk" style="background:${r.h.c[0]}"></span>
+        <span class="cp-num">${r.h.n}</span>
+        <span class="cp-nm">${r.h.name}</span>
+      </div>`).join("");
+  }
 }
 
 /* --- dessin --- */
@@ -382,9 +409,12 @@ function step() {
   mark(DIST - 300, l => `Plus que 300 mètres ! ${l.h.name} résiste, mais ${lead[1].h.name} et ${lead[2].h.name} reviennent très fort !`, true);
   mark(DIST - 60,  l => `ILS SE JETTENT SUR LE POTEAU ! ${l.h.name} d'un côté, ${lead[1].h.name}… photo demandée !`, true);
 
-  $("hudDist").textContent = L.done ? "Arrivée !" : `${Math.max(0, Math.round(DIST - L.dist))} m à parcourir · ${tSim.toFixed(0)}s`;
+  const hudTxt = L.done ? "Arrivée !" : `${Math.max(0, Math.round(DIST - L.dist))} m à parcourir · ${tSim.toFixed(0)}s`;
+  $("hudDist").textContent = hudTxt;
+  if (cinemaOpen && $("cineDist")) $("cineDist").textContent = hudTxt;
 
   drawFrame(tSim);
+  if (cinemaOpen) draw3D(tSim);
   renderStandings();
 
   if (allDone) { running = false; showResult(); confettiDrain(); return; }
@@ -410,13 +440,27 @@ function showResult() {
   }).join("");
   $("resultbox").style.display = "block";
   say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
-  $("resultbox").scrollIntoView({ behavior: "smooth", block: "center" });
+  if (cinemaOpen && $("cineResult")) {
+    $("cineResult").innerHTML = `
+      <h3>🏆 Arrivée officielle</h3>
+      <div class="combo">${top5.map((r, i) =>
+        `<div class="n" style="background:${r.h.c[0]};animation-delay:${i * .18}s">${r.h.n}</div>`).join("")}</div>
+      <p>${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !</p>
+      <button class="btn btn-go" id="cineToAnalyse">Voir l'analyse complète</button>`;
+    $("cineResult").hidden = false;
+    $("cineToAnalyse").onclick = () => {
+      closeCinema();
+      $("resultbox").scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+  } else {
+    $("resultbox").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 }
 function fmtTime(s) { const mm = Math.floor(s / 60), ss = (s % 60).toFixed(1); return `${mm}'${ss.padStart(4, "0")}"`; }
 
 /* --- compte à rebours puis départ --- */
 function startWithCountdown() {
-  const cd = $("count");
+  const cd = (cinemaOpen && $("cineCount")) ? $("cineCount") : $("count");
   let n = 3;
   $("btnStart").disabled = true;
   say("Ils sont tous dans les stalles… concentration à " + (META.track || "l'hippodrome") + ".");
@@ -436,6 +480,7 @@ function startWithCountdown() {
 $("btnStart").onclick = () => {
   if (running) return;
   if (finished) resetRace(true);
+  openCinema();
   startWithCountdown();
 };
 $("btnReset").onclick = () => resetRace(false);
@@ -508,6 +553,190 @@ function runMonteCarlo() {
   box.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 if ($("btnMC")) $("btnMC").onclick = runMonteCarlo;
+
+/* =========================================================
+   LE DIRECT — pop-up plein écran, caméra TV pseudo-3D
+   La même course, vue comme une retransmission : perspective
+   écrasée, caméra qui suit le peloton, classement + micro.
+   ========================================================= */
+const CW = 1280, CH = 720;
+let cv3 = null, c3 = null, camX = 0;
+const HORIZON = 150, SQUASH = 0.52, ZOOM = 1.5;
+const OUTER_LANE = T.lanes + 1.2, INNER_LANE = -1.7;
+
+function openCinema() {
+  const el = $("cinema");
+  if (!el) return;
+  cinemaOpen = true;
+  el.hidden = false;
+  document.body.style.overflow = "hidden";
+  if (!cv3) { cv3 = $("cv3"); c3 = cv3.getContext("2d"); }
+  $("cineResult").hidden = true;
+  $("cineTicker").textContent = "🎙 Les partants se présentent devant les tribunes…";
+  $("cineDist").textContent = DIST.toLocaleString("fr-FR") + " m à parcourir";
+  camX = T.cx;
+  draw3D(0);
+  renderStandings();
+}
+function closeCinema() {
+  cinemaOpen = false;
+  const el = $("cinema");
+  if (el) el.hidden = true;
+  document.body.style.overflow = "";
+}
+if ($("cineClose")) $("cineClose").onclick = closeCinema;
+document.addEventListener("keydown", e => { if (e.key === "Escape" && cinemaOpen) closeCinema(); });
+
+/* projection « caméra en tribune » : y écrasé, loin = petit + resserré */
+function depthOf(y) {
+  const yMin = T.cy - (T.r + OUTER_LANE * T.laneW), yMax = T.cy + (T.r + OUTER_LANE * T.laneW);
+  return Math.min(1, Math.max(0, (y - yMin) / (yMax - yMin))); // 0 = loin, 1 = proche
+}
+function project(pt) {
+  const d = depthOf(pt.y);
+  const sx = 0.62 + 0.38 * d;                     // pincement horizontal au loin
+  return {
+    x: CW / 2 + (pt.x - camX) * ZOOM * sx,
+    y: HORIZON + (pt.y - (T.cy - (T.r + OUTER_LANE * T.laneW))) * SQUASH * ZOOM,
+    s: 0.85 + 1.05 * d,                            // échelle des sprites
+    d
+  };
+}
+function projectPath(lane, step) {
+  const pts = [];
+  for (let dd = 0; dd <= PERIM; dd += step) pts.push(project(TP(dd, lane)));
+  return pts;
+}
+function poly(cx2, pts, close) {
+  cx2.beginPath();
+  pts.forEach((q, i) => i ? cx2.lineTo(q.x, q.y) : cx2.moveTo(q.x, q.y));
+  if (close) cx2.closePath();
+}
+
+function draw3D(t) {
+  const g = c3;
+  // ciel + lointain
+  const sky = g.createLinearGradient(0, 0, 0, HORIZON + 60);
+  sky.addColorStop(0, "#8fb8dc"); sky.addColorStop(1, "#d9e6d2");
+  g.fillStyle = sky; g.fillRect(0, 0, CW, HORIZON + 60);
+  g.fillStyle = "#276a3c"; g.fillRect(0, HORIZON + 40, CW, CH - HORIZON - 40);
+  // tribunes au fond
+  g.fillStyle = "#1d3a2b"; g.fillRect(CW * .08, HORIZON - 58, CW * .84, 46);
+  g.fillStyle = "rgba(255,255,255,.85)"; g.fillRect(CW * .08, HORIZON - 64, CW * .84, 6);
+  for (let i = 0; i < 240; i++) {
+    g.fillStyle = ["#e3b64e", "#e8e2d2", "#c96f6f", "#7fa8d8", "#d8d8d8"][i % 5];
+    g.globalAlpha = .5 + (i % 7) * .07;
+    g.fillRect(CW * .08 + 6 + (i * 37) % (CW * .84 - 12), HORIZON - 52 + (i * 13) % 36, 3, 3);
+  }
+  g.globalAlpha = 1;
+
+  // anneau de course en perspective
+  const outer = projectPath(OUTER_LANE, 10), inner = projectPath(INNER_LANE, 10);
+  poly(g, outer, true); g.fillStyle = "#4f9c62"; g.fill();
+  // bandes de tonte
+  for (let b = 0; b < 3; b++) {
+    const la = INNER_LANE + (OUTER_LANE - INNER_LANE) * (b / 3);
+    const lb = INNER_LANE + (OUTER_LANE - INNER_LANE) * ((b + 1) / 3);
+    poly(g, projectPath(lb, 12), true); g.fillStyle = b % 2 ? "#55a468" : "#4f9c62"; g.fill();
+    poly(g, projectPath(la, 12), true); g.fillStyle = b % 2 ? "#4f9c62" : "#55a468"; g.fill();
+  }
+  poly(g, inner, true); g.fillStyle = "#2c7040"; g.fill();
+  // plan d'eau au centre
+  const lake = project({ x: T.cx + 80, y: T.cy + 8 });
+  g.fillStyle = "rgba(140,190,225,.75)";
+  g.beginPath(); g.ellipse(lake.x, lake.y, 70 * lake.s * .6, 16 * lake.s * .6, 0, 0, 7); g.fill();
+  // lices
+  g.strokeStyle = "rgba(255,255,255,.95)"; g.lineWidth = 2.2;
+  poly(g, inner, true); g.stroke();
+  poly(g, outer, true); g.stroke();
+  // piquets de la lice proche
+  g.fillStyle = "#fff";
+  for (let dd = 0; dd < PERIM; dd += 34) {
+    const q = project(TP(dd, INNER_LANE));
+    if (q.d > .55) g.fillRect(q.x - 1, q.y - 8 * q.s * .5, 2, 8 * q.s * .5);
+  }
+  // ligne d'arrivée damier
+  const f1 = project(TP(0, INNER_LANE)), f2 = project(TP(0, OUTER_LANE));
+  const segs = 9;
+  for (let i = 0; i < segs; i++) {
+    const a = { x: f1.x + (f2.x - f1.x) * i / segs, y: f1.y + (f2.y - f1.y) * i / segs };
+    const b = { x: f1.x + (f2.x - f1.x) * (i + 1) / segs, y: f1.y + (f2.y - f1.y) * (i + 1) / segs };
+    g.strokeStyle = i % 2 ? "#122019" : "#fff"; g.lineWidth = 6;
+    g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
+  }
+
+  // caméra : suit le barycentre des 6 premiers
+  if (runners.length) {
+    const top = [...runners].sort((a, b) => b.dist - a.dist).slice(0, 6);
+    const cx2 = top.reduce((m, r) => m + TP(r.dist * M, r.lane).x, 0) / top.length;
+    camX += (cx2 - camX) * 0.07;
+    const lim = T.straight / 2 + 60;
+    camX = Math.min(T.cx + lim, Math.max(T.cx - lim, camX));
+  }
+
+  // chevaux : du plus loin au plus proche
+  const byDepth = [...runners].sort((a, b) => TP(a.dist * M, a.lane * 1.7).y - TP(b.dist * M, b.lane * 1.7).y);
+  byDepth.forEach(r => drawHorse3D(g, r, t));
+  // confettis du direct
+  if (confetti.length) {
+    confetti.forEach(cf => {
+      g.save(); g.translate(cf.x * (CW / W), cf.y * (CH / H)); g.rotate(cf.rot);
+      g.fillStyle = cf.col; g.fillRect(-cf.s / 2, -cf.s / 4, cf.s, cf.s / 2);
+      g.restore();
+    });
+  }
+}
+
+function drawHorse3D(g, r, t) {
+  const lane3 = r.lane * 1.7; // couloirs écartés pour la lisibilité en perspective
+  const raw = TP(r.dist * M, lane3);
+  const q = project(raw);
+  const q2 = project(TP(r.dist * M + 6, lane3));
+  /* vue de profil : on retourne le sprite selon la direction, avec une
+     légère inclinaison dans les tournants (pas de rotation complète) */
+  const dx = q2.x - q.x, dy = q2.y - q.y;
+  const face = dx < 0 ? -1 : 1;
+  const tilt = Math.max(-.45, Math.min(.45, Math.atan2(dy, Math.abs(dx) + .001)));
+  const done = r.done ? 0.4 : 1;
+  const bob = Math.sin(t * 14 * r.wob + r.phase) * 1.6 * done;
+  const sc = q.s * 1.25;
+  g.save();
+  g.translate(q.x, q.y + bob * sc * .4);
+  g.rotate(tilt * face);
+  g.scale(face * sc, sc);
+  const legT = t * 16 * r.wob + r.phase;
+  g.fillStyle = "rgba(0,0,0,.3)"; g.beginPath(); g.ellipse(0, 6.5, 11, 2.6, 0, 0, 7); g.fill();
+  g.strokeStyle = "#5d3d21"; g.lineWidth = 2; g.lineCap = "round";
+  for (let i = 0; i < 4; i++) {
+    const sw = Math.sin(legT + (i < 2 ? 0 : Math.PI * .9) + i * .5) * 4.4 * done;
+    g.beginPath(); g.moveTo(-7 + i * 4.6, 3); g.lineTo(-7 + i * 4.6 + sw, 8); g.stroke();
+  }
+  g.strokeStyle = "#4a3019"; g.lineWidth = 2.2;
+  g.beginPath(); g.moveTo(-11, -2);
+  g.quadraticCurveTo(-15, Math.sin(legT) * 1.6, -17, 3.5 + Math.sin(legT * .7) * 1.2);
+  g.stroke();
+  const robe = g.createLinearGradient(0, -5, 0, 5);
+  robe.addColorStop(0, "#96683c"); robe.addColorStop(1, "#6f4a26");
+  g.fillStyle = robe;
+  g.beginPath(); g.ellipse(0, 0, 11.5, 4.7, 0, 0, 7); g.fill();
+  g.beginPath(); g.ellipse(9.5, -3.4, 5.2, 2.8, .55, 0, 7); g.fill();
+  g.beginPath(); g.ellipse(13.6, -5.4, 2.6, 1.5, .5, 0, 7); g.fill();
+  g.fillStyle = r.h.c[0];
+  g.beginPath(); g.ellipse(-.5, -6.6, 4.8, 3.9, -.35, 0, 7); g.fill();
+  g.strokeStyle = r.h.c[0]; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(2, -6); g.lineTo(7.5, -4); g.stroke();
+  g.fillStyle = r.h.c[1];
+  g.beginPath(); g.arc(1.2, -10.2, 2.5, 0, 7); g.fill();
+  g.restore();
+  // dossard au-dessus (hors miroir, toujours lisible)
+  g.font = "700 " + Math.round(10 + 5 * q.d) + "px 'Barlow Condensed'";
+  g.textAlign = "center";
+  g.fillStyle = "#fff"; g.strokeStyle = "rgba(0,0,0,.65)"; g.lineWidth = 3;
+  g.strokeText(r.h.n, q.x, q.y - 15 * sc);
+  g.fillText(r.h.n, q.x, q.y - 15 * sc);
+  g.textAlign = "start";
+}
+
 
 
 resetRace(true);

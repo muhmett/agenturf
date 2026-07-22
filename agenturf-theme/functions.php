@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.0.0' );
+define( 'AGENTURF_VERSION', '1.2.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -61,15 +61,15 @@ add_action( 'wp_enqueue_scripts', function () {
 		array(),
 		null
 	);
-	wp_enqueue_style( 'agenturf', get_stylesheet_uri(), array( 'agenturf-fonts' ), AGENTURF_VERSION );
+	wp_enqueue_style( 'agenturf', get_stylesheet_uri(), array( 'agenturf-fonts' ), (string) filemtime( get_template_directory() . '/style.css' ) );
 
 	$apercu       = isset( $_GET['apercu'] ) ? sanitize_key( wp_unslash( $_GET['apercu'] ) ) : '';
 	$show_landing = ( ! is_user_logged_in() ) || 'portail' === $apercu;
 
 	if ( $show_landing ) {
-		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), AGENTURF_VERSION, true );
+		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), (string) filemtime( get_template_directory() . '/assets/js/landing.js' ), true );
 	} else {
-		wp_enqueue_script( 'agenturf-sim', get_template_directory_uri() . '/assets/js/simulator.js', array(), AGENTURF_VERSION, true );
+		wp_enqueue_script( 'agenturf-sim', get_template_directory_uri() . '/assets/js/simulator.js', array(), (string) filemtime( get_template_directory() . '/assets/js/simulator.js' ), true );
 		wp_add_inline_script(
 			'agenturf-sim',
 			'window.QUINTE_SIM_CFG = ' . wp_json_encode( array( 'race' => agenturf_race_data() ) ) . ';',
@@ -182,4 +182,28 @@ add_action( 'admin_post_agenturf_save', function () {
 	update_option( AGENTURF_OPT_RACE, wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ), false );
 	wp_safe_redirect( $redirect . '&saved=ok' );
 	exit;
+} );
+
+
+/* ---------------- redirections membres ---------------- */
+
+/* Après connexion (y compris via Google/Nextend) : les non-admins vont à l'accueil, pas à wp-admin. */
+add_filter( 'login_redirect', function ( $redirect_to, $requested, $user ) {
+	if ( $user instanceof WP_User && ! user_can( $user, 'manage_options' ) ) {
+		return home_url( '/' );
+	}
+	return $redirect_to;
+}, 10, 3 );
+
+/* Après inscription : retour à l'accueil. */
+add_filter( 'registration_redirect', function () {
+	return home_url( '/' );
+} );
+
+/* Un membre simple qui tape /wp-admin est renvoyé vers l'accueil. */
+add_action( 'admin_init', function () {
+	if ( is_admin() && ! current_user_can( 'edit_posts' ) && ! wp_doing_ajax() ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
 } );

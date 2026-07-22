@@ -81,9 +81,29 @@ $nb   = count( $race['horses'] );
 	</section>
 
 	<section class="sim-section">
-		<h2 class="sim-h2"><span class="tick"></span>Les <?php echo (int) $nb; ?> partants décryptés <small>valeur · poids · style de course · avis</small></h2>
+		<h2 class="sim-h2"><span class="tick"></span>L'avis des professionnels <small>pronostics presse · cotes · écuries</small></h2>
+		<div class="avisgrid" id="avisbox"></div>
+	</section>
+
+	<section class="sim-section">
+		<h2 class="sim-h2"><span class="tick"></span>Les <?php echo (int) $nb; ?> partants décryptés <small>driver · entraîneur · musique · avis</small></h2>
 		<div class="grid" id="cards"></div>
 	</section>
+
+	<div id="cinema" hidden>
+		<div class="cine-stage">
+			<canvas id="cv3" width="1280" height="720"></canvas>
+			<div class="cine-hud">
+				<div class="badge" id="cineDist"></div>
+				<div class="badge"><span class="cine-live">●</span> EN DIRECT · <?php echo esc_html( $meta['track'] ); ?></div>
+			</div>
+			<div class="cine-pos" id="cinePos"></div>
+			<div class="cine-ticker" id="cineTicker"></div>
+			<div class="count" id="cineCount"></div>
+			<div class="cine-result" id="cineResult" hidden></div>
+			<button type="button" class="cine-close" id="cineClose">✕ Quitter le direct</button>
+		</div>
+	</div>
 
 	<p class="disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
 </div>

@@ -12,88 +12,559 @@
       "Autostart · <b>corde à gauche</b>",
       "15 partants · 4 ans",
       "Mâles n'ayant pas gagné <b>71 000 €</b>"
+    ],
+    "avis": [
+      {
+        "src": "Canalturf — Stéphane Davy",
+        "txt": "Base du pronostic : <b>Montana Kalouma (9)</b> et <b>Maverick de Fael (13)</b>. Chances régulières : Meydan Voirons (4), Mourillon (14) et Mercure d'Elle (10). Outsiders retenus : Maestro du Choquel (15), Misti de Corday (8) et Magic John (1)."
+      },
+      {
+        "src": "Equidia",
+        "txt": "N°1 du pronostic : <b>Meydan Voirons (4)</b>, invaincu en deux sorties sur ce parcours d'Enghien et fort de cinq succès en huit courses. <b>Montana Kalouma (9)</b>, vainqueur le 26 juin sur ce tracé et présenté plaqué des quatre pieds, doit logiquement confirmer. <b>Maverick de Fael (13)</b> reste sur une victoire aux Sables-d'Olonne et s'est imposé lors de son unique sortie à Enghien."
+      },
+      {
+        "src": "ZEturf — le marché",
+        "txt": "Les cotes écrasent le débat : <b>Maverick de Fael à 4.0</b> et <b>Mercure d'Elle à 4.4</b>, loin devant Mourillon (7.2), Magic John et Montana Kalouma (8.3). Premier gros décrochage ensuite avec Meydan Voirons à 14.4 — le marché joue la régularité contre le risque de faute."
+      },
+      {
+        "src": "Les écuries",
+        "txt": "L'entraînement <b>Th. Duvaldestin</b> présente deux cartouches (Montana Kalouma et Maverick de Fael) — quand la maison double sa mise dans un Quinté, c'est rarement pour figurer. <b>M. Mottier</b> entraîne et drive lui-même Mourillon, un profil qu'il réserve aux parcours qu'il connaît par cœur. Côté <b>N. Bridault</b> (Mister Charly, Maestro du Choquel), on parle surtout d'apprentissage."
+      }
     ]
   },
   "horses": [
-    {"n":1,"name":"Magic John","jockey":"P.-Y. Verva","w":56,"draw":1,"val":0,"odds":8.3,"c":["#8e1d2f","#f0e6c8"],"style":"leader","ab":82,"vol":1.15,
-     "sub":"P.-Y. Verva · 5a 4a 4a 8a Da 5a 1a 1a · cote 8.3 · n°1 autostart",
-     "note":"Cité outsider par les experts mais coté 8.3 seulement : le marché y croit. Deux Da dans la musique, mais des lignes de 1a solides et le n°1 derrière l'autostart — départ idéal s'il reste sage.",
-     "tags":[["base","N°1 autostart"],["risk","Fautif par moments"]]},
-    {"n":2,"name":"Mermoz","jockey":"L. Baudouin","w":56,"draw":2,"val":0,"odds":58.1,"c":["#2e5f8a","#dce9f5"],"style":"mid","ab":70,"vol":0.9,
-     "sub":"L. Baudouin · 4a 5a 5a 3a 6a 2a · cote 58.1",
-     "note":"Régulier mais un ton en dessous de ce lot : que des accessits récents (4a 5a 5a 3a). L'écurie Baudouin vise une place dans le rapport, pas la gagne.",
-     "tags":[["","Régulier"],["risk","Manque de pointe"]]},
-    {"n":3,"name":"My Love Always","jockey":"D. Thomain","w":56,"draw":3,"val":0,"odds":32.2,"c":["#e88bc4","#ffffff"],"style":"closer","ab":74,"vol":1.1,
-     "sub":"D. Thomain · 8a 2a 4a 0a 1a · cote 32.2",
-     "note":"Capable du meilleur (2a, 1a) comme du décevant (8a, 0a). David Thomain au sulky est une assurance ; s'il retrouve sa bonne version, il peut se glisser dans le quinté.",
-     "tags":[["","Inconstant"],["base","D. Thomain"]]},
-    {"n":4,"name":"Meydan Voirons","jockey":"A. Laurent","w":56,"draw":4,"val":0,"odds":14.4,"c":["#5b2c8d","#efe6f7"],"style":"stalker","ab":81,"vol":0.95,
-     "sub":"A. Laurent · 1a 1a Da 5a 1a · cote 14.4",
-     "note":"Le n°1 du pronostic Equidia : invaincu en deux sorties sur ce parcours d'Enghien, cinq succès en huit courses. Le duo père-fils Laurent le connaît par cœur. Un Da récent à surveiller.",
-     "tags":[["base","N°1 Equidia"],["base","2/2 sur le parcours"],["risk","Un Da récent"]]},
-    {"n":5,"name":"Michel Martin","jockey":"E. Raffin","w":56,"draw":5,"val":0,"odds":51.5,"c":["#15151d","#f2f2f2"],"style":"mid","ab":71,"vol":1.0,
-     "sub":"E. Raffin · 7a 4m 3m 2a 0a · cote 51.5",
-     "note":"Éric Raffin au sulky, et ce n'est jamais anodin. Mais la musique récente (7a, 4m, 3m) montre un plafond ; il faudrait un déroulement parfait pour accrocher le quinté.",
-     "tags":[["base","E. Raffin"],["risk","Musique moyenne"]]},
-    {"n":6,"name":"Mars Cobba","jockey":"Y. Lebourgeois","w":56,"draw":6,"val":0,"odds":34.9,"c":["#f2c200","#1b2a6b"],"style":"closer","ab":74,"vol":1.0,
-     "sub":"Y. Lebourgeois · 6a 2a 7a 9a · cote 34.9",
-     "note":"Yoann Lebourgeois reprend un cheval qui alterne (2a puis 9a). Une fin de course affûtée peut le faire entrer dans les cinq à belle cote.",
-     "tags":[["","Finisseur à cote"]]},
-    {"n":7,"name":"More Love Ducampus","jockey":"A. Abrivard","w":56,"draw":7,"val":0,"odds":49.6,"c":["#1b8a3a","#ffffff"],"style":"closer","ab":72,"vol":1.05,
-     "sub":"A. Abrivard · 2a 2a 1a 9a 6a · cote 49.6",
-     "note":"Deux 2a récents avant un passage à vide. L'écurie Abrivard sait cibler ses objectifs — la cote est grosse pour un cheval qui vient de courir deux fois deuxième.",
-     "tags":[["","Écurie Abrivard"],["risk","Irrégulier"]]},
-    {"n":8,"name":"Misti de Corday","jockey":"A. Desmottes","w":56,"draw":8,"val":0,"odds":58.9,"c":["#7b1f24","#e8c9a0"],"style":"leader","ab":71,"vol":1.3,
-     "sub":"A. Desmottes · 2a Da 3a Da 6a · cote 58.9",
-     "note":"Du talent (2a, 3a, des victoires l'an passé) mais des Da à répétition : un cheval à risque total. Soit il fait le parcours au trot et surprend, soit il saute dès le premier tournant.",
-     "tags":[["risk","Fautif chronique"],["","Coup de folie"]]},
-    {"n":9,"name":"Montana Kalouma","jockey":"T. Duvaldestin","w":56,"draw":9,"val":0,"odds":8.3,"c":["#f26522","#ffe6d5"],"style":"leader","ab":85,"vol":1.2,
-     "sub":"Théo Duvaldestin · 1a Da Da 1a 1a · cote 8.3",
-     "note":"Base des experts : cinq succès en dix courses, vainqueur le 26 juin sur ce tracé, présenté plaqué des quatre pieds. Théo Duvaldestin le drive pour son père. Tout est là… s'il reste au trot (trois Da dans la musique).",
-     "tags":[["base","Base des pronos"],["base","Vainqueur sur le tracé"],["risk","3 Da récents"]]},
-    {"n":10,"name":"Mercure d'Elle","jockey":"B. Rochard","w":56,"draw":10,"val":0,"odds":4.4,"c":["#1e4fd8","#dbe6ff"],"style":"stalker","ab":87,"vol":0.9,
-     "sub":"B. Rochard · 3a 1a 6a Da 1a · cote 4.4",
-     "note":"Le favori de la cote (4.4) : quatre victoires dans ses sept dernières sorties, une pointe de vitesse au-dessus du lot. Benjamin Rochard n'aura qu'à suivre puis déboîter.",
-     "tags":[["base","Favori"],["base","Pointe de vitesse"]]},
-    {"n":11,"name":"Mister Charly","jockey":"F. Lagadeuc","w":56,"draw":11,"val":0,"odds":74.4,"c":["#6a1b9a","#ffd54f"],"style":"mid","ab":67,"vol":1.0,
-     "sub":"F. Lagadeuc · 9a 4a 7a 6a · cote 74.4",
-     "note":"Musique terne (9a 4a 7a 6a) et plus grosse cote du champ ou presque. Il faudrait une hécatombe de disqualifications devant lui.",
-     "tags":[["risk","Limité"]]},
-    {"n":12,"name":"Maradona Ellis","jockey":"E. Allard","w":56,"draw":12,"val":0,"odds":59.8,"c":["#64b5f6","#ffffff"],"style":"mid","ab":69,"vol":1.0,
-     "sub":"E. Allard · 7a 0a 6a 6a 3a · cote 59.8 · 2e ligne",
-     "note":"Deuxième ligne de l'autostart et des performances en retrait (7a, 0a, 6a). Une place de 5e serait déjà un exploit.",
-     "tags":[["risk","2e ligne"],["risk","En méforme"]]},
-    {"n":13,"name":"Maverick de Fael","jockey":"M. Abrivard","w":56,"draw":13,"val":0,"odds":4.0,"c":["#e6c229","#1b1b1b"],"style":"stalker","ab":88,"vol":0.7,
-     "sub":"M. Abrivard · 1a 2a 2a 4a 1a · cote 4.0 · 2e ligne",
-     "note":"Co-favori et deuxième cartouche Duvaldestin : 1a 2a 2a 4a 1a 2a 1a 1a — jamais une faute, jamais loin. Sa seule sortie à Enghien ? Une victoire. Matthieu Abrivard drive la régularité incarnée, malgré la 2e ligne.",
-     "tags":[["base","Co-favori"],["base","Jamais de faute"],["risk","2e ligne"]]},
-    {"n":14,"name":"Mourillon","jockey":"M. Mottier","w":56,"draw":14,"val":0,"odds":7.2,"c":["#0e7490","#d0f0f7"],"style":"closer","ab":84,"vol":1.0,
-     "sub":"M. Mottier · 2a 3a 0a 4a 3a Da 1a · cote 7.2 · 2e ligne",
-     "note":"Troisième larron des pronos : Matthieu Mottier l'entraîne et le drive, et il vient de bien courir (2a, 3a). Un finisseur qui adore les parcours sinueux d'Enghien.",
-     "tags":[["base","Chance régulière"],["","Finisseur"]]},
-    {"n":15,"name":"Maestro du Choquel","jockey":"G. Gelormini","w":56,"draw":15,"val":0,"odds":72.2,"c":["#23232b","#e8e8e8"],"style":"closer","ab":68,"vol":1.35,
-     "sub":"G. Gelormini · Da Da 6a 3a Da · cote 72.2 · 2e ligne",
-     "note":"Gabriele Gelormini tente de canaliser un cheval qui vient de se disqualifier deux fois. Totale incertitude — l'outsider des outsiders cité par la presse.",
-     "tags":[["risk","Da Da récents"],["","Outsider presse"]]}
+    {
+      "n": 1,
+      "name": "Magic John",
+      "jockey": "P.-Y. Verva",
+      "w": 56,
+      "draw": 1,
+      "val": 0,
+      "odds": 8.3,
+      "c": [
+        "#8e1d2f",
+        "#f0e6c8"
+      ],
+      "style": "leader",
+      "ab": 82,
+      "vol": 1.15,
+      "sub": "P.-Y. Verva (driver) · ent. B. Bourgoin · n°1 autostart · cote 8.3",
+      "note": "Cité outsider par les experts mais coté 8.3 seulement : le marché y croit. Deux Da dans la musique, mais des lignes de 1a solides et le n°1 derrière l'autostart — départ idéal s'il reste sage.",
+      "tags": [
+        [
+          "base",
+          "N°1 autostart"
+        ],
+        [
+          "risk",
+          "Fautif par moments"
+        ]
+      ],
+      "trainer": "B. Bourgoin",
+      "musique": "5a 4a 4a 8a Da 5a 1a 1a Dm Da"
+    },
+    {
+      "n": 2,
+      "name": "Mermoz",
+      "jockey": "L. Baudouin",
+      "w": 56,
+      "draw": 2,
+      "val": 0,
+      "odds": 58.1,
+      "c": [
+        "#2e5f8a",
+        "#dce9f5"
+      ],
+      "style": "mid",
+      "ab": 70,
+      "vol": 0.9,
+      "sub": "L. Baudouin (driver) · ent. J.-M. Baudouin · cote 58.1",
+      "note": "Régulier mais un ton en dessous de ce lot : que des accessits récents (4a 5a 5a 3a). L'écurie Baudouin vise une place dans le rapport, pas la gagne.",
+      "tags": [
+        [
+          "",
+          "Régulier"
+        ],
+        [
+          "risk",
+          "Manque de pointe"
+        ]
+      ],
+      "trainer": "J.-M. Baudouin",
+      "musique": "4a 5a 5a 3a 6a 2a (25) 8a 7a 3a"
+    },
+    {
+      "n": 3,
+      "name": "My Love Always",
+      "jockey": "D. Thomain",
+      "w": 56,
+      "draw": 3,
+      "val": 0,
+      "odds": 32.2,
+      "c": [
+        "#e88bc4",
+        "#ffffff"
+      ],
+      "style": "closer",
+      "ab": 74,
+      "vol": 1.1,
+      "sub": "D. Thomain (driver) · ent. L. Barassin · cote 32.2",
+      "note": "Capable du meilleur (2a, 1a) comme du décevant (8a, 0a). David Thomain au sulky est une assurance ; s'il retrouve sa bonne version, il peut se glisser dans le quinté.",
+      "tags": [
+        [
+          "",
+          "Inconstant"
+        ],
+        [
+          "base",
+          "D. Thomain"
+        ]
+      ],
+      "trainer": "L. Barassin",
+      "musique": "8a 2a 4a 0a 1a (25) 3a 4a Da 3a"
+    },
+    {
+      "n": 4,
+      "name": "Meydan Voirons",
+      "jockey": "A. Laurent",
+      "w": 56,
+      "draw": 4,
+      "val": 0,
+      "odds": 14.4,
+      "c": [
+        "#5b2c8d",
+        "#efe6f7"
+      ],
+      "style": "stalker",
+      "ab": 81,
+      "vol": 0.95,
+      "sub": "A. Laurent (driver) · ent. A. Laurent · cote 14.4",
+      "note": "Le n°1 du pronostic Equidia : invaincu en deux sorties sur ce parcours d'Enghien, cinq succès en huit courses. Le duo père-fils Laurent le connaît par cœur. Un Da récent à surveiller.",
+      "tags": [
+        [
+          "base",
+          "N°1 Equidia"
+        ],
+        [
+          "base",
+          "2/2 sur le parcours"
+        ],
+        [
+          "risk",
+          "Un Da récent"
+        ]
+      ],
+      "trainer": "A. Laurent",
+      "musique": "1a 1a Da 5a 1a (25) 1a 4a 1a"
+    },
+    {
+      "n": 5,
+      "name": "Michel Martin",
+      "jockey": "E. Raffin",
+      "w": 56,
+      "draw": 5,
+      "val": 0,
+      "odds": 51.5,
+      "c": [
+        "#15151d",
+        "#f2f2f2"
+      ],
+      "style": "mid",
+      "ab": 71,
+      "vol": 1.0,
+      "sub": "E. Raffin (driver) · ent. J. Bescher · cote 51.5",
+      "note": "Éric Raffin au sulky, et ce n'est jamais anodin. Mais la musique récente (7a, 4m, 3m) montre un plafond ; il faudrait un déroulement parfait pour accrocher le quinté.",
+      "tags": [
+        [
+          "base",
+          "E. Raffin"
+        ],
+        [
+          "risk",
+          "Musique moyenne"
+        ]
+      ],
+      "trainer": "J. Bescher",
+      "musique": "7a 4m 3m 2a 0a 7a 3a 5a (25) 8a"
+    },
+    {
+      "n": 6,
+      "name": "Mars Cobba",
+      "jockey": "Y. Lebourgeois",
+      "w": 56,
+      "draw": 6,
+      "val": 0,
+      "odds": 34.9,
+      "c": [
+        "#f2c200",
+        "#1b2a6b"
+      ],
+      "style": "closer",
+      "ab": 74,
+      "vol": 1.0,
+      "sub": "Y. Lebourgeois (driver) · ent. A. Prat · cote 34.9",
+      "note": "Yoann Lebourgeois reprend un cheval qui alterne (2a puis 9a). Une fin de course affûtée peut le faire entrer dans les cinq à belle cote.",
+      "tags": [
+        [
+          "",
+          "Finisseur à cote"
+        ]
+      ],
+      "trainer": "A. Prat",
+      "musique": "6a 2a 7a 9a (25) 6a 3a 2a 3a 1a"
+    },
+    {
+      "n": 7,
+      "name": "More Love Ducampus",
+      "jockey": "A. Abrivard",
+      "w": 56,
+      "draw": 7,
+      "val": 0,
+      "odds": 49.6,
+      "c": [
+        "#1b8a3a",
+        "#ffffff"
+      ],
+      "style": "closer",
+      "ab": 72,
+      "vol": 1.05,
+      "sub": "A. Abrivard (driver) · ent. L.-Cl. Abrivard · cote 49.6",
+      "note": "Deux 2a récents avant un passage à vide. L'écurie Abrivard sait cibler ses objectifs — la cote est grosse pour un cheval qui vient de courir deux fois deuxième.",
+      "tags": [
+        [
+          "",
+          "Écurie Abrivard"
+        ],
+        [
+          "risk",
+          "Irrégulier"
+        ]
+      ],
+      "trainer": "L.-Cl. Abrivard",
+      "musique": "2a 2a (25) 1a 9a 6a 1a 2a Da 4a"
+    },
+    {
+      "n": 8,
+      "name": "Misti de Corday",
+      "jockey": "A. Desmottes",
+      "w": 56,
+      "draw": 8,
+      "val": 0,
+      "odds": 58.9,
+      "c": [
+        "#7b1f24",
+        "#e8c9a0"
+      ],
+      "style": "leader",
+      "ab": 71,
+      "vol": 1.3,
+      "sub": "A. Desmottes (driver) · ent. A. Desmottes · cote 58.9",
+      "note": "Du talent (2a, 3a, des victoires l'an passé) mais des Da à répétition : un cheval à risque total. Soit il fait le parcours au trot et surprend, soit il saute dès le premier tournant.",
+      "tags": [
+        [
+          "risk",
+          "Fautif chronique"
+        ],
+        [
+          "",
+          "Coup de folie"
+        ]
+      ],
+      "trainer": "A. Desmottes",
+      "musique": "2a Da 3a Da (25) 6a Da 1a 1a 3a"
+    },
+    {
+      "n": 9,
+      "name": "Montana Kalouma",
+      "jockey": "T. Duvaldestin",
+      "w": 56,
+      "draw": 9,
+      "val": 0,
+      "odds": 8.3,
+      "c": [
+        "#f26522",
+        "#ffe6d5"
+      ],
+      "style": "leader",
+      "ab": 85,
+      "vol": 1.2,
+      "sub": "T. Duvaldestin (driver) · ent. Th. Duvaldestin · cote 8.3",
+      "note": "Base des experts : cinq succès en dix courses, vainqueur le 26 juin sur ce tracé, présenté plaqué des quatre pieds. Théo Duvaldestin le drive pour son père. Tout est là… s'il reste au trot (trois Da dans la musique).",
+      "tags": [
+        [
+          "base",
+          "Base des pronos"
+        ],
+        [
+          "base",
+          "Vainqueur sur le tracé"
+        ],
+        [
+          "risk",
+          "3 Da récents"
+        ]
+      ],
+      "trainer": "Th. Duvaldestin",
+      "musique": "1a Da Da 1a 1a Da (25) 1a 1a 2a"
+    },
+    {
+      "n": 10,
+      "name": "Mercure d'Elle",
+      "jockey": "B. Rochard",
+      "w": 56,
+      "draw": 10,
+      "val": 0,
+      "odds": 4.4,
+      "c": [
+        "#1e4fd8",
+        "#dbe6ff"
+      ],
+      "style": "stalker",
+      "ab": 87,
+      "vol": 0.9,
+      "sub": "B. Rochard (driver) · ent. Th. Borderie · cote 4.4",
+      "note": "Le favori de la cote (4.4) : quatre victoires dans ses sept dernières sorties, une pointe de vitesse au-dessus du lot. Benjamin Rochard n'aura qu'à suivre puis déboîter.",
+      "tags": [
+        [
+          "base",
+          "Favori"
+        ],
+        [
+          "base",
+          "Pointe de vitesse"
+        ]
+      ],
+      "trainer": "Th. Borderie",
+      "musique": "3a 1a 6a Da 1a Da 1a (25) 1a 1a"
+    },
+    {
+      "n": 11,
+      "name": "Mister Charly",
+      "jockey": "F. Lagadeuc",
+      "w": 56,
+      "draw": 11,
+      "val": 0,
+      "odds": 74.4,
+      "c": [
+        "#6a1b9a",
+        "#ffd54f"
+      ],
+      "style": "mid",
+      "ab": 67,
+      "vol": 1.0,
+      "sub": "F. Lagadeuc (driver) · ent. N. Bridault · cote 74.4",
+      "note": "Musique terne (9a 4a 7a 6a) et plus grosse cote du champ ou presque. Il faudrait une hécatombe de disqualifications devant lui.",
+      "tags": [
+        [
+          "risk",
+          "Limité"
+        ]
+      ],
+      "trainer": "N. Bridault",
+      "musique": "9a 4a 7a 6a (25) 8a Da 4a 4a 3a"
+    },
+    {
+      "n": 12,
+      "name": "Maradona Ellis",
+      "jockey": "E. Allard",
+      "w": 56,
+      "draw": 12,
+      "val": 0,
+      "odds": 59.8,
+      "c": [
+        "#64b5f6",
+        "#ffffff"
+      ],
+      "style": "mid",
+      "ab": 69,
+      "vol": 1.0,
+      "sub": "E. Allard (driver) · ent. E. Allard · 2e ligne · cote 59.8",
+      "note": "Deuxième ligne de l'autostart et des performances en retrait (7a, 0a, 6a). Une place de 5e serait déjà un exploit.",
+      "tags": [
+        [
+          "risk",
+          "2e ligne"
+        ],
+        [
+          "risk",
+          "En méforme"
+        ]
+      ],
+      "trainer": "E. Allard",
+      "musique": "7a 0a 6a 6a 3a (25) Da 7a 1a 6a"
+    },
+    {
+      "n": 13,
+      "name": "Maverick de Fael",
+      "jockey": "M. Abrivard",
+      "w": 56,
+      "draw": 13,
+      "val": 0,
+      "odds": 4.0,
+      "c": [
+        "#e6c229",
+        "#1b1b1b"
+      ],
+      "style": "stalker",
+      "ab": 88,
+      "vol": 0.7,
+      "sub": "M. Abrivard (driver) · ent. Th. Duvaldestin · 2e ligne · cote 4.0",
+      "note": "Co-favori et deuxième cartouche Duvaldestin : 1a 2a 2a 4a 1a 2a 1a 1a — jamais une faute, jamais loin. Sa seule sortie à Enghien ? Une victoire. Matthieu Abrivard drive la régularité incarnée, malgré la 2e ligne.",
+      "tags": [
+        [
+          "base",
+          "Co-favori"
+        ],
+        [
+          "base",
+          "Jamais de faute"
+        ],
+        [
+          "risk",
+          "2e ligne"
+        ]
+      ],
+      "trainer": "Th. Duvaldestin",
+      "musique": "1a 2a 2a 4a (25) 1a 2a 1a 1a"
+    },
+    {
+      "n": 14,
+      "name": "Mourillon",
+      "jockey": "M. Mottier",
+      "w": 56,
+      "draw": 14,
+      "val": 0,
+      "odds": 7.2,
+      "c": [
+        "#0e7490",
+        "#d0f0f7"
+      ],
+      "style": "closer",
+      "ab": 84,
+      "vol": 1.0,
+      "sub": "M. Mottier (driver) · ent. M. Mottier · 2e ligne · cote 7.2",
+      "note": "Troisième larron des pronos : Matthieu Mottier l'entraîne et le drive, et il vient de bien courir (2a, 3a). Un finisseur qui adore les parcours sinueux d'Enghien.",
+      "tags": [
+        [
+          "base",
+          "Chance régulière"
+        ],
+        [
+          "",
+          "Finisseur"
+        ]
+      ],
+      "trainer": "M. Mottier",
+      "musique": "2a 3a 0a 4a 3a Da 1a (25) Da 7a"
+    },
+    {
+      "n": 15,
+      "name": "Maestro du Choquel",
+      "jockey": "G. Gelormini",
+      "w": 56,
+      "draw": 15,
+      "val": 0,
+      "odds": 72.2,
+      "c": [
+        "#23232b",
+        "#e8e8e8"
+      ],
+      "style": "closer",
+      "ab": 68,
+      "vol": 1.35,
+      "sub": "G. Gelormini (driver) · ent. N. Bridault · 2e ligne · cote 72.2",
+      "note": "Gabriele Gelormini tente de canaliser un cheval qui vient de se disqualifier deux fois. Totale incertitude — l'outsider des outsiders cité par la presse.",
+      "tags": [
+        [
+          "risk",
+          "Da Da récents"
+        ],
+        [
+          "",
+          "Outsider presse"
+        ]
+      ],
+      "trainer": "N. Bridault",
+      "musique": "Da Da (25) 6a 3a Da 3a 1a 3a 1a"
+    }
   ],
   "scenarios": [
-    {"id":"logique","title":"① La course des favoris","prob":"~32%",
-     "desc":"Mercure d'Elle (4.4) et Maverick de Fael (4.0) se neutralisent puis dominent : le favori déboîte dans la montée, le régulier répond. Montana Kalouma complète sans faute. Les experts ont raison.",
-     "bias":{"10":1.07,"13":1.06,"9":1.03,"14":1.02},"pace":"normal"},
-    {"id":"duvaldestin","title":"② Le doublé Duvaldestin","prob":"~18%",
-     "desc":"Théo Duvaldestin (Montana Kalouma) et Matthieu Abrivard (Maverick de Fael) verrouillent la course pour l'entraînement Duvaldestin : un devant, un en embuscade. Le favori enfermé à la corde.",
-     "bias":{"9":1.09,"13":1.08,"10":0.96},"pace":"lent"},
-    {"id":"fautes","title":"③ L'hécatombe des fautifs","prob":"~16%",
-     "desc":"Premier tournant d'Enghien musclé : les fautifs chroniques (Montana Kalouma, Misti de Corday, Maestro du Choquel) sautent. Les trotteurs sages — Maverick, Mourillon, Magic John — trustent l'arrivée.",
-     "bias":{"13":1.06,"14":1.06,"1":1.06,"4":1.03,"9":0.9,"8":0.88,"15":0.88},"pace":"normal"},
-    {"id":"mourillon","title":"④ Le coup Mottier","prob":"~13%",
-     "desc":"Matthieu Mottier, entraîneur-driver, connaît chaque virage d'Enghien : Mourillon vient de l'arrière-garde dans les 500 derniers mètres pendant que les favoris se marquent. Magic John résiste devant.",
-     "bias":{"14":1.09,"1":1.06,"4":0.98,"10":0.97},"pace":"rapide"},
-    {"id":"outsiders","title":"⑤ La surprise Abrivard","prob":"~12%",
-     "desc":"More Love Ducampus (49.6 !) retrouve ses lignes de 2a 2a, My Love Always sa bonne version, et Mars Cobba finit fort : les grosses cotes font exploser le rapport.",
-     "bias":{"7":1.1,"3":1.08,"6":1.08,"10":0.97,"13":0.97},"pace":"rapide"},
-    {"id":"chaos","title":"⑥ Chaos à Enghien","prob":"~9%",
-     "desc":"15 mâles de 4 ans, un autostart nerveux, des Da partout dans les musiques : tout peut arriver au petit trot d'Enghien. Volatilité maximale, aucun cheval protégé.",
-     "bias":{},"chaos":1.9,"pace":"rapide"}
+    {
+      "id": "logique",
+      "title": "① La course des favoris",
+      "prob": "~32%",
+      "desc": "Mercure d'Elle (4.4) et Maverick de Fael (4.0) se neutralisent puis dominent : le favori déboîte dans la montée, le régulier répond. Montana Kalouma complète sans faute. Les experts ont raison.",
+      "bias": {
+        "10": 1.07,
+        "13": 1.06,
+        "9": 1.03,
+        "14": 1.02
+      },
+      "pace": "normal"
+    },
+    {
+      "id": "duvaldestin",
+      "title": "② Le doublé Duvaldestin",
+      "prob": "~18%",
+      "desc": "Théo Duvaldestin (Montana Kalouma) et Matthieu Abrivard (Maverick de Fael) verrouillent la course pour l'entraînement Duvaldestin : un devant, un en embuscade. Le favori enfermé à la corde.",
+      "bias": {
+        "9": 1.09,
+        "13": 1.08,
+        "10": 0.96
+      },
+      "pace": "lent"
+    },
+    {
+      "id": "fautes",
+      "title": "③ L'hécatombe des fautifs",
+      "prob": "~16%",
+      "desc": "Premier tournant d'Enghien musclé : les fautifs chroniques (Montana Kalouma, Misti de Corday, Maestro du Choquel) sautent. Les trotteurs sages — Maverick, Mourillon, Magic John — trustent l'arrivée.",
+      "bias": {
+        "13": 1.06,
+        "14": 1.06,
+        "1": 1.06,
+        "4": 1.03,
+        "9": 0.9,
+        "8": 0.88,
+        "15": 0.88
+      },
+      "pace": "normal"
+    },
+    {
+      "id": "mourillon",
+      "title": "④ Le coup Mottier",
+      "prob": "~13%",
+      "desc": "Matthieu Mottier, entraîneur-driver, connaît chaque virage d'Enghien : Mourillon vient de l'arrière-garde dans les 500 derniers mètres pendant que les favoris se marquent. Magic John résiste devant.",
+      "bias": {
+        "14": 1.09,
+        "1": 1.06,
+        "4": 0.98,
+        "10": 0.97
+      },
+      "pace": "rapide"
+    },
+    {
+      "id": "outsiders",
+      "title": "⑤ La surprise Abrivard",
+      "prob": "~12%",
+      "desc": "More Love Ducampus (49.6 !) retrouve ses lignes de 2a 2a, My Love Always sa bonne version, et Mars Cobba finit fort : les grosses cotes font exploser le rapport.",
+      "bias": {
+        "7": 1.1,
+        "3": 1.08,
+        "6": 1.08,
+        "10": 0.97,
+        "13": 0.97
+      },
+      "pace": "rapide"
+    },
+    {
+      "id": "chaos",
+      "title": "⑥ Chaos à Enghien",
+      "prob": "~9%",
+      "desc": "15 mâles de 4 ans, un autostart nerveux, des Da partout dans les musiques : tout peut arriver au petit trot d'Enghien. Volatilité maximale, aucun cheval protégé.",
+      "bias": {},
+      "chaos": 1.9,
+      "pace": "rapide"
+    }
   ]
 }
