@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.9.0
+Version: 1.10.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -486,3 +486,19 @@ button.btn{
 }
 .cine-sound:hover{background:rgba(12,25,18,.95)}
 @media(max-width:640px){.cine-sound{top:auto;bottom:64px;right:12px}}
+
+/* =============== plein écran du Direct =============== */
+.cine-full{
+  position:absolute;top:56px;right:110px;z-index:6;
+  background:rgba(12,25,18,.82);color:#f3f1e6;border:1px solid rgba(255,255,255,.25);
+  border-radius:99px;padding:6px 14px;font-family:'Barlow Condensed';font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;cursor:pointer;backdrop-filter:blur(3px);
+}
+.cine-full:hover{background:rgba(12,25,18,.95)}
+/* en plein écran : la scène occupe tout l'écran en gardant le 16:9 */
+#cinema:fullscreen{background:#000;display:flex;align-items:center;justify-content:center}
+#cinema:-webkit-full-screen{background:#000;display:flex;align-items:center;justify-content:center}
+#cinema:fullscreen .cine-stage{width:min(100vw,177.78vh);max-width:none}
+#cinema:-webkit-full-screen .cine-stage{width:min(100vw,177.78vh);max-width:none}
+#cinema:fullscreen .cine-close{top:8px;right:12px}
+@media(max-width:640px){.cine-full{top:auto;bottom:64px;right:110px}}

@@ -861,6 +861,7 @@ function openCinema() {
 }
 function closeCinema() {
   cinemaOpen = false;
+  if (fsElement()) { const ex = document.exitFullscreen || document.webkitExitFullscreen; if (ex) { try { ex.call(document); } catch (e) {} } }
   const el = $("cinema");
   if (el) el.hidden = true;
   document.body.style.overflow = "";
@@ -879,6 +880,27 @@ function refreshSoundBtns() {
   if (b) b.onclick = () => { Sound.toggle(); refreshSoundBtns(); };
 });
 refreshSoundBtns();
+
+/* --- plein écran du Direct (idéal pour l'enregistrement vidéo) --- */
+function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
+function toggleFullscreen() {
+  const el = $("cinema");
+  if (!el) return;
+  if (!fsElement()) {
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen;
+    if (req) { try { req.call(el); } catch (e) {} }
+  } else {
+    const ex = document.exitFullscreen || document.webkitExitFullscreen;
+    if (ex) { try { ex.call(document); } catch (e) {} }
+  }
+}
+function refreshFullBtn() {
+  const b = $("cineFull");
+  if (b) b.textContent = fsElement() ? "⛶ Quitter plein écran" : "⛶ Plein écran";
+}
+if ($("cineFull")) $("cineFull").onclick = toggleFullscreen;
+document.addEventListener("fullscreenchange", refreshFullBtn);
+document.addEventListener("webkitfullscreenchange", refreshFullBtn);
 
 /* rangée écran (0 = loin/haut près de la lice, 1 = proche/bas près caméra) */
 function horseScreen(r) {

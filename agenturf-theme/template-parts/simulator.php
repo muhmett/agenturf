@@ -103,6 +103,7 @@ $nb   = count( $race['horses'] );
 				<div class="badge"><span class="cine-live">●</span> EN DIRECT · <?php echo esc_html( $meta['track'] ); ?></div>
 			</div>
 			<button type="button" class="cine-sound" id="cineSound">🔊 Son</button>
+			<button type="button" class="cine-full" id="cineFull">⛶ Plein écran</button>
 			<div class="cine-pos" id="cinePos"></div>
 			<div class="cine-ticker" id="cineTicker"></div>
 			<div class="count" id="cineCount"></div>
