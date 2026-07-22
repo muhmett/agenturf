@@ -6,11 +6,33 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.7.0' );
+define( 'AGENTURF_VERSION', '1.8.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
 define( 'AGENTURF_OPT_CINE', 'agenturf_cine_intro' );
+define( 'AGENTURF_OPT_ACCESS', 'agenturf_access' ); // 'open' (tout le monde) ou 'members' (connexion requise)
+
+/* Mode d'accès : 'open' par défaut → le simulateur est visible sans connexion. */
+function agenturf_access_mode() {
+	$m = get_option( AGENTURF_OPT_ACCESS, 'open' );
+	return ( 'members' === $m ) ? 'members' : 'open';
+}
+
+/* Vue à afficher : 'landing' (portail vidéo) ou 'simulator'. */
+function agenturf_current_view() {
+	$apercu = isset( $_GET['apercu'] ) ? sanitize_key( wp_unslash( $_GET['apercu'] ) ) : '';
+	if ( 'portail' === $apercu ) {
+		return 'landing';
+	}
+	if ( 'simulateur' === $apercu ) {
+		return 'simulator';
+	}
+	if ( 'open' === agenturf_access_mode() ) {
+		return 'simulator';
+	}
+	return is_user_logged_in() ? 'simulator' : 'landing';
+}
 
 /* Vidéo hero par défaut : course de chevaux, Pexels (licence libre) */
 define( 'AGENTURF_DEFAULT_VIDEO', 'https://videos.pexels.com/video-files/31653765/13486027_1920_1080_25fps.mp4' );
@@ -64,10 +86,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	);
 	wp_enqueue_style( 'agenturf', get_stylesheet_uri(), array( 'agenturf-fonts' ), (string) filemtime( get_template_directory() . '/style.css' ) );
 
-	$apercu       = isset( $_GET['apercu'] ) ? sanitize_key( wp_unslash( $_GET['apercu'] ) ) : '';
-	$show_landing = ( ! is_user_logged_in() ) || 'portail' === $apercu;
-
-	if ( $show_landing ) {
+	if ( 'landing' === agenturf_current_view() ) {
 		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), (string) filemtime( get_template_directory() . '/assets/js/landing.js' ), true );
 	} else {
 		wp_enqueue_script( 'agenturf-sim', get_template_directory_uri() . '/assets/js/simulator.js', array(), (string) filemtime( get_template_directory() . '/assets/js/simulator.js' ), true );
@@ -118,6 +137,20 @@ function agenturf_admin_page() {
 		<form method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 			<input type="hidden" name="action" value="agenturf_save">
 			<?php wp_nonce_field( 'agenturf_save' ); ?>
+
+			<h2 class="title">Accès au simulateur</h2>
+			<?php $mode = agenturf_access_mode(); ?>
+			<p>
+				<label style="display:block;margin:4px 0;">
+					<input type="radio" name="access_mode" value="open" <?php checked( 'open', $mode ); ?>>
+					<strong>Ouvert à tout le monde</strong> — n'importe quel visiteur voit le simulateur, sans connexion. <em>(idéal pour lancer le site tout de suite)</em>
+				</label>
+				<label style="display:block;margin:4px 0;">
+					<input type="radio" name="access_mode" value="members" <?php checked( 'members', $mode ); ?>>
+					<strong>Membres seulement</strong> — les visiteurs voient le portail vidéo et doivent se connecter (Google via Nextend) pour accéder au simulateur.
+				</label>
+			</p>
+			<hr>
 
 			<h2 class="title">1. Charger la course du jour (fichier JSON)</h2>
 			<p>Chaque matin, téléverse simplement le fichier JSON de la course — aucun code à toucher.</p>
@@ -176,6 +209,10 @@ add_action( 'admin_post_agenturf_save', function () {
 	check_admin_referer( 'agenturf_save' );
 
 	$redirect = admin_url( 'admin.php?page=agenturf-race' );
+
+	/* mode d'accès */
+	$mode = isset( $_POST['access_mode'] ) && 'members' === $_POST['access_mode'] ? 'members' : 'open';
+	update_option( AGENTURF_OPT_ACCESS, $mode, false );
 
 	if ( ! empty( $_POST['reset_default'] ) ) {
 		delete_option( AGENTURF_OPT_RACE );

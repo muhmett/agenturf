@@ -1,21 +1,14 @@
 <?php
 /**
- * AgenTurf — page unique :
- * visiteur                -> landing vidéo + porte Google
- * membre connecté         -> simulateur Quinté+ complet
- * ?apercu=portail         -> force l'aperçu de la landing (utile pour l'admin,
- *                            qui est toujours connecté et ne la verrait jamais)
- * ?apercu=simulateur      -> force l'aperçu du simulateur
+ * AgenTurf — page unique.
+ * Vue déterminée par agenturf_current_view() :
+ *   - mode « open »   : le simulateur est visible par tout le monde (lancement rapide)
+ *   - mode « members »: portail vidéo pour les invités, simulateur pour les connectés
+ *   - ?apercu=portail / ?apercu=simulateur : forcer une vue (aperçu admin)
  */
 get_header();
 
-$force = isset( $_GET['apercu'] ) ? sanitize_key( wp_unslash( $_GET['apercu'] ) ) : '';
-
-if ( 'portail' === $force ) {
-	get_template_part( 'template-parts/landing' );
-} elseif ( 'simulateur' === $force && is_user_logged_in() ) {
-	get_template_part( 'template-parts/simulator' );
-} elseif ( is_user_logged_in() ) {
+if ( 'simulator' === agenturf_current_view() ) {
 	get_template_part( 'template-parts/simulator' );
 } else {
 	get_template_part( 'template-parts/landing' );

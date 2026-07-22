@@ -14,7 +14,7 @@
 		<a class="tb-btn" href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">Archives</a>
 		<?php if ( is_user_logged_in() ) : ?>
 			<a class="tb-btn" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>">Déconnexion</a>
-		<?php else : ?>
+		<?php elseif ( 'members' === agenturf_access_mode() ) : ?>
 			<a class="tb-btn solid" href="<?php echo esc_url( agenturf_login_url() ); ?>">Se connecter</a>
 		<?php endif; ?>
 	</div>
