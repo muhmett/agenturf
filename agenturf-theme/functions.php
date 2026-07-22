@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.3.0' );
+define( 'AGENTURF_VERSION', '1.4.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -155,6 +155,15 @@ function agenturf_admin_page() {
 			</p>
 		</form>
 		<p><em>Astuce : donne l'ancien JSON + le programme de la nouvelle course à une IA et demande-lui le même format — deux minutes et c'est prêt.</em></p>
+		<hr>
+		<h2 class="title">Mises à jour du thème</h2>
+		<p>Le thème vérifie tout seul les nouvelles versions publiées sur GitHub (Apparence → Thèmes affiche « Mise à jour disponible »).</p>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+			<input type="hidden" name="action" value="agenturf_check_update">
+			<?php wp_nonce_field( 'agenturf_check_update' ); ?>
+			<?php submit_button( '🔄 Vérifier les mises à jour maintenant', 'secondary', 'submit', false ); ?>
+			<span class="description">&nbsp;Version installée : <?php echo esc_html( wp_get_theme( get_template() )->get( 'Version' ) ); ?></span>
+		</form>
 	</div>
 	<?php
 }
@@ -376,3 +385,63 @@ add_action( 'wp_head', function () {
 		echo '<script type="application/ld+json">' . wp_json_encode( $ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
 	}
 }, 5 );
+
+
+/* =====================================================
+   MISES À JOUR AUTOMATIQUES — le thème se met à jour
+   depuis GitHub en un clic (Apparence → Thèmes), plus
+   besoin de réinstaller le zip à la main.
+   ===================================================== */
+
+define( 'AGENTURF_UPDATE_JSON', 'https://raw.githubusercontent.com/muhmett/agenturf/claude/wordpress-quinte-simulator-2qch31/theme-update.json' );
+
+function agenturf_remote_update_info() {
+	$cached = get_site_transient( 'agenturf_update_info' );
+	if ( is_array( $cached ) ) {
+		return $cached;
+	}
+	$resp = wp_remote_get( AGENTURF_UPDATE_JSON, array( 'timeout' => 8 ) );
+	$info = array();
+	if ( ! is_wp_error( $resp ) && 200 === wp_remote_retrieve_response_code( $resp ) ) {
+		$body = json_decode( wp_remote_retrieve_body( $resp ), true );
+		if ( is_array( $body ) && ! empty( $body['version'] ) && ! empty( $body['zip'] ) ) {
+			$info = $body;
+		}
+	}
+	set_site_transient( 'agenturf_update_info', $info, 6 * HOUR_IN_SECONDS );
+	return $info;
+}
+
+add_filter( 'pre_set_site_transient_update_themes', function ( $transient ) {
+	if ( empty( $transient ) || ! is_object( $transient ) ) {
+		return $transient;
+	}
+	$info = agenturf_remote_update_info();
+	if ( empty( $info['version'] ) ) {
+		return $transient;
+	}
+	$slug    = get_template();
+	$current = wp_get_theme( $slug )->get( 'Version' );
+	if ( version_compare( $info['version'], (string) $current, '>' ) ) {
+		$transient->response[ $slug ] = array(
+			'theme'       => $slug,
+			'new_version' => $info['version'],
+			'url'         => isset( $info['details'] ) ? $info['details'] : 'https://github.com/muhmett/agenturf',
+			'package'     => $info['zip'],
+		);
+	}
+	return $transient;
+} );
+
+/* Bouton « Vérifier les mises à jour » dans la page Quinté du jour. */
+add_action( 'admin_post_agenturf_check_update', function () {
+	if ( ! current_user_can( 'update_themes' ) ) {
+		wp_die( 'Accès refusé.' );
+	}
+	check_admin_referer( 'agenturf_check_update' );
+	delete_site_transient( 'agenturf_update_info' );
+	delete_site_transient( 'update_themes' );
+	wp_update_themes();
+	wp_safe_redirect( admin_url( 'themes.php' ) );
+	exit;
+} );
