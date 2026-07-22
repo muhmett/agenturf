@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.5.0' );
+define( 'AGENTURF_VERSION', '1.6.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -74,8 +74,9 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_add_inline_script(
 			'agenturf-sim',
 			'window.QUINTE_SIM_CFG = ' . wp_json_encode( array(
-				'race'      => agenturf_race_data(),
-				'cineIntro' => get_option( AGENTURF_OPT_CINE, '' ),
+				'race'       => agenturf_race_data(),
+				'cineIntro'  => get_option( AGENTURF_OPT_CINE, '' ),
+				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
 			) ) . ';',
 			'before'
 		);

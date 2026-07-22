@@ -89,6 +89,7 @@ function TP(d, lane) {
 const M = PERIM / DIST; // 1 tour = la distance du jour, arrivée au centre de la droite basse
 
 let runners = [], running = false, finished = false, raf = null, tSim = 0;
+let packMaxD = 0; const OVAL_SPREAD = 3.2;
 let cinemaOpen = false;
 let commentFlags = {}, finishCount = 0, confetti = [];
 const closerNames = HORSES.filter(h => h.style === "closer").map(h => h.name).slice(0, 2).join(" et ") || "les finisseurs";
@@ -112,9 +113,10 @@ function initRunner(h) {
     /* écart d'aptitude compressé (x0.35) pour des arrivées serrées et réalistes */
     speed0: BASEV * (1 + (base / 86 - 1) * 0.28) * luck,
     dist: 0, done: false, timeFin: 0,
-    lane: 1 + Math.min(h.draw - 1, 10) * 0.32 + Math.random() * .3,
+    lane: 1 + Math.min(h.draw - 1, 10) * 0.55 + Math.random() * .3,
     phase: Math.random() * Math.PI * 2,
     wob: .8 + Math.random() * .6,
+    row: (Math.min(h.draw, 15) - 1) / 14 + (Math.random() - .5) * 0.04, // couloir écran (Direct)
   };
 }
 
@@ -366,14 +368,15 @@ function tracePathC(c, R) {
 
 let dust = [];
 function drawHorse(r, t, isLeader) {
-  const pt = TP(r.dist * M, r.lane);
+  const dispDist = packMaxD + (r.dist - packMaxD) * OVAL_SPREAD; // étale le peloton (visuel)
+  const pt = TP(dispDist * M, r.lane);
   const gDone = r.done ? 0.4 : 1;
   const bob = Math.sin(t * 13 * r.wob + r.phase) * 1.5 * gDone;
   if (isLeader && running) {
     ctx.fillStyle = "rgba(227,182,78,.3)";
     ctx.beginPath(); ctx.ellipse(pt.x, pt.y + 6, 16, 5.5, 0, 0, 7); ctx.fill();
   }
-  const dir = TP(r.dist * M + 4, r.lane);
+  const dir = TP(dispDist * M + 4, r.lane);
   const dx = dir.x - pt.x, dy = dir.y - pt.y;
   const face = dx < 0 ? -1 : 1;
   const tilt = Math.max(-.5, Math.min(.5, Math.atan2(dy, Math.abs(dx) + .001)));
@@ -386,7 +389,7 @@ function drawHorse(r, t, isLeader) {
   paintHorse(ctx, r, t, running && !r.done);
   ctx.restore();
   if (running && !r.done && Math.random() < .3) {
-    const back = TP(r.dist * M - 9, r.lane);
+    const back = TP(dispDist * M - 9, r.lane);
     dust.push({ x: back.x, y: back.y + 5, a: .3, s: 1.5 + Math.random() * 2 });
   }
   ctx.font = "700 11px 'Barlow Condensed'"; ctx.fillStyle = "#fff";
@@ -427,6 +430,7 @@ function drawConfetti() {
 function drawFrame(t) {
   drawTrack();
   drawDust();
+  packMaxD = runners.length ? runners.reduce((m, r) => Math.max(m, r.dist), 0) : 0;
   const leadN = runners.length ? [...runners].sort((a, b) => b.dist - a.dist)[0].h.n : 0;
   [...runners].sort((a, b) => a.lane - b.lane).forEach(r => drawHorse(r, t, r.h.n === leadN));
   drawConfetti();
@@ -455,7 +459,7 @@ function step() {
     const catchup = 1 + Math.min(0.075, Math.max(0, leadDist - r.dist) * (f > 0.7 ? 0.0016 : 0.0009));
     const v = r.speed0 * prof * fatigue * noise * paceK * catchup;
     r.dist += v * dt;
-    if (f > 0.28 && r.lane > 1.2) r.lane -= dt * 0.55;
+    if (f > 0.28 && r.lane > 2.2) r.lane -= dt * 0.4;
     if (r.dist >= DIST) {
       r.done = true; r.timeFin = tSim;
       finishCount++;
@@ -644,14 +648,30 @@ function runMonteCarlo() {
 if ($("btnMC")) $("btnMC").onclick = runMonteCarlo;
 
 /* =========================================================
-   LE DIRECT — pop-up plein écran, caméra TV pseudo-3D
-   La même course, vue comme une retransmission : perspective
-   écrasée, caméra qui suit le peloton, classement + micro.
+   LE DIRECT — retransmission télé, caméra latérale
+   Vue de côté façon travelling TV : les chevaux courent de
+   gauche à droite dans leurs couloirs, la caméra suit le
+   peloton, tribunes réelles en fond. Champ qui s'étire par
+   position — lisible et crédible.
    ========================================================= */
 const CW = 1280, CH = 720;
-let cv3 = null, c3 = null, camX = 0;
-const HORIZON = 150, SQUASH = 0.52, ZOOM = 1.5;
-const OUTER_LANE = T.lanes + 1.2, INNER_LANE = -1.7;
+let cv3 = null, c3 = null;
+const RAIL_Y = 258;          // ligne de lice (haut de la piste)
+const ROW_TOP = RAIL_Y + 34; // première rangée de chevaux
+const ROW_BOT = CH - 66;     // dernière rangée (près de la caméra)
+const PXM = 12.5;            // pixels par mètre (étalement horizontal)
+const CAM_X = CW * 0.66;     // le cheval de tête est ancré ici
+let camDist = 0;
+
+/* image de tribune (générée) — chargée une fois */
+let grandImg = null, grandReady = false;
+(function loadGrand() {
+  const url = CFG.grandstand;
+  if (!url) return;
+  grandImg = new Image();
+  grandImg.onload = () => { grandReady = true; };
+  grandImg.src = url;
+})();
 
 function openCinema() {
   const el = $("cinema");
@@ -663,7 +683,7 @@ function openCinema() {
   $("cineResult").hidden = true;
   $("cineTicker").textContent = "🎙 Les partants se présentent devant les tribunes…";
   $("cineDist").textContent = DIST.toLocaleString("fr-FR") + " m à parcourir";
-  camX = T.cx;
+  camDist = 0;
   draw3D(0);
   renderStandings();
 }
@@ -676,97 +696,103 @@ function closeCinema() {
 if ($("cineClose")) $("cineClose").onclick = closeCinema;
 document.addEventListener("keydown", e => { if (e.key === "Escape" && cinemaOpen) closeCinema(); });
 
-/* projection « caméra en tribune » : y écrasé, loin = petit + resserré */
-function depthOf(y) {
-  const yMin = T.cy - (T.r + OUTER_LANE * T.laneW), yMax = T.cy + (T.r + OUTER_LANE * T.laneW);
-  return Math.min(1, Math.max(0, (y - yMin) / (yMax - yMin))); // 0 = loin, 1 = proche
-}
-function project(pt) {
-  const d = depthOf(pt.y);
-  const sx = 0.62 + 0.38 * d;                     // pincement horizontal au loin
+/* rangée écran (0 = loin/haut près de la lice, 1 = proche/bas près caméra) */
+function horseScreen(r) {
+  const ln = Math.min(1, Math.max(0, r.row));
   return {
-    x: CW / 2 + (pt.x - camX) * ZOOM * sx,
-    y: HORIZON + (pt.y - (T.cy - (T.r + OUTER_LANE * T.laneW))) * SQUASH * ZOOM,
-    s: 0.85 + 1.05 * d,                            // échelle des sprites
-    d
+    x: CAM_X + (r.dist - camDist) * PXM,
+    y: ROW_TOP + ln * (ROW_BOT - ROW_TOP),
+    sc: 1.25 + ln * 1.15,     // plus proche = plus grand
+    ln
   };
-}
-function projectPath(lane, step) {
-  const pts = [];
-  for (let dd = 0; dd <= PERIM; dd += step) pts.push(project(TP(dd, lane)));
-  return pts;
-}
-function poly(cx2, pts, close) {
-  cx2.beginPath();
-  pts.forEach((q, i) => i ? cx2.lineTo(q.x, q.y) : cx2.moveTo(q.x, q.y));
-  if (close) cx2.closePath();
 }
 
 function draw3D(t) {
   const g = c3;
-  // ciel + lointain
-  const sky = g.createLinearGradient(0, 0, 0, HORIZON + 60);
-  sky.addColorStop(0, "#8fb8dc"); sky.addColorStop(1, "#d9e6d2");
-  g.fillStyle = sky; g.fillRect(0, 0, CW, HORIZON + 60);
-  g.fillStyle = "#276a3c"; g.fillRect(0, HORIZON + 40, CW, CH - HORIZON - 40);
-  // tribunes au fond
-  g.fillStyle = "#1d3a2b"; g.fillRect(CW * .08, HORIZON - 58, CW * .84, 46);
-  g.fillStyle = "rgba(255,255,255,.85)"; g.fillRect(CW * .08, HORIZON - 64, CW * .84, 6);
-  for (let i = 0; i < 240; i++) {
-    g.fillStyle = ["#e3b64e", "#e8e2d2", "#c96f6f", "#7fa8d8", "#d8d8d8"][i % 5];
-    g.globalAlpha = .5 + (i % 7) * .07;
-    g.fillRect(CW * .08 + 6 + (i * 37) % (CW * .84 - 12), HORIZON - 52 + (i * 13) % 36, 3, 3);
-  }
-  g.globalAlpha = 1;
 
-  // anneau de course en perspective
-  const outer = projectPath(OUTER_LANE, 10), inner = projectPath(INNER_LANE, 10);
-  poly(g, outer, true); g.fillStyle = "#4f9c62"; g.fill();
-  // bandes de tonte
-  for (let b = 0; b < 3; b++) {
-    const la = INNER_LANE + (OUTER_LANE - INNER_LANE) * (b / 3);
-    const lb = INNER_LANE + (OUTER_LANE - INNER_LANE) * ((b + 1) / 3);
-    poly(g, projectPath(lb, 12), true); g.fillStyle = b % 2 ? "#55a468" : "#4f9c62"; g.fill();
-    poly(g, projectPath(la, 12), true); g.fillStyle = b % 2 ? "#4f9c62" : "#55a468"; g.fill();
-  }
-  poly(g, inner, true); g.fillStyle = "#2c7040"; g.fill();
-  // plan d'eau au centre
-  const lake = project({ x: T.cx + 80, y: T.cy + 8 });
-  g.fillStyle = "rgba(140,190,225,.75)";
-  g.beginPath(); g.ellipse(lake.x, lake.y, 70 * lake.s * .6, 16 * lake.s * .6, 0, 0, 7); g.fill();
-  // lices
-  g.strokeStyle = "rgba(255,255,255,.95)"; g.lineWidth = 2.2;
-  poly(g, inner, true); g.stroke();
-  poly(g, outer, true); g.stroke();
-  // piquets de la lice proche
-  g.fillStyle = "#fff";
-  for (let dd = 0; dd < PERIM; dd += 34) {
-    const q = project(TP(dd, INNER_LANE));
-    if (q.d > .55) g.fillRect(q.x - 1, q.y - 8 * q.s * .5, 2, 8 * q.s * .5);
-  }
-  // ligne d'arrivée damier
-  const f1 = project(TP(0, INNER_LANE)), f2 = project(TP(0, OUTER_LANE));
-  const segs = 9;
-  for (let i = 0; i < segs; i++) {
-    const a = { x: f1.x + (f2.x - f1.x) * i / segs, y: f1.y + (f2.y - f1.y) * i / segs };
-    const b = { x: f1.x + (f2.x - f1.x) * (i + 1) / segs, y: f1.y + (f2.y - f1.y) * (i + 1) / segs };
-    g.strokeStyle = i % 2 ? "#122019" : "#fff"; g.lineWidth = 6;
-    g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
-  }
-
-  // caméra : suit le barycentre des 6 premiers
+  /* --- caméra : cadre le cheval de tête, le champ s'étire derrière --- */
   if (runners.length) {
-    const top = [...runners].sort((a, b) => b.dist - a.dist).slice(0, 6);
-    const cx2 = top.reduce((m, r) => m + TP(r.dist * M, r.lane).x, 0) / top.length;
-    camX += (cx2 - camX) * 0.07;
-    const lim = T.straight / 2 + 60;
-    camX = Math.min(T.cx + lim, Math.max(T.cx - lim, camX));
+    const front = runners.reduce((m, r) => Math.max(m, r.dist), 0);
+    camDist += (front - camDist) * 0.09;
+  }
+  const groundX = camDist * PXM;
+
+  /* --- ciel --- */
+  const sky = g.createLinearGradient(0, 0, 0, RAIL_Y);
+  sky.addColorStop(0, "#a9cbe6"); sky.addColorStop(1, "#e4ecdd");
+  g.fillStyle = sky; g.fillRect(0, 0, CW, RAIL_Y);
+
+  /* --- tribunes réelles (parallaxe lente) ou fallback --- */
+  if (grandReady) {
+    const iw = CW * 1.35, ih = iw * grandImg.height / grandImg.width;
+    const gy = RAIL_Y - ih + 8;
+    let ox = -((groundX * 0.22) % iw);
+    for (let x = ox - iw; x < CW + iw; x += iw) g.drawImage(grandImg, x, gy, iw, ih);
+  } else {
+    g.fillStyle = "#1d3a2b"; g.fillRect(0, RAIL_Y - 70, CW, 70);
+    for (let i = 0; i < 320; i++) {
+      g.fillStyle = ["#e3b64e", "#e8e2d2", "#c96f6f", "#7fa8d8", "#d8d8d8"][i % 5];
+      g.globalAlpha = .5 + (i % 7) * .06;
+      g.fillRect((i * 41 - groundX * 0.22) % CW, RAIL_Y - 64 + (i * 17) % 54, 3, 3);
+    }
+    g.globalAlpha = 1;
   }
 
-  // chevaux : du plus loin au plus proche
-  const byDepth = [...runners].sort((a, b) => TP(a.dist * M, a.lane * 1.7).y - TP(b.dist * M, b.lane * 1.7).y);
-  byDepth.forEach(r => drawHorse3D(g, r, t));
-  // confettis du direct
+  /* --- surface de course : bandes de tonte qui défilent --- */
+  const turf = g.createLinearGradient(0, RAIL_Y, 0, CH);
+  turf.addColorStop(0, "#3f9256"); turf.addColorStop(1, "#256a39");
+  g.fillStyle = turf; g.fillRect(0, RAIL_Y, CW, CH - RAIL_Y);
+  const stripeW = 96;
+  const sOff = -(groundX % stripeW);
+  for (let x = sOff - stripeW; x < CW + stripeW; x += stripeW) {
+    const i = Math.round((x + groundX) / stripeW);
+    g.fillStyle = i % 2 ? "rgba(255,255,255,.05)" : "rgba(0,0,0,.05)";
+    g.beginPath();
+    g.moveTo(x, RAIL_Y); g.lineTo(x + stripeW, RAIL_Y);
+    g.lineTo(x + stripeW * 1.5, CH); g.lineTo(x + stripeW * 0.5, CH);
+    g.closePath(); g.fill();
+  }
+
+  /* --- haie + lice haute (côté tribune) --- */
+  g.fillStyle = "#1f5c33"; g.fillRect(0, RAIL_Y - 7, CW, 9);
+  g.fillStyle = "#e9efe6"; g.fillRect(0, RAIL_Y + 1, CW, 3);
+  // poteaux de lice qui défilent
+  g.fillStyle = "rgba(255,255,255,.85)";
+  const postOff = -(groundX % 60);
+  for (let x = postOff; x < CW; x += 60) g.fillRect(x, RAIL_Y - 4, 2, 7);
+  // lice basse (côté caméra)
+  g.strokeStyle = "rgba(255,255,255,.5)"; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(0, CH - 8); g.lineTo(CW, CH - 8); g.stroke();
+
+  /* --- bornes de distance sur la lice --- */
+  g.font = "700 13px 'Barlow Condensed'"; g.textAlign = "center";
+  for (let m = 200; m < DIST; m += 200) {
+    const bx = CAM_X + ((DIST - m) - camDist) * PXM;
+    if (bx > -20 && bx < CW + 20) {
+      g.fillStyle = "#d33"; g.fillRect(bx - 1.5, RAIL_Y + 4, 3, 16);
+      g.fillStyle = "rgba(255,255,255,.85)"; g.fillText(m, bx, RAIL_Y + 32);
+    }
+  }
+  g.textAlign = "start";
+
+  /* --- ligne d'arrivée (damier vertical) qui entre par la droite --- */
+  const finX = CAM_X + (DIST - camDist) * PXM;
+  if (finX > -40 && finX < CW + 60) {
+    const seg = (CH - RAIL_Y) / 9;
+    for (let i = 0; i < 9; i++) {
+      g.fillStyle = i % 2 ? "#122019" : "#fff";
+      g.fillRect(finX - 4, RAIL_Y + i * seg, 8, seg);
+    }
+    g.fillStyle = "#c9971f"; g.fillRect(finX - 3, RAIL_Y - 40, 6, 44);
+    g.fillStyle = "#fff"; g.font = "900 15px 'Barlow Condensed'"; g.textAlign = "center";
+    g.fillText("ARRIVÉE", finX, RAIL_Y - 46); g.textAlign = "start";
+  }
+
+  /* --- chevaux : du plus loin (haut) au plus proche (bas) --- */
+  const order = [...runners].sort((a, b) => a.row - b.row);
+  order.forEach(r => drawHorse3D(g, r, t));
+
+  /* --- confettis --- */
   if (confetti.length) {
     confetti.forEach(cf => {
       g.save(); g.translate(cf.x * (CW / W), cf.y * (CH / H)); g.rotate(cf.rot);
@@ -777,30 +803,30 @@ function draw3D(t) {
 }
 
 function drawHorse3D(g, r, t) {
-  const lane3 = r.lane * 1.7; // couloirs écartés pour la lisibilité en perspective
-  const raw = TP(r.dist * M, lane3);
-  const q = project(raw);
-  const q2 = project(TP(r.dist * M + 6, lane3));
-  const dx = q2.x - q.x, dy = q2.y - q.y;
-  const face = dx < 0 ? -1 : 1;
-  const tilt = Math.max(-.45, Math.min(.45, Math.atan2(dy, Math.abs(dx) + .001)));
+  const p = horseScreen(r);
+  if (p.x < -90 || p.x > CW + 90) return;   // hors champ
   const done = r.done ? 0.4 : 1;
-  const bob = Math.sin(t * 13 * r.wob + r.phase) * 1.5 * done;
-  const sc = q.s * 0.85;
-  g.fillStyle = "rgba(0,0,0,.28)";
-  g.beginPath(); g.ellipse(q.x, q.y + 6 * sc, 13 * sc, 2.6 * sc, 0, 0, 7); g.fill();
+  const bob = Math.sin(t * 13 * r.wob + r.phase) * 1.6 * done;
+  const sc = p.sc;
+  // halo doré du leader
+  if (running && r === runners.reduce((a, b) => a.dist > b.dist ? a : b)) {
+    g.fillStyle = "rgba(227,182,78,.32)";
+    g.beginPath(); g.ellipse(p.x, p.y + 7 * sc, 20 * sc, 5 * sc, 0, 0, 7); g.fill();
+  }
+  // ombre
+  g.fillStyle = "rgba(0,0,0,.26)";
+  g.beginPath(); g.ellipse(p.x, p.y + 7 * sc, 15 * sc, 3 * sc, 0, 0, 7); g.fill();
   g.save();
-  g.translate(q.x, q.y + bob * sc * .4);
-  g.rotate(tilt * face);
-  g.scale(face * sc, sc);
+  g.translate(p.x, p.y + bob * sc * .35);
+  g.scale(sc, sc);
   paintHorse(g, r, t, running && !r.done);
   g.restore();
-  // dossard au-dessus (hors miroir, toujours lisible)
-  g.font = "700 " + Math.round(10 + 5 * q.d) + "px 'Barlow Condensed'";
+  // dossard au-dessus
+  g.font = "900 " + Math.round(12 + 6 * p.ln) + "px 'Barlow Condensed'";
   g.textAlign = "center";
-  g.fillStyle = "#fff"; g.strokeStyle = "rgba(0,0,0,.65)"; g.lineWidth = 3;
-  g.strokeText(r.h.n, q.x, q.y - 17 * sc);
-  g.fillText(r.h.n, q.x, q.y - 17 * sc);
+  g.lineWidth = 3.5; g.strokeStyle = "rgba(0,0,0,.7)"; g.fillStyle = "#fff";
+  const ty = p.y - 17 * sc;
+  g.strokeText(r.h.n, p.x, ty); g.fillText(r.h.n, p.x, ty);
   g.textAlign = "start";
 }
 
