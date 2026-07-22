@@ -93,6 +93,10 @@ $nb   = count( $race['horses'] );
 	<div id="cinema" hidden>
 		<div class="cine-stage">
 			<canvas id="cv3" width="1280" height="720"></canvas>
+			<div class="cine-intro" id="cineIntro" hidden>
+				<video id="cineIntroVid" muted playsinline preload="auto"></video>
+				<button type="button" class="skip" id="cineSkip">Passer l'intro ▸</button>
+			</div>
 			<div class="cine-hud">
 				<div class="badge" id="cineDist"></div>
 				<div class="badge"><span class="cine-live">●</span> EN DIRECT · <?php echo esc_html( $meta['track'] ); ?></div>

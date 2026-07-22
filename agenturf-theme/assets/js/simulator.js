@@ -490,8 +490,29 @@ $("btnStart").onclick = () => {
   if (running) return;
   if (finished) resetRace(true);
   openCinema();
-  startWithCountdown();
+  playIntroThen(startWithCountdown);
 };
+
+/* intro vidéo « ambiance TV » (optionnelle, configurée dans Quinté du jour) */
+function playIntroThen(cb) {
+  const url = CFG.cineIntro;
+  const box = $("cineIntro"), vid = $("cineIntroVid");
+  if (!url || !box || !vid || !cinemaOpen) { cb(); return; }
+  let fired = false;
+  const go = () => { if (fired) return; fired = true;
+    box.hidden = true; try { vid.pause(); } catch (e) {}
+    cb();
+  };
+  box.hidden = false;
+  vid.src = url;
+  vid.currentTime = 0;
+  vid.onended = go;
+  vid.onerror = go;
+  $("cineSkip").onclick = go;
+  setTimeout(go, 4500); // jamais plus de 4,5 s
+  const pr = vid.play();
+  if (pr && pr.catch) pr.catch(go);
+}
 $("btnReset").onclick = () => resetRace(false);
 
 /* =========================================================

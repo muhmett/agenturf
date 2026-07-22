@@ -12,7 +12,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.2.0
+Version: 1.3.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -420,6 +420,40 @@ button.btn{
 .cine-result p{font-size:1rem;margin-bottom:8px}
 @media(max-width:640px){.cine-pos{top:48px}.cp-nm{max-width:80px}.cine-close{top:-14px;right:0;padding:7px 12px}}
 
+
+/* =============== archives SEO =============== */
+.arch-wrap{padding-top:70px}
+.arch-content{background:#fff;border:1.5px solid var(--ligne);border-radius:14px;padding:22px 24px;margin-top:22px;font-size:.92rem}
+.arch-content h2{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.4rem;margin:18px 0 8px;color:#0c3b26}
+.arch-content h3{font-family:'Barlow Condensed';font-weight:700;font-size:1.05rem;margin:12px 0 4px}
+.arch-content ul{margin:8px 0 8px 20px}
+.arch-content li{margin:6px 0}
+.arch-cta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.arch-cta .btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.arch-list{display:grid;gap:12px}
+.arch-item{display:block;background:#fff;border:1.5px solid var(--ligne);border-radius:14px;padding:16px 18px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.arch-item:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(18,50,35,.12)}
+.arch-item .d{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--pmu)}
+.arch-item h2{font-family:'Barlow Condensed';font-weight:700;font-size:1.25rem;margin:2px 0 4px}
+.arch-item p{font-size:.84rem;color:#4b5563}
+.arch-nav{margin-top:18px;text-align:center}
+.arch-nav .page-numbers{display:inline-block;padding:6px 12px;border:1.5px solid var(--ligne);border-radius:8px;margin:0 3px;text-decoration:none;background:#fff}
+.arch-nav .page-numbers.current{background:var(--nuit);color:var(--craie)}
+
+/* tableau des partants (landing, indexable) */
+.parttable{background:#fff;border:1.5px solid var(--ligne);border-radius:14px;overflow-x:auto;margin-top:14px}
+.parttable table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px}
+.parttable th{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:10px 12px;background:var(--nuit);color:var(--craie);font-size:.8rem}
+.parttable td{padding:8px 12px;border-top:1px solid var(--ligne)}
+.parttable tr:hover td{background:#f7f5ea}
+.parttable .mus{font-family:monospace;font-size:.72rem;color:#6b7280}
+
+/* intro vidéo du Direct */
+.cine-intro{position:absolute;inset:0;border-radius:14px;overflow:hidden;background:#000;z-index:5}
+.cine-intro[hidden]{display:none}
+.cine-intro video{width:100%;height:100%;object-fit:cover}
+.cine-intro .skip{position:absolute;bottom:14px;right:14px;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:6px 14px;cursor:pointer;font-size:.8rem}
+
 </style>
 </head>
 <body>
@@ -470,6 +504,23 @@ button.btn{
       <div class="step reveal d1"><span class="num">2</span><h3>Choisis ton scénario</h3><p>Lis l'analyse des partants, puis choisis le scénario de course auquel tu crois.</p></div>
       <div class="step reveal d2"><span class="num">3</span><h3>Lance la simulation</h3><p>Regarde la course se jouer et compare les combinaisons qui reviennent le plus souvent.</p></div>
     </div>
+  </section>
+
+  <section class="land-section">
+    <h2 class="land-h2 reveal"><span class="tick"></span>L'analyse du jour <small>Quinté+ · Mercredi 22 juillet 2026 · R1 C8 · Départ 18h30</small></h2>
+    <p class="land-lead reveal"><strong>Prix de Picpus</strong> — Enghien · 2 875 m. Les 15 partants, les avis des professionnels et la simulation complète t'attendent derrière la connexion gratuite.</p>
+    <div class="avisgrid">
+      <div class="avis reveal"><h4>Canalturf — Stéphane Davy</h4><p>Base du pronostic : <b>Montana Kalouma (9)</b> et <b>Maverick de Fael (13)</b>. Chances régulières : Meydan Voirons (4), Mourillon (14) et Mercure d'Elle (10). Outsiders retenus : Maestro du Choquel (15), Misti de Corday (8) et Magic John (1).</p></div><div class="avis reveal"><h4>Equidia</h4><p>N°1 du pronostic : <b>Meydan Voirons (4)</b>, invaincu en deux sorties sur ce parcours d'Enghien et fort de cinq succès en huit courses. <b>Montana Kalouma (9)</b>, vainqueur le 26 juin sur ce tracé et présenté plaqué des quatre pieds, doit logiquement confirmer. <b>Maverick de Fael (13)</b> reste sur une victoire aux Sables-d'Olonne et s'est imposé lors de son unique sortie à Enghien.</p></div><div class="avis reveal"><h4>ZEturf — le marché</h4><p>Les cotes écrasent le débat : <b>Maverick de Fael à 4.0</b> et <b>Mercure d'Elle à 4.4</b>, loin devant Mourillon (7.2), Magic John et Montana Kalouma (8.3). Premier gros décrochage ensuite avec Meydan Voirons à 14.4 — le marché joue la régularité contre le risque de faute.</p></div><div class="avis reveal"><h4>Les écuries</h4><p>L'entraînement <b>Th. Duvaldestin</b> présente deux cartouches (Montana Kalouma et Maverick de Fael) — quand la maison double sa mise dans un Quinté, c'est rarement pour figurer. <b>M. Mottier</b> entraîne et drive lui-même Mourillon, un profil qu'il réserve aux parcours qu'il connaît par cœur. Côté <b>N. Bridault</b> (Mister Charly, Maestro du Choquel), on parle surtout d'apprentissage.</p></div>
+    </div>
+    <div class="parttable reveal">
+      <table>
+        <thead><tr><th>N°</th><th>Cheval</th><th>Driver / Jockey</th><th>Cote</th><th>Musique</th></tr></thead>
+        <tbody>
+        <tr><td><b>1</b></td><td>Magic John</td><td>P.-Y. Verva</td><td>8.3</td><td class="mus">5a 4a 4a 8a Da 5a 1a 1a Dm Da</td></tr><tr><td><b>2</b></td><td>Mermoz</td><td>L. Baudouin</td><td>58.1</td><td class="mus">4a 5a 5a 3a 6a 2a (25) 8a 7a 3a</td></tr><tr><td><b>3</b></td><td>My Love Always</td><td>D. Thomain</td><td>32.2</td><td class="mus">8a 2a 4a 0a 1a (25) 3a 4a Da 3a</td></tr><tr><td><b>4</b></td><td>Meydan Voirons</td><td>A. Laurent</td><td>14.4</td><td class="mus">1a 1a Da 5a 1a (25) 1a 4a 1a</td></tr><tr><td><b>5</b></td><td>Michel Martin</td><td>E. Raffin</td><td>51.5</td><td class="mus">7a 4m 3m 2a 0a 7a 3a 5a (25) 8a</td></tr><tr><td><b>6</b></td><td>Mars Cobba</td><td>Y. Lebourgeois</td><td>34.9</td><td class="mus">6a 2a 7a 9a (25) 6a 3a 2a 3a 1a</td></tr><tr><td><b>7</b></td><td>More Love Ducampus</td><td>A. Abrivard</td><td>49.6</td><td class="mus">2a 2a (25) 1a 9a 6a 1a 2a Da 4a</td></tr><tr><td><b>8</b></td><td>Misti de Corday</td><td>A. Desmottes</td><td>58.9</td><td class="mus">2a Da 3a Da (25) 6a Da 1a 1a 3a</td></tr><tr><td><b>9</b></td><td>Montana Kalouma</td><td>T. Duvaldestin</td><td>8.3</td><td class="mus">1a Da Da 1a 1a Da (25) 1a 1a 2a</td></tr><tr><td><b>10</b></td><td>Mercure d'Elle</td><td>B. Rochard</td><td>4.4</td><td class="mus">3a 1a 6a Da 1a Da 1a (25) 1a 1a</td></tr><tr><td><b>11</b></td><td>Mister Charly</td><td>F. Lagadeuc</td><td>74.4</td><td class="mus">9a 4a 7a 6a (25) 8a Da 4a 4a 3a</td></tr><tr><td><b>12</b></td><td>Maradona Ellis</td><td>E. Allard</td><td>59.8</td><td class="mus">7a 0a 6a 6a 3a (25) Da 7a 1a 6a</td></tr><tr><td><b>13</b></td><td>Maverick de Fael</td><td>M. Abrivard</td><td>4.0</td><td class="mus">1a 2a 2a 4a (25) 1a 2a 1a 1a</td></tr><tr><td><b>14</b></td><td>Mourillon</td><td>M. Mottier</td><td>7.2</td><td class="mus">2a 3a 0a 4a 3a Da 1a (25) Da 7a</td></tr><tr><td><b>15</b></td><td>Maestro du Choquel</td><td>G. Gelormini</td><td>72.2</td><td class="mus">Da Da (25) 6a 3a Da 3a 1a 3a 1a</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="land-lead reveal" style="margin-top:14px">📚 <a href="#">Consulter les archives de tous les Quintés analysés</a> (actif sur WordPress)</p>
   </section>
 
   <div class="gatewrap" id="acces">
@@ -572,6 +623,10 @@ button.btn{
   <div id="cinema" hidden>
     <div class="cine-stage">
       <canvas id="cv3" width="1280" height="720"></canvas>
+      <div class="cine-intro" id="cineIntro" hidden>
+        <video id="cineIntroVid" muted playsinline preload="auto"></video>
+        <button type="button" class="skip" id="cineSkip">Passer l'intro ▸</button>
+      </div>
       <div class="cine-hud">
         <div class="badge" id="cineDist"></div>
         <div class="badge"><span class="cine-live">●</span> EN DIRECT · ENGHIEN</div>
@@ -1159,8 +1214,29 @@ $("btnStart").onclick = () => {
   if (running) return;
   if (finished) resetRace(true);
   openCinema();
-  startWithCountdown();
+  playIntroThen(startWithCountdown);
 };
+
+/* intro vidéo « ambiance TV » (optionnelle, configurée dans Quinté du jour) */
+function playIntroThen(cb) {
+  const url = CFG.cineIntro;
+  const box = $("cineIntro"), vid = $("cineIntroVid");
+  if (!url || !box || !vid || !cinemaOpen) { cb(); return; }
+  let fired = false;
+  const go = () => { if (fired) return; fired = true;
+    box.hidden = true; try { vid.pause(); } catch (e) {}
+    cb();
+  };
+  box.hidden = false;
+  vid.src = url;
+  vid.currentTime = 0;
+  vid.onended = go;
+  vid.onerror = go;
+  $("cineSkip").onclick = go;
+  setTimeout(go, 4500); // jamais plus de 4,5 s
+  const pr = vid.play();
+  if (pr && pr.catch) pr.catch(go);
+}
 $("btnReset").onclick = () => resetRace(false);
 
 /* =========================================================

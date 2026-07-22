@@ -66,6 +66,37 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 		</div>
 	</section>
 
+	<section class="land-section">
+		<h2 class="land-h2 reveal"><span class="tick"></span>L'analyse du jour <small><?php echo esc_html( wp_strip_all_tags( $meta['eyebrow'] ) ); ?></small></h2>
+		<p class="land-lead reveal"><strong><?php echo esc_html( $meta['title'] ); ?></strong> — <?php echo esc_html( $meta['subtitle'] ); ?>. Les <?php echo (int) $nb; ?> partants, les avis des professionnels et la simulation complète t'attendent derrière la connexion gratuite.</p>
+
+		<?php if ( ! empty( $meta['avis'] ) ) : ?>
+		<div class="avisgrid">
+			<?php foreach ( $meta['avis'] as $a ) : ?>
+				<div class="avis reveal"><h4><?php echo esc_html( $a['src'] ); ?></h4><p><?php echo wp_kses( $a['txt'], array( 'b' => array() ) ); ?></p></div>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+
+		<div class="parttable reveal">
+			<table>
+				<thead><tr><th>N°</th><th>Cheval</th><th>Driver / Jockey</th><th>Cote</th><th>Musique</th></tr></thead>
+				<tbody>
+				<?php foreach ( $race['horses'] as $h ) : ?>
+					<tr>
+						<td><b><?php echo (int) $h['n']; ?></b></td>
+						<td><?php echo esc_html( $h['name'] ); ?></td>
+						<td><?php echo esc_html( $h['jockey'] ); ?></td>
+						<td><?php echo esc_html( $h['odds'] ); ?></td>
+						<td class="mus"><?php echo esc_html( isset( $h['musique'] ) ? $h['musique'] : '' ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<p class="land-lead reveal" style="margin-top:14px">📚 <a href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">Consulter les archives de tous les Quintés analysés</a></p>
+	</section>
+
 	<div class="gatewrap" id="acces">
 		<div class="gatecard reveal">
 			<h2>La course du jour t'attend<br><em><?php echo esc_html( $meta['title'] ); ?></em></h2>
