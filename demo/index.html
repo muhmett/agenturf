@@ -812,10 +812,19 @@ function say(txt, hot) {
 }
 
 function renderStandings() {
-  const order = [...runners].sort((a, b) => b.dist - a.dist);
-  const lead = order[0]?.dist || 0;
+  /* pendant la course : tri à la distance ; après la ligne : tri au temps
+     de passage — exactement le même ordre que l'arrivée officielle */
+  const order = [...runners].sort((a, b) => {
+    if (a.done && b.done) return a.timeFin - b.timeFin;
+    if (a.done) return -1;
+    if (b.done) return 1;
+    return b.dist - a.dist;
+  });
+  const lead = order[0];
   $("standings").innerHTML = order.slice(0, 8).map((r, i) => {
-    const back = (lead - r.dist) / 2.6;
+    let back;
+    if (lead && lead.done && r.done) back = (r.timeFin - lead.timeFin) * 4.2; // même conversion que l'arrivée
+    else back = ((lead ? lead.dist : 0) - r.dist) / 2.6;
     return `<div class="strow">
       <span class="pos">${i + 1}${i === 0 ? "ᵉʳ" : "ᵉ"}</span>
       <span class="silk" style="background:${r.h.c[0]}"></span>
