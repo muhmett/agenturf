@@ -1,296 +1,364 @@
 {
   "meta": {
-    "eyebrow": "Quinté+ · Mercredi 22 juillet 2026 · R1 C8 · Départ 18h30",
-    "title": "Prix de Picpus",
-    "subtitle": "Enghien · 2 875 m",
-    "track": "ENGHIEN",
+    "eyebrow": "Quinté+ · Jeudi 23 juillet 2026 · R1 C8 · Départ 20h15",
+    "title": "Prix Paris Turf",
+    "subtitle": "Vichy · 2 800 m (turf)",
+    "track": "VICHY",
     "code": "R1C8",
-    "distance": 2875,
-    "baseSpeed": 13.4,
+    "distance": 2800,
+    "baseSpeed": 15.8,
     "info": [
-      "Trot attelé · <b>46 000 €</b>",
-      "Autostart · <b>corde à gauche</b>",
-      "15 partants · 4 ans",
-      "Mâles n'ayant pas gagné <b>71 000 €</b>"
+      "Plat · Handicap divisé · <b>50 900 €</b>",
+      "Piste en herbe · <b>corde à droite</b>",
+      "16 partants · Classe 2 · réf. +19,5",
+      "Terrain <b>souple</b> · pénétromètre 3,5"
     ],
     "avis": [
       {
-        "src": "Canalturf — Stéphane Davy",
-        "txt": "Base du pronostic : <b>Montana Kalouma (9)</b> et <b>Maverick de Fael (13)</b>. Chances régulières : Meydan Voirons (4), Mourillon (14) et Mercure d'Elle (10). Outsiders retenus : Maestro du Choquel (15), Misti de Corday (8) et Magic John (1)."
+        "src": "Le marché (cotes 18h15)",
+        "txt": "Le public a tranché : <b>Spanish Prince (4)</b> écrase le débat à 4.5 (19 % des enjeux) malgré la corde 15. Derrière, <b>Guiness Star (9) à 6.2</b> (13,8 %) devient le 2e choix, devant <b>Don't Shut Me Down (6) à 8.3</b> et <b>Black Ultra (11) à 8.6</b>. Golden Blush reste boudé (16.7)."
       },
       {
-        "src": "Equidia",
-        "txt": "N°1 du pronostic : <b>Meydan Voirons (4)</b>, invaincu en deux sorties sur ce parcours d'Enghien et fort de cinq succès en huit courses. <b>Montana Kalouma (9)</b>, vainqueur le 26 juin sur ce tracé et présenté plaqué des quatre pieds, doit logiquement confirmer. <b>Maverick de Fael (13)</b> reste sur une victoire aux Sables-d'Olonne et s'est imposé lors de son unique sortie à Enghien."
+        "src": "AgenTurf — Analyse du modèle 🎯",
+        "txt": "Sur 2 000 simulations, le modèle ne suit pas le marché : son favori est <b>Guiness Star (9)</b> (29 % de victoires, allégé et bien tiré corde 6), devant <b>Don't Shut Me Down (6)</b> (23 %). Le favori du public <b>Spanish Prince (4)</b> n'est que 3e (18 %), pénalisé par la corde 15 et le poids sur un sol qui use. Grosse valeur : <b>Pink Monday (14)</b> à 14.7 (47 % de top-5). Base conseillée : <b>9 - 6 - 4</b> · Compléments : Black Ultra (11), Vazirpour (3) · Tocards : Zoom Chop (15), A Beauregard (10, adore le souple). Outil de divertissement, aucun pronostic garanti."
       },
       {
-        "src": "ZEturf — le marché",
-        "txt": "Les cotes écrasent le débat : <b>Maverick de Fael à 4.0</b> et <b>Mercure d'Elle à 4.4</b>, loin devant Mourillon (7.2), Magic John et Montana Kalouma (8.3). Premier gros décrochage ensuite avec Meydan Voirons à 14.4 — le marché joue la régularité contre le risque de faute."
+        "src": "Studio 6.1 — avis des entraîneurs",
+        "txt": "La base des écuries : <b>Black Ultra (11)</b>, jeune en plein progrès, vainqueur à Compiègne. <b>Spanish Prince (4)</b> a la régularité mais devra gommer sa corde 15. <b>Guiness Star (9)</b>, allégé et en progression, monte en puissance. À surveiller : Pink Monday (14), très légère."
       },
       {
-        "src": "Les écuries",
-        "txt": "L'entraînement <b>Th. Duvaldestin</b> présente deux cartouches (Montana Kalouma et Maverick de Fael) — quand la maison double sa mise dans un Quinté, c'est rarement pour figurer. <b>M. Mottier</b> entraîne et drive lui-même Mourillon, un profil qu'il réserve aux parcours qu'il connaît par cœur. Côté <b>N. Bridault</b> (Mister Charly, Maestro du Choquel), on parle surtout d'apprentissage."
+        "src": "Equidia — le tuyau",
+        "txt": "Terrain <b>souple</b> (pénétromètre 3,2) : bonne nouvelle pour <b>A Beauregard (10)</b> et <b>Mozart des Brières (16)</b>, qui réclament justement du mou et peuvent créer la surprise à grosse cote. Les favoris du marché — Spanish Prince, Guiness Star, Don't Shut Me Down — devront confirmer sur un sol qui use."
+      },
+      {
+        "src": "Les cordes & le parcours",
+        "txt": "Vichy, corde à droite, 2 800 m : un handicap dense où le placement fait tout. <b>Spanish Prince (corde 15)</b> et <b>Mozart (16)</b> partent mal ; à l'inverse Vazirpour (1), Don't Shut Me Down (3) et Gold Player (4) sont bien tirés. Dans un lot aussi serré, le rapport se joue souvent au-delà de 20/1 : Il Capo (19.4), A Beauregard (24.3), I'm a Believer (23.2)."
       }
     ],
-    "discipline": "trot"
+    "discipline": "plat"
   },
   "horses": [
     {
       "n": 1,
-      "name": "Magic John",
-      "jockey": "P.-Y. Verva",
-      "w": 56,
-      "draw": 1,
+      "name": "Step Morning",
+      "jockey": "T. Bachelot",
+      "w": 60.5,
+      "draw": 14,
       "val": 0,
-      "odds": 8.3,
+      "odds": 19.2,
       "c": [
         "#8e1d2f",
         "#f0e6c8"
       ],
-      "style": "leader",
-      "ab": 82,
-      "vol": 1.15,
-      "sub": "P.-Y. Verva (driver) · ent. B. Bourgoin · n°1 autostart · cote 8.3",
-      "note": "Cité outsider par les experts mais coté 8.3 seulement : le marché y croit. Deux Da dans la musique, mais des lignes de 1a solides et le n°1 derrière l'autostart — départ idéal s'il reste sage.",
+      "style": "stalker",
+      "ab": 85,
+      "vol": 0.95,
+      "sub": "T. Bachelot · ent. L. Hébrard de Veyrinas · corde 14 · cote 19.2",
+      "note": "Courageux et dur à l'effort, il sera à l'affût de la moindre défaillance. Mais il porte le top-poids (60,5 kg) sur 2 800 m et part corde 14 : deux vraies pénalités. Sa valeur est là, l'engagement beaucoup moins.",
       "tags": [
         [
           "base",
-          "N°1 autostart"
+          "Dur à l'effort"
         ],
         [
           "risk",
-          "Fautif par moments"
+          "Top-poids 60,5 kg"
         ]
       ],
-      "trainer": "B. Bourgoin",
-      "musique": "5a 4a 4a 8a Da 5a 1a 1a Dm Da"
+      "trainer": "L. Hébrard de Veyrinas",
+      "musique": "5p 3p (25) 4p 4p 1p 0p 1p 3p 9p"
     },
     {
       "n": 2,
-      "name": "Mermoz",
-      "jockey": "L. Baudouin",
-      "w": 56,
-      "draw": 2,
+      "name": "Black Saxon",
+      "jockey": "A. Madamet",
+      "w": 59,
+      "draw": 11,
       "val": 0,
-      "odds": 58.1,
+      "odds": 16.4,
       "c": [
-        "#2e5f8a",
-        "#dce9f5"
+        "#15151d",
+        "#f2f2f2"
       ],
-      "style": "mid",
-      "ab": 70,
-      "vol": 0.9,
-      "sub": "L. Baudouin (driver) · ent. J.-M. Baudouin · cote 58.1",
-      "note": "Régulier mais un ton en dessous de ce lot : que des accessits récents (4a 5a 5a 3a). L'écurie Baudouin vise une place dans le rapport, pas la gagne.",
+      "style": "leader",
+      "ab": 83,
+      "vol": 1.0,
+      "sub": "A. Madamet · ent. N. Bellanger · corde 11 · cote 16.4",
+      "note": "Doit impérativement faire la course en avant — l'écurie regrette une monte trop attentiste la dernière fois. Sa musique récente (1p 1p 2p 2p) est excellente. S'il prend la tête et dicte le tempo, il est très dangereux malgré 59 kg.",
       "tags": [
         [
-          "",
-          "Régulier"
+          "base",
+          "En forme"
         ],
         [
           "risk",
-          "Manque de pointe"
+          "Doit mener"
         ]
       ],
-      "trainer": "J.-M. Baudouin",
-      "musique": "4a 5a 5a 3a 6a 2a (25) 8a 7a 3a"
+      "trainer": "N. Bellanger",
+      "musique": "0p 1p 1p 2p 2p (25) 7p 2p 2p 0p"
     },
     {
       "n": 3,
-      "name": "My Love Always",
-      "jockey": "D. Thomain",
-      "w": 56,
-      "draw": 3,
+      "name": "Vazirpour",
+      "jockey": "M. Zatloukal",
+      "w": 58.5,
+      "draw": 1,
       "val": 0,
-      "odds": 32.2,
-      "c": [
-        "#e88bc4",
-        "#ffffff"
-      ],
-      "style": "closer",
-      "ab": 74,
-      "vol": 1.1,
-      "sub": "D. Thomain (driver) · ent. L. Barassin · cote 32.2",
-      "note": "Capable du meilleur (2a, 1a) comme du décevant (8a, 0a). David Thomain au sulky est une assurance ; s'il retrouve sa bonne version, il peut se glisser dans le quinté.",
-      "tags": [
-        [
-          "",
-          "Inconstant"
-        ],
-        [
-          "base",
-          "D. Thomain"
-        ]
-      ],
-      "trainer": "L. Barassin",
-      "musique": "8a 2a 4a 0a 1a (25) 3a 4a Da 3a"
-    },
-    {
-      "n": 4,
-      "name": "Meydan Voirons",
-      "jockey": "A. Laurent",
-      "w": 56,
-      "draw": 4,
-      "val": 0,
-      "odds": 14.4,
+      "odds": 17.8,
       "c": [
         "#5b2c8d",
         "#efe6f7"
       ],
       "style": "stalker",
       "ab": 81,
-      "vol": 0.95,
-      "sub": "A. Laurent (driver) · ent. A. Laurent · cote 14.4",
-      "note": "Le n°1 du pronostic Equidia : invaincu en deux sorties sur ce parcours d'Enghien, cinq succès en huit courses. Le duo père-fils Laurent le connaît par cœur. Un Da récent à surveiller.",
+      "vol": 1.0,
+      "sub": "M. Zatloukal · ent. J. Manova · corde 1 · cote 17.8",
+      "note": "Progresse bien et tente de gagner malgré des marges serrées au poids. Plusieurs victoires dans la musique (1p 1p 1p) et surtout la corde 1, idéale sur le tracé gauche de Vichy. Un candidat très solide au bon parcours.",
       "tags": [
         [
           "base",
-          "N°1 Equidia"
+          "Corde 1"
         ],
         [
           "base",
-          "2/2 sur le parcours"
+          "Sait gagner"
+        ]
+      ],
+      "trainer": "J. Manova",
+      "musique": "4p 1p 9p (25) 1p 7p 1p 4p 4p 2p"
+    },
+    {
+      "n": 4,
+      "name": "Spanish Prince",
+      "jockey": "C. Demuro",
+      "w": 58,
+      "draw": 15,
+      "val": 0,
+      "odds": 4.5,
+      "c": [
+        "#1e4fd8",
+        "#dbe6ff"
+      ],
+      "style": "closer",
+      "ab": 89,
+      "vol": 0.9,
+      "sub": "C. Demuro · ent. J. Reynier · corde 15 · cote 4.5",
+      "note": "Le grand favori du marché (4.7, 18 % des enjeux) : régularité totale (2p 2p 3p 1p 3p) et Demuro au-dessus. Seul vrai bémol, la corde 15 sur 2 800 m — il devra fournir un effort de placement, mais le public n'a aucun doute.",
+      "tags": [
+        [
+          "base",
+          "Favori du marché"
+        ],
+        [
+          "base",
+          "C. Demuro"
         ],
         [
           "risk",
-          "Un Da récent"
+          "Corde 15"
         ]
       ],
-      "trainer": "A. Laurent",
-      "musique": "1a 1a Da 5a 1a (25) 1a 4a 1a"
+      "trainer": "J. Reynier",
+      "musique": "2p 2p 3p 1p 3p (25) 2p 3p 2p 0p"
     },
     {
       "n": 5,
-      "name": "Michel Martin",
-      "jockey": "E. Raffin",
-      "w": 56,
+      "name": "Golden Blush",
+      "jockey": "T. Trullier",
+      "w": 56.5,
       "draw": 5,
       "val": 0,
-      "odds": 51.5,
+      "odds": 16.7,
       "c": [
-        "#15151d",
-        "#f2f2f2"
+        "#f26522",
+        "#ffe6d5"
       ],
-      "style": "mid",
-      "ab": 71,
+      "style": "stalker",
+      "ab": 80,
       "vol": 1.0,
-      "sub": "E. Raffin (driver) · ent. J. Bescher · cote 51.5",
-      "note": "Éric Raffin au sulky, et ce n'est jamais anodin. Mais la musique récente (7a, 4m, 3m) montre un plafond ; il faudrait un déroulement parfait pour accrocher le quinté.",
+      "sub": "T. Trullier · ent. C. Escuder · corde 5 · cote 16.7",
+      "note": "Grosse déception dans les cotes : encensé sur sa musique de victoires (1p 1p 1p) mais lâché par le marché à 16.1. Corde 5 idéale ; s'il retrouve son niveau, il peut punir un public qui l'a délaissé — sinon la méfiance était justifiée.",
       "tags": [
         [
-          "base",
-          "E. Raffin"
+          "",
+          "Musique de vainqueur"
         ],
         [
           "risk",
-          "Musique moyenne"
+          "Boudé par le marché"
         ]
       ],
-      "trainer": "J. Bescher",
-      "musique": "7a 4m 3m 2a 0a 7a 3a 5a (25) 8a"
+      "trainer": "C. Escuder",
+      "musique": "1p 1p 0p 1p 1p 3p 7p 0p 6p 3p"
     },
     {
       "n": 6,
-      "name": "Mars Cobba",
-      "jockey": "Y. Lebourgeois",
-      "w": 56,
-      "draw": 6,
+      "name": "Don't Shut Me Down",
+      "jockey": "M. Guyon",
+      "w": 56.5,
+      "draw": 3,
       "val": 0,
-      "odds": 34.9,
+      "odds": 8.3,
       "c": [
-        "#f2c200",
-        "#1b2a6b"
+        "#0e7490",
+        "#d0f0f7"
       ],
       "style": "closer",
-      "ab": 74,
-      "vol": 1.0,
-      "sub": "Y. Lebourgeois (driver) · ent. A. Prat · cote 34.9",
-      "note": "Yoann Lebourgeois reprend un cheval qui alterne (2a puis 9a). Une fin de course affûtée peut le faire entrer dans les cinq à belle cote.",
+      "ab": 83,
+      "vol": 1.15,
+      "sub": "M. Guyon · ent. P. & J. Brandt · corde 3 · cote 8.3",
+      "note": "Reposé et physiquement en forme, la distance de 2 800 m lui convient. Maxime Guyon au-dessus et corde 3 avantageuse. Sa musique est irrégulière (5p 7p 0p) mais un 1p final rappelle qu'il peut surgir à belle cote s'il est dans un bon jour.",
       "tags": [
         [
           "",
-          "Finisseur à cote"
-        ]
-      ],
-      "trainer": "A. Prat",
-      "musique": "6a 2a 7a 9a (25) 6a 3a 2a 3a 1a"
-    },
-    {
-      "n": 7,
-      "name": "More Love Ducampus",
-      "jockey": "A. Abrivard",
-      "w": 56,
-      "draw": 7,
-      "val": 0,
-      "odds": 49.6,
-      "c": [
-        "#1b8a3a",
-        "#ffffff"
-      ],
-      "style": "closer",
-      "ab": 72,
-      "vol": 1.05,
-      "sub": "A. Abrivard (driver) · ent. L.-Cl. Abrivard · cote 49.6",
-      "note": "Deux 2a récents avant un passage à vide. L'écurie Abrivard sait cibler ses objectifs — la cote est grosse pour un cheval qui vient de courir deux fois deuxième.",
-      "tags": [
-        [
-          "",
-          "Écurie Abrivard"
+          "M. Guyon"
         ],
         [
           "risk",
           "Irrégulier"
         ]
       ],
-      "trainer": "L.-Cl. Abrivard",
-      "musique": "2a 2a (25) 1a 9a 6a 1a 2a Da 4a"
+      "trainer": "P. & J. Brandt",
+      "musique": "5p 7p 0p 7p 6p (25) 9p 2p 8p 1p"
+    },
+    {
+      "n": 7,
+      "name": "Mighty Boy",
+      "jockey": "M. Barzalona",
+      "w": 56.5,
+      "draw": 13,
+      "val": 0,
+      "odds": 19.5,
+      "c": [
+        "#f2c200",
+        "#1b2a6b"
+      ],
+      "style": "stalker",
+      "ab": 81,
+      "vol": 1.1,
+      "sub": "M. Barzalona · ent. Ed. Monfort · corde 13 · cote 19.5",
+      "note": "Forme satisfaisante et de la qualité pure, mais il est testé pour la première fois sur 2 800 m — une inconnue majeure. Barzalona connaît son affaire ; si le cheval tient la distance, il a le niveau pour le quinté. Corde 13 moyenne.",
+      "tags": [
+        [
+          "",
+          "M. Barzalona"
+        ],
+        [
+          "risk",
+          "1re fois sur 2800 m"
+        ]
+      ],
+      "trainer": "Ed. Monfort",
+      "musique": "4p 3p 1p 0p 7p 7p (25) 7p 0p 0p"
     },
     {
       "n": 8,
-      "name": "Misti de Corday",
-      "jockey": "A. Desmottes",
+      "name": "Gold Player",
+      "jockey": "H. Besnier",
       "w": 56,
-      "draw": 8,
+      "draw": 4,
       "val": 0,
-      "odds": 58.9,
+      "odds": 42.5,
       "c": [
-        "#7b1f24",
-        "#e8c9a0"
+        "#1b8a3a",
+        "#ffffff"
       ],
-      "style": "leader",
-      "ab": 71,
-      "vol": 1.3,
-      "sub": "A. Desmottes (driver) · ent. A. Desmottes · cote 58.9",
-      "note": "Du talent (2a, 3a, des victoires l'an passé) mais des Da à répétition : un cheval à risque total. Soit il fait le parcours au trot et surprend, soit il saute dès le premier tournant.",
+      "style": "mid",
+      "ab": 73,
+      "vol": 1.2,
+      "sub": "H. Besnier · ent. F. Foresi · corde 4 · cote 42.5",
+      "note": "De retour de coupure, il devrait s'améliorer avec la course dans les jambes. Corde 4 favorable. Musique en dents de scie (8p 0p 0p puis 1p) : capable d'un accessit payant à 26/1 s'il retrouve la forme, mais rien de garanti.",
       "tags": [
         [
-          "risk",
-          "Fautif chronique"
+          "",
+          "Bonne corde"
         ],
         [
-          "",
-          "Coup de folie"
+          "risk",
+          "Retour de break"
         ]
       ],
-      "trainer": "A. Desmottes",
-      "musique": "2a Da 3a Da (25) 6a Da 1a 1a 3a"
+      "trainer": "F. Foresi",
+      "musique": "8p 0p 0p 1p 6p 7p (25) 4p 1p 3p"
     },
     {
       "n": 9,
-      "name": "Montana Kalouma",
-      "jockey": "T. Duvaldestin",
+      "name": "Guiness Star",
+      "jockey": "O. d'Andigné",
       "w": 56,
-      "draw": 9,
+      "draw": 6,
       "val": 0,
-      "odds": 8.3,
+      "odds": 6.2,
       "c": [
-        "#f26522",
-        "#ffe6d5"
+        "#6a1b9a",
+        "#ffd54f"
       ],
-      "style": "leader",
-      "ab": 85,
+      "style": "closer",
+      "ab": 86,
+      "vol": 1.1,
+      "sub": "O. d'Andigné · ent. A. Couetil · corde 6 · cote 6.2",
+      "note": "La bonne affaire du marché : 6.6 seulement, 2e choix du public. En nette progression depuis son retour, bien allégé, deux victoires récentes (1p 1p). Corde 6 correcte. Il monte en puissance au bon moment.",
+      "tags": [
+        [
+          "base",
+          "2e choix du marché"
+        ],
+        [
+          "base",
+          "Progresse · allégé"
+        ]
+      ],
+      "trainer": "A. Couetil",
+      "musique": "2p 7p (25) 8p 7p 1p 1p 7p (24) 4p"
+    },
+    {
+      "n": 10,
+      "name": "A Beauregard",
+      "jockey": "D. Provost",
+      "w": 55.5,
+      "draw": 12,
+      "val": 0,
+      "odds": 24.8,
+      "c": [
+        "#64b5f6",
+        "#ffffff"
+      ],
+      "style": "mid",
+      "ab": 78,
       "vol": 1.2,
-      "sub": "T. Duvaldestin (driver) · ent. Th. Duvaldestin · cote 8.3",
-      "note": "Base des experts : cinq succès en dix courses, vainqueur le 26 juin sur ce tracé, présenté plaqué des quatre pieds. Théo Duvaldestin le drive pour son père. Tout est là… s'il reste au trot (trois Da dans la musique).",
+      "sub": "D. Provost · ent. M. Cesandri · corde 12 · cote 24.8",
+      "note": "Compétitif et surtout, il ADORE le terrain souple — et le pénétromètre est à 3,2 ! Le contexte le sert enfin. Deux victoires dans sa musique (1p 1p). À 24.3, c'est exactement le genre de cote qui fait exploser le rapport si le sol tient ses promesses.",
+      "tags": [
+        [
+          "base",
+          "Aime le souple ✓"
+        ],
+        [
+          "",
+          "A gagné"
+        ]
+      ],
+      "trainer": "M. Cesandri",
+      "musique": "7p 0p 6p 0p 6p (25) 0p 1p 1p 5p"
+    },
+    {
+      "n": 11,
+      "name": "Black Ultra",
+      "jockey": "A. Crastus",
+      "w": 54,
+      "draw": 8,
+      "val": 0,
+      "odds": 8.6,
+      "c": [
+        "#0b7a6f",
+        "#d9f2ee"
+      ],
+      "style": "stalker",
+      "ab": 81,
+      "vol": 1.05,
+      "sub": "A. Crastus · ent. O. Trigodet · corde 8 · cote 8.6",
+      "note": "La base des entraîneurs : jeune cheval en plein progrès, vainqueur à Compiègne le 10 juillet, et surtout bien allégé à 54 kg. Corde 8 centrale, sans souci. Le profil qui monte — s'il confirme sa dernière sortie, il joue la gagne.",
       "tags": [
         [
           "base",
@@ -298,302 +366,274 @@
         ],
         [
           "base",
-          "Vainqueur sur le tracé"
-        ],
-        [
-          "risk",
-          "3 Da récents"
-        ]
-      ],
-      "trainer": "Th. Duvaldestin",
-      "musique": "1a Da Da 1a 1a Da (25) 1a 1a 2a"
-    },
-    {
-      "n": 10,
-      "name": "Mercure d'Elle",
-      "jockey": "B. Rochard",
-      "w": 56,
-      "draw": 10,
-      "val": 0,
-      "odds": 4.4,
-      "c": [
-        "#1e4fd8",
-        "#dbe6ff"
-      ],
-      "style": "stalker",
-      "ab": 87,
-      "vol": 0.9,
-      "sub": "B. Rochard (driver) · ent. Th. Borderie · cote 4.4",
-      "note": "Le favori de la cote (4.4) : quatre victoires dans ses sept dernières sorties, une pointe de vitesse au-dessus du lot. Benjamin Rochard n'aura qu'à suivre puis déboîter.",
-      "tags": [
-        [
-          "base",
-          "Favori"
+          "Léger (54 kg)"
         ],
         [
           "base",
-          "Pointe de vitesse"
+          "En progrès"
         ]
       ],
-      "trainer": "Th. Borderie",
-      "musique": "3a 1a 6a Da 1a Da 1a (25) 1a 1a"
-    },
-    {
-      "n": 11,
-      "name": "Mister Charly",
-      "jockey": "F. Lagadeuc",
-      "w": 56,
-      "draw": 11,
-      "val": 0,
-      "odds": 74.4,
-      "c": [
-        "#6a1b9a",
-        "#ffd54f"
-      ],
-      "style": "mid",
-      "ab": 67,
-      "vol": 1.0,
-      "sub": "F. Lagadeuc (driver) · ent. N. Bridault · cote 74.4",
-      "note": "Musique terne (9a 4a 7a 6a) et plus grosse cote du champ ou presque. Il faudrait une hécatombe de disqualifications devant lui.",
-      "tags": [
-        [
-          "risk",
-          "Limité"
-        ]
-      ],
-      "trainer": "N. Bridault",
-      "musique": "9a 4a 7a 6a (25) 8a Da 4a 4a 3a"
+      "trainer": "O. Trigodet",
+      "musique": "1p 0p (25) 0p 5p 0p 1p 2p 3p 6p"
     },
     {
       "n": 12,
-      "name": "Maradona Ellis",
-      "jockey": "E. Allard",
-      "w": 56,
-      "draw": 12,
+      "name": "Il Capo",
+      "jockey": "A. Orani",
+      "w": 53.5,
+      "draw": 9,
       "val": 0,
-      "odds": 59.8,
+      "odds": 22,
       "c": [
-        "#64b5f6",
-        "#ffffff"
+        "#c2410c",
+        "#ffe4cc"
       ],
       "style": "mid",
-      "ab": 69,
+      "ab": 76,
       "vol": 1.0,
-      "sub": "E. Allard (driver) · ent. E. Allard · 2e ligne · cote 59.8",
-      "note": "Deuxième ligne de l'autostart et des performances en retrait (7a, 0a, 6a). Une place de 5e serait déjà un exploit.",
+      "sub": "A. Orani · ent. R. Fradet · corde 9 · cote 22",
+      "note": "Compétitif à sa valeur, mais il a une nette préférence de piste et ne gagne quasiment jamais (4p 4p 5p 5p 4p 3p). Régulier dans la figuration : il peut accrocher une 5e place dans un scénario favorable, sans plus.",
       "tags": [
         [
           "risk",
-          "2e ligne"
+          "Ne gagne pas"
         ],
         [
-          "risk",
-          "En méforme"
+          "",
+          "Régulier en bas"
         ]
       ],
-      "trainer": "E. Allard",
-      "musique": "7a 0a 6a 6a 3a (25) Da 7a 1a 6a"
+      "trainer": "R. Fradet",
+      "musique": "4p 4p 5p 5p 4p 3p 5p 0p 0p"
     },
     {
       "n": 13,
-      "name": "Maverick de Fael",
-      "jockey": "M. Abrivard",
-      "w": 56,
-      "draw": 13,
+      "name": "I'm a Believer",
+      "jockey": "M. Velon",
+      "w": 53,
+      "draw": 2,
       "val": 0,
-      "odds": 4.0,
+      "odds": 27.1,
+      "c": [
+        "#e88bc4",
+        "#ffffff"
+      ],
+      "style": "mid",
+      "ab": 73,
+      "vol": 1.25,
+      "sub": "M. Velon · ent. C. Escuder · corde 2 · cote 27.1",
+      "note": "Il doit encore démontrer sa vraie valeur après une série de déceptions (0p 9p 8p 9p). Léger (53 kg) et très bien tiré corde 2 : ce sont ses seuls atouts. Pour les amateurs de gros rapport uniquement.",
+      "tags": [
+        [
+          "risk",
+          "Décevant"
+        ],
+        [
+          "",
+          "Corde 2"
+        ]
+      ],
+      "trainer": "C. Escuder",
+      "musique": "0p 5p 9p 8p 9p 2p 0p (25) 7p 4p"
+    },
+    {
+      "n": 14,
+      "name": "Pink Monday",
+      "jockey": "E. Hardouin",
+      "w": 53,
+      "draw": 10,
+      "val": 0,
+      "odds": 14.7,
       "c": [
         "#e6c229",
         "#1b1b1b"
       ],
-      "style": "stalker",
-      "ab": 88,
-      "vol": 0.7,
-      "sub": "M. Abrivard (driver) · ent. Th. Duvaldestin · 2e ligne · cote 4.0",
-      "note": "Co-favori et deuxième cartouche Duvaldestin : 1a 2a 2a 4a 1a 2a 1a 1a — jamais une faute, jamais loin. Sa seule sortie à Enghien ? Une victoire. Matthieu Abrivard drive la régularité incarnée, malgré la 2e ligne.",
-      "tags": [
-        [
-          "base",
-          "Co-favori"
-        ],
-        [
-          "base",
-          "Jamais de faute"
-        ],
-        [
-          "risk",
-          "2e ligne"
-        ]
-      ],
-      "trainer": "Th. Duvaldestin",
-      "musique": "1a 2a 2a 4a (25) 1a 2a 1a 1a"
-    },
-    {
-      "n": 14,
-      "name": "Mourillon",
-      "jockey": "M. Mottier",
-      "w": 56,
-      "draw": 14,
-      "val": 0,
-      "odds": 7.2,
-      "c": [
-        "#0e7490",
-        "#d0f0f7"
-      ],
       "style": "closer",
-      "ab": 84,
-      "vol": 1.0,
-      "sub": "M. Mottier (driver) · ent. M. Mottier · 2e ligne · cote 7.2",
-      "note": "Troisième larron des pronos : Matthieu Mottier l'entraîne et le drive, et il vient de bien courir (2a, 3a). Un finisseur qui adore les parcours sinueux d'Enghien.",
+      "ab": 78,
+      "vol": 1.1,
+      "sub": "E. Hardouin · ent. E. Cury · corde 10 · cote 14.7",
+      "note": "Le poids léger (53 kg) est un vrai atout et elle est réputée finir très fort. Belle série de victoires dans la musique (1p 1p 1p). Si le train est soutenu devant, elle peut débouler dans les derniers mètres et voler une place de choix.",
       "tags": [
         [
           "base",
-          "Chance régulière"
+          "Finit fort"
         ],
         [
           "",
-          "Finisseur"
+          "Poids plume"
         ]
       ],
-      "trainer": "M. Mottier",
-      "musique": "2a 3a 0a 4a 3a Da 1a (25) Da 7a"
+      "trainer": "E. Cury",
+      "musique": "5p 4p 8p 8p (25) 5p 1p 1p 1p 6p"
     },
     {
       "n": 15,
-      "name": "Maestro du Choquel",
-      "jockey": "G. Gelormini",
-      "w": 56,
-      "draw": 15,
+      "name": "Zoom Chop",
+      "jockey": "P. Remoué",
+      "w": 53,
+      "draw": 7,
       "val": 0,
-      "odds": 72.2,
+      "odds": 36.9,
+      "c": [
+        "#3f3f46",
+        "#fca5a5"
+      ],
+      "style": "closer",
+      "ab": 72,
+      "vol": 1.15,
+      "sub": "P. Remoué · ent. T. Speicher · corde 7 · cote 36.9",
+      "note": "Sur une course décevante, il cherche le rachat. Léger (53 kg) et corde 7 correcte. Sa musique montre des éclairs (3p, 1p, 2p) mais aussi des trous : totalement dépendant de sa forme du jour. Outsider à 36/1.",
+      "tags": [
+        [
+          "risk",
+          "Décevant récemment"
+        ],
+        [
+          "",
+          "Cherche rachat"
+        ]
+      ],
+      "trainer": "T. Speicher",
+      "musique": "6p 6p 3p 0p (25) 2p 7p 1p 2p 0p"
+    },
+    {
+      "n": 16,
+      "name": "Mozart des Brières",
+      "jockey": "J. Claudic",
+      "w": 52.5,
+      "draw": 16,
+      "val": 0,
+      "odds": 35,
       "c": [
         "#23232b",
         "#e8e8e8"
       ],
-      "style": "closer",
-      "ab": 68,
-      "vol": 1.35,
-      "sub": "G. Gelormini (driver) · ent. N. Bridault · 2e ligne · cote 72.2",
-      "note": "Gabriele Gelormini tente de canaliser un cheval qui vient de se disqualifier deux fois. Totale incertitude — l'outsider des outsiders cité par la presse.",
+      "style": "mid",
+      "ab": 73,
+      "vol": 1.3,
+      "sub": "J. Claudic · ent. C. Escuder · corde 16 · cote 35",
+      "note": "Le tocard qui peut surprendre : en excellente condition d'après l'écurie, et il RÉCLAME le terrain souple — pile les conditions du jour. Corde 16 pénalisante et 52,5 kg. Le nom qui fait rêver pour un rapport à six chiffres si le mou le transcende.",
       "tags": [
         [
-          "risk",
-          "Da Da récents"
+          "base",
+          "Terrain souple pour lui ✓"
         ],
         [
           "",
-          "Outsider presse"
+          "Rapport monstre si..."
         ]
       ],
-      "trainer": "N. Bridault",
-      "musique": "Da Da (25) 6a 3a Da 3a 1a 3a 1a"
+      "trainer": "C. Escuder",
+      "musique": "5p 7p 4p 6p 9p 8p 3p 7p 0p"
     }
   ],
   "scenarios": [
     {
       "id": "logique",
-      "title": "① La course des favoris",
-      "prob": "~32%",
-      "desc": "Mercure d'Elle (4.4) et Maverick de Fael (4.0) se neutralisent puis dominent : le favori déboîte dans la montée, le régulier répond. Montana Kalouma complète sans faute. Les experts ont raison.",
+      "title": "① La logique du marché",
+      "prob": "~27%",
+      "desc": "Le trio de tête du public tient parole : Spanish Prince (4.7) surmonte sa corde 15, Guiness Star (6.6) et Don't Shut Me Down (7.3) confirment, Black Ultra (9.4) complète. Les quatre premières cotes trustent l'arrivée, sans surprise.",
       "bias": {
-        "10": 1.07,
-        "13": 1.06,
-        "9": 1.03,
-        "14": 1.02
+        "4": 1.05,
+        "9": 1.05,
+        "6": 1.04,
+        "11": 1.03
       },
       "pace": "normal"
     },
     {
-      "id": "duvaldestin",
-      "title": "② Le doublé Duvaldestin",
-      "prob": "~18%",
-      "desc": "Théo Duvaldestin (Montana Kalouma) et Matthieu Abrivard (Maverick de Fael) verrouillent la course pour l'entraînement Duvaldestin : un devant, un en embuscade. Le favori enfermé à la corde.",
+      "id": "anti-baleine",
+      "title": "② Anti-favori : la baleine coule",
+      "prob": "~15%",
+      "desc": "Le piège du favori : Spanish Prince (4), plombé par la corde 15 et 58 kg sur un sol qui use, ne peut jamais se placer et sort du quinté. Guiness Star, Don't Shut Me Down, Pink Monday et Black Ultra se partagent un rapport en or. Jackpot pour ceux qui ont osé barrer le favori du public.",
       "bias": {
-        "9": 1.09,
-        "13": 1.08,
-        "10": 0.96
-      },
-      "pace": "lent"
-    },
-    {
-      "id": "fautes",
-      "title": "③ L'hécatombe des fautifs",
-      "prob": "~16%",
-      "desc": "Premier tournant d'Enghien musclé : les fautifs chroniques (Montana Kalouma, Misti de Corday, Maestro du Choquel) sautent. Les trotteurs sages — Maverick, Mourillon, Magic John — trustent l'arrivée.",
-      "bias": {
-        "13": 1.06,
-        "14": 1.06,
-        "1": 1.06,
-        "4": 1.03,
-        "9": 0.9,
-        "8": 0.88,
-        "15": 0.88
-      },
-      "pace": "normal"
-    },
-    {
-      "id": "mourillon",
-      "title": "④ Le coup Mottier",
-      "prob": "~13%",
-      "desc": "Matthieu Mottier, entraîneur-driver, connaît chaque virage d'Enghien : Mourillon vient de l'arrière-garde dans les 500 derniers mètres pendant que les favoris se marquent. Magic John résiste devant.",
-      "bias": {
-        "14": 1.09,
-        "1": 1.06,
-        "4": 0.98,
-        "10": 0.97
+        "4": 0.87,
+        "9": 1.05,
+        "6": 1.05,
+        "14": 1.05,
+        "11": 1.04
       },
       "pace": "rapide"
     },
     {
-      "id": "outsiders",
-      "title": "⑤ La surprise Abrivard",
-      "prob": "~12%",
-      "desc": "More Love Ducampus (49.6 !) retrouve ses lignes de 2a 2a, My Love Always sa bonne version, et Mars Cobba finit fort : les grosses cotes font exploser le rapport.",
+      "id": "terrain-souple",
+      "title": "③ Le terrain souple rebat les cartes",
+      "prob": "~11%",
+      "desc": "Pénétromètre 3,2 : le sol est gras et il use. Ceux qui RÉCLAMENT le mou remontent — A Beauregard (24.3) et Mozart des Brières (32.9) retrouvent leurs jambes, pendant que les chevaux de vitesse pure s'enlisent dans les 400 derniers mètres. Le scénario qui fait sauter le favori et grimper le rapport.",
       "bias": {
-        "7": 1.1,
-        "3": 1.08,
-        "6": 1.08,
-        "10": 0.97,
-        "13": 0.97
+        "10": 1.15,
+        "16": 1.13,
+        "6": 1.0,
+        "4": 0.93,
+        "5": 0.94,
+        "9": 0.96,
+        "11": 0.97
       },
+      "pace": "lent"
+    },
+    {
+      "id": "surprise",
+      "title": "④ La surprise à 15/1",
+      "prob": "~13%",
+      "desc": "Un cheval délaissé renverse la hiérarchie : Golden Blush (16.1), boudé par le marché malgré sa musique de vainqueur, ou Pink Monday (14.2), très légère et pur finisseur, surgit dans la ligne droite. Les favoris ne sont pas loin, mais coiffés sur le poteau.",
+      "bias": {
+        "5": 1.08,
+        "14": 1.07,
+        "11": 1.05,
+        "4": 0.98
+      },
+      "pace": "rapide"
+    },
+    {
+      "id": "enjeux",
+      "title": "⑤ Le poids de l'argent",
+      "prob": "~11%",
+      "desc": "Là où va l'argent va souvent l'arrivée : Spanish Prince (18 % des enjeux), Guiness Star (13 %) et Don't Shut Me Down (11,7 %) concentrent les mises du public averti. Ils verrouillent le quinté ensemble, le marché avait raison sur toute la ligne.",
+      "bias": {
+        "4": 1.06,
+        "9": 1.05,
+        "6": 1.05,
+        "11": 1.02
+      },
+      "pace": "normal"
+    },
+    {
+      "id": "corde",
+      "title": "⑥ La prime au bon numéro",
+      "prob": "~9%",
+      "desc": "Course de placement sur le tracé droit de Vichy : les chevaux bien tirés gardent le meilleur chemin — Vazirpour (corde 1), Don't Shut Me Down (3), Gold Player (4), Golden Blush (5). Les grosses cordes, Spanish Prince (15) et Mozart (16), font des efforts et paient l'addition dans le final.",
+      "bias": {
+        "3": 1.05,
+        "6": 1.05,
+        "8": 1.04,
+        "5": 1.03,
+        "4": 0.93,
+        "16": 0.92
+      },
+      "pace": "lent"
+    },
+    {
+      "id": "tocard",
+      "title": "⑦ Le tocard gagnant 💥",
+      "prob": "~6%",
+      "desc": "Le rêve du parieur : Zoom Chop (37.6), Gold Player (44.2) ou Mozart des Brières (32.9), porté par le souple, profite d'un chaos général pour créer la sensation pendant que les favoris se neutralisent. Personne ne l'avait, le rapport explose à six chiffres.",
+      "bias": {
+        "15": 1.13,
+        "8": 1.12,
+        "16": 1.1,
+        "4": 0.93,
+        "9": 0.94
+      },
+      "chaos": 1.6,
       "pace": "rapide"
     },
     {
       "id": "chaos",
-      "title": "⑥ Chaos à Enghien",
-      "prob": "~9%",
-      "desc": "15 mâles de 4 ans, un autostart nerveux, des Da partout dans les musiques : tout peut arriver au petit trot d'Enghien. Volatilité maximale, aucun cheval protégé.",
+      "title": "⑧ Handicap piégé",
+      "prob": "~8%",
+      "desc": "16 partants, 8 kg d'écart, 2 800 m sur un terrain souple qui fatigue : le handicap dans toute sa cruauté. Bousculades, chevaux enfermés, coups de fatigue — aucune logique ne tient. Volatilité maximale, tout le monde est jouable.",
       "bias": {},
-      "chaos": 1.9,
-      "pace": "rapide"
-    },
-    {
-      "id": "corde",
-      "title": "⑦ La prime à la corde",
-      "prob": "~10%",
-      "desc": "Départ autostart maîtrisé : les chevaux de première ligne (Magic John, Meydan Voirons) verrouillent la corde et ne lâchent rien. Les deuxièmes lignes restent enfermées à l'extérieur tout le parcours.",
-      "bias": {
-        "1": 1.08,
-        "4": 1.06,
-        "9": 1.04,
-        "13": 0.97,
-        "14": 0.96
-      },
-      "pace": "lent"
-    },
-    {
-      "id": "sprint",
-      "title": "⑧ Le sprint des finisseurs",
-      "prob": "~9%",
-      "desc": "Train d'enfer de bout en bout : les animateurs explosent dans les 400 derniers mètres et les purs finisseurs (Mourillon, Mercure d'Elle, My Love Always, Mars Cobba) déboulent tous ensemble sur le poteau.",
-      "bias": {
-        "14": 1.09,
-        "10": 1.06,
-        "3": 1.07,
-        "6": 1.07,
-        "1": 0.94,
-        "9": 0.95
-      },
+      "chaos": 1.85,
       "pace": "rapide"
     }
   ]
