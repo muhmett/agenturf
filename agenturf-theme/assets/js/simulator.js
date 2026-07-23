@@ -789,10 +789,49 @@ function maybeShowInterAd(next) {
   btn.onclick = go;
 }
 
+/* ---- Porte email (Gmail) : 1 simulation gratuite puis inscription ----
+   Fonctionne sans Google : on capture l'email et on débloque le simulateur. */
+const GATE = (CFG.gate && CFG.gate.mode) ? CFG.gate : { mode: "off", free: 1 };
+function gateActive() { return GATE.mode === "email"; }
+function isMember() { try { return !!(localStorage.getItem("qs_member") || "").trim(); } catch (e) { return false; } }
+function runsDone() { try { return parseInt(localStorage.getItem("qs_runs") || "0", 10) || 0; } catch (e) { return 0; } }
+function incRuns() { try { localStorage.setItem("qs_runs", String(runsDone() + 1)); } catch (e) {} }
+let pendingGate = null;
+function showGate(action) {
+  const g = $("gate");
+  if (!g) { if (action) action(); return; }        // pas de porte dans le DOM : on laisse passer
+  pendingGate = action || null;
+  $("gateErr").textContent = "";
+  g.hidden = false;
+  const inp = $("gateEmail");
+  if (inp) setTimeout(() => inp.focus(), 60);
+}
+function submitGate() {
+  const inp = $("gateEmail"), err = $("gateErr");
+  const v = (inp.value || "").trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { err.textContent = "Entre une adresse email valide."; return; }
+  try { localStorage.setItem("qs_member", v); } catch (e) {}
+  // enregistre l'email côté serveur (liste de diffusion), sans bloquer l'utilisateur
+  try {
+    if (GATE.ajax) {
+      const body = "action=agenturf_lead&email=" + encodeURIComponent(v) + (GATE.nonce ? "&_wpnonce=" + encodeURIComponent(GATE.nonce) : "");
+      fetch(GATE.ajax, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body, credentials: "same-origin" }).catch(() => {});
+    }
+  } catch (e) {}
+  const g = $("gate"); if (g) g.hidden = true;
+  const a = pendingGate; pendingGate = null;
+  if (a) a();
+}
+if ($("gateBtn")) $("gateBtn").onclick = submitGate;
+if ($("gateEmail")) $("gateEmail").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); submitGate(); } });
+
 $("btnStart").onclick = () => {
   if (running) return;
   if (finished) resetRace(true);
-  maybeShowInterAd(launchRace);
+  const go = () => { incRuns(); maybeShowInterAd(launchRace); };
+  // 1 simulation gratuite, puis porte email (sauf membre déjà inscrit)
+  if (gateActive() && !isMember() && runsDone() >= (GATE.free || 1)) { showGate(go); return; }
+  go();
 };
 
 /* intro vidéo « ambiance TV » (optionnelle, configurée dans Quinté du jour) */
@@ -884,7 +923,11 @@ function runMonteCarlo() {
   say(`📊 ${N} courses simulées avec le scénario « ${scenario.title.replace(/^[①-⑳] /, "")} » — ${byWin[0].name} gagne ${wins[byWin[0].n]} fois.`, true);
   box.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
-if ($("btnMC")) $("btnMC").onclick = runMonteCarlo;
+if ($("btnMC")) $("btnMC").onclick = () => {
+  // le mode « 1 clic = 100 courses » est toujours réservé aux inscrits
+  if (gateActive() && !isMember()) { showGate(runMonteCarlo); return; }
+  runMonteCarlo();
+};
 
 /* =========================================================
    LE DIRECT — retransmission télé, caméra latérale

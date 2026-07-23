@@ -125,5 +125,19 @@ $nb   = count( $race['horses'] );
 		</div>
 	</div>
 
+	<div class="gate-pop" id="gate" hidden>
+		<div class="gate-card">
+			<div class="gate-badge">🔓 Accès gratuit</div>
+			<h3>Débloque les simulations illimitées</h3>
+			<p>Tu as vu ta simulation gratuite. Entre ton adresse <strong>Gmail</strong> pour continuer à lancer les courses et débloquer le mode <strong>« 1 clic = 100 courses »</strong>. C'est gratuit, aucune carte bancaire.</p>
+			<div class="gate-form">
+				<input type="email" id="gateEmail" inputmode="email" autocomplete="email" placeholder="ton.adresse@gmail.com">
+				<button type="button" id="gateBtn">Continuer ▸</button>
+			</div>
+			<p class="gate-err" id="gateErr" role="alert"></p>
+			<p class="gate-mini">🔒 On ne partage jamais ton email. Tu peux te désinscrire à tout moment.</p>
+		</div>
+	</div>
+
 	<p class="disclaimer">Outil d'analyse et de divertissement. Les probabilités affichées sont des estimations issues du modèle, pas des cotes officielles. Jouer comporte des risques : ne mise que ce que tu peux te permettre de perdre.</p>
 </div>

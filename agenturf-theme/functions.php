@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.13.0' );
+define( 'AGENTURF_VERSION', '1.14.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -14,6 +14,8 @@ define( 'AGENTURF_OPT_CINE', 'agenturf_cine_intro' );
 define( 'AGENTURF_OPT_ACCESS', 'agenturf_access' ); // 'open' (tout le monde) ou 'members' (connexion requise)
 define( 'AGENTURF_OPT_INTER', 'agenturf_inter' );   // interstitiel avant la course (JSON)
 define( 'AGENTURF_OPT_ADHEAD', 'agenturf_ad_head' ); // code publicitaire (en-tête, réseaux type Adsterra/Monetag)
+define( 'AGENTURF_OPT_GATE', 'agenturf_gate' );     // porte email : 'off' | 'email'
+define( 'AGENTURF_OPT_LEADS', 'agenturf_leads' );    // emails collectés (liste)
 
 /* Config de l'interstitiel « avant la course ». */
 function agenturf_inter_cfg() {
@@ -37,6 +39,12 @@ function agenturf_inter_cfg() {
 function agenturf_access_mode() {
 	$m = get_option( AGENTURF_OPT_ACCESS, 'open' );
 	return ( 'members' === $m ) ? 'members' : 'open';
+}
+
+/* Porte email : 'email' = 1 simulation gratuite puis email requis (bouton 100 toujours protégé). */
+function agenturf_gate_mode() {
+	$m = get_option( AGENTURF_OPT_GATE, 'email' );
+	return ( 'off' === $m ) ? 'off' : 'email';
 }
 
 /* Vue à afficher : 'landing' (portail vidéo) ou 'simulator'. */
@@ -118,6 +126,12 @@ add_action( 'wp_enqueue_scripts', function () {
 				'cineIntro'  => get_option( AGENTURF_OPT_CINE, '' ),
 				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
 				'interAd'    => agenturf_inter_cfg(),
+				'gate'       => array(
+					'mode'  => is_user_logged_in() ? 'off' : agenturf_gate_mode(), // membres connectés : jamais bloqués
+					'free'  => 1,
+					'ajax'  => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'agenturf_lead' ),
+				),
 			), JSON_HEX_TAG | JSON_HEX_AMP ) . ';', // HEX_TAG : le code pub peut contenir </script>, on l'échappe pour ne pas casser la page
 			'before'
 		);
@@ -171,6 +185,25 @@ function agenturf_admin_page() {
 					<input type="radio" name="access_mode" value="members" <?php checked( 'members', $mode ); ?>>
 					<strong>Membres seulement</strong> — les visiteurs voient le portail vidéo et doivent se connecter (Google via Nextend) pour accéder au simulateur.
 				</label>
+			</p>
+
+			<?php $gate = agenturf_gate_mode(); $leads = get_option( AGENTURF_OPT_LEADS, array() ); $nleads = is_array( $leads ) ? count( $leads ) : 0; ?>
+			<h3 style="margin:14px 0 4px;">Porte email (Gmail) — sans Google</h3>
+			<p class="description" style="margin-top:0;">Fonctionne <strong>même si la connexion Google n'est pas encore active</strong> : le visiteur regarde <strong>1 simulation gratuite</strong>, puis une fenêtre lui demande son email pour continuer. Le bouton <strong>« 1 clic = 100 courses »</strong> est <strong>toujours</strong> protégé. Les emails sont collectés ici (ta liste de diffusion).</p>
+			<p>
+				<label style="display:block;margin:4px 0;">
+					<input type="radio" name="gate_mode" value="email" <?php checked( 'email', $gate ); ?>>
+					<strong>Activée</strong> — 1 simulation gratuite puis email requis · bouton 100 protégé. <em>(recommandé)</em>
+				</label>
+				<label style="display:block;margin:4px 0;">
+					<input type="radio" name="gate_mode" value="off" <?php checked( 'off', $gate ); ?>>
+					<strong>Désactivée</strong> — tout est libre, aucune demande d'email.
+				</label>
+			</p>
+			<p class="description"><strong><?php echo (int) $nleads; ?></strong> email(s) collecté(s).
+				<?php if ( $nleads > 0 ) : ?>
+					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=agenturf_leads_csv' ), 'agenturf_leads_csv' ) ); ?>" class="button button-secondary" style="margin-left:8px;">⬇️ Télécharger les emails (CSV)</a>
+				<?php endif; ?>
 			</p>
 			<hr>
 
@@ -283,6 +316,10 @@ add_action( 'admin_post_agenturf_save', function () {
 	/* mode d'accès */
 	$mode = isset( $_POST['access_mode'] ) && 'members' === $_POST['access_mode'] ? 'members' : 'open';
 	update_option( AGENTURF_OPT_ACCESS, $mode, false );
+
+	/* porte email */
+	$gate = isset( $_POST['gate_mode'] ) && 'off' === $_POST['gate_mode'] ? 'off' : 'email';
+	update_option( AGENTURF_OPT_GATE, $gate, false );
 
 	/* interstitiel avant course */
 	update_option( AGENTURF_OPT_INTER, wp_json_encode( array(
@@ -623,6 +660,56 @@ add_action( 'wp_head', function () {
 		echo "\n<!-- AgenTurf ad -->\n" . $code . "\n<!-- /AgenTurf ad -->\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }, 20 );
+
+/* ---------------- porte email : capture des adresses ---------------- */
+add_action( 'wp_ajax_agenturf_lead', 'agenturf_capture_lead' );
+add_action( 'wp_ajax_nopriv_agenturf_lead', 'agenturf_capture_lead' );
+function agenturf_capture_lead() {
+	check_ajax_referer( 'agenturf_lead' );
+	$email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+	if ( ! $email || ! is_email( $email ) ) {
+		wp_send_json_error( 'invalid' );
+	}
+	$leads = get_option( AGENTURF_OPT_LEADS, array() );
+	if ( ! is_array( $leads ) ) {
+		$leads = array();
+	}
+	foreach ( $leads as $l ) {
+		if ( isset( $l['e'] ) && strtolower( $l['e'] ) === strtolower( $email ) ) {
+			wp_send_json_success( 'exists' ); // déjà inscrit
+		}
+	}
+	$leads[] = array( 'e' => $email, 't' => time() );
+	if ( count( $leads ) > 20000 ) {
+		$leads = array_slice( $leads, -20000 );
+	}
+	update_option( AGENTURF_OPT_LEADS, $leads, false );
+	wp_send_json_success( 'ok' );
+}
+
+/* Export CSV des emails collectés (admin). */
+add_action( 'admin_post_agenturf_leads_csv', function () {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( 'Accès refusé.' );
+	}
+	check_admin_referer( 'agenturf_leads_csv' );
+	$leads = get_option( AGENTURF_OPT_LEADS, array() );
+	if ( ! is_array( $leads ) ) {
+		$leads = array();
+	}
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename=agenturf-emails.csv' );
+	$out = fopen( 'php://output', 'w' );
+	fputcsv( $out, array( 'email', 'date' ) );
+	foreach ( $leads as $l ) {
+		fputcsv( $out, array(
+			isset( $l['e'] ) ? $l['e'] : '',
+			isset( $l['t'] ) ? gmdate( 'Y-m-d H:i', (int) $l['t'] ) : '',
+		) );
+	}
+	fclose( $out );
+	exit;
+} );
 
 add_action( 'wp_head', function () {
 	$img = get_template_directory_uri() . '/assets/pwa/';
