@@ -5,6 +5,9 @@ $race  = agenturf_race_data();
 $meta  = $race['meta'];
 $nb    = count( $race['horses'] );
 $nbsc  = count( $race['scenarios'] );
+/* Mode ouvert : on entre au simulateur par un simple clic (pas de connexion). */
+$open      = ( 'open' === agenturf_access_mode() );
+$enter_url = $open ? add_query_arg( 'apercu', 'simulateur', home_url( '/' ) ) : $login;
 $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.6 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>';
 ?>
 <div id="landing">
@@ -20,7 +23,7 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 				<span class="hero-chip"><?php echo esc_html( $meta['eyebrow'] ); ?></span>
 				<h1 class="hero-h1">Le Quinté du jour,<br><em>simulé</em> avant d'être couru</h1>
 				<p class="hero-sub">Analyse complète des partants, <?php echo (int) $nbsc; ?> scénarios pondérés par un modèle, et une course animée en direct — relance-la autant de fois que tu veux, chaque arrivée est différente.</p>
-				<a class="hero-cta google-cta-like" href="#acces">🏇 Accéder au simulateur</a>
+				<a class="hero-cta google-cta-like" href="<?php echo esc_url( $open ? $enter_url : '#acces' ); ?>">🏇 Entrer dans le simulateur</a>
 			</div>
 			<div class="hero-cue">Fais défiler</div>
 		</div>
@@ -60,7 +63,11 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 	<section class="land-section">
 		<h2 class="land-h2 reveal"><span class="tick"></span>Comment ça marche</h2>
 		<div class="steps">
+			<?php if ( $open ) : ?>
+			<div class="step reveal"><span class="num">1</span><h3>Ouvre le simulateur</h3><p>Un seul clic, aucune inscription, aucune carte bancaire. Tous les outils sont libres, tous les jours.</p></div>
+			<?php else : ?>
 			<div class="step reveal"><span class="num">1</span><h3>Connecte-toi avec Google</h3><p>Un clic, aucune carte bancaire. Ton compte débloque tous les outils, tous les jours.</p></div>
+			<?php endif; ?>
 			<div class="step reveal d1"><span class="num">2</span><h3>Choisis ton scénario</h3><p>Lis l'analyse des partants, puis choisis le scénario de course auquel tu crois.</p></div>
 			<div class="step reveal d2"><span class="num">3</span><h3>Lance la simulation</h3><p>Regarde la course se jouer et compare les combinaisons qui reviennent le plus souvent.</p></div>
 		</div>
@@ -68,7 +75,7 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 
 	<section class="land-section">
 		<h2 class="land-h2 reveal"><span class="tick"></span>L'analyse du jour <small><?php echo esc_html( wp_strip_all_tags( $meta['eyebrow'] ) ); ?></small></h2>
-		<p class="land-lead reveal"><strong><?php echo esc_html( $meta['title'] ); ?></strong> — <?php echo esc_html( $meta['subtitle'] ); ?>. Les <?php echo (int) $nb; ?> partants, les avis des professionnels et la simulation complète t'attendent derrière la connexion gratuite.</p>
+		<p class="land-lead reveal"><strong><?php echo esc_html( $meta['title'] ); ?></strong> — <?php echo esc_html( $meta['subtitle'] ); ?>. Les <?php echo (int) $nb; ?> partants, les avis des professionnels et la simulation complète t'attendent <?php echo $open ? 'en un clic, gratuitement' : 'derrière la connexion gratuite'; ?>.</p>
 
 		<?php if ( ! empty( $meta['avis'] ) ) : ?>
 		<div class="avisgrid">
@@ -100,6 +107,18 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 	<div class="gatewrap" id="acces">
 		<div class="gatecard reveal">
 			<h2>La course du jour t'attend<br><em><?php echo esc_html( $meta['title'] ); ?></em></h2>
+			<?php if ( $open ) : ?>
+			<p><?php echo esc_html( $meta['subtitle'] ); ?> — <strong>accès libre et gratuit</strong>, sans inscription :</p>
+			<ul>
+				<li>Simulations illimitées, chaque arrivée est différente</li>
+				<li>Les <?php echo (int) $nbsc; ?> scénarios du modèle</li>
+				<li>L'analyse complète des <?php echo (int) $nb; ?> partants</li>
+				<li>Le Quinté+ du jour, chaque jour</li>
+			</ul>
+			<br>
+			<a class="hero-cta google-cta-like" href="<?php echo esc_url( $enter_url ); ?>">🏇 Entrer dans le simulateur</a>
+			<p class="gate-note">100 % gratuit. Aucune inscription, aucune carte bancaire.</p>
+			<?php else : ?>
 			<p><?php echo esc_html( $meta['subtitle'] ); ?> — l'accès au simulateur est réservé aux membres. C'est gratuit et immédiat :</p>
 			<ul>
 				<li>Simulations illimitées, chaque arrivée est différente</li>
@@ -110,6 +129,7 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 			<br>
 			<a class="google-cta" href="<?php echo esc_url( $login ); ?>" rel="nofollow"><?php echo $google_svg; // phpcs:ignore ?> Continuer avec Google</a>
 			<p class="gate-note">Gratuit. Aucune carte bancaire. Juste ton compte Google.</p>
+			<?php endif; ?>
 		</div>
 	</div>
 
@@ -127,7 +147,7 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 				<h3>Questions fréquentes</h3>
 				<div class="faq">
 					<details><summary>C'est quoi le Quinté+ du jour ?</summary><p>Le Quinté+ est le pari phare du PMU : trouver les 5 premiers chevaux d'une course. AgenTurf te donne chaque jour les partants, les pronostics et une simulation animée de l'arrivée probable.</p></details>
-					<details><summary>Comment avoir le pronostic Quinté+ gratuit ?</summary><p>Crée un compte gratuit avec Google : tu débloques l'analyse complète des partants, les scénarios du modèle et les simulations illimitées, sans carte bancaire.</p></details>
+					<details><summary>Comment avoir le pronostic Quinté+ gratuit ?</summary><p>L'accès est libre et gratuit : tu ouvres directement le simulateur, l'analyse complète des partants, les scénarios du modèle et les simulations illimitées, sans inscription ni carte bancaire.</p></details>
 					<details><summary>Où voir l'arrivée du Quinté+ d'aujourd'hui ?</summary><p>La simulation te montre une arrivée probable ; l'arrivée officielle est publiée après la course. Consulte aussi nos archives quotidiennes de chaque Quinté analysé.</p></details>
 					<details><summary>Le simulateur donne-t-il des pronostics sûrs ?</summary><p>Non — aucun pronostic n'est garanti. C'est un outil d'analyse et de divertissement : les probabilités sont des estimations du modèle, pas des certitudes.</p></details>
 					<details><summary>Puis-je l'installer comme une application ?</summary><p>Oui : sur Android comme sur iPhone, tu peux ajouter AgenTurf à ton écran d'accueil et l'ouvrir comme une vraie app (voir le bouton « Installer l'app »).</p></details>

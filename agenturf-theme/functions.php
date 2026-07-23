@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.12.0' );
+define( 'AGENTURF_VERSION', '1.13.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -49,7 +49,8 @@ function agenturf_current_view() {
 		return 'simulator';
 	}
 	if ( 'open' === agenturf_access_mode() ) {
-		return 'simulator';
+		// Portail vidéo d'abord ; on entre au simulateur par un clic (?apercu=simulateur).
+		return 'landing';
 	}
 	return is_user_logged_in() ? 'simulator' : 'landing';
 }
@@ -469,8 +470,25 @@ add_action( 'wp_head', function () {
 		echo '<meta property="og:title" content="' . esc_attr( $og_title ) . '">' . "\n";
 		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
 		echo '<meta property="og:type" content="website">' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . "\n";
+		echo '<meta property="og:locale" content="fr_FR">' . "\n";
 		echo '<meta property="og:image" content="' . esc_url( agenturf_poster_url() ) . '">' . "\n";
 		echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+	}
+
+	/* Mots-clés dynamiques : bâtis à partir de la course du jour + termes turf à fort volume. */
+	if ( is_front_page() ) {
+		$track = strtolower( wp_strip_all_tags( $m['track'] ) );
+		$disc  = isset( $m['discipline'] ) ? strtolower( $m['discipline'] ) : '';
+		$disc_kw = ( 'trot' === $disc ) ? 'pronostic trot attelé, trot monté' : 'pronostic plat, pronostic galop';
+		$kw = array(
+			'quinté du jour', 'pronostic quinté', 'quinté+ gratuit', 'pronostic quinté demain',
+			'arrivée quinté du jour', 'partants quinté', 'simulateur quinté', 'simulateur course de chevaux',
+			'pronostic PMU', 'cote PMU', 'base quinté', 'tocard du jour', 'tiercé quarté quinté',
+			'quinté ' . $track, 'pronostic ' . $track, $disc_kw,
+			wp_strip_all_tags( $m['title'] ), 'course en direct',
+		);
+		echo '<meta name="keywords" content="' . esc_attr( implode( ', ', array_filter( $kw ) ) ) . '">' . "\n";
 	}
 
 	if ( is_front_page() ) {
