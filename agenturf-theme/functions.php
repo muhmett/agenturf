@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.15.1' );
+define( 'AGENTURF_VERSION', '1.16.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -16,6 +16,30 @@ define( 'AGENTURF_OPT_INTER', 'agenturf_inter' );   // interstitiel avant la cou
 define( 'AGENTURF_OPT_ADHEAD', 'agenturf_ad_head' ); // code publicitaire (en-tête, réseaux type Adsterra/Monetag)
 define( 'AGENTURF_OPT_GATE', 'agenturf_gate' );     // porte email : 'off' | 'email'
 define( 'AGENTURF_OPT_LEADS', 'agenturf_leads' );    // emails collectés (liste)
+define( 'AGENTURF_OPT_ADSTXT', 'agenturf_ads_txt' ); // contenu du fichier /ads.txt
+define( 'AGENTURF_ADSTXT_DEFAULT', 'google.com, pub-7905394011008419, DIRECT, f08c47fec0942fa0' );
+
+/* Contenu du /ads.txt (option, sinon valeur par défaut AdSense). */
+function agenturf_adstxt() {
+	$v = get_option( AGENTURF_OPT_ADSTXT, false );
+	if ( false === $v ) {
+		return AGENTURF_ADSTXT_DEFAULT;
+	}
+	return (string) $v;
+}
+
+/* Sert /ads.txt directement depuis le thème (aucun fichier à créer). */
+add_action( 'init', function () {
+	$uri = isset( $_SERVER['REQUEST_URI'] ) ? strtok( wp_unslash( $_SERVER['REQUEST_URI'] ), '?' ) : '';
+	if ( '/ads.txt' === rtrim( (string) $uri, '/' ) ) {
+		$txt = trim( agenturf_adstxt() );
+		if ( '' !== $txt ) {
+			header( 'Content-Type: text/plain; charset=utf-8' );
+			echo $txt . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+			exit;
+		}
+	}
+} );
 
 /* Config de l'interstitiel « avant la course ». */
 function agenturf_inter_cfg() {
@@ -285,6 +309,12 @@ function agenturf_admin_page() {
 			<p>Colle ici le code fourni par ton réseau (<strong>Adsterra</strong>, <strong>Monetag</strong>, AdSense…). Il gère lui-même ses pubs/interstitiels au clic. Laisse vide si tu utilises seulement l'interstitiel d'affiliation ci-dessus.</p>
 			<textarea name="ad_head" rows="5" style="width:100%;font-family:monospace;font-size:12px;" placeholder="<script>…code du réseau…</script>"><?php echo esc_textarea( get_option( AGENTURF_OPT_ADHEAD, '' ) ); ?></textarea>
 
+			<hr>
+			<h2 class="title">6. Fichier ads.txt (Google AdSense)</h2>
+			<p>Servi automatiquement sur <code><?php echo esc_html( home_url( '/ads.txt' ) ); ?></code> — <strong>aucun fichier à créer</strong>. Déjà pré-rempli pour AdSense ; ajoute une ligne par réseau si besoin. Laisse vide pour désactiver.</p>
+			<textarea name="ads_txt" rows="3" style="width:100%;font-family:monospace;font-size:12px;" placeholder="google.com, pub-XXXXXXXXXXXX, DIRECT, f08c47fec0942fa0"><?php echo esc_textarea( agenturf_adstxt() ); ?></textarea>
+			<p class="description">Vérifie ensuite en ouvrant <a href="<?php echo esc_url( home_url( '/ads.txt' ) ); ?>" target="_blank"><?php echo esc_html( home_url( '/ads.txt' ) ); ?></a>.</p>
+
 			<p>
 				<?php submit_button( 'Enregistrer', 'primary', 'submit', false ); ?>
 				&nbsp;
@@ -334,6 +364,7 @@ add_action( 'admin_post_agenturf_save', function () {
 
 	/* code réseau publicitaire (brut, admin de confiance) */
 	update_option( AGENTURF_OPT_ADHEAD, isset( $_POST['ad_head'] ) ? trim( (string) wp_unslash( $_POST['ad_head'] ) ) : '', false );
+	update_option( AGENTURF_OPT_ADSTXT, isset( $_POST['ads_txt'] ) ? trim( (string) wp_unslash( $_POST['ads_txt'] ) ) : '', false );
 
 	if ( ! empty( $_POST['reset_default'] ) ) {
 		delete_option( AGENTURF_OPT_RACE );
