@@ -73,10 +73,10 @@ $nb   = count( $race['horses'] );
 
 		<div id="resultbox">
 			<div class="arrivee">
-				<h3>Arrivée officielle — combinaison Quinté+</h3>
+				<h3>Arrivée simulée — ce lancement (Quinté+)</h3>
 				<div class="combo" id="combo"></div>
 				<ol id="resList"></ol>
-				<p class="note">Simulation basée sur les valeurs handicap, poids, musiques, cordes et avis entraîneurs du jour. Chaque lancement produit une arrivée différente — comme la vraie course, rien n'est garanti.</p>
+				<p class="note">⚠️ Ceci est <strong>une</strong> arrivée simulée parmi une infinité — ce n'est pas le résultat officiel de la course. Pour la tendance de fond, regarde plutôt les <strong>statistiques sur 100 courses</strong> ci-dessus. Chaque lancement produit une arrivée différente ; rien n'est garanti. 18+.</p>
 			</div>
 		</div>
 	</section>

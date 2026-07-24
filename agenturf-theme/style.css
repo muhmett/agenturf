@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.15.0
+Version: 1.15.1
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -398,7 +398,8 @@ button.btn{
 .cp-silk{width:13px;height:13px;border-radius:3px 3px 6px 6px;border:1px solid rgba(0,0,0,.3)}
 .cp-num{font-weight:700;width:20px}
 .cp-nm{white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}
-.cine-ticker{position:absolute;left:12px;right:12px;bottom:14px;background:rgba(12,25,18,.86);color:#f3f1e6;border-left:4px solid var(--or);border-radius:10px;padding:10px 14px;font-size:.95rem;backdrop-filter:blur(3px)}
+.cine-ticker{position:absolute;left:12px;right:12px;bottom:10px;background:rgba(12,25,18,.78);color:#f3f1e6;border-left:3px solid var(--or);border-radius:8px;padding:6px 11px;font-size:.8rem;line-height:1.28;backdrop-filter:blur(3px);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cine-ticker.hot{border-left-color:#ff5348;font-weight:600}
 .cine-ticker.pop{animation:tickerPop .3s ease}
 @keyframes tickerPop{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
@@ -409,7 +410,8 @@ button.btn{
 .cine-result h3{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.8rem;color:var(--or);letter-spacing:.05em}
 .cine-result .combo{justify-content:center}
 .cine-result p{font-size:1rem;margin-bottom:8px}
-@media(max-width:640px){.cine-pos{top:48px}.cp-nm{max-width:80px}.cine-close{top:-14px;right:0;padding:7px 12px}}
+@media(max-width:640px){.cine-pos{top:48px}.cp-nm{max-width:80px}.cine-close{top:-14px;right:0;padding:7px 12px}
+  .cine-ticker{font-size:.72rem;padding:5px 9px;bottom:8px;-webkit-line-clamp:2}}
 
 
 /* =============== archives SEO =============== */

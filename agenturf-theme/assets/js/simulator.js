@@ -684,7 +684,7 @@ function showResult() {
   say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
   if (cinemaOpen && $("cineResult")) {
     $("cineResult").innerHTML = `
-      <h3>🏆 Arrivée officielle</h3>
+      <h3>🏆 Arrivée simulée</h3>
       <div class="combo">${top5.map((r, i) =>
         `<div class="n" style="background:${r.h.c[0]};animation-delay:${i * .18}s">${r.h.n}</div>`).join("")}</div>
       <p>${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !</p>
