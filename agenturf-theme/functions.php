@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.14.1' );
+define( 'AGENTURF_VERSION', '1.15.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -368,17 +368,18 @@ add_action( 'admin_post_agenturf_save', function () {
 
 /* ---------------- redirections membres ---------------- */
 
-/* Après connexion (y compris via Google/Nextend) : les non-admins vont à l'accueil, pas à wp-admin. */
+/* Après connexion (y compris via Google/Nextend) : les non-admins vont DIRECTEMENT
+   au simulateur (jamais wp-admin). */
 add_filter( 'login_redirect', function ( $redirect_to, $requested, $user ) {
 	if ( $user instanceof WP_User && ! user_can( $user, 'manage_options' ) ) {
-		return home_url( '/' );
+		return add_query_arg( 'apercu', 'simulateur', home_url( '/' ) );
 	}
 	return $redirect_to;
 }, 10, 3 );
 
-/* Après inscription : retour à l'accueil. */
+/* Après inscription : direction le simulateur. */
 add_filter( 'registration_redirect', function () {
-	return home_url( '/' );
+	return add_query_arg( 'apercu', 'simulateur', home_url( '/' ) );
 } );
 
 /* Un membre simple qui tape /wp-admin est renvoyé vers l'accueil. */
@@ -414,12 +415,59 @@ add_action( 'after_switch_theme', function () {
 	flush_rewrite_rules();
 } );
 
+/* Pronostic du jour : base / compléments / tocard, dérivés de la valeur du modèle
+   (aptitude + poids + corde). Retourne un tableau { base, comp, tocard, html, text }. */
+function agenturf_pronostic( $data ) {
+	$scored = array();
+	foreach ( $data['horses'] as $h ) {
+		$w    = isset( $h['w'] ) ? (float) $h['w'] : 56;
+		$draw = isset( $h['draw'] ) ? (int) $h['draw'] : 8;
+		$wadj = ( 56 - $w ) * 0.9;
+		$dadj = ( $draw >= 12 ) ? -1.6 : ( ( $draw <= 4 ) ? 0.7 : 0 );
+		$scored[] = array(
+			'n'    => (int) $h['n'],
+			'name' => $h['name'],
+			'odds' => isset( $h['odds'] ) ? (float) $h['odds'] : 99,
+			'score' => ( isset( $h['ab'] ) ? (float) $h['ab'] : 75 ) + $wadj + $dadj,
+		);
+	}
+	usort( $scored, function ( $a, $b ) { return $b['score'] <=> $a['score']; } );
+
+	$base = array_slice( $scored, 0, 5 );
+	$comp = array_slice( $scored, 5, 2 );
+
+	// tocard = meilleure cote parmi les 8 premiers du modèle (la vraie « valeur »)
+	$pool   = array_slice( $scored, 0, 8 );
+	$tocard = $pool[0];
+	foreach ( $pool as $p ) {
+		if ( $p['odds'] > $tocard['odds'] ) { $tocard = $p; }
+	}
+
+	$nums = function ( $arr ) { return implode( ' - ', array_map( function ( $x ) { return $x['n']; }, $arr ) ); };
+	$base_s = $nums( $base );
+	$comp_s = $nums( $comp );
+
+	$html  = '<div class="prono-box"><h2>🎯 Le pronostic du jour</h2>';
+	$html .= '<p><strong>Base (5) :</strong> ' . esc_html( $base_s ) . '</p>';
+	$html .= '<p><strong>Compléments :</strong> ' . esc_html( $comp_s ) . '</p>';
+	$html .= '<p><strong>Le tocard :</strong> ' . (int) $tocard['n'] . ' ' . esc_html( $tocard['name'] ) . ' (cote ' . esc_html( $tocard['odds'] ) . ')</p>';
+	$html .= '<p><em>Pronostic issu de la simulation du modèle — outil de divertissement, aucun résultat garanti. 18+.</em></p></div>';
+
+	$text = 'Pronostic : base ' . $base_s . ' · tocard ' . $tocard['n'] . ' ' . $tocard['name'] . ' (' . $tocard['odds'] . ').';
+
+	return array( 'base' => $base_s, 'comp' => $comp_s, 'tocard' => $tocard, 'html' => $html, 'text' => $text );
+}
+
 /* Contenu HTML indexable généré depuis le JSON de la course. */
 function agenturf_race_html( $data ) {
-	$meta = $data['meta'];
-	$html = '<p><strong>' . esc_html( wp_strip_all_tags( $meta['eyebrow'] ) ) . '</strong> — '
+	$meta  = $data['meta'];
+	$prono = agenturf_pronostic( $data );
+	$html  = '<p><strong>' . esc_html( wp_strip_all_tags( $meta['eyebrow'] ) ) . '</strong> — '
 		. esc_html( $meta['subtitle'] ) . '. ' . count( $data['horses'] ) . ' partants analysés, '
 		. count( $data['scenarios'] ) . ' scénarios de course simulés.</p>';
+
+	// le pronostic figure en tête de chaque archive
+	$html .= $prono['html'];
 
 	if ( ! empty( $meta['avis'] ) ) {
 		$html .= '<h2>L\'avis des professionnels</h2>';
@@ -451,7 +499,8 @@ function agenturf_race_html( $data ) {
 /* Crée/actualise l'archive de la course (appelé à chaque enregistrement admin). */
 function agenturf_archive_race( $data ) {
 	$meta  = $data['meta'];
-	$title = 'Quinté+ du ' . date_i18n( 'j F Y' ) . ' : ' . wp_strip_all_tags( $meta['title'] ) . ' (' . wp_strip_all_tags( $meta['track'] ) . ')';
+	$prono = agenturf_pronostic( $data );
+	$title = 'Pronostic Quinté+ du ' . date_i18n( 'j F Y' ) . ' : ' . wp_strip_all_tags( $meta['title'] ) . ' (' . wp_strip_all_tags( $meta['track'] ) . ')';
 	$slug  = sanitize_title( gmdate( 'Y-m-d' ) . '-' . $meta['title'] . '-' . $meta['track'] );
 
 	$existing = get_page_by_path( $slug, OBJECT, 'course' );
@@ -461,7 +510,7 @@ function agenturf_archive_race( $data ) {
 		'post_name'    => $slug,
 		'post_title'   => $title,
 		'post_content' => agenturf_race_html( $data ),
-		'post_excerpt' => 'Pronostic, analyse des partants et simulation du ' . wp_strip_all_tags( $meta['title'] ) . ' à ' . wp_strip_all_tags( $meta['track'] ) . '.',
+		'post_excerpt' => $prono['text'] . ' Analyse des ' . count( $data['horses'] ) . ' partants et simulation du ' . wp_strip_all_tags( $meta['title'] ) . ' à ' . wp_strip_all_tags( $meta['track'] ) . '.',
 	);
 	if ( $existing ) {
 		$postarr['ID'] = $existing->ID;
@@ -472,6 +521,24 @@ function agenturf_archive_race( $data ) {
 	}
 }
 
+/* Toute archive de course affiche son pronostic — même les anciennes,
+   régénéré à la volée depuis le JSON stocké si absent du contenu. */
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular( 'course' ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+	if ( false !== strpos( $content, 'prono-box' ) ) {
+		return $content; // pronostic déjà présent
+	}
+	$raw  = get_post_meta( get_the_ID(), '_agenturf_race', true );
+	$data = json_decode( (string) $raw, true );
+	if ( ! is_array( $data ) || empty( $data['horses'] ) ) {
+		return $content;
+	}
+	$prono = agenturf_pronostic( $data );
+	return $prono['html'] . $content;
+} );
+
 /* =====================================================
    SEO : titres, meta description, Open Graph, JSON-LD
    ===================================================== */
@@ -479,7 +546,10 @@ function agenturf_archive_race( $data ) {
 add_filter( 'pre_get_document_title', function ( $title ) {
 	if ( is_front_page() ) {
 		$race = agenturf_race_data();
-		return 'Quinté+ du jour : ' . wp_strip_all_tags( $race['meta']['title'] ) . ' — pronostic, analyse & simulateur | ' . get_bloginfo( 'name' );
+		return 'Pronostic Quinté+ du jour : ' . wp_strip_all_tags( $race['meta']['title'] ) . ' — analyse, base & simulateur | ' . get_bloginfo( 'name' );
+	}
+	if ( is_post_type_archive( 'course' ) ) {
+		return 'Pronostic Quinté+ : archives des pronostics & simulations, jour par jour | ' . get_bloginfo( 'name' );
 	}
 	return $title;
 } );
