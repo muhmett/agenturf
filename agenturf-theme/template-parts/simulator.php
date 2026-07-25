@@ -3,8 +3,35 @@
 $race = agenturf_race_data();
 $meta = $race['meta'];
 $nb   = count( $race['horses'] );
+$user = is_user_logged_in() ? wp_get_current_user() : null;
 ?>
 <div class="wrap" id="simapp">
+
+	<?php if ( $user ) : ?>
+	<div class="member-bar">
+		<img class="member-avatar" src="<?php echo esc_url( get_avatar_url( $user->ID, array( 'size' => 72 ) ) ); ?>" alt="" width="36" height="36">
+		<div class="member-info">
+			<strong>Bonjour <?php echo esc_html( $user->display_name ); ?></strong>
+			<span><?php echo esc_html( $user->user_email ); ?></span>
+		</div>
+		<a class="member-logout" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>">Déconnexion</a>
+	</div>
+
+	<div class="member-panel" id="memberPanel">
+		<div class="member-essentials">
+			<h3>À savoir avant de jouer</h3>
+			<ul>
+				<li>🎯 Ceci est un <strong>simulateur</strong> — les arrivées sont générées par un modèle, pas des résultats officiels.</li>
+				<li>🔞 <strong>18 ans et plus.</strong> Jeu responsable : ne mise que ce que tu peux te permettre de perdre.</li>
+				<li>📚 Retrouve <a href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">l'historique de toutes les courses analysées</a> dans les archives.</li>
+			</ul>
+		</div>
+		<div class="member-history">
+			<h3>Tes dernières simulations <small>(sur cet appareil)</small></h3>
+			<ol id="historyList" class="history-list"><li class="history-empty">Aucune simulation lancée pour l'instant — clique sur « Lancer la course » ci-dessous.</li></ol>
+		</div>
+	</div>
+	<?php endif; ?>
 
 	<header class="card">
 		<div class="eyebrow"><?php echo esc_html( $meta['eyebrow'] ); ?></div>

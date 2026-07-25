@@ -12,7 +12,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.16.0
+Version: 1.18.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -214,6 +214,41 @@ a{color:inherit}
    SIMULATEUR (membres connectés)
    ===================================================== */
 .wrap{max-width:1060px;margin:0 auto;padding:70px 14px 60px}
+
+/* ---- panneau membre : identité, rappels, historique local ---- */
+.member-bar{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1.5px solid var(--ligne);border-radius:14px;
+  padding:10px 14px;margin-bottom:12px;
+}
+.member-avatar{border-radius:50%;flex:0 0 auto}
+.member-info{display:flex;flex-direction:column;line-height:1.25;flex:1 1 auto;min-width:0}
+.member-info strong{font-size:.92rem}
+.member-info span{font-size:.76rem;color:#6b7280;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.member-logout{
+  flex:0 0 auto;font-size:.78rem;font-weight:600;color:#6b7280;text-decoration:underline;
+}
+.member-panel{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;
+}
+@media(max-width:720px){.member-panel{grid-template-columns:1fr}}
+.member-essentials,.member-history{
+  background:#fff;border:1.5px solid var(--ligne);border-radius:14px;padding:16px 18px;
+}
+.member-essentials h3,.member-history h3{
+  font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:1rem;margin-bottom:8px;
+}
+.member-history h3 small{font-weight:400;text-transform:none;color:#8a94a0;font-size:.72rem}
+.member-essentials ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.member-essentials li{font-size:.85rem;color:#374151;line-height:1.4}
+.history-list{list-style:none;display:flex;flex-direction:column;gap:8px;max-height:220px;overflow-y:auto}
+.history-list li{
+  display:flex;flex-direction:column;gap:2px;font-size:.82rem;
+  border-left:3px solid var(--pmu);padding:4px 0 4px 10px;
+}
+.history-list .hist-combo{font-weight:700;font-family:'Barlow Condensed';letter-spacing:.02em}
+.history-list .hist-meta{color:#6b7280;font-size:.74rem}
+.history-list .history-empty{border-left-color:transparent;color:#8a94a0;padding-left:0;font-size:.82rem}
 
 header.card{
   background:linear-gradient(160deg,var(--nuit) 0%,var(--nuit2) 70%);
@@ -658,6 +693,25 @@ button.btn{
 
 
 <div class="wrap" id="simapp" style="display:none">
+  <div class="member-bar">
+    <img class="member-avatar" src="https://www.gravatar.com/avatar/?d=mp&s=72" alt="" width="36" height="36">
+    <div class="member-info"><strong>Bonjour Turfiste</strong><span>demo@agenturf.fr</span></div>
+    <a class="member-logout" id="tbLogout2" href="#">Déconnexion</a>
+  </div>
+  <div class="member-panel" id="memberPanel">
+    <div class="member-essentials">
+      <h3>À savoir avant de jouer</h3>
+      <ul>
+        <li>🎯 Ceci est un <strong>simulateur</strong> — les arrivées sont générées par un modèle, pas des résultats officiels.</li>
+        <li>🔞 <strong>18 ans et plus.</strong> Jeu responsable : ne mise que ce que tu peux te permettre de perdre.</li>
+        <li>📚 Retrouve l'historique de toutes les courses analysées dans les archives.</li>
+      </ul>
+    </div>
+    <div class="member-history">
+      <h3>Tes dernières simulations <small>(sur cet appareil)</small></h3>
+      <ol id="historyList" class="history-list"><li class="history-empty">Aucune simulation lancée pour l'instant — clique sur « Lancer la course » ci-dessous.</li></ol>
+    </div>
+  </div>
   <header class="card">
     <div class="eyebrow">Quinté+ · Vendredi 24 juillet 2026 · R1 C4 · Départ 20h15</div>
     <h1 class="racetitle">Prix Henri Ballière<br>Cabourg · 2 750 m (trot attelé)</h1>
@@ -1534,6 +1588,39 @@ function confettiDrain() {
   requestAnimationFrame(confettiDrain);
 }
 
+/* Historique local des simulations (visible dans le panneau membre, sur cet appareil). */
+const HISTORY_KEY = "qs_history";
+function readHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch (e) { return []; }
+}
+function recordHistory(top5) {
+  const list = $("historyList");
+  if (!list) return; // panneau membre absent (visiteur non connecté)
+  const entry = {
+    t: Date.now(),
+    race: META.title || "Quinté du jour",
+    track: META.track || "",
+    combo: top5.map(r => r.h.n),
+    winner: top5[0].h.name,
+  };
+  const hist = readHistory();
+  hist.unshift(entry);
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(hist.slice(0, 10))); } catch (e) {}
+  renderHistory();
+}
+function renderHistory() {
+  const list = $("historyList");
+  if (!list) return;
+  const hist = readHistory();
+  if (!hist.length) return; // garde le message par défaut du markup
+  list.innerHTML = hist.map(h => {
+    const d = new Date(h.t);
+    const when = d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    return `<li><span class="hist-combo">${h.combo.join(" - ")}</span><span class="hist-meta">${when} · ${h.race}${h.track ? " (" + h.track + ")" : ""} · ${h.winner} gagne</span></li>`;
+  }).join("");
+}
+renderHistory();
+
 function showResult() {
   finished = true;
   const order = [...runners].sort((a, b) => a.timeFin - b.timeFin);
@@ -1546,6 +1633,7 @@ function showResult() {
   }).join("");
   $("resultbox").style.display = "block";
   say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
+  recordHistory(top5);
   if (cinemaOpen && $("cineResult")) {
     $("cineResult").innerHTML = `
       <h3>🏆 Arrivée simulée</h3>

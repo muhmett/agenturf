@@ -670,6 +670,39 @@ function confettiDrain() {
   requestAnimationFrame(confettiDrain);
 }
 
+/* Historique local des simulations (visible dans le panneau membre, sur cet appareil). */
+const HISTORY_KEY = "qs_history";
+function readHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch (e) { return []; }
+}
+function recordHistory(top5) {
+  const list = $("historyList");
+  if (!list) return; // panneau membre absent (visiteur non connecté)
+  const entry = {
+    t: Date.now(),
+    race: META.title || "Quinté du jour",
+    track: META.track || "",
+    combo: top5.map(r => r.h.n),
+    winner: top5[0].h.name,
+  };
+  const hist = readHistory();
+  hist.unshift(entry);
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(hist.slice(0, 10))); } catch (e) {}
+  renderHistory();
+}
+function renderHistory() {
+  const list = $("historyList");
+  if (!list) return;
+  const hist = readHistory();
+  if (!hist.length) return; // garde le message par défaut du markup
+  list.innerHTML = hist.map(h => {
+    const d = new Date(h.t);
+    const when = d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    return `<li><span class="hist-combo">${h.combo.join(" - ")}</span><span class="hist-meta">${when} · ${h.race}${h.track ? " (" + h.track + ")" : ""} · ${h.winner} gagne</span></li>`;
+  }).join("");
+}
+renderHistory();
+
 function showResult() {
   finished = true;
   const order = [...runners].sort((a, b) => a.timeFin - b.timeFin);
@@ -682,6 +715,7 @@ function showResult() {
   }).join("");
   $("resultbox").style.display = "block";
   say(`🏆 Arrivée : ${top5.map(r => r.h.n).join(" - ")}. ${top5[0].h.name} s'impose pour ${top5[0].h.jockey} !`, true);
+  recordHistory(top5);
   if (cinemaOpen && $("cineResult")) {
     $("cineResult").innerHTML = `
       <h3>🏆 Arrivée simulée</h3>
