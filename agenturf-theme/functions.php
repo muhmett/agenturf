@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.16.0' );
+define( 'AGENTURF_VERSION', '1.17.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -151,10 +151,9 @@ add_action( 'wp_enqueue_scripts', function () {
 				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
 				'interAd'    => agenturf_inter_cfg(),
 				'gate'       => array(
-					'mode'  => is_user_logged_in() ? 'off' : agenturf_gate_mode(), // membres connectés : jamais bloqués
-					'free'  => 1,
-					'ajax'  => admin_url( 'admin-ajax.php' ),
-					'nonce' => wp_create_nonce( 'agenturf_lead' ),
+					'mode'     => is_user_logged_in() ? 'off' : agenturf_gate_mode(), // membres connectés : jamais bloqués
+					'free'     => 1,
+					'loginUrl' => agenturf_login_url(), // connexion Google (Nextend)
 				),
 			), JSON_HEX_TAG | JSON_HEX_AMP ) . ';', // HEX_TAG : le code pub peut contenir </script>, on l'échappe pour ne pas casser la page
 			'before'
@@ -212,23 +211,23 @@ function agenturf_admin_page() {
 			</p>
 
 			<?php $gate = agenturf_gate_mode(); $leads = get_option( AGENTURF_OPT_LEADS, array() ); $nleads = is_array( $leads ) ? count( $leads ) : 0; ?>
-			<h3 style="margin:14px 0 4px;">Porte email (Gmail) — sans Google</h3>
-			<p class="description" style="margin-top:0;">Fonctionne <strong>même si la connexion Google n'est pas encore active</strong> : le visiteur regarde <strong>1 simulation gratuite</strong>, puis une fenêtre lui demande son email pour continuer. Le bouton <strong>« 1 clic = 100 courses »</strong> est <strong>toujours</strong> protégé. Les emails sont collectés ici (ta liste de diffusion).</p>
+			<h3 style="margin:14px 0 4px;">Porte connexion Google</h3>
+			<p class="description" style="margin-top:0;">Le visiteur regarde <strong>1 simulation gratuite</strong>, puis une fenêtre lui propose de <strong>se connecter avec Google</strong> pour continuer. Le bouton <strong>« 1 clic = 100 courses »</strong> est <strong>toujours</strong> protégé. <em>Nécessite Nextend Social Login (Google) actif.</em></p>
 			<p>
 				<label style="display:block;margin:4px 0;">
 					<input type="radio" name="gate_mode" value="email" <?php checked( 'email', $gate ); ?>>
-					<strong>Activée</strong> — 1 simulation gratuite puis email requis · bouton 100 protégé. <em>(recommandé)</em>
+					<strong>Activée</strong> — 1 simulation gratuite puis connexion Google · bouton 100 protégé. <em>(recommandé)</em>
 				</label>
 				<label style="display:block;margin:4px 0;">
 					<input type="radio" name="gate_mode" value="off" <?php checked( 'off', $gate ); ?>>
-					<strong>Désactivée</strong> — tout est libre, aucune demande d'email.
+					<strong>Désactivée</strong> — tout est libre, aucune connexion demandée.
 				</label>
 			</p>
-			<p class="description"><strong><?php echo (int) $nleads; ?></strong> email(s) collecté(s).
-				<?php if ( $nleads > 0 ) : ?>
-					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=agenturf_leads_csv' ), 'agenturf_leads_csv' ) ); ?>" class="button button-secondary" style="margin-left:8px;">⬇️ Télécharger les emails (CSV)</a>
-				<?php endif; ?>
+			<?php if ( $nleads > 0 ) : ?>
+			<p class="description"><strong><?php echo (int) $nleads; ?></strong> email(s) collecté(s) par l'ancienne porte email.
+				<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=agenturf_leads_csv' ), 'agenturf_leads_csv' ) ); ?>" class="button button-secondary" style="margin-left:8px;">⬇️ Télécharger (CSV)</a>
 			</p>
+			<?php endif; ?>
 			<hr>
 
 			<h2 class="title">1. Charger la course du jour (fichier JSON)</h2>
