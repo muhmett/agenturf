@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.18.0' );
+define( 'AGENTURF_VERSION', '1.18.1' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -125,9 +125,12 @@ function agenturf_poster_url() {
 }
 
 function agenturf_login_url() {
-	// Connexion directe Google (Nextend : ?loginSocial=google) → retour au simulateur.
+	// Page de connexion standard (bouton Google Nextend natif). Ne PAS ajouter
+	// ?loginSocial=google ici : ça modifie le redirect_uri envoyé à Google et
+	// provoque "Erreur 400 : redirect_uri_mismatch" (l'URI ne correspond plus
+	// exactement à celle enregistrée dans Google Cloud Console).
 	$back = add_query_arg( 'apercu', 'simulateur', home_url( '/' ) );
-	return add_query_arg( 'loginSocial', 'google', wp_login_url( $back ) );
+	return wp_login_url( $back );
 }
 
 /* ---------------- assets ---------------- */

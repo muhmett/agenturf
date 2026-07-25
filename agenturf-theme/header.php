@@ -14,10 +14,8 @@
 		<a class="tb-btn" href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">Archives</a>
 		<?php if ( is_user_logged_in() ) : ?>
 			<a class="tb-btn" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>">Déconnexion</a>
-		<?php elseif ( 'members' === agenturf_access_mode() ) : ?>
+		<?php else : ?>
 			<a class="tb-btn solid" href="<?php echo esc_url( agenturf_login_url() ); ?>">Se connecter</a>
-		<?php elseif ( 'landing' === agenturf_current_view() ) : ?>
-			<a class="tb-btn solid" href="<?php echo esc_url( add_query_arg( 'apercu', 'simulateur', home_url( '/' ) ) ); ?>">🏇 Simulateur</a>
 		<?php endif; ?>
 	</div>
 </nav>
