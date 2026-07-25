@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.18.1' );
+define( 'AGENTURF_VERSION', '1.19.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -18,6 +18,14 @@ define( 'AGENTURF_OPT_GATE', 'agenturf_gate' );     // porte email : 'off' | 'em
 define( 'AGENTURF_OPT_LEADS', 'agenturf_leads' );    // emails collectés (liste)
 define( 'AGENTURF_OPT_ADSTXT', 'agenturf_ads_txt' ); // contenu du fichier /ads.txt
 define( 'AGENTURF_ADSTXT_DEFAULT', 'google.com, pub-7905394011008419, DIRECT, f08c47fec0942fa0' );
+define( 'AGENTURF_OPT_GOOGLE_CID', 'agenturf_google_client_id' );
+define( 'AGENTURF_GOOGLE_CID_DEFAULT', '126774588814-0g4d1811poljopu0q5b3nt4tq9hlakru.apps.googleusercontent.com' );
+
+/* Client ID Google (Identity Services) pour le bouton « Continuer avec Google » intégré. */
+function agenturf_google_client_id() {
+	$v = get_option( AGENTURF_OPT_GOOGLE_CID, '' );
+	return $v ? $v : AGENTURF_GOOGLE_CID_DEFAULT;
+}
 
 /* Contenu du /ads.txt (option, sinon valeur par défaut AdSense). */
 function agenturf_adstxt() {
@@ -144,6 +152,21 @@ add_action( 'wp_enqueue_scripts', function () {
 	);
 	wp_enqueue_style( 'agenturf', get_stylesheet_uri(), array( 'agenturf-fonts' ), (string) filemtime( get_template_directory() . '/style.css' ) );
 
+	// Connexion Google intégrée (bouton natif rendu sur place) : dispo sur toutes les vues.
+	if ( ! is_user_logged_in() ) {
+		wp_enqueue_script( 'google-gsi', 'https://accounts.google.com/gsi/client', array(), null, true );
+		wp_enqueue_script( 'agenturf-google-signin', get_template_directory_uri() . '/assets/js/google-signin.js', array( 'google-gsi' ), (string) filemtime( get_template_directory() . '/assets/js/google-signin.js' ), true );
+		wp_add_inline_script(
+			'agenturf-google-signin',
+			'window.AGENTURF_GSI = ' . wp_json_encode( array(
+				'clientId' => agenturf_google_client_id(),
+				'ajax'     => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'agenturf_google_signin' ),
+			) ) . ';',
+			'before'
+		);
+	}
+
 	if ( 'landing' === agenturf_current_view() ) {
 		wp_enqueue_script( 'agenturf-landing', get_template_directory_uri() . '/assets/js/landing.js', array(), (string) filemtime( get_template_directory() . '/assets/js/landing.js' ), true );
 	} else {
@@ -156,9 +179,8 @@ add_action( 'wp_enqueue_scripts', function () {
 				'grandstand' => get_template_directory_uri() . '/assets/img/grandstand.jpg',
 				'interAd'    => agenturf_inter_cfg(),
 				'gate'       => array(
-					'mode'     => is_user_logged_in() ? 'off' : agenturf_gate_mode(), // membres connectés : jamais bloqués
-					'free'     => 1,
-					'loginUrl' => agenturf_login_url(), // connexion Google (Nextend)
+					'mode' => is_user_logged_in() ? 'off' : agenturf_gate_mode(), // membres connectés : jamais bloqués
+					'free' => 1,
 				),
 			), JSON_HEX_TAG | JSON_HEX_AMP ) . ';', // HEX_TAG : le code pub peut contenir </script>, on l'échappe pour ne pas casser la page
 			'before'
@@ -319,6 +341,19 @@ function agenturf_admin_page() {
 			<textarea name="ads_txt" rows="3" style="width:100%;font-family:monospace;font-size:12px;" placeholder="google.com, pub-XXXXXXXXXXXX, DIRECT, f08c47fec0942fa0"><?php echo esc_textarea( agenturf_adstxt() ); ?></textarea>
 			<p class="description">Vérifie ensuite en ouvrant <a href="<?php echo esc_url( home_url( '/ads.txt' ) ); ?>" target="_blank"><?php echo esc_html( home_url( '/ads.txt' ) ); ?></a>.</p>
 
+			<hr>
+			<h2 class="title">7. Connexion Google intégrée (sans quitter le site)</h2>
+			<p>Le bouton « Continuer avec Google » s'affiche <strong>directement sur le site</strong> (dans un petit popup Google, sans passer par la page d'administration WordPress). Un compte membre est créé automatiquement à la première connexion et reste rattaché à ce Gmail pour toujours.</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="google_client_id">Google Client ID</label></th>
+					<td>
+						<input type="text" class="regular-text" id="google_client_id" name="google_client_id" value="<?php echo esc_attr( agenturf_google_client_id() ); ?>" placeholder="xxxxxxxx.apps.googleusercontent.com">
+						<p class="description">Depuis <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console → Identifiants</a>. Dans le même écran, ajoute <code><?php echo esc_html( home_url( '/' ) ); ?></code> aux <strong>« Origines JavaScript autorisées »</strong> (pas besoin d'URI de redirection pour cette méthode).</p>
+					</td>
+				</tr>
+			</table>
+
 			<p>
 				<?php submit_button( 'Enregistrer', 'primary', 'submit', false ); ?>
 				&nbsp;
@@ -369,6 +404,7 @@ add_action( 'admin_post_agenturf_save', function () {
 	/* code réseau publicitaire (brut, admin de confiance) */
 	update_option( AGENTURF_OPT_ADHEAD, isset( $_POST['ad_head'] ) ? trim( (string) wp_unslash( $_POST['ad_head'] ) ) : '', false );
 	update_option( AGENTURF_OPT_ADSTXT, isset( $_POST['ads_txt'] ) ? trim( (string) wp_unslash( $_POST['ads_txt'] ) ) : '', false );
+	update_option( AGENTURF_OPT_GOOGLE_CID, isset( $_POST['google_client_id'] ) ? sanitize_text_field( wp_unslash( $_POST['google_client_id'] ) ) : '', false );
 
 	if ( ! empty( $_POST['reset_default'] ) ) {
 		delete_option( AGENTURF_OPT_RACE );
@@ -791,6 +827,93 @@ function agenturf_capture_lead() {
 	update_option( AGENTURF_OPT_LEADS, $leads, false );
 	wp_send_json_success( 'ok' );
 }
+
+/* ---------------- connexion Google intégrée (Google Identity Services) ----------------
+   Le visiteur clique le bouton Google rendu directement sur le site (popup natif
+   Google, aucun passage par wp-login.php) ; le JS envoie ici le "credential" (ID
+   token JWT) reçu, on le vérifie auprès de Google puis on connecte le compte
+   WordPress correspondant (créé automatiquement au premier passage). */
+add_action( 'wp_ajax_agenturf_google_signin', 'agenturf_google_signin_handler' );
+add_action( 'wp_ajax_nopriv_agenturf_google_signin', 'agenturf_google_signin_handler' );
+function agenturf_google_signin_handler() {
+	check_ajax_referer( 'agenturf_google_signin' );
+
+	$credential = isset( $_POST['credential'] ) ? sanitize_text_field( wp_unslash( $_POST['credential'] ) ) : '';
+	if ( ! $credential ) {
+		wp_send_json_error( 'missing_credential' );
+	}
+
+	// Vérification du ID token auprès de Google (source de vérité : Google lui-même).
+	$resp = wp_remote_get( 'https://oauth2.googleapis.com/tokeninfo?id_token=' . rawurlencode( $credential ), array( 'timeout' => 8 ) );
+	if ( is_wp_error( $resp ) || 200 !== (int) wp_remote_retrieve_response_code( $resp ) ) {
+		wp_send_json_error( 'verify_failed' );
+	}
+	$info = json_decode( (string) wp_remote_retrieve_body( $resp ), true );
+	if ( ! is_array( $info ) || empty( $info['email'] ) ) {
+		wp_send_json_error( 'invalid_token' );
+	}
+	if ( empty( $info['aud'] ) || $info['aud'] !== agenturf_google_client_id() ) {
+		wp_send_json_error( 'aud_mismatch' );
+	}
+	if ( empty( $info['email_verified'] ) || 'true' !== (string) $info['email_verified'] ) {
+		wp_send_json_error( 'email_not_verified' );
+	}
+
+	$email = sanitize_email( $info['email'] );
+	$name  = isset( $info['name'] ) ? sanitize_text_field( $info['name'] ) : $email;
+	$pic   = isset( $info['picture'] ) ? esc_url_raw( $info['picture'] ) : '';
+
+	$user = get_user_by( 'email', $email );
+	if ( ! $user ) {
+		$base  = sanitize_user( current( explode( '@', $email ) ), true );
+		$base  = $base ? $base : 'membre';
+		$login = $base;
+		$i     = 1;
+		while ( username_exists( $login ) ) {
+			$login = $base . $i;
+			++$i;
+		}
+		$uid = wp_insert_user( array(
+			'user_login'   => $login,
+			'user_email'   => $email,
+			'user_pass'    => wp_generate_password( 20, true, true ),
+			'display_name' => $name,
+			'role'         => 'subscriber',
+		) );
+		if ( is_wp_error( $uid ) ) {
+			wp_send_json_error( 'create_failed' );
+		}
+		$user = get_user_by( 'id', $uid );
+	}
+	if ( $pic ) {
+		update_user_meta( $user->ID, 'agenturf_google_avatar', $pic );
+	}
+
+	wp_set_current_user( $user->ID );
+	wp_set_auth_cookie( $user->ID, true );
+	do_action( 'wp_login', $user->user_login, $user );
+
+	wp_send_json_success( array( 'redirect' => add_query_arg( 'apercu', 'simulateur', home_url( '/' ) ) ) );
+}
+
+/* Avatar Google (au lieu de Gravatar) pour les membres connectés via ce système. */
+add_filter( 'get_avatar_url', function ( $url, $id_or_email ) {
+	$user = false;
+	if ( is_numeric( $id_or_email ) ) {
+		$user = get_user_by( 'id', $id_or_email );
+	} elseif ( is_object( $id_or_email ) && isset( $id_or_email->user_id ) ) {
+		$user = get_user_by( 'id', $id_or_email->user_id );
+	} elseif ( is_string( $id_or_email ) && is_email( $id_or_email ) ) {
+		$user = get_user_by( 'email', $id_or_email );
+	}
+	if ( $user ) {
+		$g = get_user_meta( $user->ID, 'agenturf_google_avatar', true );
+		if ( $g ) {
+			return $g;
+		}
+	}
+	return $url;
+}, 10, 2 );
 
 /* Export CSV des emails collectés (admin). */
 add_action( 'admin_post_agenturf_leads_csv', function () {

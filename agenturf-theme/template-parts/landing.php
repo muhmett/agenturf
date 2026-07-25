@@ -127,7 +127,8 @@ $google_svg = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" 
 				<li>Le Quinté+ du jour, chaque jour</li>
 			</ul>
 			<br>
-			<a class="google-cta" href="<?php echo esc_url( $login ); ?>" rel="nofollow"><?php echo $google_svg; // phpcs:ignore ?> Continuer avec Google</a>
+			<div class="gsi-slot" data-width="260"></div>
+			<noscript><a class="google-cta" href="<?php echo esc_url( $login ); ?>" rel="nofollow"><?php echo $google_svg; // phpcs:ignore ?> Continuer avec Google</a></noscript>
 			<p class="gate-note">Gratuit. Aucune carte bancaire. Juste ton compte Google.</p>
 			<?php endif; ?>
 		</div>

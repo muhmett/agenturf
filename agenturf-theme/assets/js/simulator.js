@@ -835,10 +835,8 @@ function showGate() {
   if (!g) return;
   g.hidden = false;
 }
-/* le bouton pointe vers la connexion (Google via Nextend) */
+/* Le bouton Google est rendu par google-signin.js (.gsi-slot) ; on ne gère ici que « Plus tard ». */
 (function () {
-  const gg = $("gateGoogle");
-  if (gg && GATE.loginUrl) gg.href = GATE.loginUrl;
   const later = $("gateLater");
   if (later) later.onclick = (e) => { e.preventDefault(); const g = $("gate"); if (g) g.hidden = true; };
 })();

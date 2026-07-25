@@ -15,7 +15,8 @@
 		<?php if ( is_user_logged_in() ) : ?>
 			<a class="tb-btn" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>">Déconnexion</a>
 		<?php else : ?>
-			<a class="tb-btn solid" href="<?php echo esc_url( agenturf_login_url() ); ?>">Se connecter</a>
+			<div class="gsi-slot tb-gsi" data-width="180"></div>
+			<noscript><a class="tb-btn solid" href="<?php echo esc_url( agenturf_login_url() ); ?>">Se connecter</a></noscript>
 		<?php endif; ?>
 	</div>
 </nav>

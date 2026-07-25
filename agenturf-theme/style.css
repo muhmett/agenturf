@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.18.1
+Version: 1.19.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -578,13 +578,12 @@ button.btn{
 .gate-form button:hover{background:var(--cta)}
 .gate-err{color:#c0392b;font-size:.82rem;min-height:1em;margin:8px 0 0}
 .gate-mini{font-size:.72rem;color:#8a94a0;margin-top:10px}
-.gate-google{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;
-  background:#fff;color:#1f2937;border:1.5px solid #dadce0;border-radius:12px;padding:12px 22px;
-  font-family:'Barlow';font-weight:600;font-size:1rem;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.08);
-  transition:box-shadow .15s,transform .15s}
-.gate-google:hover{box-shadow:0 6px 16px rgba(0,0,0,.15);transform:translateY(-1px)}
-.gate-google svg{flex:0 0 auto}
 .gate-mini a{color:#6b7280;text-decoration:underline}
+
+/* ---- connexion Google intégrée (bouton natif Google Identity Services) ---- */
+.gsi-slot{display:inline-block;margin-top:6px;line-height:0}
+.tb-gsi{margin-top:0;transform:scale(.92);transform-origin:right center}
+@media(max-width:480px){.tb-gsi{transform:scale(.82)}}
 
 /* =============== bloc pronostic (archives) =============== */
 .prono-box{background:linear-gradient(160deg,#0c3b26,#155e38);color:#f3f1e6;border-radius:16px;
