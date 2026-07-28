@@ -1,0 +1,654 @@
+{
+ "meta": {
+  "eyebrow": "Quinté+ · Mardi 28 juillet 2026 · R1 C8 · Départ vers 18h30",
+  "title": "Prix de la Vallée de l'Oise — Personnel d'Écurie By Ag2R la Mondiale",
+  "subtitle": "Compiègne · 1 600 m (plat)",
+  "track": "COMPIÈGNE",
+  "code": "R1C8",
+  "distance": 1600,
+  "baseSpeed": 15.2,
+  "discipline": "plat",
+  "info": [
+   "Plat · <b>Handicap divisé</b> · Classe 2 · <b>50 900 €</b> (25 450 · 9 672 · 7 126 · 4 581)",
+   "Gazon · <b>corde à gauche</b> · 4 ans et plus",
+   "16 partants · poids de 51 à <b>62 kg</b> — <b>11 kg d'écart</b>",
+   "Piste ferme selon les entraîneurs · <b>pluies annoncées</b>"
+  ],
+  "avis": [
+   {
+    "src": "Le marché & l'argent (PMU et Genybet, 13h49)",
+    "txt": "<b>Afogado (1) est favori du PMU à 6.9 — mais il dérive</b> : 6.5 à 12h30, et sa part d'enjeux recule de 13,2 % à 12,4 %. Derrière lui, <b>Dubalaa (7) à 7.4</b> est le seul à progresser franchement (10,7 % → 11,6 % des enjeux), devant <b>Saxon Village (13) à 8.4</b>, <b>Boticelli (3) à 9.4</b> et <b>Duty (8) à 9.8</b>. Le vrai enseignement du jour n'est pas dans le classement des cotes du PMU, mais dans <b>l'écart entre les deux marchés</b>. Genybet, qui cote en fixe, ne voit pas du tout la même course : <b>Abiat (5) y vaut 8.4 quand le PMU la laisse à 18</b>, et <b>Reverso (4) y est le seul cheval du plateau dont la cote affiche une baisse marquée</b> (15,2 → 11,8). À l'inverse Genybet abandonne <b>Golden Brown (14), Cahagnes (12) et Forcefull (16) à 57,3</b> quand le PMU les joue entre 20 et 26. Côté presse, le consensus est étroit : Zone-Turf annonce <b>2 - 4 - 13 - 6 - 3 - 7 - 1 - 5</b> avec <b>Thor Lightning (2) en top chance</b>, et la synthèse de la presse sort <b>13 - 2 - 6 - 7 - 1 - 5 - 4 - 10</b>."
+   },
+   {
+    "src": "AgenTurf — Analyse du modèle 🎯",
+    "txt": "3 200 simulations sur les huit scénarios, avec les cotes de 13h49. Notre modèle sort <b>Dubalaa (7) en tête — 18 % de victoires, 44 % de top-5</b> : c'est le seul cheval du plateau que <b>les deux marchés soutiennent en même temps</b> (favori Genybet à 7.6, plus forte hausse d'enjeux au PMU), et il ajoute la corde 4 à 56,5 kg. Derrière, quatre chevaux se tiennent en deux points : <b>Boticelli (3) 11,8 %</b> (la meilleure musique du lot, mais une rentrée), <b>Abiat (5) 10,8 %</b> — notre valeur, cotée <b>18 au PMU et 8.4 chez Genybet</b> —, <b>Saxon Village (13) 10,2 %</b> (corde 1, 52 kg, n° 1 de la presse) et le tocard <b>Lepard (15) à 10,1 % pour une cote de 39</b>. Deux chevaux méritent une mention particulière : <b>Duty (8)</b> ne gagne que 6,7 % des simulations mais signe <b>le meilleur taux de top-5 du plateau (47,4 %)</b> — le complément le plus fiable —, et <b>Harper (6)</b> le suit à 43,4 %. Nos deux désaccords avec la presse sont assumés. <b>Thor Lightning (2), top chance de Zone-Turf, tombe à 3,2 %</b> : corde 16 et 61,5 kg, la pire combinaison de la course. Et <b>Afogado (1), favori du PMU à 6.9, n'obtient que 1,5 % de victoires</b> — mais <b>18,3 % de top-5</b> : à respecter en combinaison, jamais en base. <b>Base d'expert : 7 - 13 - 5 - 8 - 3</b> · <b>Compléments : 6 - 10</b> · <b>Tocard : 15 Lepard (39/1)</b> · <b>À battre : 1 et 2.</b> Outil de divertissement, aucun pronostic garanti. 18+."
+   },
+   {
+    "src": "Paroles d'entraîneurs — les signaux forts",
+    "txt": "Trois écuries s'avancent nettement. <b>Duty (8)</b> : sa dernière sortie est annulée d'un mot — « il a joué de malchance » — et Mikel Delzangles conclut par « <b>il a la pointure</b> ». <b>Harper (6)</b> : Gérald Mossé le dit « <b>en excellente condition</b> », « battu que de peu » en dernier lieu, avec un jockey qui « le connaît parfaitement ». <b>Abiat (5)</b> : « un terrain et une distance <b>entièrement dans ses cordes</b> », « en bonne forme ». À l'opposé, deux aveux qui pèsent lourd : le favori <b>Afogado (1)</b> « <b>n'a pas de marge de manœuvre</b> » selon son propre entraîneur, et <b>Boticelli (3)</b> « ne sera sans doute pas encore à 100 % ». Enfin quatre écuries ne visent explicitement qu'un accessit — Keanu (10), Golden Brown (14), Mon Comédien (11) et Forcefull (16) parlent tous de « la bonne combinaison » ou de « la fin de combinaison », jamais de la victoire. Dans un handicap, c'est une information."
+   },
+   {
+    "src": "Les khabaya — ce que le marché ne voit pas 🔍",
+    "txt": "<b>1. Ce handicap est parfaitement calibré — donc le poids ne départage personne.</b> Sur les seize partants, le poids suit la valeur <b>au kilo près</b> : Afogado porte 62 pour une valeur de 42,5, Lepard 51 pour 31,5, et tous les autres sont exactement sur la même droite. Le handicapeur a mis tout le monde à égalité. Il ne reste donc que trois choses pour faire la différence : <b>la corde, la forme réelle, et l'argent</b>. C'est sur ces trois axes seulement que nous notons.<br><br><b>2. La corde décide, et elle décide contre les favoris de la presse.</b> Sur 1 600 m à gauche avec seize partants, le tirage vaut plusieurs longueurs. Or <b>Thor Lightning (2), top chance de Zone-Turf, hérite de la corde 16 avec 61,5 kg</b> — la pire combinaison possible. À l'inverse <b>Saxon Village (13) part de la corde 1</b>, <b>Lepard (15) de la 2</b>, <b>Duty (8) de la 3</b> et <b>Dubalaa (7) de la 4</b>. Trois de nos cinq bases sortent de là.<br><br><b>3. Les deux marchés ne parlent pas de la même course.</b> Le PMU est mutuel (c'est la foule), Genybet est à cote fixe (c'est le book). Quand les deux divergent d'un facteur deux, quelqu'un se trompe. <b>Abiat (5) : 18 contre 8.4.</b> <b>Reverso (4) : 17 contre 11,8, avec la seule flèche de baisse du plateau.</b> Et dans l'autre sens : <b>Golden Brown, Cahagnes et Forcefull, tous à 57,3 chez le book</b> quand le PMU les joue trois fois plus court. Prudence tout de même — le pool Genybet est bien plus petit, ce n'est pas une vérité, c'est un indice.<br><br><b>4. La pluie est le joker.</b> Trois entraîneurs sur seize demandent explicitement un terrain plus souple : <b>Harper (6)</b> (« j'aurais préféré une piste pas trop ferme »), <b>Cahagnes (12)</b> et surtout <b>Lepard (15)</b>, dont l'écurie mise ouvertement dessus. S'il pleut avant 18h30, la hiérarchie de ce Quinté n'est plus la même."
+   },
+   {
+    "src": "Le parcours et la méthode",
+    "txt": "R1 course n°8 à <b>Compiègne</b>, handicap divisé de classe 2, <b>1 600 m sur le gazon, corde à gauche</b>, pour chevaux entiers, hongres et juments de 4 ans et plus. 50 900 € d'allocation, dont 25 450 € au gagnant. Départ donné vers <b>18h30</b>. Côté méthode : ce lot étant un handicap parfaitement calibré, notre modèle part du principe que <b>tous les partants valent la même chose au poids</b>, puis applique un écart d'expert construit uniquement sur la forme réelle, la corde, la confiance de l'écurie et le mouvement de l'argent sur les deux marchés. La course est ensuite rejouée <b>2 400 fois sur huit scénarios</b>. <b>AgenTurf est un simulateur de divertissement : rien n'est garanti, jouez pour le plaisir. 18+.</b>"
+   }
+  ]
+ },
+ "horses": [
+  {
+   "n": 1,
+   "name": "Afogado",
+   "jockey": "M. Guyon",
+   "w": 62,
+   "draw": 6,
+   "val": 42.5,
+   "odds": 6.9,
+   "oddsGb": 9.2,
+   "c": [
+    "#f2c200",
+    "#1b2a6b"
+   ],
+   "style": "stalker",
+   "ab": 95.2,
+   "vol": 1.1,
+   "sub": "M. Guyon · ent. S.P. Brandt · H4 · corde 6 · 62 kg · val. 42,5 · PMU 6,9 / Genybet 9,2",
+   "note": "<b>Top-poids avec 62 kg</b> et favori du marché à 6.9 — mais sa cote <b>monte</b> (6.5 à 12h30) et sa part d'enjeux <b>baisse</b>. Surtout, sa musique ne contient <b>ni victoire ni place</b> : 6p 14p 4p 7p. Son entraîneur est le premier à le dire — « <b>il n'a pas de marge de manœuvre</b> » — et l'allongement de distance est un test, pas une référence. Genybet le laisse à 9.2. <b>Le faux favori du jour.</b>",
+   "tags": [
+    [
+     "risk",
+     "Faux favori"
+    ],
+    [
+     "risk",
+     "62 kg, aucune place"
+    ]
+   ],
+   "trainer": "S.P. Brandt",
+   "musique": "6p 14p 4p 7p (25) 10p 4p 8p"
+  },
+  {
+   "n": 2,
+   "name": "Thor Lightning",
+   "jockey": "C. Demuro",
+   "w": 61.5,
+   "draw": 16,
+   "val": 42.0,
+   "odds": 12.0,
+   "oddsGb": 8.7,
+   "c": [
+    "#f3f1e6",
+    "#8a94a0"
+   ],
+   "style": "leader",
+   "ab": 94.95,
+   "vol": 1.15,
+   "sub": "C. Demuro · ent. S. Richter · M5 · corde 16 · 61,5 kg · val. 42 · PMU 12 / Genybet 8,7",
+   "note": "<b>Top chance de Zone-Turf et 2<sup>e</sup> de la synthèse presse</b> — et c'est justement là que nous décrochons. Sa forme est réelle (4p 1p, une victoire à l'avant-dernière) mais il hérite de <b>la corde 16, la pire du lot</b>, avec <b>61,5 kg</b> sur 1 600 m à gauche. Il faudra soit brûler ses réserves pour venir se placer, soit courir tout en dehors. Son entourage reconnaît que « sa marge s'est considérablement réduite ». <b>Notre plus grand écart avec la presse.</b>",
+   "tags": [
+    [
+     "risk",
+     "Corde 16 + 61,5 kg"
+    ],
+    [
+     "note",
+     "Top chance presse"
+    ]
+   ],
+   "trainer": "S. Richter",
+   "musique": "4p 1p (25) 5p 3p 2p 7p 3p 9p"
+  },
+  {
+   "n": 3,
+   "name": "Boticelli",
+   "jockey": "P.-C. Boudot",
+   "w": 60,
+   "draw": 7,
+   "val": 40.5,
+   "odds": 9.4,
+   "oddsGb": 11.0,
+   "c": [
+    "#1e4fd8",
+    "#dbe6ff"
+   ],
+   "style": "closer",
+   "ab": 97.0,
+   "vol": 1.3,
+   "sub": "P.-C. Boudot · ent. M. Rulec · H4 · corde 7 · 60 kg · val. 40,5 · PMU 9,4 / Genybet 11",
+   "note": "<b>La meilleure musique du plateau</b> : 2p 1p 1p 2p 2p 2p en 2025, une régularité que personne d'autre n'affiche ici. Boudot en selle, corde 7, 60 kg. Le seul bémol vient de l'écurie elle-même : préparation ralentie, « <b>petite rentrée</b> », « il ne sera sans doute pas encore à 100 % ». À ce prix (9.4) on paie la classe sans la certitude de la condition. <b>Base, mais avec un point d'interrogation.</b>",
+   "tags": [
+    [
+     "base",
+     "2p 1p 1p 2p 2p 2p"
+    ],
+    [
+     "risk",
+     "Rentrée, pas à 100 %"
+    ]
+   ],
+   "trainer": "M. Rulec",
+   "musique": "9p (25) 2p 1p 1p 2p 2p 2p"
+  },
+  {
+   "n": 4,
+   "name": "Reverso",
+   "jockey": "A. Lemaitre",
+   "w": 59.5,
+   "draw": 12,
+   "val": 40.0,
+   "odds": 17.0,
+   "oddsGb": 11.8,
+   "c": [
+    "#e88bc4",
+    "#ffffff"
+   ],
+   "style": "stalker",
+   "ab": 94.75,
+   "vol": 1.05,
+   "sub": "A. Lemaitre · ent. I. Janackova · H5 · corde 12 · 59,5 kg · val. 40 · PMU 17 / Genybet 11,8",
+   "note": "<b>Le seul cheval de la course dont la cote Genybet affiche une vraie flèche de baisse</b> : 15,2 puis 11,8, avec une part d'enjeux qui grimpe de 6,1 % à 7,8 %. Lauréat d'un quinté l'été dernier en valeur 40,5, il a ensuite été pénalisé de sept livres et a montré ses limites ; « <b>sa situation au poids s'est améliorée</b> » et il est « défendu par son entourage ». Le frein : <b>corde 12</b> et une forme récente terne (5p 6p 7p). Outsider à surveiller, pas une base.",
+   "tags": [
+    [
+     "base",
+     "Argent qui rentre"
+    ],
+    [
+     "risk",
+     "Corde 12, forme terne"
+    ]
+   ],
+   "trainer": "I. Janackova",
+   "musique": "5p 6p 7p (25) 14p 13p 1p 5p"
+  },
+  {
+   "n": 5,
+   "name": "Abiat",
+   "jockey": "T. Trullier",
+   "w": 57,
+   "draw": 5,
+   "val": 37.5,
+   "odds": 18.0,
+   "oddsGb": 8.4,
+   "c": [
+    "#5b2c8d",
+    "#efe6f7"
+   ],
+   "style": "stalker",
+   "ab": 95.1,
+   "vol": 1.0,
+   "sub": "T. Trullier · ent. M. Rulec · F5 · corde 5 · 57 kg · val. 37,5 · PMU 18 / Genybet 8,4",
+   "note": "<b>L'écart le plus spectaculaire du jour entre les deux marchés</b> : <b>18 au PMU, 8.4 chez Genybet</b>, où elle était même favorite à 12h30 (7.8) et concentre <b>11 % des enjeux contre 4,7 % au PMU</b>. Corde 5, 57 kg, et un entraîneur qui coche les deux cases : « un terrain et une distance <b>entièrement dans ses cordes</b> », « en bonne forme ». Sa musique garde une victoire et une 2<sup>e</sup> place. <b>La valeur du jour.</b>",
+   "tags": [
+    [
+     "base",
+     "18 au PMU / 8.4 chez Genybet"
+    ],
+    [
+     "base",
+     "Terrain + distance idéaux"
+    ]
+   ],
+   "trainer": "M. Rulec",
+   "musique": "7p 9p 2p 15p 1p 7p (25) 10p"
+  },
+  {
+   "n": 6,
+   "name": "Harper",
+   "jockey": "J. Moutard",
+   "w": 57,
+   "draw": 10,
+   "val": 37.5,
+   "odds": 12.0,
+   "oddsGb": 17.1,
+   "c": [
+    "#8e1d2f",
+    "#f0e6c8"
+   ],
+   "style": "closer",
+   "ab": 93.9,
+   "vol": 1.05,
+   "sub": "J. Moutard · ent. G. Mosse · M8 · corde 10 · 57 kg · val. 37,5 · PMU 12 / Genybet 17,1",
+   "note": "Gérald Mossé est catégorique : « <b>en excellente condition</b> », « il reste sur une très bonne sortie où il n'a été battu que de peu », et Jérôme Moutard « <b>le connaît parfaitement</b> ». Musique 2p 9p 2p : deux accessits en trois sorties. 237 466 € de gains, le plus gros palmarès du lot avec Letty's Marvel. La réserve est nette et vient de l'entraîneur : « <b>j'aurais préféré une piste pas trop ferme</b> » — <b>la pluie annoncée est son alliée</b>.",
+   "tags": [
+    [
+     "base",
+     "Écurie très confiante"
+    ],
+    [
+     "note",
+     "Meilleur si ça s'assouplit"
+    ]
+   ],
+   "trainer": "G. Mosse",
+   "musique": "2p 9p 2p (25) 12p 13p 5p 9p"
+  },
+  {
+   "n": 7,
+   "name": "Dubalaa",
+   "jockey": "M. Barzalona",
+   "w": 56.5,
+   "draw": 4,
+   "val": 37.0,
+   "odds": 7.4,
+   "oddsGb": 7.6,
+   "c": [
+    "#f26522",
+    "#ffe6d5"
+   ],
+   "style": "stalker",
+   "ab": 94.75,
+   "vol": 1.2,
+   "sub": "M. Barzalona · ent. P. Groualle · H4 · corde 4 · 56,5 kg · val. 37 · PMU 7,4 / Genybet 7,6",
+   "note": "<b>La base n°1.</b> Le seul cheval que <b>les deux marchés soutiennent en même temps</b> : PMU 8 → 7.4 avec la plus forte hausse d'enjeux du lot (10,7 % → 11,6 %), et <b>favori chez Genybet à 7.6</b>. Ajoutez la <b>corde 4</b>, 56,5 kg, une musique solide (2p 2p 4p et deux victoires en 2025) et un entraîneur qui parle d'une adaptation « parfaite » à sa nouvelle écurie. Le seul doute : Pierre Groualle avoue avoir « encore besoin de le juger en compétition ».",
+   "tags": [
+    [
+     "base",
+     "Base n°1"
+    ],
+    [
+     "base",
+     "Corde 4 + argent des deux marchés"
+    ]
+   ],
+   "trainer": "P. Groualle",
+   "musique": "6p 11p 2p 2p 4p (25) 1p 1p"
+  },
+  {
+   "n": 8,
+   "name": "Duty",
+   "jockey": "I. Mendizabal",
+   "w": 56.5,
+   "draw": 3,
+   "val": 37.0,
+   "odds": 9.8,
+   "oddsGb": 10.7,
+   "c": [
+    "#7c1d8d",
+    "#f3d9ff"
+   ],
+   "style": "closer",
+   "ab": 93.75,
+   "vol": 0.95,
+   "sub": "I. Mendizabal · ent. M. Delzangles · H4 · corde 3 · 56,5 kg · val. 37 · PMU 9,8 / Genybet 10,7",
+   "note": "<b>Baissé d'une livre</b>, <b>corde 3</b>, et une dernière sortie que l'écurie annule d'un mot : « il a <b>joué de malchance</b> » à Saint-Cloud. Mikel Delzangles conclut par la phrase qui compte : « <b>il a la pointure</b> ». Mendizabal en selle, une victoire quatre sorties plus tôt, la distance à convenance, et une cote qui se resserre (10.2 → 9.8). Profil de base très propre, avec le meilleur tirage de la course après Saxon Village.",
+   "tags": [
+    [
+     "base",
+     "Corde 3 + baissé d'une livre"
+    ],
+    [
+     "base",
+     "Dernière avec excuse"
+    ]
+   ],
+   "trainer": "M. Delzangles",
+   "musique": "11p 10p 4p 1p (25) 8p 2p 9p"
+  },
+  {
+   "n": 9,
+   "name": "Letty's Marvel",
+   "jockey": "A. Pouchin",
+   "w": 54.5,
+   "draw": 8,
+   "val": 35.0,
+   "odds": 23.0,
+   "oddsGb": 23.9,
+   "c": [
+    "#23232b",
+    "#c8f24a"
+   ],
+   "style": "closer",
+   "ab": 87.25,
+   "vol": 1.0,
+   "sub": "A. Pouchin · ent. S. Jesus · H11 · corde 8 · 54,5 kg · val. 35 · PMU 23 / Genybet 23,9",
+   "note": "Onze ans, 284 336 € de gains, et un entraîneur d'une honnêteté rare : « <b>on navigue à vue avec lui</b> », « il n'a pas de marge », « quand il montrera des signes de lassitude nous le mettrons à la retraite ». Sa musique dit la même chose : 14p 16p 10p 15p derrière une victoire isolée. Il « fera ce qu'il pourra » et espère « <b>qu'il y aura du rythme</b> ». Respect, mais pas de ticket.",
+   "tags": [
+    [
+     "risk",
+     "11 ans, sans marge"
+    ],
+    [
+     "note",
+     "Dépend du rythme"
+    ]
+   ],
+   "trainer": "S. Jesus",
+   "musique": "10p 1p 8p 14p 16p 10p 15p"
+  },
+  {
+   "n": 10,
+   "name": "Keanu",
+   "jockey": "H. Lebouc",
+   "w": 53,
+   "draw": 9,
+   "val": 33.5,
+   "odds": 18.0,
+   "oddsGb": 33.7,
+   "c": [
+    "#e6a129",
+    "#1b1b1b"
+   ],
+   "style": "stalker",
+   "ab": 89.1,
+   "vol": 1.15,
+   "sub": "H. Lebouc · ent. K. Plisson · M4 · corde 9 · 53 kg · val. 33,5 · PMU 18 / Genybet 33,7",
+   "note": "<b>53 kg</b>, corde 9, et une contre-performance que son entraîneur explique par les <b>64 kilos</b> qu'il portait ce jour-là. « Il a repris de la fraîcheur et semble toujours en belle condition. » Sa musique garde une victoire et une 2<sup>e</sup> place. Kévin Plisson vise clairement : « <b>sans en faire une priorité pour les toutes premières places</b>, une place dans la bonne combinaison est à sa portée ». Genybet le note pourtant 33.7 contre 18 au PMU. Complément raisonnable, pas plus.",
+   "tags": [
+    [
+     "note",
+     "53 kg, allégé"
+    ],
+    [
+     "risk",
+     "PMU 18 / Genybet 33.7"
+    ]
+   ],
+   "trainer": "K. Plisson",
+   "musique": "10p 4p 1p 5p 6p 6p 5p 2p"
+  },
+  {
+   "n": 11,
+   "name": "Mon Comédien",
+   "jockey": "A. Madamet",
+   "w": 53,
+   "draw": 13,
+   "val": 33.5,
+   "odds": 39.0,
+   "oddsGb": 47.1,
+   "c": [
+    "#f0a8d0",
+    "#7a1f5c"
+   ],
+   "style": "closer",
+   "ab": 86.7,
+   "vol": 1.25,
+   "sub": "A. Madamet · ent. M. Seror · H4 · corde 13 · 53 kg · val. 33,5 · PMU 39 / Genybet 47,1",
+   "note": "<b>Corde 13</b>, 39/1, et une musique qui raconte un cheval qui rentre des obstacles (Ah 9h 3h 5h 8h) avant une seule sortie en plat. Mickaël Seror est mesuré : la sortie « lui a été bénéfique », le raccourcissement « peut jouer en sa faveur », mais « <b>son entrée dans ce Quinté complique quelque peu sa mission</b> ». Traduction : il faudrait un scénario très ouvert. À laisser.",
+   "tags": [
+    [
+     "risk",
+     "Corde 13 + rentrée de l'obstacle"
+    ],
+    [
+     "note",
+     "53 kg"
+    ]
+   ],
+   "trainer": "M. Seror",
+   "musique": "6p Ah 9h 3h 5h 8h 6p"
+  },
+  {
+   "n": 12,
+   "name": "Cahagnes",
+   "jockey": "F. Valle Skar",
+   "w": 52.5,
+   "draw": 15,
+   "val": 33.0,
+   "odds": 26.0,
+   "oddsGb": 57.3,
+   "c": [
+    "#ffffff",
+    "#1b8a3a"
+   ],
+   "style": "closer",
+   "ab": 86.85,
+   "vol": 1.2,
+   "sub": "F. Valle Skar · ent. C. Whitfield · F4 · corde 15 · 52,5 kg · val. 33 · PMU 26 / Genybet 57,3",
+   "note": "<b>Corde 15</b> — la deuxième plus mauvaise du lot — et un entraîneur qui pose lui-même la condition : elle « <b>aurait préféré un terrain plus souple</b> ». Sa musique n'est pas vilaine (1p, 2p, 2p) et 52,5 kg aident, mais le PMU la joue à 26 quand <b>Genybet la laisse à 57,3</b> : l'écart le plus brutal du jour dans le mauvais sens. Ne se réveille que si la pluie tombe vraiment.",
+   "tags": [
+    [
+     "risk",
+     "Corde 15"
+    ],
+    [
+     "risk",
+     "PMU 26 / Genybet 57"
+    ]
+   ],
+   "trainer": "C. Whitfield",
+   "musique": "8p 1p 13p 2p 4p (25) 2p 7p"
+  },
+  {
+   "n": 13,
+   "name": "Saxon Village",
+   "jockey": "L. Boisseau",
+   "w": 52,
+   "draw": 1,
+   "val": 32.5,
+   "odds": 8.4,
+   "oddsGb": 8.6,
+   "c": [
+    "#9fc5f8",
+    "#1a3d7c"
+   ],
+   "style": "stalker",
+   "ab": 90.3,
+   "vol": 0.9,
+   "sub": "L. Boisseau · ent. S. Jesus · H7 · corde 1 · 52 kg · val. 32,5 · PMU 8,4 / Genybet 8,6",
+   "note": "<b>La base n°2 — et la meilleure corde de la course.</b> Corde 1, 52 kg, valeur 32,5, et une forme qui remonte : 2<sup>e</sup> sur ce parcours en mai, puis 2<sup>e</sup> à Saint-Cloud. Il « monte de catégorie <b>en profitant d'un petit poids</b> ». Les deux marchés sont d'accord (8.4 / 8.6) et il sort <b>en tête de la synthèse de la presse</b>. Le seul reproche possible : tout le monde l'a vu, il n'y a pas de valeur — mais il y a une chance très réelle.",
+   "tags": [
+    [
+     "base",
+     "Base n°2"
+    ],
+    [
+     "base",
+     "Corde 1 + 52 kg"
+    ]
+   ],
+   "trainer": "S. Jesus",
+   "musique": "2p 14p 2p 9p 14p 11p 3p 8p"
+  },
+  {
+   "n": 14,
+   "name": "Golden Brown",
+   "jockey": "M. Velon",
+   "w": 51.5,
+   "draw": 11,
+   "val": 32.0,
+   "odds": 20.0,
+   "oddsGb": 57.3,
+   "c": [
+    "#0b7a6f",
+    "#8ef0e0"
+   ],
+   "style": "stalker",
+   "ab": 84.75,
+   "vol": 1.15,
+   "sub": "M. Velon · ent. F.X. Weissmeier · H4 · corde 11 · 51,5 kg · val. 32 · PMU 20 / Genybet 57,3",
+   "note": "Deux victoires dorment dans sa musique et 51,5 kg sont un vrai cadeau, mais tout le reste refroidit : <b>PMU 20 contre Genybet 57,3</b>, corde 11, et un entraîneur qui commence par regretter l'engagement — « il <b>aurait été mieux en deuxième épreuve</b> », « sa mission se complique forcément ». L'objectif annoncé est « une place <b>en fin de combinaison</b> ». C'est exactement le profil que le PMU surjoue.",
+   "tags": [
+    [
+     "risk",
+     "PMU 20 / Genybet 57"
+    ],
+    [
+     "risk",
+     "Écurie tiède"
+    ]
+   ],
+   "trainer": "F.X. Weissmeier",
+   "musique": "5p 6p 11p 3p 7p 9p 1p 1p"
+  },
+  {
+   "n": 15,
+   "name": "Lepard",
+   "jockey": "J. Claudic",
+   "w": 51,
+   "draw": 2,
+   "val": 31.5,
+   "odds": 39.0,
+   "oddsGb": 51.0,
+   "c": [
+    "#1b3fa0",
+    "#ffffff"
+   ],
+   "style": "leader",
+   "ab": 86.4,
+   "vol": 1.2,
+   "sub": "J. Claudic · ent. J. Parize · M7 · corde 2 · 51 kg · val. 31,5 · PMU 39 / Genybet 51",
+   "note": "<b>Le tocard du jour.</b> À 39/1 on oublie qu'il a <b>la corde 2</b>, <b>le poids le plus léger (51 kg)</b> et 128 880 € de gains — la troisième bourse du plateau. Sa musique garde 2p, 3p et une victoire. Jess Parize est franc : « il lui faudra montrer un tout autre visage »… <b>mais</b> « les <b>pluies annoncées</b> pourraient jouer en sa faveur. Si la piste venait à s'assouplir, sa valeur lui laisse une belle chance d'intégrer la bonne combinaison ». Le pari météo du jour.",
+   "tags": [
+    [
+     "base",
+     "Corde 2 + 51 kg"
+    ],
+    [
+     "note",
+     "Tocard 39/1, jeu de la pluie"
+    ]
+   ],
+   "trainer": "J. Parize",
+   "musique": "6p 10p 7p 2p 3p 6p 1p 9p"
+  },
+  {
+   "n": 16,
+   "name": "Forcefull",
+   "jockey": "A. Crastus",
+   "w": 51,
+   "draw": 14,
+   "val": 31.5,
+   "odds": 22.0,
+   "oddsGb": 57.3,
+   "c": [
+    "#5b1d6e",
+    "#e9d5ff"
+   ],
+   "style": "leader",
+   "ab": 85.7,
+   "vol": 1.2,
+   "sub": "A. Crastus · ent. X. Blanchet · F5 · corde 14 · 51 kg · val. 31,5 · PMU 22 / Genybet 57,3",
+   "note": "Rentrée profitable à Chantilly, retour sur le <b>gazon</b> qu'elle apprécie, 51 kg : les arguments existent. Mais <b>corde 14</b>, deuxième sortie de l'année seulement, et le même signal de marché que ses voisines — <b>22 au PMU, 57,3 chez Genybet</b>. Xavier Blanchet vise honnêtement « une place à l'arrivée », pas la victoire. Dans un scénario de chaos, pourquoi pas ; en base, non.",
+   "tags": [
+    [
+     "risk",
+     "Corde 14"
+    ],
+    [
+     "risk",
+     "PMU 22 / Genybet 57"
+    ]
+   ],
+   "trainer": "X. Blanchet",
+   "musique": "7p (25) 9p 2p 8p 4p 10p 8p"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "consensus",
+   "title": "① Le consensus de la presse",
+   "prob": "~15%",
+   "desc": "Thor Lightning (2) fait mentir sa corde 16 : Demuro le sort vite, trouve le rail avant le tournant et ne rend jamais la tête. Saxon Village (13) et Reverso (4) suivent, exactement comme Zone-Turf l'annonçait. Le tirage n'aura été qu'un détail.",
+   "bias": {
+    "2": 1.1,
+    "13": 1.03,
+    "4": 1.06,
+    "6": 1.02
+   },
+   "pace": "normal"
+  },
+  {
+   "id": "anti-favori",
+   "title": "② Anti-favori : les gros poids craquent 💰",
+   "prob": "~18%",
+   "desc": "Afogado (1) et ses 62 kg s'arrêtent à 300 m du poteau, Thor Lightning (2) paie sa corde 16, Boticelli (3) manque de fond pour sa rentrée. Dubalaa (7), Duty (8) et Saxon Village (13) passent tous les trois dans le dernier tournant. Le scénario le plus classique d'un handicap de 1 600 m.",
+   "bias": {
+    "7": 1.05,
+    "8": 1.05,
+    "13": 1.04,
+    "5": 1.03,
+    "1": 0.94,
+    "2": 0.94,
+    "3": 0.95
+   },
+   "pace": "rapide"
+  },
+  {
+   "id": "cordes-basses",
+   "title": "③ La prime aux cordes basses",
+   "prob": "~14%",
+   "desc": "Corde à gauche, seize partants, 1 600 m : ceux qui partent à la corde économisent des longueurs à chaque foulée. Saxon Village (1), Lepard (2), Duty (3) et Dubalaa (4) verrouillent le rail dès les premiers mètres et ne le lâchent plus. Tout ce qui part au-delà de la 12 court une autre course.",
+   "bias": {
+    "13": 1.07,
+    "15": 1.05,
+    "8": 1.05,
+    "7": 1.05,
+    "2": 0.93,
+    "12": 0.94,
+    "16": 0.94,
+    "11": 0.95
+   },
+   "pace": "normal"
+  },
+  {
+   "id": "value-genybet",
+   "title": "④ Le book avait raison 📈",
+   "prob": "~13%",
+   "desc": "Abiat (5), que Genybet cote 8.4 quand le PMU la laisse à 18, justifie l'avis du book et s'impose sous les couleurs de Trullier. Reverso (4), seule cote en baisse marquée du plateau, la suit. Les parieurs mutuels découvrent l'arrivée sur l'écran : le rapport explose.",
+   "bias": {
+    "5": 1.09,
+    "4": 1.07,
+    "3": 1.02,
+    "14": 0.94,
+    "12": 0.94,
+    "16": 0.94
+   },
+   "pace": "normal"
+  },
+  {
+   "id": "pluie",
+   "title": "⑤ La pluie change tout 🌧",
+   "prob": "~12%",
+   "desc": "L'averse annoncée tombe avant le départ et la piste s'assouplit. Harper (6), dont Mossé regrettait justement une piste trop ferme, retrouve son terrain ; Lepard (15) et Cahagnes (12), qui réclamaient la même chose, remontent d'un coup. Les spécialistes du terrain sec, eux, marquent le pas.",
+   "bias": {
+    "6": 1.08,
+    "15": 1.07,
+    "12": 1.05,
+    "3": 1.03,
+    "1": 0.95,
+    "7": 0.97
+   },
+   "pace": "lent"
+  },
+  {
+   "id": "train-rapide",
+   "title": "⑥ Le train s'emballe",
+   "prob": "~10%",
+   "desc": "Lepard (15) et Forcefull (16) se disputent la tête, le tempo devient intenable et le peloton s'étire. C'est exactement ce qu'espérait l'entraîneur de Letty's Marvel (9) : « j'espère qu'il y aura du rythme ». Les finisseurs — Harper (6), Duty (8), Boticelli (3) — arrivent lancés sur des chevaux à l'arrêt.",
+   "bias": {
+    "6": 1.06,
+    "8": 1.06,
+    "3": 1.05,
+    "9": 1.05,
+    "15": 0.94,
+    "16": 0.94
+   },
+   "pace": "rapide"
+  },
+  {
+   "id": "tocard",
+   "title": "⑦ Le tocard gagnant 💥",
+   "prob": "~10%",
+   "desc": "Lepard (15) à 39/1 rappelle qu'il a la corde 2, le poids le plus léger du lot et 128 880 € de gains au compteur. Mon Comédien (11) et Golden Brown (14) complètent une arrivée à quatre chiffres. Le genre de Quinté que personne n'a sur son ticket — et que le modèle signale.",
+   "bias": {
+    "15": 1.07,
+    "11": 1.05,
+    "14": 1.05,
+    "10": 1.04
+   },
+   "chaos": 1.6,
+   "pace": "rapide"
+  },
+  {
+   "id": "chaos",
+   "title": "⑧ Handicap piégé",
+   "prob": "~8%",
+   "desc": "Seize partants, 11 kg d'écart au poids, une corde à gauche et un peloton compact sur 1 600 m : la définition du handicap cruel. Chevaux enfermés contre la lice, trous qui se referment, coups de fatigue dans les cent derniers mètres. Plus aucune hiérarchie ne tient — les seize sont jouables.",
+   "bias": {},
+   "chaos": 1.95,
+   "pace": "rapide"
+  }
+ ]
+}
