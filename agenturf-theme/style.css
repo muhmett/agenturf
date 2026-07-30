@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.21.0
+Version: 1.22.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -38,6 +38,15 @@ a{color:inherit}
 .topbar .logo{
   font-family:'Barlow Condensed';font-weight:900;font-size:1.35rem;letter-spacing:.12em;
   color:#fff;text-decoration:none;text-transform:uppercase;
+  display:flex;align-items:center;gap:9px;
+}
+/* Écusson : rond, il se pose sur le fond sombre de la barre sans détourage. */
+.topbar .logo-mark{width:34px;height:34px;border-radius:50%;display:block;flex:0 0 auto}
+.topbar .logo-txt{display:block}
+/* Sous 400 px, l'écusson seul suffit : il libère la place pour les boutons. */
+@media(max-width:400px){
+  .topbar .logo-txt{display:none}
+  .topbar .logo-mark{width:32px;height:32px}
 }
 .topbar .logo em{color:var(--or);font-style:normal}
 .topbar .actions{display:flex;gap:10px;align-items:center}
@@ -50,6 +59,13 @@ a{color:inherit}
 .topbar a.tb-btn:hover{background:rgba(255,255,255,.14);border-color:#fff}
 .topbar a.tb-btn.solid{background:var(--or);border-color:var(--or);color:#1c2e22}
 .topbar a.tb-btn.solid:hover{background:#d8a83e}
+/* Sur petit écran la barre porte l'écusson + deux liens + la connexion
+   Google : on resserre les boutons pour que rien ne soit rogné à droite. */
+@media(max-width:480px){
+  .topbar{padding:8px 10px;gap:6px}
+  .topbar .actions{gap:6px}
+  .topbar a.tb-btn{font-size:.78rem;padding:6px 10px;letter-spacing:.03em}
+}
 .scrollbar{
   position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
   background:linear-gradient(90deg,var(--pmu),var(--or));

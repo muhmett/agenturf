@@ -9,7 +9,13 @@
 <?php wp_body_open(); ?>
 <div class="scrollbar" id="scrollbar"></div>
 <nav class="topbar">
-	<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">AGEN<em>TURF</em></a>
+	<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+		<img class="logo-mark"
+			src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-64.png' ); ?>"
+			srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-64.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-180.png' ); ?> 2x"
+			width="64" height="64" alt="" decoding="async">
+		<span class="logo-txt">AGEN<em>TURF</em></span>
+	</a>
 	<div class="actions">
 		<a class="tb-btn" href="<?php echo esc_url( agenturf_youtube_url() ); ?>">▶ Vidéos</a>
 		<a class="tb-btn" href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">Archives</a>

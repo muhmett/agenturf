@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.21.0' );
+define( 'AGENTURF_VERSION', '1.22.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -1068,4 +1068,10 @@ add_action( 'wp_head', function () {
 	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">' . "\n";
 	echo '<meta name="apple-mobile-web-app-title" content="AgenTurf">' . "\n";
 	echo '<link rel="apple-touch-icon" href="' . esc_url( $img . 'icon-192.png' ) . '">' . "\n";
+
+	/* Favicon : l'écusson du club. Deux tailles suffisent, les navigateurs
+	   choisissent la plus proche et redimensionnent le reste. */
+	$logo = get_template_directory_uri() . '/assets/img/';
+	echo '<link rel="icon" type="image/png" sizes="32x32" href="' . esc_url( $logo . 'logo-32.png' ) . '">' . "\n";
+	echo '<link rel="icon" type="image/png" sizes="180x180" href="' . esc_url( $logo . 'logo-180.png' ) . '">' . "\n";
 }, 6 );
