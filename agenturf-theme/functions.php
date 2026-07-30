@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGENTURF_VERSION', '1.20.0' );
+define( 'AGENTURF_VERSION', '1.21.0' );
 define( 'AGENTURF_OPT_RACE', 'agenturf_race_json' );
 define( 'AGENTURF_OPT_VIDEO', 'agenturf_hero_video' );
 define( 'AGENTURF_OPT_POSTER', 'agenturf_hero_poster' );
@@ -20,6 +20,81 @@ define( 'AGENTURF_OPT_ADSTXT', 'agenturf_ads_txt' ); // contenu du fichier /ads.
 define( 'AGENTURF_ADSTXT_DEFAULT', 'google.com, pub-7905394011008419, DIRECT, f08c47fec0942fa0' );
 define( 'AGENTURF_OPT_GOOGLE_CID', 'agenturf_google_client_id' );
 define( 'AGENTURF_GOOGLE_CID_DEFAULT', '126774588814-0g4d1811poljopu0q5b3nt4tq9hlakru.apps.googleusercontent.com' );
+define( 'AGENTURF_OPT_YT', 'agenturf_youtube' );     // page vidéos : bannière + liste de Shorts (JSON)
+
+/* ---------------------------------------------------------------------
+   PAGE VIDÉOS (/youtube/)
+   L'admin colle des liens YouTube, un par ligne. On n'appelle aucune API :
+   l'identifiant est extrait de l'URL, la vignette vient de i.ytimg.com et
+   l'iframe n'est chargée qu'au clic (procédé « façade »). Douze iframes
+   YouTube chargées d'un coup coûteraient plusieurs mégaoctets sur mobile.
+   --------------------------------------------------------------------- */
+
+/* Extrait l'identifiant d'une URL YouTube, quel que soit son format
+   (shorts, youtu.be, watch?v=, embed). Retourne '' si rien de valide. */
+function agenturf_yt_id( $url ) {
+	$url = trim( (string) $url );
+	if ( '' === $url ) {
+		return '';
+	}
+	$pats = array(
+		'~youtube\.com/shorts/([A-Za-z0-9_-]{11})~i',
+		'~youtu\.be/([A-Za-z0-9_-]{11})~i',
+		'~youtube\.com/embed/([A-Za-z0-9_-]{11})~i',
+		'~youtube\.com/live/([A-Za-z0-9_-]{11})~i',
+		'~[?&]v=([A-Za-z0-9_-]{11})~i',
+	);
+	foreach ( $pats as $p ) {
+		if ( preg_match( $p, $url, $m ) ) {
+			return $m[1];
+		}
+	}
+	// L'admin a pu coller l'identifiant seul.
+	if ( preg_match( '~^[A-Za-z0-9_-]{11}$~', $url ) ) {
+		return $url;
+	}
+	return '';
+}
+
+function agenturf_yt_cfg() {
+	$d = json_decode( (string) get_option( AGENTURF_OPT_YT, '' ), true );
+	if ( ! is_array( $d ) ) {
+		$d = array();
+	}
+	$ids = array();
+	foreach ( preg_split( '~[\r\n]+~', isset( $d['links'] ) ? (string) $d['links'] : '' ) as $line ) {
+		$id = agenturf_yt_id( $line );
+		if ( '' !== $id && ! in_array( $id, $ids, true ) ) {
+			$ids[] = $id;
+		}
+	}
+	return array(
+		'title'   => isset( $d['title'] ) && '' !== $d['title'] ? $d['title'] : 'Les vidéos AgenTurf',
+		'sub'     => isset( $d['sub'] ) && '' !== $d['sub'] ? $d['sub'] : 'Chaque jour, l’analyse du Quinté+ et la simulation en vidéo.',
+		'channel' => isset( $d['channel'] ) ? $d['channel'] : '',
+		'banner'  => isset( $d['banner'] ) ? $d['banner'] : '',
+		'links'   => isset( $d['links'] ) ? (string) $d['links'] : '',
+		'ids'     => $ids,
+	);
+}
+
+function agenturf_youtube_url() {
+	return home_url( '/youtube/' );
+}
+
+/* Route virtuelle : aucune page WordPress à créer, aucune règle de
+   réécriture à vider. Même procédé que /ads.txt plus haut. */
+add_action( 'template_redirect', function () {
+	$uri = isset( $_SERVER['REQUEST_URI'] ) ? strtok( wp_unslash( $_SERVER['REQUEST_URI'] ), '?' ) : '';
+	if ( 'youtube' !== trim( (string) $uri, '/' ) ) {
+		return;
+	}
+	status_header( 200 );
+	get_header();
+	get_template_part( 'template-parts/youtube' );
+	get_footer();
+	exit;
+} );
 
 /* Client ID Google (Identity Services) pour le bouton « Continuer avec Google » intégré. */
 function agenturf_google_client_id() {
@@ -288,6 +363,42 @@ function agenturf_admin_page() {
 			</table>
 
 			<hr>
+			<h2 class="title">Page vidéos (/youtube/)</h2>
+			<?php $yt = agenturf_yt_cfg(); ?>
+			<p>Une page publique <a href="<?php echo esc_url( agenturf_youtube_url() ); ?>" target="_blank"><code>/youtube/</code></a> avec une bannière et tes Shorts. <strong>Colle simplement les liens YouTube, un par ligne</strong> — aucune clé d'API, aucun réglage. Les vignettes se chargent seules et la vidéo ne démarre qu'au clic.</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="yt_links">Liens des vidéos</label></th>
+					<td>
+						<textarea id="yt_links" name="yt_links" rows="8" style="width:100%;font-family:monospace;font-size:12px;" placeholder="https://www.youtube.com/shorts/xxxxxxxxxxx&#10;https://youtu.be/xxxxxxxxxxx&#10;https://www.youtube.com/watch?v=xxxxxxxxxxx"><?php echo esc_textarea( $yt['links'] ); ?></textarea>
+						<p class="description">Un lien par ligne, dans l'ordre d'affichage (le plus récent en haut). Tous les formats YouTube sont acceptés : <code>/shorts/</code>, <code>youtu.be</code>, <code>watch?v=</code>. <strong><?php echo count( $yt['ids'] ); ?></strong> vidéo(s) reconnue(s) actuellement.</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="yt_title">Titre de la bannière</label></th>
+					<td><input type="text" class="regular-text" id="yt_title" name="yt_title" value="<?php echo esc_attr( $yt['title'] ); ?>"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="yt_sub">Sous-titre</label></th>
+					<td><input type="text" class="large-text" id="yt_sub" name="yt_sub" value="<?php echo esc_attr( $yt['sub'] ); ?>"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="yt_channel">Lien de la chaîne</label></th>
+					<td>
+						<input type="url" class="regular-text" id="yt_channel" name="yt_channel" value="<?php echo esc_attr( $yt['channel'] ); ?>" placeholder="https://www.youtube.com/@agenturf">
+						<p class="description">Affiche le bouton rouge « S'abonner ». Vide = bouton masqué.</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="yt_banner">Image de fond (optionnel)</label></th>
+					<td>
+						<input type="url" class="regular-text" id="yt_banner" name="yt_banner" value="<?php echo esc_attr( $yt['banner'] ); ?>">
+						<p class="description">URL d'une image (Médias). Vide = fond vert dégradé du thème.</p>
+					</td>
+				</tr>
+			</table>
+
+			<hr>
 			<h2 class="title">4. Publicité avant la course (interstitiel)</h2>
 			<?php $inter = agenturf_inter_cfg(); ?>
 			<p>S'affiche quand un visiteur clique sur <strong>« Lancer la course »</strong>. Parfait pour une offre d'affiliation (ZEturf, Unibet…). Laisse la fréquence à 0 pour désactiver.</p>
@@ -399,6 +510,15 @@ add_action( 'admin_post_agenturf_save', function () {
 		'code'  => isset( $_POST['inter_code'] ) ? trim( (string) wp_unslash( $_POST['inter_code'] ) ) : '', // brut : code réseau vidéo, admin de confiance
 		'skip'  => isset( $_POST['inter_skip'] ) ? max( 0, min( 15, (int) $_POST['inter_skip'] ) ) : 4,
 		'freq'  => isset( $_POST['inter_freq'] ) ? max( 0, min( 20, (int) $_POST['inter_freq'] ) ) : 0,
+	) ), false );
+
+	/* page vidéos */
+	update_option( AGENTURF_OPT_YT, wp_json_encode( array(
+		'links'   => isset( $_POST['yt_links'] ) ? trim( (string) wp_unslash( $_POST['yt_links'] ) ) : '',
+		'title'   => isset( $_POST['yt_title'] ) ? sanitize_text_field( wp_unslash( $_POST['yt_title'] ) ) : '',
+		'sub'     => isset( $_POST['yt_sub'] ) ? sanitize_text_field( wp_unslash( $_POST['yt_sub'] ) ) : '',
+		'channel' => isset( $_POST['yt_channel'] ) ? esc_url_raw( wp_unslash( $_POST['yt_channel'] ) ) : '',
+		'banner'  => isset( $_POST['yt_banner'] ) ? esc_url_raw( wp_unslash( $_POST['yt_banner'] ) ) : '',
 	) ), false );
 
 	/* code réseau publicitaire (brut, admin de confiance) */

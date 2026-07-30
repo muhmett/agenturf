@@ -138,6 +138,7 @@ SCENARIOS.forEach((s, i) => {
   b.onclick = () => {
     document.querySelectorAll(".scn").forEach(x => x.classList.remove("active"));
     b.classList.add("active"); scenario = s; resetRace(true);
+    clearMonteCarlo(); // les stats affichées appartenaient au scénario précédent
     say(`Scénario chargé : ${s.title.replace(/^[①-⑳] /, "")}. Lance la course !`, true);
   };
   scBox.appendChild(b);
@@ -935,40 +936,95 @@ function simulateOnce() {
   return fin.map(r => r.h.n);
 }
 
-function runMonteCarlo() {
-  const N = 100;
-  const wins = {}, top5s = {}, combos = {};
-  HORSES.forEach(h => { wins[h.n] = 0; top5s[h.n] = 0; });
-  for (let i = 0; i < N; i++) {
-    const order = simulateOnce();
-    wins[order[0]]++;
-    order.slice(0, 5).forEach(n => top5s[n]++);
-    const key = order.slice(0, 5).join("-");
-    combos[key] = (combos[key] || 0) + 1;
-  }
-  // classement par % de victoires
+const MC_N = 2500;          // nombre de courses simulées par lancement
+const MC_CHUNK = 120;       // courses par image : garde l'interface réactive
+
+let mcRunning = false;
+
+/* Le tableau de stats appartient à UN scénario. Dès qu'on en change, il
+   devient faux : on l'efface plutôt que de laisser lire des chiffres
+   périmés comme s'ils venaient du nouveau scénario. */
+function clearMonteCarlo() {
+  const box = $("mcbox");
+  if (!box) return;
+  box.classList.remove("show");
+  const bars = $("mcbars"), com = $("mccombos");
+  if (bars) bars.innerHTML = "";
+  if (com) com.innerHTML = "";
+}
+
+function scenarioLabel() {
+  return scenario.title.replace(/^[①-⑳]\s*/, "");
+}
+
+function renderMonteCarlo(wins, top5s, combos) {
+  const pct = v => (100 * v / MC_N);
   const byWin = [...HORSES].sort((a, b) => (wins[b.n] - wins[a.n]) || (top5s[b.n] - top5s[a.n]));
+  const best = pct(wins[byWin[0].n]) || 1;
   $("mcbars").innerHTML = byWin.slice(0, 8).map(h => `
     <div class="mcrow">
       <span class="silk" style="background:${h.c[0]}"></span>
       <span class="num">${h.n}</span>
       <span class="nm">${h.name}</span>
-      <div class="barwrap"><div class="bar" data-w="${wins[h.n]}"></div></div>
-      <span class="pct">${wins[h.n]}% · T5 ${top5s[h.n]}%</span>
+      <div class="barwrap"><div class="bar" data-w="${(100 * pct(wins[h.n]) / best).toFixed(1)}"></div></div>
+      <span class="pct">${pct(wins[h.n]).toFixed(1)} % · T5 ${pct(top5s[h.n]).toFixed(1)} %</span>
     </div>`).join("");
   const topCombos = Object.entries(combos).sort((a, b) => b[1] - a[1]).slice(0, 5);
   $("mccombos").innerHTML = topCombos.map(([k, v]) =>
-    `<div class="mc-combo"><span class="c">${k}</span><span class="x">sortie ${v} fois / ${N}</span></div>`).join("");
+    `<div class="mc-combo"><span class="c">${k}</span><span class="x">${v} fois sur ${MC_N.toLocaleString("fr-FR")}</span></div>`).join("");
+  const ttl = $("mcTitle");
+  if (ttl) ttl.textContent = `📊 ${MC_N.toLocaleString("fr-FR")} courses — scénario « ${scenarioLabel()} »`;
   const box = $("mcbox");
   box.classList.add("show");
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    box.querySelectorAll(".bar").forEach(b => { b.style.width = Math.min(100, parseInt(b.dataset.w, 10) * 2.2) + "%"; });
+    box.querySelectorAll(".bar").forEach(b => { b.style.width = Math.min(100, parseFloat(b.dataset.w)) + "%"; });
   }));
-  say(`📊 ${N} courses simulées avec le scénario « ${scenario.title.replace(/^[①-⑳] /, "")} » — ${byWin[0].name} gagne ${wins[byWin[0].n]} fois.`, true);
+  say(`📊 ${MC_N.toLocaleString("fr-FR")} courses simulées — scénario « ${scenarioLabel()} » — ${byWin[0].name} gagne ${pct(wins[byWin[0].n]).toFixed(1)} % du temps.`, true);
   box.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
+
+/* 2 500 courses bloqueraient l'affichage pendant plusieurs secondes si on
+   les enchaînait d'un bloc. On les découpe par paquets, une image à la
+   fois, avec une barre de progression — et on fige le scénario au départ
+   pour que le résultat corresponde bien à celui affiché à la fin. */
+function runMonteCarlo() {
+  if (mcRunning) return;
+  mcRunning = true;
+  const btn = $("btnMC");
+  const label = btn ? btn.textContent : "";
+  const scStart = scenario;
+  const wins = {}, top5s = {}, combos = {};
+  HORSES.forEach(h => { wins[h.n] = 0; top5s[h.n] = 0; });
+  clearMonteCarlo();
+
+  let done = 0;
+  const step = () => {
+    if (scenario !== scStart) {            // scénario changé en cours de route
+      mcRunning = false;
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+      say("Calcul annulé : le scénario a changé. Relance les 2 500 courses.", true);
+      return;
+    }
+    const end = Math.min(done + MC_CHUNK, MC_N);
+    for (; done < end; done++) {
+      const order = simulateOnce();
+      wins[order[0]]++;
+      order.slice(0, 5).forEach(n => top5s[n]++);
+      const key = order.slice(0, 5).join("-");
+      combos[key] = (combos[key] || 0) + 1;
+    }
+    if (btn) btn.textContent = `⏳ ${Math.round(100 * done / MC_N)} %`;
+    if (done < MC_N) { requestAnimationFrame(step); return; }
+    mcRunning = false;
+    if (btn) { btn.disabled = false; btn.textContent = label; }
+    renderMonteCarlo(wins, top5s, combos);
+  };
+
+  if (btn) btn.disabled = true;
+  requestAnimationFrame(step);
+}
 if ($("btnMC")) $("btnMC").onclick = () => {
-  // le mode « 1 clic = 100 courses » est toujours réservé aux membres connectés
+  // le mode « 1 clic = 2 500 courses » est toujours réservé aux membres connectés
   if (gateActive()) { showGate(); return; }
   runMonteCarlo();
 };

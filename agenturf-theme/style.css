@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.20.0
+Version: 1.21.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -592,3 +592,63 @@ button.btn{
 .prono-box p{margin:6px 0}
 .prono-box strong{color:#fff}
 .prono-box em{color:#cdd9d0;font-size:.82rem}
+
+/* =========================================================
+   PAGE VIDÉOS (/youtube/)
+   Grille de Shorts au format 9:16. Une colonne sur mobile,
+   deux dès 560 px, puis autant que la largeur en accepte —
+   la grille n'a aucun point de rupture en dur au-delà.
+   ========================================================= */
+.ytpage{max-width:1180px;margin:0 auto;padding:0 16px 60px}
+
+.yt-hero{
+  position:relative;margin:0 -16px 28px;padding:104px 20px 44px;
+  background:linear-gradient(160deg,var(--nuit),var(--nuit2));
+  background-size:cover;background-position:center;color:var(--craie);text-align:center}
+.yt-hero-in{max-width:720px;margin:0 auto}
+.yt-kicker{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(255,0,0,.16);border:1px solid rgba(255,90,90,.5);color:#ffb3b3;
+  border-radius:99px;padding:5px 14px;margin-bottom:14px}
+.yt-hero h1{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;line-height:.95;
+  font-size:clamp(2rem,7vw,3.4rem);margin-bottom:10px}
+.yt-hero p{font-size:clamp(.92rem,2.4vw,1.08rem);color:#cdd9d0;margin-bottom:22px}
+.yt-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.yt-btn{display:inline-block;border-radius:99px;padding:13px 24px;font-family:'Barlow Condensed';
+  font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:1rem;text-decoration:none;
+  transition:transform .15s,background .15s}
+.yt-btn:active{transform:scale(.97)}
+.yt-btn-red{background:#ff0033;color:#fff}
+.yt-btn-red:hover{background:#d40029}
+.yt-btn-ghost{background:rgba(255,255,255,.1);color:var(--craie);border:1.5px solid rgba(255,255,255,.35)}
+.yt-btn-ghost:hover{background:rgba(255,255,255,.18)}
+
+.yt-h2{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.3rem,4vw,1.8rem);color:var(--encre);margin:0 0 14px}
+.yt-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+@media(max-width:559px){.yt-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media(max-width:359px){.yt-grid{grid-template-columns:1fr}}
+
+.yt-card{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;
+  background:#0b1a14;box-shadow:0 8px 24px rgba(12,59,38,.18)}
+.yt-card iframe{width:100%;height:100%;border:0;display:block}
+.yt-thumb{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;position:relative}
+/* La vignette YouTube est en 16:9 : on la recadre pour remplir le 9:16. */
+.yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.yt-thumb:hover img{transform:scale(1.06)}
+.yt-thumb::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.yt-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+  width:60px;height:42px;border-radius:12px;background:#ff0033;
+  box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .18s}
+.yt-play::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-42%,-50%);
+  border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff}
+.yt-thumb:hover .yt-play{transform:translate(-50%,-50%) scale(1.12)}
+.yt-thumb:focus-visible{outline:3px solid var(--or);outline-offset:-3px}
+
+/* Sur grand écran la bannière est contenue dans la colonne : on arrondit
+   le bas pour qu'elle se lise comme un bloc voulu, pas comme un fond coupé. */
+@media(min-width:760px){.yt-hero{border-radius:0 0 24px 24px}}
+
+.yt-note{font-size:.78rem;color:#6b7280;margin-top:14px;text-align:center}
+.yt-empty{text-align:center;padding:50px 20px;color:#6b7280}
+.yt-hint{font-size:.85rem;margin-top:8px}

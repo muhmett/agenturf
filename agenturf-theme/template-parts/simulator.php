@@ -62,7 +62,7 @@ $user = is_user_logged_in() ? wp_get_current_user() : null;
 		<div class="controls">
 			<button class="btn btn-go" id="btnStart">🏇 Lancer la course</button>
 			<button class="btn btn-re" id="btnReset">↺ Nouvelle simulation</button>
-			<button class="btn btn-mc" id="btnMC">📊 100 courses en 1 clic</button>
+			<button class="btn btn-mc" id="btnMC">📊 2 500 courses en 1 clic</button>
 			<button class="btn btn-sound" id="btnSound" type="button">🔊 Son</button>
 			<div class="speedctl">Vitesse
 				<select id="speed">
@@ -86,7 +86,7 @@ $user = is_user_logged_in() ? wp_get_current_user() : null;
 
 		<div id="mcbox">
 			<div class="panel">
-				<h3>📊 Statistiques sur 100 courses — scénario actuel</h3>
+				<h3 id="mcTitle">📊 Statistiques sur 2 500 courses</h3>
 				<div class="mc-grid">
 					<div id="mcbars"></div>
 					<div>
@@ -94,7 +94,7 @@ $user = is_user_logged_in() ? wp_get_current_user() : null;
 						<div id="mccombos"></div>
 					</div>
 				</div>
-				<p class="mc-note">% = victoires · T5 = présences dans les 5 premiers. Change de scénario puis relance pour comparer.</p>
+				<p class="mc-note">% = victoires · T5 = présences dans les 5 premiers, sur 2 500 courses. Le tableau est effacé dès que tu changes de scénario : relance pour comparer.</p>
 			</div>
 		</div>
 

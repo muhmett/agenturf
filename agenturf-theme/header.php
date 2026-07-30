@@ -11,6 +11,7 @@
 <nav class="topbar">
 	<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">AGEN<em>TURF</em></a>
 	<div class="actions">
+		<a class="tb-btn" href="<?php echo esc_url( agenturf_youtube_url() ); ?>">▶ Vidéos</a>
 		<a class="tb-btn" href="<?php echo esc_url( get_post_type_archive_link( 'course' ) ); ?>">Archives</a>
 		<?php if ( is_user_logged_in() ) : ?>
 			<a class="tb-btn" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>">Déconnexion</a>
