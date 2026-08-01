@@ -1,0 +1,754 @@
+{
+ "meta": {
+  "eyebrow": "Quinté+ · Dimanche 2 août 2026 · R1 C3 · Deauville · départ 15h15",
+  "title": "Grand Handicap des Sprinters — Quinté+ du dimanche",
+  "subtitle": "Deauville · 1 200 m (plat, gazon, ligne droite)",
+  "track": "DEAUVILLE",
+  "code": "R1C3",
+  "distance": 1200,
+  "baseSpeed": 16.4,
+  "discipline": "plat",
+  "info": [
+   "Plat · <b>Handicap divisé · Classe 1 · Ref +14 et +16</b> · 72 000 €",
+   "<b>1 200 m</b> · gazon · <b>ligne droite</b> — aucun tournant",
+   "<b>18 partants</b> · entiers, hongres et juments de 3 ans et plus",
+   "<b>Un seul cheval sur la référence +14</b> : la 3 ans n° 15, 2 kg de moins à valeur égale"
+  ],
+  "avis": [
+   {
+    "src": "Le marché & l'argent (Genybet — le PMU ne cote pas encore)",
+    "txt": "<b>Avertissement d'abord : notre meilleur signal habituel n'existe pas sur cette course.</b> À l'heure où la fiche est écrite, le PMU n'affiche <b>aucun rapport probable</b> — la colonne est vide. Nous n'avons donc qu'un seul marché, Genybet, et pas de divergence public / book à exploiter comme hier à Clairefontaine. Nous le disons plutôt que de faire semblant d'avoir deux avis. Ce que dit ce marché unique : <b>Baileys Bachelor (13) favori à 6,3 avec 14,7 % des enjeux</b>, devant <b>Tortisambert (2) à 7,1 (13 %)</b>, <b>Lesslepasser (1) à 7,8 (11,7 %)</b> et <b>Mister Chang (4) à 8,0 (11,6 %)</b> — quatre chevaux dans un mouchoir. Puis <b>Grand Scoop (16) à 10,4</b> et <b>Glanworth (18) à 12,7</b>. Deux anomalies méritent l'œil. <b>Glanworth capte 7,3 % des enjeux</b> — sixième position — avec une musique franchement mauvaise (6p 6p 6p 16p 10p 16p) : de l'argent sans forme apparente. À l'inverse, <b>Sweet Chop (5) est laissé à 20,8 pour 4,4 %</b> alors que sa ligne récente (4p 2p 2p 2p 1p 5p 2p) est objectivement la meilleure du plateau. Côté presse, Zone-Turf annonce <b>13 - 16 - 1 - 11 - 2 - 3 - 5 - 10</b> avec Baileys Bachelor en top chance, la synthèse presse <b>16 - 13 - 2 - 3 - 4 - 5 - 1 - 10</b>, et la communauté (80 pronostics) joue Baileys Bachelor gagnant à <b>24 %</b>."
+   },
+   {
+    "src": "AgenTurf — Analyse du modèle 🎯",
+    "txt": "3 200 simulations sur les huit scénarios. <b>Baileys Bachelor (13) sort en tête avec 14,5 % de victoires</b> — nous ne combattons pas le favori cette fois, sa corde 1 et sa deuxième place de Dieppe tiennent. Mais le chiffre de la journée est le deuxième : <b>Cath Hoche (15), laissée à 43,7 par le book et citée par personne dans la presse, ressort à 12,1 % de victoires et surtout 41,7 % de présence dans les cinq premiers — le meilleur taux de tout le plateau</b>. La raison n'est pas une intuition, c'est une soustraction : elle est la seule du lot sur la référence +14 (voir les khabaya). Derrière, <b>Mister Chang (4) 9,7 %</b> et <b>Lesslepasser (1) 8,9 %</b>. Notre principale divergence avec le marché est <b>Tortisambert (2)</b> : deuxième choix à 7,1, il ne ressort que <b>10<sup>e</sup> du modèle avec 5,4 %</b>, parce qu'il « manque de références sur 1 200 mètres » — toute sa belle régularité a été bâtie ailleurs. Nous le gardons en complément, pas en base. Et <b>Awaiting Christmas (10) s'effondre à 0,3 %</b> : son entraîneur annonce qu'il « découvre une nouvelle discipline », c'est sa première ligne droite. <b>Base d'expert : 13 - 15 - 4 - 5 - 1</b> · <b>Compléments : 2 - 16</b> · <b>Tocard : 15 Cath Hoche (43/1)</b> · <b>Le doute : 2 Tortisambert.</b> Outil de divertissement, aucun pronostic garanti. 18+."
+   },
+   {
+    "src": "Paroles d'entraîneurs et de reporters",
+    "txt": "<b>Trois informations décisives ne figurent sur aucun tableau de partants</b> et nous sommes allés les chercher. La première est positive : <b>Marian-Falk Weissmeier dit de Major Oak (11) qu'il « arrive au sommet de sa condition » et qu'il « a un tirage favorable »</b> — <b>il est le seul entraîneur des dix-huit à faire de la corde un argument</b>, et il a la corde 3. La deuxième est éliminatoire : <b>Vaclav Luka annonce que Awaiting Christmas (10) « découvre une nouvelle discipline »</b>. Traduction : c'est sa <b>première course en ligne droite</b>. La troisième est une réserve d'Equidia qui vaut un avertissement : <b>Tortisambert (2), deuxième choix du marché, « manque de références sur 1 200 mètres »</b>. Ajoutons deux précisions de forme : <b>Grand Scoop (16) « a failli gagner à Dieppe »</b> — mieux qu'un accessit —, et <b>Mister Chang (4) est « tout simplement irréprochable depuis le début de l'année »</b>, mais « doit composer avec sept livres de pénalisation ». Enfin, <b>Alem (3) est « raccourci »</b> : il descend en distance pour venir sur ce sprint, tout en gardant « son mot à dire » grâce à sa régularité."
+   },
+   {
+    "src": "Les khabaya — ce que le marché ne voit pas 🔍",
+    "txt": "<b>1. « Ref : +14, +16 » — deux références, et un seul cheval sur la petite.</b> C'est écrit en haut du programme et personne n'explique pourquoi. Nous avons fait la soustraction sur les dix-huit lignes : <b>dix-sept chevaux portent exactement leur valeur + 16. Cath Hoche (15) porte sa valeur + 14.</b> Pourquoi ? Parce qu'elle est la <b>seule pouliche de 3 ans</b> d'un lot de 4 ans et plus, et qu'elle bénéficie de la décharge d'âge. La comparaison qui rend la chose limpide : <b>Fou Furieux (9) est noté 39,5 et porte 55,5 kg. Cath Hoche est notée 39,5 et porte 53,5 kg.</b> Même note, <b>deux kilos de moins</b>. Et sa forme n'est pas un accident : <b>(25) 4p 1p 4p 5p 3p 1p</b> — deux victoires, jamais au-delà de la 5<sup>e</sup> place en six sorties. Elle vaut <b>43,7</b> et ni Zone-Turf ni Equidia ne la citent dans leurs huit.<br><br><b>2. Ligne droite : la corde ne se lit pas comme ailleurs — et nous ne prétendons pas savoir.</b> Sur 1 200 m à Deauville il n'y a <b>aucun tournant</b>. La règle habituelle « corde basse = terrain économisé » vient des virages : elle ne s'applique pas ici. Nous avons cherché des données de biais et voici honnêtement ce que nous avons trouvé : <b>une déclaration d'entraîneur</b> (Weissmeier, corde 3, « tirage favorable ») et <b>une statistique de site de pronostics, invérifiable</b>, selon laquelle les cordes 2, 3 et 4 sur-performeraient et les cordes hautes réussiraient rarement. Ce n'est pas une étude. Nous appliquons donc un terme de corde <b>cinq fois plus faible</b> que celui d'un vrai tournant, plutôt que de trancher. Conséquence assumée : cela pénalise <b>Sweet Chop (5, corde 18)</b>, que nous aimons par ailleurs.<br><br><b>3. Le deuxième choix du marché n'a jamais prouvé sa vitesse.</b> <b>Tortisambert (2) vaut 7,1 avec 13 % des enjeux</b> et sa musique est superbe — 2p 2p 5p 1p 2p. Mais elle a été écrite <b>sur d'autres distances</b> : Equidia note qu'il « manque de références sur 1 200 mètres ». Un sprint en ligne droite ne pardonne pas l'absence de vitesse de base : il n'y a ni tournant pour se replacer, ni distance pour revenir.<br><br><b>4. Le palmarès n'est pas la forme — deux chevaux le prouvent.</b> <b>Régalien (14) totalise 267 903 € de gains</b>, le deuxième plus riche du plateau, pour une musique de <b>12p 8p 7p 1p 7p 14p 12p 13p</b>. <b>Ozan (6) affiche 216 246 €</b> et n'a plus vu les dix premiers depuis six courses. Dans un handicap, le compteur de gains attire l'œil et ne court pas.<br><br><b>5. De l'argent sans forme sur le n° 18.</b> <b>Glanworth capte 7,3 % des enjeux du book</b> — sixième position, devant Major Oak, Alem et Sweet Chop — avec une ligne de <b>6p 6p 6p 16p 10p 16p</b>. Ses deux dernières (3p 4p) sont, il est vrai, ses meilleures depuis longtemps. Quand l'argent arrive contre le papier, c'est soit une information que personne n'a publiée, soit un effet de mode. Nous le gardons en vue sans le jouer.<br><br><b>6. Un cheval noté 41 avec 16 834 € de gains.</b> <b>Interactiv (7)</b> est noté au niveau d'Ozan et au-dessus de dix adversaires, mais il a gagné <b>trois fois et demie moins d'argent que le deuxième plus pauvre du lot</b>. C'est le profil du cheval peu couru, noté sur peu de références — parfois une bombe, souvent rien. Le marché l'a abandonné à 91,7. Nous le signalons sans le recommander : le dossier est trop mince pour trancher."
+   },
+   {
+    "src": "Le parcours, la méthode et l'heure de départ",
+    "txt": "R1 course n° 3, <b>Grand Handicap des Sprinters — World Pool by PMU</b>, plat à <b>Deauville-La Touques</b> sur <b>1 200 mètres, gazon, en ligne droite</b>. <b>Handicap divisé, Classe 1, références +14 et +16</b>, doté de <b>72 000 €</b> (36 000 · 13 680 · 10 080 · 6 480), <b>18 partants</b> entiers, hongres et juments de 3 ans et plus.<br><br><b>⚠️ Heure de départ : 15h15.</b> Une des sources que nous avons consultées affichait 14h15 ; trois autres, dont l'article officiel d'Equidia et la page de la course, annoncent <b>15h15</b>. Nous retenons 15h15 et vous recommandons de vérifier l'affichage PMU avant de jouer.<br><br><b>Côté méthode.</b> Le handicap étant régulier à l'intérieur de chaque référence, le poids est neutralisé <b>contre le poids de référence (valeur + 16)</b> et non contre le poids réel — de cette façon, l'écart entre les deux subsiste exactement là où il existe, c'est-à-dire sur la seule 3 ans du lot. Le terme de corde du moteur, conçu pour un tournant, est remplacé par un terme faible propre à la ligne droite. Sont conservées les deux corrections des jours précédents : le <b>garde-fou de marché</b> (aucun cheval coté sous 10/1 ne ressort sous 5 %) et la <b>dilatation des écarts de note</b> avec compression de la volatilité, pour que la chance ne remplace pas la valeur dans un lot serré.<br><br><b>Ce que nous sommes allés chercher ailleurs.</b> Les captures de partants ne contenaient ni interviews ni heure fiable. Quatre éléments de cette fiche viennent de sources externes et ils ont changé le classement : la déclaration de Weissmeier sur Major Oak, celle de Luka sur Awaiting Christmas, l'absence de références de Tortisambert sur 1 200 m, et la deuxième place manquée de Grand Scoop à Dieppe.<br><br>La course est rejouée <b>3 200 fois sur huit scénarios</b>. <b>AgenTurf est un simulateur de divertissement : rien n'est garanti, jouez pour le plaisir. 18+. Jouer comporte des risques : endettement, isolement, dépendance. Pour être aidé, appelez le 09 74 75 13 13 (appel non surtaxé).</b>"
+   }
+  ]
+ },
+ "horses": [
+  {
+   "n": 1,
+   "name": "Lesslepasser",
+   "jockey": "P.-C. Boudot",
+   "w": 60,
+   "draw": 15,
+   "val": 44.0,
+   "odds": 7.8,
+   "oddsPfr": 0,
+   "c": [
+    "#1e4fd8",
+    "#f2c200"
+   ],
+   "style": "stalker",
+   "ab": 104.2,
+   "vol": 1.014,
+   "sub": "P.-C. Boudot · ent. S. Lanslots · corde 15 · 60 kg · val. 44.0 · gains 272 646 € · Genybet 7.8",
+   "note": "<b>La meilleure valeur du lot (44) et les gains les plus élevés — 272 646 €.</b> Pierre-Charles Boudot en selle. Equidia retient de lui « un <b>retour encourageant (3<sup>e</sup>)</b> dans les Quinté+ », et sa musique porte une victoire récente : <b>3p 6p 5p 3p 8p 6p 1p</b>. Ses 60 kg sont le prix de sa valeur, pas une pénalité arbitraire : dans un handicap, le top-poids est le meilleur cheval sur le papier. Le book le range 4<sup>e</sup> choix à 7,8 avec <b>11,7 % des enjeux</b>. Son seul vrai obstacle est le nombre : <b>dix-sept adversaires sur une ligne droite</b>.",
+   "tags": [
+    [
+     "base",
+     "Top valeur 44 + Boudot"
+    ],
+    [
+     "note",
+     "Retour à 3e dans un Quinté+"
+    ]
+   ],
+   "trainer": "S. Lanslots",
+   "musique": "3p 6p 5p 3p 8p 6p 1p",
+   "record": "",
+   "gains": 272646
+  },
+  {
+   "n": 2,
+   "name": "Tortisambert",
+   "jockey": "M. Barzalona",
+   "w": 59.5,
+   "draw": 2,
+   "val": 43.5,
+   "odds": 7.1,
+   "oddsPfr": 0,
+   "c": [
+    "#f3f1e6",
+    "#7c1d8d"
+   ],
+   "style": "closer",
+   "ab": 102.35,
+   "vol": 0.972,
+   "sub": "M. Barzalona · ent. F. Chappet · corde 2 · 59.5 kg · val. 43.5 · gains 169 097 € · Genybet 7.1",
+   "note": "<b>La meilleure régularité du lot — et le doute du jour.</b> Sa musique aligne <b>2p 2p 5p 1p 2p</b>, quatre fois dans les deux premiers en cinq sorties. Chappet l'entraîne, <b>Barzalona</b> le monte, il a la <b>corde 2</b> et vaut <b>7,1 chez Genybet avec 13 % des enjeux</b>, deuxième choix du marché. La communauté le cite massivement pour la place : <b>2<sup>e</sup> à 23 %, 3<sup>e</sup> à 25 %</b>. Mais Equidia glisse la réserve que les tableaux ne montrent pas et qui change tout : il est régulier « <b>bien qu'il manque de références sur 1 200 mètres</b> ». Toute cette belle musique a été écrite sur d'autres distances. Sur un sprint pur en ligne droite, un cheval qui n'a jamais prouvé sa vitesse de base part avec une inconnue majeure.",
+   "tags": [
+    [
+     "base",
+     "2p 2p 5p 1p 2p + corde 2 + Barzalona"
+    ],
+    [
+     "risk",
+     "Manque de références sur 1 200 m"
+    ]
+   ],
+   "trainer": "F. Chappet",
+   "musique": "2p 2p 5p 1p 2p 8p (25) 3p",
+   "record": "",
+   "gains": 169097
+  },
+  {
+   "n": 3,
+   "name": "Alem",
+   "jockey": "T. Piccone",
+   "w": 59,
+   "draw": 9,
+   "val": 43.0,
+   "odds": 14.3,
+   "oddsPfr": 0,
+   "c": [
+    "#8fc4f0",
+    "#f2c200"
+   ],
+   "style": "stalker",
+   "ab": 101.7,
+   "vol": 0.965,
+   "sub": "T. Piccone · ent. H.-A. Pantall · corde 9 · 59 kg · val. 43.0 · gains 81 821 € · Genybet 14.3",
+   "note": "Sept sorties, sept fois dans les cinq premiers : <b>3p 4p 5p 3p 5p (25) 3p 2p</b>. Henri-Alex Pantall et Théo Piccone — le même tandem qui présentait Valdorcia hier à Clairefontaine. Equidia pose la seule réserve, et elle est réelle : <b>il est « raccourci »</b>, c'est-à-dire qu'il descend en distance pour venir sur 1 200 m, mais « il fait preuve d'une belle régularité et <b>garde ainsi son mot à dire</b> ». À <b>14,3</b> pour un cheval qui ne rate jamais l'arrivée, le prix est honnête.",
+   "tags": [
+    [
+     "base",
+     "7 sorties, 7 fois dans les 5"
+    ],
+    [
+     "risk",
+     "Raccourci sur 1 200 m"
+    ]
+   ],
+   "trainer": "H.-A. Pantall",
+   "musique": "3p 4p 5p 3p 5p (25) 3p 2p",
+   "record": "",
+   "gains": 81821
+  },
+  {
+   "n": 4,
+   "name": "Mister Chang",
+   "jockey": "H. Journiac",
+   "w": 58,
+   "draw": 7,
+   "val": 42.0,
+   "odds": 8.0,
+   "oddsPfr": 0,
+   "c": [
+    "#b98cd8",
+    "#8a94a0"
+   ],
+   "style": "stalker",
+   "ab": 102.4,
+   "vol": 0.958,
+   "sub": "H. Journiac · ent. Y. Barberot · corde 7 · 58 kg · val. 42.0 · gains 123 805 € · Genybet 8.0",
+   "note": "<b>« Tout simplement irréprochable depuis le début de l'année »</b> — c'est le jugement d'Equidia, et la musique le confirme sans discussion : <b>1p 3p 2p 4p 1p (25) 3p 2p</b>, <b>deux victoires et jamais plus loin que 4<sup>e</sup></b> en sept sorties. Yannick Barberot l'entraîne, Hugo Journiac le monte, et le marché le place 3<sup>e</sup> choix à <b>8,0 avec 11,6 % des enjeux</b>. Le seul bémol est mécanique et Equidia le nomme : « il va certes devoir composer avec <b>sept livres de pénalisation</b> » — sa régularité lui a coûté du poids. Il « visera tout de même une place sur le podium ».",
+   "tags": [
+    [
+     "base",
+     "1p 3p 2p 4p 1p — jamais hors des 4"
+    ],
+    [
+     "risk",
+     "Sept livres de pénalisation"
+    ]
+   ],
+   "trainer": "Y. Barberot",
+   "musique": "1p 3p 2p 4p 1p (25) 3p 2p",
+   "record": "",
+   "gains": 123805
+  },
+  {
+   "n": 5,
+   "name": "Sweet Chop",
+   "jockey": "C. Demuro",
+   "w": 57.5,
+   "draw": 18,
+   "val": 41.5,
+   "odds": 20.8,
+   "oddsPfr": 0,
+   "c": [
+    "#e03030",
+    "#f2c200"
+   ],
+   "style": "closer",
+   "ab": 102.75,
+   "vol": 0.965,
+   "sub": "C. Demuro · ent. A. Murphy · corde 18 · 57.5 kg · val. 41.5 · gains 117 860 € · Genybet 20.8",
+   "note": "<b>Le meilleur dossier de forme de la course, et il vaut trois fois le prix du favori.</b> Regardez la ligne : <b>4p 2p (25) 2p 2p 1p 5p 2p</b> — <b>quatre deuxièmes places, une victoire, jamais au-delà de la 5<sup>e</sup></b> en sept sorties. Cristian Demuro est en selle pour Andrew Murphy. Et pourtant Genybet le laisse à <b>20,8 avec 4,4 % des enjeux</b>, quand Baileys Bachelor (13), dont la musique récente est nettement moins bonne, vaut 6,3. Sa <b>corde 18</b> est l'explication du marché, et nous devons dire qu'elle joue contre lui : les rares indications disponibles sur la ligne droite de Deauville vont dans le sens des cordes basses. Nous le gardons quand même — une musique pareille ne se remplace pas — mais nous ne prétendons pas que la corde 18 est neutre.",
+   "tags": [
+    [
+     "base",
+     "4p 2p 2p 2p 1p 5p 2p — la meilleure musique"
+    ],
+    [
+     "risk",
+     "Corde 18, et le peu de données va contre"
+    ]
+   ],
+   "trainer": "A. Murphy",
+   "musique": "4p 2p (25) 2p 2p 1p 5p 2p",
+   "record": "",
+   "gains": 117860
+  },
+  {
+   "n": 6,
+   "name": "Ozan",
+   "jockey": "A. Lemaitre",
+   "w": 57,
+   "draw": 12,
+   "val": 41.0,
+   "odds": 84.6,
+   "oddsPfr": 0,
+   "c": [
+    "#8a94a0",
+    "#f2c200"
+   ],
+   "style": "stalker",
+   "ab": 96.5,
+   "vol": 1.098,
+   "sub": "A. Lemaitre · ent. G. Doleuze · corde 12 · 57 kg · val. 41.0 · gains 216 246 € · Genybet 84.6",
+   "note": "Un ancien bon cheval de 8 ans dont la ligne raconte la fin d'un cycle : <b>1p 5p 13p 16p 11p (25) 14p 9p</b>. Après la victoire en tête de musique, <b>plus rien dans les dix premiers</b> en six sorties. Ses <b>216 246 € de gains</b> disent ce qu'il a été, sa valeur de 41 ce que le handicapeur lui accorde encore, et sa cote ce que le marché en pense aujourd'hui : <b>84,6 chez Genybet, 1,1 % des enjeux</b>. Aurélien Lemaitre ne suffira pas à effacer six échecs consécutifs.",
+   "tags": [
+    [
+     "risk",
+     "Aucun top 10 en six sorties"
+    ],
+    [
+     "risk",
+     "84,6 au book, 1,1 % des enjeux"
+    ]
+   ],
+   "trainer": "G. Doleuze",
+   "musique": "1p 5p 13p 16p 11p (25) 14p 9p",
+   "record": "",
+   "gains": 216246
+  },
+  {
+   "n": 7,
+   "name": "Interactiv",
+   "jockey": "M. Grandin",
+   "w": 57,
+   "draw": 8,
+   "val": 41.0,
+   "odds": 91.7,
+   "oddsPfr": 0,
+   "c": [
+    "#1e4fd8",
+    "#f3f1e6"
+   ],
+   "style": "closer",
+   "ab": 96.3,
+   "vol": 1.112,
+   "sub": "M. Grandin · ent. A. Karkosa · corde 8 · 57 kg · val. 41.0 · gains 16 834 € · Genybet 91.7",
+   "note": "<b>Le dossier le plus étrange du plateau.</b> Il est noté <b>41 de valeur</b> — au niveau d'Ozan et au-dessus de dix adversaires — mais il ne totalise que <b>16 834 € de gains</b>, soit <b>trois fois et demie moins que le deuxième plus pauvre du lot</b> (Cath Hoche, 57 083 €). Autrement dit : un cheval peu couru, noté haut sur peu de références. Ses deux dernières sont pourtant correctes — <b>3p 3p</b> — et il porte des <b>œillères australiennes</b>. Mais le marché l'a abandonné : <b>91,7 et 1 % des enjeux</b>, l'un des deux plus délaissés. Trop peu de matière pour en faire autre chose qu'une curiosité.",
+   "tags": [
+    [
+     "note",
+     "Valeur 41 pour 16 834 € de gains"
+    ],
+    [
+     "risk",
+     "91,7 au book, dossier trop mince"
+    ]
+   ],
+   "trainer": "A. Karkosa",
+   "musique": "13p 9p 3p 3p",
+   "record": "",
+   "gains": 16834
+  },
+  {
+   "n": 8,
+   "name": "Royalwood",
+   "jockey": "F. Valle Skar",
+   "w": 56,
+   "draw": 17,
+   "val": 40.0,
+   "odds": 33.2,
+   "oddsPfr": 0,
+   "c": [
+    "#1b3fa0",
+    "#ffffff"
+   ],
+   "style": "closer",
+   "ab": 97.8,
+   "vol": 1.126,
+   "sub": "F. Valle Skar · ent. C. Barande-B. · corde 17 · 56 kg · val. 40.0 · gains 188 249 € · Genybet 33.2",
+   "note": "Une jument de 6 ans capable du meilleur comme du pire, et sa musique le dit sans ambiguïté : <b>14p 8p 6p 1p 10p 1p 4p 10p</b> — <b>deux victoires</b> encadrées par quatre courses hors des dix premiers. C'est le profil qui coûte le plus cher au Quinté : on ne sait jamais lequel des deux chevaux se présente. Le marché la situe à <b>33,2</b>. La <b>corde 17</b> ne l'aide pas au sens classique, mais nous rappelons qu'en ligne droite ce chiffre ne se lit pas comme dans un tournant.",
+   "tags": [
+    [
+     "note",
+     "Deux victoires dans les huit dernières"
+    ],
+    [
+     "risk",
+     "Alternance victoires / hors du top 10"
+    ]
+   ],
+   "trainer": "C. Barande-B.",
+   "musique": "14p 8p 6p 1p 10p 1p 4p 10p",
+   "record": "",
+   "gains": 188249
+  },
+  {
+   "n": 9,
+   "name": "Fou Furieux",
+   "jockey": "M. Guyon",
+   "w": 55.5,
+   "draw": 4,
+   "val": 39.5,
+   "odds": 105.0,
+   "oddsPfr": 0,
+   "c": [
+    "#1b1b1b",
+    "#f2c200"
+   ],
+   "style": "stalker",
+   "ab": 96.55,
+   "vol": 1.07,
+   "sub": "M. Guyon · ent. N. Caullery · corde 4 · 55.5 kg · val. 39.5 · gains 135 542 € · Genybet 105.0",
+   "note": "Michel Guyon, la <b>corde 4</b>, et une musique honnête qui porte <b>deux victoires en sept</b> : <b>6p 9p 8p 1p 2p (25) 4p 1p</b>. Il descend de 55,5 kg pour une valeur de 39,5 — exactement la même note que Cath Hoche (15), qui elle en porte <b>53,5</b>. La comparaison est instructive et c'est tout le sujet de la course. Le marché ne le voit pas du tout : <b>105 chez Genybet, 0,9 % des enjeux</b>, le plus délaissé du lot. Nous sommes moins sévères que ça, sans en faire une base.",
+   "tags": [
+    [
+     "note",
+     "Deux victoires, corde 4, Guyon"
+    ],
+    [
+     "risk",
+     "105 au book — totalement délaissé"
+    ]
+   ],
+   "trainer": "N. Caullery",
+   "musique": "6p 9p 8p 1p 2p (25) 4p 1p",
+   "record": "",
+   "gains": 135542
+  },
+  {
+   "n": 10,
+   "name": "Awaiting Christmas",
+   "jockey": "A. Madamet",
+   "w": 55,
+   "draw": 13,
+   "val": 39.0,
+   "odds": 61.7,
+   "oddsPfr": 0,
+   "c": [
+    "#1b1b1b",
+    "#e03030"
+   ],
+   "style": "closer",
+   "ab": 95.1,
+   "vol": 1.084,
+   "sub": "A. Madamet · ent. V. Luka · corde 13 · 55 kg · val. 39.0 · gains 68 364 € · Genybet 61.7",
+   "note": "Equidia note qu'il a été « <b>surprenant quatrième dans le Prix de l'Orangerie</b> » en dernier lieu — le mot <i>surprenant</i> vient du journaliste, pas de nous. Le reste de la ligne est irrégulier : <b>4p 9p 11p (25) 16p 4p 11p 5p</b>, deux quatrièmes places noyées dans des courses sans relief. Mais l'information décisive vient de son entraîneur : <b>Vaclav Luka annonce que son cheval « découvre une nouvelle discipline »</b> — c'est sa <b>toute première course en ligne droite</b>. Sur 1 200 m sans tournant, où le placement des trois cents premiers mètres décide de tout, un cheval qui n'a jamais couru ainsi part avec un handicap qu'aucune cote ne compense. Le book le laisse à <b>61,7</b>.",
+   "tags": [
+    [
+     "risk",
+     "« Découvre une nouvelle discipline » — 1re ligne droite"
+    ],
+    [
+     "risk",
+     "Musique irrégulière"
+    ]
+   ],
+   "trainer": "V. Luka",
+   "musique": "4p 9p 11p (25) 16p 4p 11p 5p",
+   "record": "",
+   "gains": 68364
+  },
+  {
+   "n": 11,
+   "name": "Major Oak",
+   "jockey": "L. Morris",
+   "w": 54.5,
+   "draw": 3,
+   "val": 38.5,
+   "odds": 17.8,
+   "oddsPfr": 0,
+   "c": [
+    "#f2c200",
+    "#e86bb0"
+   ],
+   "style": "stalker",
+   "ab": 98.05,
+   "vol": 1.042,
+   "sub": "L. Morris · ent. M.-F. Weissmeier · corde 3 · 54.5 kg · val. 38.5 · gains 158 314 € · Genybet 17.8",
+   "note": "<b>Le cheval qu'Equidia met en avant, et son entraîneur parle.</b> Le raisonnement du média est de classe : « auteur d'une bonne rentrée au printemps <b>en valeur 40</b> », il « s'est depuis très bien comporté dans une <b>Classe 3 d'un bon niveau à Clairefontaine</b> », et « il n'évolue plus qu'en <b>valeur 38,5</b> et <b>pourrait bien mettre tout le monde d'accord</b> ». L'argument de la baisse de valeur est réel. Mais la musique brute, elle, ne montre rien : <b>4p 5p 8p 5p 14p (25) 6p 11p</b> — <b>aucune place dans les trois premiers en sept sorties</b>. Nous le gardons dans les dix premiers du modèle sans en faire une base. Deux éléments le relèvent toutefois : <b>Marian-Falk Weissmeier déclare qu'il « arrive au sommet de sa condition » et qu'il « a un tirage favorable »</b> — c'est le seul entraîneur du lot à citer la corde comme un atout, et il a la <b>corde 3</b>. Le marché suit à 17,8.",
+   "tags": [
+    [
+     "note",
+     "« Au sommet de sa condition » + tirage favorable"
+    ],
+    [
+     "risk",
+     "Aucun top 3 en sept sorties"
+    ]
+   ],
+   "trainer": "M.-F. Weissmeier",
+   "musique": "4p 5p 8p 5p 14p (25) 6p 11p",
+   "record": "",
+   "gains": 158314
+  },
+  {
+   "n": 12,
+   "name": "Darlinghurst",
+   "jockey": "P. Le Digabel",
+   "w": 54,
+   "draw": 14,
+   "val": 38.0,
+   "odds": 66.6,
+   "oddsPfr": 0,
+   "c": [
+    "#1e4fd8",
+    "#ffffff"
+   ],
+   "style": "closer",
+   "ab": 94.8,
+   "vol": 1.084,
+   "sub": "P. Le Digabel · ent. Pe. Dubois · corde 14 · 54 kg · val. 38.0 · gains 116 426 € · Genybet 66.6",
+   "note": "Sept sorties, <b>une seule dans les quatre premiers</b> hors sa victoire : <b>7p 1p 4p 6p 7p 9p (25) 7p</b>. Le profil du cheval qui rend exactement sa valeur, sans jamais la dépasser. Pierre-Charles Dubois l'entraîne, Pierre Le Digabel le monte, et le marché ne lui accorde rien — <b>66,6 chez Genybet, 1,4 % des enjeux</b>. Dans un lot de dix-huit de Classe 1, un cheval qui plafonne à sa note ne trouve pas d'ouverture.",
+   "tags": [
+    [
+     "risk",
+     "Une seule place dans les 4 hors victoire"
+    ],
+    [
+     "risk",
+     "66,6 au book"
+    ]
+   ],
+   "trainer": "Pe. Dubois",
+   "musique": "7p 1p 4p 6p 7p 9p (25) 7p",
+   "record": "",
+   "gains": 116426
+  },
+  {
+   "n": 13,
+   "name": "Baileys Bachelor",
+   "jockey": "S. Pasquier",
+   "w": 54,
+   "draw": 1,
+   "val": 38.0,
+   "odds": 6.3,
+   "oddsPfr": 0,
+   "c": [
+    "#f2c200",
+    "#1b3fa0"
+   ],
+   "style": "stalker",
+   "ab": 98.0,
+   "vol": 1.056,
+   "sub": "S. Pasquier · ent. Jv. Toux · corde 1 · 54 kg · val. 38.0 · gains 108 686 € · Genybet 6.3",
+   "note": "<b>Le favori du marché à 6,3 et le top chance de Zone-Turf — et nous ne le suivons pas en tête.</b> Ce qui plaide pour lui est net : il concentre <b>14,7 % des enjeux</b>, hérite de la <b>corde 1</b>, et Equidia le dit « <b>de retour en forme comme le montre sa récente deuxième place à Dieppe</b> ». La communauté le joue gagnant à <b>24 %</b>. Mais regardez la ligne complète : <b>2p 4p 11p 14p 7p (25) 5p 9p</b> — cette deuxième place est <b>la seule sortie convaincante des sept</b>. À côté, Sweet Chop (5) aligne quatre deuxièmes places et vaut trois fois plus cher. Nous ne l'enterrons pas — il reste dans notre base — mais nous refusons de le mettre premier.",
+   "tags": [
+    [
+     "base",
+     "Corde 1, 14,7 % des enjeux, 2e à Dieppe"
+    ],
+    [
+     "risk",
+     "Une seule bonne sortie sur sept"
+    ]
+   ],
+   "trainer": "Jv. Toux",
+   "musique": "2p 4p 11p 14p 7p (25) 5p 9p",
+   "record": "",
+   "gains": 108686
+  },
+  {
+   "n": 14,
+   "name": "Régalien",
+   "jockey": "Mlle D. Santiago",
+   "w": 53.5,
+   "draw": 5,
+   "val": 37.5,
+   "odds": 27.2,
+   "oddsPfr": 0,
+   "c": [
+    "#e86bb0",
+    "#ffffff"
+   ],
+   "style": "closer",
+   "ab": 93.35,
+   "vol": 1.098,
+   "sub": "Mlle D. Santiago · ent. Ch. Plisson · corde 5 · 53.5 kg · val. 37.5 · gains 267 903 € · Genybet 27.2",
+   "note": "<b>267 903 € de gains — le deuxième plus riche du plateau — et une musique qui n'a plus rien à voir avec ce chiffre.</b> Sept ans, et la ligne dit la suite : <b>12p 8p 7p 1p 7p 14p 12p 13p</b>, une seule victoire noyée dans sept courses hors des sept premiers. C'est le piège classique du handicap : le palmarès attire l'œil, la forme du moment décide de la course. Mlle Delphine Santiago monte pour Christian Plisson. Le marché a tranché : <b>27,2</b>, loin de son rang de gains.",
+   "tags": [
+    [
+     "risk",
+     "Une seule bonne sortie en huit"
+    ],
+    [
+     "risk",
+     "Le palmarès n'est pas la forme"
+    ]
+   ],
+   "trainer": "Ch. Plisson",
+   "musique": "12p 8p 7p 1p 7p 14p 12p 13p",
+   "record": "",
+   "gains": 267903
+  },
+  {
+   "n": 15,
+   "name": "Cath Hoche",
+   "jockey": "M. Favriaux",
+   "w": 53.5,
+   "draw": 10,
+   "val": 39.5,
+   "odds": 43.7,
+   "oddsPfr": 0,
+   "c": [
+    "#e86bb0",
+    "#8fc4f0"
+   ],
+   "style": "closer",
+   "ab": 99.15,
+   "vol": 1.0,
+   "sub": "M. Favriaux · ent. I. Janackova · corde 10 · 53.5 kg · val. 39.5 · gains 57 083 € · Genybet 43.7",
+   "note": "<b>Le cheval de la course, et l'argument est arithmétique.</b> Le programme annonce « Ref : <b>+14, +16</b> » — deux références, et personne n'explique pourquoi. La raison est ici : <b>dix-sept partants portent leur valeur + 16, elle seule porte sa valeur + 14</b>, parce qu'elle est la <b>seule pouliche de 3 ans</b> face à des 4 ans et plus. Comparez sans intermédiaire : <b>Fou Furieux (9) est noté 39,5 et porte 55,5 kg. Cath Hoche est notée 39,5 et porte 53,5 kg.</b> Même valeur, <b>deux kilos de moins</b>. Et sa forme n'est pas un accident : <b>(25) 4p 1p 4p 5p 3p 1p</b> — <b>deux victoires et jamais au-delà de la 5<sup>e</sup> place</b> en six sorties. Genybet la laisse à <b>43,7</b> avec 2,1 % des enjeux ; Zone-Turf et Equidia ne la citent pas.",
+   "tags": [
+    [
+     "base",
+     "Seule 3 ans : réf. +14, soit 2 kg de moins"
+    ],
+    [
+     "base",
+     "6 sorties, jamais hors des 5, 43/1"
+    ]
+   ],
+   "trainer": "I. Janackova",
+   "musique": "(25) 4p 1p 4p 5p 3p 1p",
+   "record": "",
+   "gains": 57083
+  },
+  {
+   "n": 16,
+   "name": "Grand Scoop",
+   "jockey": "E. Hardouin",
+   "w": 53,
+   "draw": 16,
+   "val": 37.0,
+   "odds": 10.4,
+   "oddsPfr": 0,
+   "c": [
+    "#f3f1e6",
+    "#e03030"
+   ],
+   "style": "closer",
+   "ab": 98.1,
+   "vol": 1.0,
+   "sub": "E. Hardouin · ent. G. Mosse · corde 16 · 53 kg · val. 37.0 · gains 85 678 € · Genybet 10.4",
+   "note": "<b>La régularité pure au prix du milieu de tableau.</b> Sa musique — <b>2p 7p 2p 4p 4p 6p 9p</b> — porte <b>deux deuxièmes places et quatre présences dans les quatre premiers</b>. Gérald Mosse l'entraîne, Émmanuel Hardouin le monte. Equidia précise qu'il a « <b>failli gagner à Dieppe</b> », ce qui vaut mieux qu'un simple accessit, et le juge « <b>proche de son jour</b> », Zone-Turf le classe <b>2<sup>e</sup></b> de ses huit, et la communauté le place 2<sup>e</sup> le plus cité pour la deuxième place (16 %). Le marché suit : <b>10,4 chez Genybet, 8,9 % des enjeux</b>, 5<sup>e</sup> choix. Le poids le plus léger du lot (53 kg) avec une valeur de 37.",
+   "tags": [
+    [
+     "base",
+     "Deux 2es, quatre fois dans les 4"
+    ],
+    [
+     "base",
+     "« Proche de son jour », 53 kg"
+    ]
+   ],
+   "trainer": "G. Mosse",
+   "musique": "2p 7p 2p 4p 4p 6p 9p",
+   "record": "",
+   "gains": 85678
+  },
+  {
+   "n": 17,
+   "name": "Simply Lovely",
+   "jockey": "T. Trullier",
+   "w": 53,
+   "draw": 11,
+   "val": 37.0,
+   "odds": 35.2,
+   "oddsPfr": 0,
+   "c": [
+    "#8fc4f0",
+    "#1b3fa0"
+   ],
+   "style": "stalker",
+   "ab": 93.3,
+   "vol": 1.084,
+   "sub": "T. Trullier · ent. J.-M. Beguigné · corde 11 · 53 kg · val. 37.0 · gains 132 509 € · Genybet 35.2",
+   "note": "Un hongre de 8 ans dont les deux meilleures sorties commencent la musique et dont tout le reste s'éloigne : <b>1p 2p 9p 5p 8p (25) 13p 15p</b>. La victoire et la deuxième place sont là, mais elles sont suivies de cinq courses en dégradation continue, dont deux au-delà de la 13<sup>e</sup> place. Il porte des <b>œillères</b>. Jean-Marie Beguigné et Théo Trullier ne changent pas la trajectoire d'ensemble ; le marché non plus, à <b>35,2</b> pour 2,6 % des enjeux.",
+   "tags": [
+    [
+     "note",
+     "1p 2p en tête de musique"
+    ],
+    [
+     "risk",
+     "Cinq sorties en dégradation"
+    ]
+   ],
+   "trainer": "J.-M. Beguigné",
+   "musique": "1p 2p 9p 5p 8p (25) 13p 15p",
+   "record": "",
+   "gains": 132509
+  },
+  {
+   "n": 18,
+   "name": "Glanworth",
+   "jockey": "L. Boisseau",
+   "w": 53,
+   "draw": 6,
+   "val": 37.0,
+   "odds": 12.7,
+   "oddsPfr": 0,
+   "c": [
+    "#1b8a3a",
+    "#f2c200"
+   ],
+   "style": "closer",
+   "ab": 95.5,
+   "vol": 1.07,
+   "sub": "L. Boisseau · ent. N. Bellanger · corde 6 · 53 kg · val. 37.0 · gains 57 960 € · Genybet 12.7",
+   "note": "<b>De l'argent sans forme apparente — le cas à surveiller.</b> Sa musique est franchement mauvaise : <b>6p 6p 6p 16p 10p 16p 3p 4p</b>, trois sixièmes places et deux courses au-delà de la 15<sup>e</sup>. Et pourtant le marché le place <b>6<sup>e</sup> choix à 12,7 avec 7,3 % des enjeux</b> — devant Major Oak, devant Alem, devant Sweet Chop. Quand l'argent arrive sur une ligne pareille, c'est soit une information que nous n'avons pas, soit un effet de mode. Il porte des <b>œillères</b> et court pour Nicolas Bellanger. Nous le gardons en vue sans le jouer : les deux dernières (<b>3p 4p</b>) sont, il est vrai, ses meilleures depuis longtemps.",
+   "tags": [
+    [
+     "note",
+     "7,3 % des enjeux, 6e choix du book"
+    ],
+    [
+     "risk",
+     "Musique très irrégulière"
+    ]
+   ],
+   "trainer": "N. Bellanger",
+   "musique": "6p 6p 6p 16p 10p 16p 3p 4p",
+   "record": "",
+   "gains": 57960
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "consensus",
+   "title": "① Le consensus du book",
+   "prob": "~15%",
+   "desc": "Baileys Bachelor (13) confirme sa deuxième place de Dieppe depuis la corde 1, Tortisambert (2) fait ce qu'il fait toujours — se placer — et Mister Chang (4) reste irréprochable. Les trois premiers choix de Genybet remplissent le Quinté.",
+   "bias": {
+    "13": 1.08,
+    "2": 1.05,
+    "4": 1.04
+   },
+   "pace": "rapide",
+   "chaos": 1.0
+  },
+  {
+   "id": "forme",
+   "title": "② La forme pure gagne",
+   "prob": "~15%",
+   "desc": "Sur 1 200 m en ligne droite il n'y a nulle part où se cacher : le cheval le mieux préparé sort devant. Sweet Chop (5) et ses quatre deuxièmes places, Mister Chang (4) et ses deux victoires, Alem (3) et ses sept présences dans les cinq — la hiérarchie des musiques s'applique telle quelle.",
+   "bias": {
+    "5": 1.08,
+    "4": 1.06,
+    "3": 1.05,
+    "2": 1.03,
+    "11": 0.94,
+    "14": 0.93
+   },
+   "pace": "rapide",
+   "chaos": 0.95
+  },
+  {
+   "id": "decharge",
+   "title": "③ Les deux kilos de la 3 ans",
+   "prob": "~13%",
+   "desc": "Cath Hoche (15) court sur la référence +14 quand les dix-sept autres sont sur +16. Deux kilos de moins pour une valeur de 39,5 identique à celle de Fou Furieux, et six sorties sans jamais dépasser la cinquième place. La décharge d'âge fait exactement ce pour quoi elle existe.",
+   "bias": {
+    "15": 1.1,
+    "9": 1.03,
+    "16": 1.02
+   },
+   "pace": "normal",
+   "chaos": 1.0
+  },
+  {
+   "id": "poids",
+   "title": "④ Le haut du poids commande",
+   "prob": "~12%",
+   "desc": "Dans un handicap de Classe 1, les valeurs hautes sont hautes pour une raison. Lesslepasser (1) et ses 44 de valeur, Tortisambert (2) et ses 43,5, Alem (3) et ses 43 devancent des adversaires simplement moins bons. Boudot, Barzalona et Piccone décident.",
+   "bias": {
+    "1": 1.08,
+    "2": 1.05,
+    "3": 1.04,
+    "16": 0.95,
+    "18": 0.94,
+    "15": 0.95
+   },
+   "pace": "normal",
+   "chaos": 1.0
+  },
+  {
+   "id": "legers",
+   "title": "⑤ Les poids légers passent",
+   "prob": "~12%",
+   "desc": "Dix-huit partants, un train de sprint très rapide, et le bas du tableau profite d'un scénario d'usure. Grand Scoop (16) à 53 kg, Cath Hoche (15) à 53,5 et Glanworth (18) à 53 remontent sur des chevaux qui ont payé leur poids dans les 400 derniers mètres.",
+   "bias": {
+    "16": 1.07,
+    "15": 1.05,
+    "18": 1.04,
+    "1": 0.93,
+    "2": 0.95
+   },
+   "pace": "rapide",
+   "chaos": 1.05
+  },
+  {
+   "id": "argent",
+   "title": "⑥ L'argent sait quelque chose",
+   "prob": "~11%",
+   "desc": "Glanworth (18) concentre 7,3 % des enjeux du book avec une musique qui ne le justifie pas, et Baileys Bachelor (13) 14,7 %. Quand la cote va contre la ligne récente, c'est souvent qu'une écurie a une raison qu'elle n'a pas donnée. Le marché a raison contre le papier.",
+   "bias": {
+    "18": 1.08,
+    "13": 1.05,
+    "5": 0.96,
+    "3": 0.96
+   },
+   "pace": "normal",
+   "chaos": 1.05
+  },
+  {
+   "id": "delaisses",
+   "title": "⑦ La revanche des délaissés",
+   "prob": "~11%",
+   "desc": "Fou Furieux (9) vaut 105 et Interactiv (7) 91,7 : les deux plus abandonnés du lot. Le premier a pourtant deux victoires en sept sorties et la corde 4 ; le second est noté 41 pour 16 834 € de gains, le profil du cheval peu couru et sous-évalué. Un Quinté à quatre chiffres.",
+   "bias": {
+    "9": 1.08,
+    "7": 1.06,
+    "8": 1.03,
+    "13": 0.94
+   },
+   "pace": "lent",
+   "chaos": 1.3
+  },
+  {
+   "id": "droite",
+   "title": "⑧ Dix-huit de front sur la ligne droite",
+   "prob": "~11%",
+   "desc": "Pas de tournant, pas de corde qui protège, dix-huit chevaux côte à côte sur 1 200 mètres. Le peloton se scinde en deux paquets et le vainqueur sort du groupe que personne ne regardait. Sweet Chop (5) depuis la corde 18 ou Royalwood (8) depuis la 17 trouvent un couloir libre là où le milieu s'enferme.",
+   "bias": {
+    "5": 1.06,
+    "8": 1.05,
+    "1": 1.03,
+    "13": 0.95,
+    "4": 0.96
+   },
+   "pace": "rapide",
+   "chaos": 1.35
+  }
+ ]
+}
