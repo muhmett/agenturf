@@ -1,0 +1,614 @@
+{
+ "meta": {
+  "eyebrow": "Samedi 22 août 2026 · R5 C2 · Saint-Galmier · départ 17h28",
+  "title": "Prix Sa Bourbonnaise — le piège des fautes",
+  "subtitle": "Saint-Galmier · 2 025 m (trot attelé)",
+  "track": "SAINT-GALMIER",
+  "code": "R5C2",
+  "distance": 2025,
+  "baseSpeed": 13.4,
+  "discipline": "trot",
+  "info": [
+   "Trot <b>attelé</b> · <b>Course G</b> · <b>18 500 €</b> · 14 partants · tous 5 ans",
+   "<b>2 025 m</b> · corde à droite · 24°, peu nuageux, vent 8 km/h nord",
+   "Lot ultra-homogène : <b>gains de 21 440 € à 25 780 €</b> — la classe ne départage rien",
+   "⚠️ <b>Enjeux SG : 1 645 €</b> — micro-masse, les mouvements de cote ne signifient RIEN"
+  ],
+  "avis": []
+ },
+ "horses": [
+  {
+   "n": 1,
+   "name": "Lady du Forez",
+   "jockey": "L. Verrière",
+   "w": 56,
+   "draw": 8,
+   "val": 93.4,
+   "odds": 22,
+   "oddsPfr": 22,
+   "c": [
+    "#c89a6a",
+    "#e03030"
+   ],
+   "style": "closer",
+   "ab": 93.4,
+   "vol": 1.126,
+   "sub": "L. Verrière · ent. R. Buffavand · F5 · gains 21 440 € · cote 22 · Equidia 8/20 · 4 faute(s)/10",
+   "note": "<b>Quatre fautes sur ses neuf dernières lignes : 44 % de disqualification.</b> Lady du Forez porte la pire musique du plateau avec Lovely King (<b>Da ... Da Da ... Da</b>), Equidia ne lui met que 8/20 et le marché l'abandonne (22/1). Même écurie que Look des Fanes (6). En trot, un cheval qui se déteste une fois sur deux ne se joue pas.",
+   "tags": [
+    [
+     "risk",
+     "44 % de fautes + 8/20 + 22/1"
+    ],
+    [
+     "note",
+     "Une 3e en tête de musique"
+    ]
+   ],
+   "trainer": "R. Buffavand",
+   "musique": "3a Da 0a 6a 0a Da Da 7a (25) Da",
+   "gains": 21440,
+   "noteEquidia": "8/20",
+   "fautes": 4
+  },
+  {
+   "n": 2,
+   "name": "La Petite Marie",
+   "jockey": "B. Thienne",
+   "w": 56,
+   "draw": 8,
+   "val": 98.2,
+   "odds": 10,
+   "oddsPfr": 10,
+   "c": [
+    "#1e4fd8",
+    "#ffffff"
+   ],
+   "style": "stalker",
+   "ab": 98.2,
+   "vol": 0.986,
+   "sub": "B. Thienne · ent. L. Lerenard · F5 · gains 22 240 € · cote 10 · Equidia 10/20 · 1 faute(s)/10",
+   "note": "<b>Khabaya n°3 : DEUX VICTOIRES et une musique propre.</b> La Petite Marie aligne <b>1a 1a</b> et n'a qu'<b>une seule faute</b> sur dix sorties (10 %). Equidia lui reconnaît des <b>« Aptitudes »</b>, et elle appartient à l'écurie Lerenard, la plus fournie de la course (trois partants : 2, 9, 13). À 10/1 avec ce profil de propreté, c'est une base sérieuse que la note (10/20) sous-estime.",
+   "tags": [
+    [
+     "base",
+     "2 victoires + seulement 10 % de fautes"
+    ],
+    [
+     "note",
+     "Aptitudes Equidia + écurie Lerenard"
+    ]
+   ],
+   "trainer": "L. Lerenard",
+   "musique": "8a 1a 1a Da (25) 7m 2a 5a 5a 4a",
+   "gains": 22240,
+   "noteEquidia": "10/20",
+   "fautes": 1
+  },
+  {
+   "n": 3,
+   "name": "Luxy de Crennes",
+   "jockey": "G. Lupi",
+   "w": 56,
+   "draw": 8,
+   "val": 93.2,
+   "odds": 40,
+   "oddsPfr": 40,
+   "c": [
+    "#8fc4f0",
+    "#1b1b1b"
+   ],
+   "style": "closer",
+   "ab": 93.2,
+   "vol": 1.07,
+   "sub": "G. Lupi · ent. Gregg Lupi · F5 · gains 22 535 € · cote 40 · Equidia 6/20 · 2 faute(s)/10",
+   "note": "Deux fautes et surtout une musique remplie de zéros (<b>0a ... 0a 0a 0a</b>), 6/20 chez Equidia, 40/1. Le driver-entraîneur Lupi ne cache pas grand-chose : ce cheval ne tient pas le niveau, même dans une Course G. À écarter.",
+   "tags": [
+    [
+     "risk",
+     "6/20, musique de zéros, 40/1"
+    ],
+    [
+     "note",
+     "Déferrage à vérifier"
+    ]
+   ],
+   "trainer": "Gregg Lupi",
+   "musique": "0a Da Da 0a 8a 0a 0a 3a 6a 9a",
+   "gains": 22535,
+   "noteEquidia": "6/20",
+   "fautes": 2
+  },
+  {
+   "n": 4,
+   "name": "Leve Toi",
+   "jockey": "Th. Busset",
+   "w": 56,
+   "draw": 8,
+   "val": 92.8,
+   "odds": 41,
+   "oddsPfr": 41,
+   "c": [
+    "#e86bb0",
+    "#8a8a8a"
+   ],
+   "style": "stalker",
+   "ab": 92.8,
+   "vol": 1.056,
+   "sub": "Th. Busset · ent. Y. Lavigne · F5 · gains 23 245 € · cote 41 · Equidia 4/20 · 2 faute(s)/10",
+   "note": "<b>La plus mauvaise note du plateau : 4/20.</b> Leve Toi enchaîne les zéros (<b>0a 0a 0a</b>) avec deux fautes en plus, et le marché la laisse à 41/1. Equidia la classe parmi les <b>« délaissés »</b>. Rien à en tirer aujourd'hui.",
+   "tags": [
+    [
+     "risk",
+     "4/20, la pire note, délaissée, 41/1"
+    ],
+    [
+     "note",
+     "Aptitudes citées, sans résultat"
+    ]
+   ],
+   "trainer": "Y. Lavigne",
+   "musique": "8a 0a Da Da 0a 0a 0a 5a 6a 7a",
+   "gains": 23245,
+   "noteEquidia": "4/20",
+   "fautes": 2
+  },
+  {
+   "n": 5,
+   "name": "Lovely King",
+   "jockey": "F. Bonnefoy",
+   "w": 56,
+   "draw": 8,
+   "val": 92.8,
+   "odds": 44,
+   "oddsPfr": 44,
+   "c": [
+    "#ffffff",
+    "#1e4fd8"
+   ],
+   "style": "closer",
+   "ab": 92.8,
+   "vol": 1.126,
+   "sub": "F. Bonnefoy · ent. F. Bonnefoy · H5 · gains 24 075 € · cote 44 · Equidia 6/20 · 4 faute(s)/10",
+   "note": "<b>Quatre fautes, 44 % de disqualification, et pas une seule place dans la musique.</b> Lovely King cumule tout ce qu'on veut éviter en trot : <b>Da Da ... Da ... Da</b>, 6/20, 44/1, et Equidia le range en <b>« délaissé »</b>. Le driver est aussi l'entraîneur, ce qui n'ajoute ici aucun signal positif. À rayer.",
+   "tags": [
+    [
+     "risk",
+     "44 % de fautes, 6/20, délaissé, 44/1"
+    ],
+    [
+     "note",
+     "—"
+    ]
+   ],
+   "trainer": "F. Bonnefoy",
+   "musique": "0a Da Da 7a 0a 0a Da (25) Da 6a",
+   "gains": 24075,
+   "noteEquidia": "6/20",
+   "fautes": 4
+  },
+  {
+   "n": 6,
+   "name": "Look des Fanes",
+   "jockey": "B. Chauve-Laffay",
+   "w": 56,
+   "draw": 8,
+   "val": 94.8,
+   "odds": 17,
+   "oddsPfr": 17,
+   "c": [
+    "#c89a6a",
+    "#e03030"
+   ],
+   "style": "stalker",
+   "ab": 94.8,
+   "vol": 1.07,
+   "sub": "B. Chauve-Laffay · ent. R. Buffavand · H5 · gains 24 510 € · cote 17 · Equidia 6/20 · 2 faute(s)/10",
+   "note": "Deux fautes, des courses montées ratées (<b>5m ... 4m</b>) alors qu'on court attelé aujourd'hui, et seulement 6/20. Sa <b>2a</b> en milieu de musique est le seul argument. Deuxième pensionnaire Buffavand, comme Lady du Forez (1). Outsider lointain.",
+   "tags": [
+    [
+     "note",
+     "Une 2e dans la musique"
+    ],
+    [
+     "risk",
+     "Lignes montées + 6/20 + 2 fautes"
+    ]
+   ],
+   "trainer": "R. Buffavand",
+   "musique": "5m 9a 2a 4m Da (25) 8a 4a 7a Da",
+   "gains": 24510,
+   "noteEquidia": "6/20",
+   "fautes": 2
+  },
+  {
+   "n": 7,
+   "name": "Le Chef de Lastel",
+   "jockey": "P. Callier",
+   "w": 56,
+   "draw": 8,
+   "val": 97.6,
+   "odds": 6,
+   "oddsPfr": 6,
+   "c": [
+    "#1b8a3a",
+    "#ffffff"
+   ],
+   "style": "stalker",
+   "ab": 97.6,
+   "vol": 1.098,
+   "sub": "P. Callier · ent. P. Callier · H5 · gains 24 755 € · cote 6 · Equidia 14/20 · 3 faute(s)/10",
+   "note": "<b>Le cas le plus tendu de la course : meilleure note ex æquo (14/20), base d'Equidia, 2<sup>e</sup> favori à 6/1 — et TROIS fautes.</b> Le Chef de Lastel a une vraie forme récente en tête de musique (<b>3a 2a</b>) et Equidia salue ses <b>« Aptitudes »</b>. Mais derrière : <b>Da 7m Da 5m Da</b> — trois disqualifications et des lignes montées. Callier est à la fois driver et entraîneur, ce qui marque l'intention. Nous le gardons en base par garde-fou (6/1 ne s'enterre pas) <b>sans en faire notre n°1</b> : une course sur trois, il ne finit pas.",
+   "tags": [
+    [
+     "base",
+     "14/20 + 3a 2a récents + Callier driver-entraîneur"
+    ],
+    [
+     "risk",
+     "33 % de fautes (Da Da Da)"
+    ]
+   ],
+   "trainer": "P. Callier",
+   "musique": "3a 2a Da 7m Da 5m Da (25) 9a 6a",
+   "gains": 24755,
+   "noteEquidia": "14/20",
+   "fautes": 3
+  },
+  {
+   "n": 8,
+   "name": "Litchi Julry",
+   "jockey": "B. Ruet",
+   "w": 56,
+   "draw": 8,
+   "val": 97.8,
+   "odds": 18,
+   "oddsPfr": 18,
+   "c": [
+    "#8fc4f0",
+    "#e8731f"
+   ],
+   "style": "stalker",
+   "ab": 97.8,
+   "vol": 1.0,
+   "sub": "B. Ruet · ent. J.P. Gauvin · M5 · gains 25 075 € · cote 18 · Equidia 10/20 · 1 faute(s)/10",
+   "note": "<b>Notre tocard : deux victoires, une musique propre, et 18/1.</b> Litchi Julry affiche <b>1a ... 1a</b> et une régularité récente (<b>4a 4a</b>), pour <b>une seule faute</b> sur huit sorties (12 %). Equidia lui reconnaît des <b>« Aptitudes »</b>. Une nuance honnête : son entraîneur J.-P. Gauvin a <b>deux partants</b> et choisit de driver l'autre (Laios Julry, 10) en confiant celui-ci à B. Ruet — mais c'est bien Litchi Julry qui a la meilleure musique des deux. À 18/1, le rapport qualité-prix du jour.",
+   "tags": [
+    [
+     "base",
+     "2 victoires + 12 % de fautes seulement + 18/1"
+    ],
+    [
+     "risk",
+     "Gauvin drive l'autre (10)"
+    ]
+   ],
+   "trainer": "J.P. Gauvin",
+   "musique": "(25) 4a 4a 1a Da 8a (24) 5a 1a 4a",
+   "gains": 25075,
+   "noteEquidia": "10/20",
+   "fautes": 1
+  },
+  {
+   "n": 9,
+   "name": "Lapsus",
+   "jockey": "Alexis Lerenard",
+   "w": 56,
+   "draw": 8,
+   "val": 96.2,
+   "odds": 16,
+   "oddsPfr": 16,
+   "c": [
+    "#e03030",
+    "#f2c200"
+   ],
+   "style": "closer",
+   "ab": 96.2,
+   "vol": 1.084,
+   "sub": "Alexis Lerenard · ent. L. Lerenard · H5 · gains 25 080 € · cote 16 · Equidia 11/20 · 3 faute(s)/10",
+   "note": "Une note correcte (11/20) et des places dans la musique (<b>2a ... 3a</b>), mais <b>trois disqualifications</b> dont deux au monté (<b>Dm Dm</b>) et une à l'attelé. Alexis Lerenard drive pour l'écurie familiale (trois partants). Le potentiel existe, la fiabilité non : complément, pas base.",
+   "tags": [
+    [
+     "note",
+     "11/20 + 2a 3a + écurie Lerenard"
+    ],
+    [
+     "risk",
+     "3 fautes sur 9 sorties"
+    ]
+   ],
+   "trainer": "L. Lerenard",
+   "musique": "7a Dm 2a 0a 3a Dm 4a (25) Da 5a",
+   "gains": 25080,
+   "noteEquidia": "11/20",
+   "fautes": 3
+  },
+  {
+   "n": 10,
+   "name": "Laios Julry",
+   "jockey": "J.P. Gauvin",
+   "w": 56,
+   "draw": 8,
+   "val": 96.4,
+   "odds": 12,
+   "oddsPfr": 12,
+   "c": [
+    "#8fc4f0",
+    "#e8731f"
+   ],
+   "style": "stalker",
+   "ab": 96.4,
+   "vol": 1.084,
+   "sub": "J.P. Gauvin · ent. J.P. Gauvin · H5 · gains 25 190 € · cote 12 · Equidia 9/20 · 3 faute(s)/10",
+   "note": "<b>L'entraîneur J.-P. Gauvin choisit de le driver lui-même</b> — un signal d'intention réel, et sa musique porte des places (<b>2a 3a ... 2a 3a</b>). Mais Equidia ne lui met que 9/20 et il compte <b>trois fautes</b> (Da + deux Dm). Le marché le suit modérément (12/1). Belle chance selon la presse, complément chez nous.",
+   "tags": [
+    [
+     "note",
+     "Gauvin le drive lui-même + places (2a 3a)"
+    ],
+    [
+     "risk",
+     "9/20 + 3 fautes"
+    ]
+   ],
+   "trainer": "J.P. Gauvin",
+   "musique": "6a 3a 0a Da 2a Dm (25) Dm 2a 3a",
+   "gains": 25190,
+   "noteEquidia": "9/20",
+   "fautes": 3
+  },
+  {
+   "n": 11,
+   "name": "Little Oaks",
+   "jockey": "G. Vidal",
+   "w": 56,
+   "draw": 8,
+   "val": 99.0,
+   "odds": 5.8,
+   "oddsPfr": 5.8,
+   "c": [
+    "#1b8a3a",
+    "#f2c200"
+   ],
+   "style": "stalker",
+   "ab": 99.0,
+   "vol": 0.958,
+   "sub": "G. Vidal · ent. G. Vidal · H5 · gains 25 445 € · cote 5.8 · Equidia 13/20 · 1 faute(s)/10",
+   "note": "<b>NOTRE N°1 — la musique la plus propre de la course.</b> Little Oaks aligne <b>5a 5a 6a 2a 2a 8a 3a</b> : <b>aucune faute récente</b>, sa seule disqualification remonte à huit sorties (10 %). Dans un lot où sept chevaux fautent une fois sur trois, cette fiabilité vaut de l'or. Ajoute <b>13/20 chez Equidia</b>, des <b>« Aptitudes »</b> reconnues, un driver qui est aussi l'entraîneur (G. Vidal), et une cote de 5,8 qui en fait le co-favori. <b>Il ne gagne pas souvent — mais il arrive TOUJOURS.</b> Exactement le profil qui gagne une Course G où les autres se dételent.",
+   "tags": [
+    [
+     "base",
+     "Musique la plus propre du lot (10 % de fautes)"
+    ],
+    [
+     "note",
+     "13/20 + Vidal driver-entraîneur + 2a 2a 3a"
+    ]
+   ],
+   "trainer": "G. Vidal",
+   "musique": "5a 5a 6a 2a 2a 8a 3a Da 9a 7a",
+   "gains": 25445,
+   "noteEquidia": "13/20",
+   "fautes": 1
+  },
+  {
+   "n": 12,
+   "name": "Lady des Gravels",
+   "jockey": "L. Lamazière",
+   "w": 56,
+   "draw": 8,
+   "val": 98.2,
+   "odds": 9.8,
+   "oddsPfr": 9.8,
+   "c": [
+    "#6a1fa0",
+    "#1b1b1b"
+   ],
+   "style": "closer",
+   "ab": 98.2,
+   "vol": 0.972,
+   "sub": "L. Lamazière · ent. Sté Ent. A. Tintillier · F5 · gains 25 545 € · cote 9.8 · Equidia 11/20 · 1 faute(s)/10",
+   "note": "<b>Khabaya n°2 : la régularité pure à 9,8.</b> Lady des Gravels ne compte <b>qu'une seule faute</b> (11 %), tout en bas de sa musique, et enchaîne les accessits (<b>2a ... 3a</b>). Equidia 11/20 et « belle chance » de la presse. L'écurie Anthony Tintillier est une vraie référence. Elle ne gagnera peut-être pas, mais dans une course où la moitié du peloton chute, <b>terminer proprement suffit souvent à être payé</b>.",
+   "tags": [
+    [
+     "base",
+     "Seulement 11 % de fautes + 2a 3a réguliers"
+    ],
+    [
+     "note",
+     "Écurie Tintillier + 11/20"
+    ]
+   ],
+   "trainer": "Sté Ent. A. Tintillier",
+   "musique": "6a 7a 5a 6a 2a 6a 3a (25) 9a Da",
+   "gains": 25545,
+   "noteEquidia": "11/20",
+   "fautes": 1
+  },
+  {
+   "n": 13,
+   "name": "Lino de la Vallée",
+   "jockey": "Q. Chauve-Laffay",
+   "w": 56,
+   "draw": 8,
+   "val": 95.6,
+   "odds": 13,
+   "oddsPfr": 13,
+   "c": [
+    "#e03030",
+    "#f2c200"
+   ],
+   "style": "closer",
+   "ab": 95.6,
+   "vol": 1.084,
+   "sub": "Q. Chauve-Laffay · ent. L. Lerenard · H5 · gains 25 645 € · cote 13 · Equidia 8/20 · 3 faute(s)/10",
+   "note": "Deux victoires en fin de musique (<b>1a ... 1a</b>) — mais elles sont <b>anciennes</b>, et depuis c'est <b>Da Da Da</b> suivi de 8a 6a 7a. Equidia 8/20. Troisième pensionnaire Lerenard. La cote (13/1) reflète un souvenir, pas la forme actuelle : nous le laissons hors base.",
+   "tags": [
+    [
+     "note",
+     "2 victoires dans la musique"
+    ],
+    [
+     "risk",
+     "3 fautes d'affilée + 8/20, victoires anciennes"
+    ]
+   ],
+   "trainer": "L. Lerenard",
+   "musique": "7a 8a 6a Da Da Da 8a 1a (25) 1a",
+   "gains": 25645,
+   "noteEquidia": "8/20",
+   "fautes": 3
+  },
+  {
+   "n": 14,
+   "name": "Lozana Hollandia",
+   "jockey": "Andrea Roussel",
+   "w": 56,
+   "draw": 8,
+   "val": 97.8,
+   "odds": 5.3,
+   "oddsPfr": 5.3,
+   "c": [
+    "#1b1b1b",
+    "#1b8a3a"
+   ],
+   "style": "leader",
+   "ab": 97.8,
+   "vol": 1.105,
+   "sub": "Andrea Roussel · ent. Alain Roussel · F5 · gains 25 780 € · cote 5.3 · Equidia 14/20 · 3 faute(s)/10",
+   "note": "<b>LA FAVORITE — et le piège le plus documenté de la course.</b> Lozana Hollandia coche beaucoup : <b>meilleure note ex æquo (14/20)</b>, base n°1 d'Equidia, cote la plus courte (5,3), deux victoires (<b>1a 1a</b>) et des <b>« Aptitudes »</b> reconnues. Mais regarde le <b>DÉBUT</b> de sa musique — celui qui compte : <b>Da Da</b>. <b>Elle s'est dételée sur ses DEUX dernières sorties</b>, et compte trois fautes au total (33 %). C'est exactement le profil du 12/08 à Enghien (Love You Phyt's, favori écrasant à faute) que nous avions décoté. Garde-fou oblige, elle reste en base — <b>mais jamais en tête de jeu.</b>",
+   "tags": [
+    [
+     "base",
+     "14/20 + 2 victoires + favorite à 5,3"
+    ],
+    [
+     "risk",
+     "Da Da sur ses DEUX dernières — 33 % de fautes"
+    ]
+   ],
+   "trainer": "Alain Roussel",
+   "musique": "Da Da 1a 1a 0a (25) Da 5a 0a 5a",
+   "gains": 25780,
+   "noteEquidia": "14/20",
+   "fautes": 3
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "propres",
+   "title": "① Les chevaux propres raflent tout",
+   "prob": "~19%",
+   "desc": "Le scénario central : dans un lot où sept trotteurs fautent une fois sur trois, les quatre qui ne se dételent jamais — Little Oaks (11), Lady des Gravels (12), La Petite Marie (2) et Litchi Julry (8) — se retrouvent seuls à l'arrivée. La fiabilité bat la note.",
+   "bias": {
+    "11": 1.12,
+    "12": 1.09,
+    "2": 1.08,
+    "8": 1.07
+   },
+   "pace": "normal",
+   "chaos": 1.0
+  },
+  {
+   "id": "oaks",
+   "title": "② Little Oaks confirme sa régularité",
+   "prob": "~16%",
+   "desc": "La musique la plus propre du plateau (5a 5a 6a 2a 2a 8a 3a), 13/20, Vidal driver et entraîneur : Little Oaks (11) transforme enfin ses accessits en victoire. Lady des Gravels (12) et La Petite Marie (2) l'accompagnent.",
+   "bias": {
+    "11": 1.15,
+    "12": 1.05,
+    "2": 1.04
+   },
+   "pace": "normal",
+   "chaos": 0.95
+  },
+  {
+   "id": "favorite",
+   "title": "③ La favorite oublie de fauter",
+   "prob": "~13%",
+   "desc": "Lozana Hollandia (14) retrouve les jambes de ses deux victoires et efface ses deux Da récents. Le Chef de Lastel (7), l'autre 14/20, la suit. Le scénario où les deux bases d'Equidia ont raison — et où notre décote a tort.",
+   "bias": {
+    "14": 1.14,
+    "7": 1.06,
+    "11": 1.03
+   },
+   "pace": "rapide",
+   "chaos": 1.05
+  },
+  {
+   "id": "chef",
+   "title": "④ Le Chef de Lastel sur sa forme récente",
+   "prob": "~12%",
+   "desc": "3a 2a en tête de musique, 14/20, Callier à la fois driver et entraîneur : Le Chef de Lastel (7) tient enfin toute la course sans se dételer. Little Oaks (11) et Laios Julry (10) complètent.",
+   "bias": {
+    "7": 1.14,
+    "11": 1.05,
+    "10": 1.05
+   },
+   "pace": "normal",
+   "chaos": 1.02
+  },
+  {
+   "id": "lerenard",
+   "title": "⑤ L'écurie Lerenard place ses pions",
+   "prob": "~11%",
+   "desc": "Trois partants pour L. Lerenard — La Petite Marie (2), Lapsus (9) et Lino de la Vallée (13) — dans une course de quatorze : statistiquement, l'écurie la mieux représentée place souvent. La Petite Marie, la plus propre des trois, mène le trio.",
+   "bias": {
+    "2": 1.11,
+    "9": 1.07,
+    "13": 1.05
+   },
+   "pace": "normal",
+   "chaos": 1.03
+  },
+  {
+   "id": "litchi",
+   "title": "⑥ Litchi Julry, la valeur à 18/1",
+   "prob": "~11%",
+   "desc": "Deux victoires, quatrième deux fois de suite, une seule faute en huit sorties : Litchi Julry (8) est le meilleur rapport qualité-prix du plateau. À 18/1, il transforme un Trio en gros rapport. Little Oaks (11) et Lady des Gravels (12) autour.",
+   "bias": {
+    "8": 1.13,
+    "11": 1.04,
+    "12": 1.04
+   },
+   "pace": "normal",
+   "chaos": 1.05
+  },
+  {
+   "id": "carnage",
+   "title": "⑦ Le carnage des fautes",
+   "prob": "~10%",
+   "desc": "Sept trotteurs à 33 % de disqualification ou plus : sur 2 025 m menés vite, plusieurs se dételent au même moment — la favorite (14), Le Chef de Lastel (7), Lapsus (9), Laios Julry (10). Les quatre chevaux propres ramassent une arrivée à gros rapport.",
+   "bias": {
+    "11": 1.12,
+    "12": 1.1,
+    "2": 1.09,
+    "8": 1.08,
+    "14": 0.82,
+    "7": 0.84,
+    "9": 0.86,
+    "10": 0.86,
+    "1": 0.8,
+    "5": 0.8
+   },
+   "pace": "rapide",
+   "chaos": 1.25
+  },
+  {
+   "id": "chaos",
+   "title": "⑧ Le désordre de la Course G",
+   "prob": "~8%",
+   "desc": "Quatorze chevaux de 5 ans séparés par 4 000 € de gains sur 2 025 m : le lot le plus homogène de la série. Les trajectoires se ferment, les favoris sont enfermés, et un outsider passe — Laios Julry (10) ou Lapsus (9), que Gauvin et Lerenard drivent eux-mêmes.",
+   "bias": {
+    "10": 1.08,
+    "9": 1.07,
+    "6": 1.05,
+    "13": 1.04,
+    "11": 0.94,
+    "14": 0.94
+   },
+   "pace": "lent",
+   "chaos": 1.32
+  }
+ ]
+}
