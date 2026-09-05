@@ -21,6 +21,8 @@ define( 'AGENTURF_ADSTXT_DEFAULT', 'google.com, pub-7905394011008419, DIRECT, f0
 define( 'AGENTURF_OPT_GOOGLE_CID', 'agenturf_google_client_id' );
 define( 'AGENTURF_GOOGLE_CID_DEFAULT', '126774588814-0g4d1811poljopu0q5b3nt4tq9hlakru.apps.googleusercontent.com' );
 define( 'AGENTURF_OPT_YT', 'agenturf_youtube' );     // page vidéos : bannière + liste de Shorts (JSON)
+define( 'AGENTURF_OPT_DOMAIN', 'agenturf_domain' );  // bandeau « nom de domaine à vendre » (JSON)
+define( 'AGENTURF_WA_DEFAULT', '212665827222' );     // WhatsApp de contact (format wa.me, sans « + »)
 
 /* ---------------------------------------------------------------------
    PAGE VIDÉOS (/youtube/)
@@ -122,6 +124,63 @@ add_action( 'init', function () {
 			exit;
 		}
 	}
+} );
+
+/* Config du bandeau « nom de domaine à vendre » (haut de toutes les pages).
+   Le numéro WhatsApp est stocké en chiffres seuls, format international sans
+   le « + » (c'est ce qu'attend wa.me). */
+function agenturf_domain_cfg() {
+	$raw   = (string) get_option( AGENTURF_OPT_DOMAIN, '' );
+	$vierge = ( '' === trim( $raw ) );          // jamais enregistré depuis l'admin
+	$d = json_decode( $raw, true );
+	$d = is_array( $d ) ? $d : array();
+
+	// Premier affichage : le bandeau est actif avec le numéro par défaut ;
+	// dès que la page de réglages est enregistrée, ce sont les choix de
+	// l'admin qui priment (y compris la désactivation).
+	if ( $vierge ) {
+		$d['on']    = true;
+		$d['phone'] = AGENTURF_WA_DEFAULT;
+	}
+
+	$host = (string) wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+	$host = preg_replace( '/^www\./', '', $host );
+
+	$cfg = array(
+		'on'     => ! empty( $d['on'] ),
+		'domain' => isset( $d['domain'] ) && '' !== trim( (string) $d['domain'] )
+			? trim( (string) $d['domain'] ) : $host,
+		'label'  => isset( $d['label'] ) && '' !== trim( (string) $d['label'] )
+			? trim( (string) $d['label'] ) : 'Ce nom de domaine est à vendre',
+		'price'  => isset( $d['price'] ) ? trim( (string) $d['price'] ) : '',
+		'phone'  => isset( $d['phone'] ) ? preg_replace( '/\D+/', '', (string) $d['phone'] ) : '',
+		'msg'    => isset( $d['msg'] ) && '' !== trim( (string) $d['msg'] )
+			? trim( (string) $d['msg'] ) : '',
+	);
+
+	if ( '' === $cfg['msg'] ) {
+		$cfg['msg'] = sprintf( 'Bonjour, je suis intéressé par le nom de domaine %s.', $cfg['domain'] );
+	}
+	return $cfg;
+}
+
+/* Lien WhatsApp prêt à l'emploi (vide si aucun numéro n'est renseigné). */
+function agenturf_domain_wa_url() {
+	$c = agenturf_domain_cfg();
+	if ( '' === $c['phone'] ) {
+		return '';
+	}
+	return 'https://wa.me/' . $c['phone'] . '?text=' . rawurlencode( $c['msg'] );
+}
+
+/* Marque le <body> quand le bandeau est actif : le CSS décale alors la
+   barre de navigation et les contenus de la hauteur du bandeau. */
+add_filter( 'body_class', function ( $classes ) {
+	$c = agenturf_domain_cfg();
+	if ( $c['on'] && '' !== $c['phone'] ) {
+		$classes[] = 'has-dbar';
+	}
+	return $classes;
 } );
 
 /* Config de l'interstitiel « avant la course ». */
@@ -465,6 +524,46 @@ function agenturf_admin_page() {
 				</tr>
 			</table>
 
+			<hr>
+			<h2 class="title">8. Vendre le nom de domaine (bandeau en haut du site)</h2>
+			<?php $dom = agenturf_domain_cfg(); ?>
+			<p>Affiche une bande fine <strong>en haut de toutes les pages</strong> annonçant que le nom de domaine est à vendre, avec un bouton <strong>WhatsApp</strong> qui ouvre une conversation directe (message déjà pré-rempli).</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row">Activer le bandeau</th>
+					<td><label><input type="checkbox" name="dom_on" value="1" <?php checked( $dom['on'] ); ?>> Afficher la bande « nom de domaine à vendre »</label>
+					<p class="description">Le bandeau ne s'affiche que si un numéro WhatsApp est renseigné ci-dessous.</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dom_phone">Numéro WhatsApp</label></th>
+					<td><input type="text" class="regular-text" id="dom_phone" name="dom_phone" value="<?php echo esc_attr( $dom['phone'] ); ?>" placeholder="212665827222">
+					<p class="description">Format international <strong>sans le « + » et sans espaces</strong> (Maroc = 212 suivi du numéro sans le 0). Exemple : <code>212665827222</code>.</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dom_domain">Nom de domaine</label></th>
+					<td><input type="text" class="regular-text" id="dom_domain" name="dom_domain" value="<?php echo esc_attr( $dom['domain'] ); ?>" placeholder="<?php echo esc_attr( $dom['domain'] ); ?>">
+					<p class="description">Laisse vide pour reprendre automatiquement le domaine du site.</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dom_label">Texte affiché</label></th>
+					<td><input type="text" class="regular-text" id="dom_label" name="dom_label" value="<?php echo esc_attr( $dom['label'] ); ?>" placeholder="Ce nom de domaine est à vendre"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dom_price">Prix (optionnel)</label></th>
+					<td><input type="text" class="regular-text" id="dom_price" name="dom_price" value="<?php echo esc_attr( $dom['price'] ); ?>" placeholder="ex. 2 500 € — ou laisse vide">
+					<p class="description">Laisse vide pour afficher « Faire une offre » plutôt qu'un prix.</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dom_msg">Message WhatsApp pré-rempli</label></th>
+					<td><input type="text" class="large-text" id="dom_msg" name="dom_msg" value="<?php echo esc_attr( $dom['msg'] ); ?>">
+					<p class="description">Ce texte s'écrit tout seul dans la conversation quand l'acheteur clique.</p></td>
+				</tr>
+			</table>
+			<?php $wa = agenturf_domain_wa_url(); ?>
+			<?php if ( $wa ) : ?>
+				<p><strong>Aperçu du lien :</strong> <a href="<?php echo esc_url( $wa ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $wa ); ?></a></p>
+			<?php endif; ?>
+
 			<p>
 				<?php submit_button( 'Enregistrer', 'primary', 'submit', false ); ?>
 				&nbsp;
@@ -522,6 +621,15 @@ add_action( 'admin_post_agenturf_save', function () {
 	) ), false );
 
 	/* code réseau publicitaire (brut, admin de confiance) */
+	update_option( AGENTURF_OPT_DOMAIN, wp_json_encode( array(
+		'on'     => ! empty( $_POST['dom_on'] ),
+		'domain' => isset( $_POST['dom_domain'] ) ? sanitize_text_field( wp_unslash( $_POST['dom_domain'] ) ) : '',
+		'label'  => isset( $_POST['dom_label'] ) ? sanitize_text_field( wp_unslash( $_POST['dom_label'] ) ) : '',
+		'price'  => isset( $_POST['dom_price'] ) ? sanitize_text_field( wp_unslash( $_POST['dom_price'] ) ) : '',
+		'phone'  => isset( $_POST['dom_phone'] ) ? preg_replace( '/\D+/', '', (string) wp_unslash( $_POST['dom_phone'] ) ) : '',
+		'msg'    => isset( $_POST['dom_msg'] ) ? sanitize_text_field( wp_unslash( $_POST['dom_msg'] ) ) : '',
+	), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ), false );
+
 	update_option( AGENTURF_OPT_ADHEAD, isset( $_POST['ad_head'] ) ? trim( (string) wp_unslash( $_POST['ad_head'] ) ) : '', false );
 	update_option( AGENTURF_OPT_ADSTXT, isset( $_POST['ads_txt'] ) ? trim( (string) wp_unslash( $_POST['ads_txt'] ) ) : '', false );
 	update_option( AGENTURF_OPT_GOOGLE_CID, isset( $_POST['google_client_id'] ) ? sanitize_text_field( wp_unslash( $_POST['google_client_id'] ) ) : '', false );

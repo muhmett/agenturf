@@ -3,7 +3,7 @@ Theme Name: AgenTurf
 Theme URI: https://github.com/muhmett/agenturf
 Author: AgenTurf
 Description: Thème one-page pour simulateur Quinté+ — landing avec vidéo hero et animations au scroll, accès au simulateur réservé aux membres (connexion Google via Nextend Social Login), course du jour mise à jour par fichier JSON depuis le menu WordPress.
-Version: 1.22.0
+Version: 1.23.0
 License: GPL-2.0-or-later
 Text Domain: agenturf
 */
@@ -27,9 +27,55 @@ body{
 button{font-family:inherit}
 a{color:inherit}
 
+/* =============== bandeau « domaine à vendre » ===============
+   Bande fine tout en haut, sur toutes les pages. Quand elle est active,
+   le <body> porte .has-dbar : --dbar-h passe de 0 à sa hauteur réelle et
+   tout ce qui est calé en haut (topbar, barre de progression, contenus)
+   se décale automatiquement. */
+:root{--dbar-h:0px}
+body.has-dbar{--dbar-h:38px}
+@media(max-width:640px){body.has-dbar{--dbar-h:34px}}
+
+.dbar{
+  position:fixed;top:0;left:0;right:0;z-index:1002;
+  height:var(--dbar-h);
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:0 12px;
+  background:linear-gradient(90deg,#0a2c1c,#124a2e 55%,#0a2c1c);
+  border-bottom:1px solid rgba(227,182,78,.45);
+  font-family:'Barlow Condensed',system-ui,sans-serif;
+  font-size:.86rem;letter-spacing:.03em;color:#f3f1e6;
+}
+.dbar-txt{display:flex;align-items:center;gap:10px;min-width:0}
+.dbar-tag{
+  font-weight:900;color:var(--or);white-space:nowrap;
+  text-transform:none;letter-spacing:.02em;
+}
+.dbar-lab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.92}
+.dbar-price{
+  white-space:nowrap;font-weight:700;color:#0a2c1c;background:var(--or);
+  border-radius:99px;padding:2px 10px;font-size:.78rem;
+}
+.dbar-wa{
+  display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;
+  text-decoration:none;font-weight:800;text-transform:uppercase;
+  font-size:.8rem;letter-spacing:.05em;
+  color:#062b18;background:#25d366;
+  border-radius:99px;padding:5px 14px;
+  transition:background .18s,transform .18s;
+}
+.dbar-wa:hover{background:#1fb958;transform:translateY(-1px)}
+/* Sur mobile : on garde le domaine + le bouton, on sacrifie la phrase et
+   le prix pour que rien ne déborde. */
+@media(max-width:640px){
+  .dbar{gap:10px;font-size:.8rem}
+  .dbar-lab,.dbar-price{display:none}
+  .dbar-wa{font-size:.74rem;padding:4px 11px}
+}
+
 /* =============== topbar =============== */
 .topbar{
-  position:fixed;top:0;left:0;right:0;z-index:900;
+  position:fixed;top:var(--dbar-h);left:0;right:0;z-index:900;
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 18px;
   background:linear-gradient(180deg,rgba(10,16,30,.78),rgba(10,16,30,.45) 70%,transparent);
@@ -67,7 +113,7 @@ a{color:inherit}
   .topbar a.tb-btn{font-size:.78rem;padding:6px 10px;letter-spacing:.03em}
 }
 .scrollbar{
-  position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
+  position:fixed;top:var(--dbar-h);left:0;height:3px;width:0;z-index:1000;
   background:linear-gradient(90deg,var(--pmu),var(--or));
 }
 
@@ -220,7 +266,7 @@ a{color:inherit}
 /* =====================================================
    SIMULATEUR (membres connectés)
    ===================================================== */
-.wrap{max-width:1060px;margin:0 auto;padding:70px 14px 60px}
+.wrap{max-width:1060px;margin:0 auto;padding:calc(70px + var(--dbar-h)) 14px 60px}
 
 /* ---- panneau membre : identité, rappels, historique local ---- */
 .member-bar{
@@ -466,7 +512,7 @@ button.btn{
 
 
 /* =============== archives SEO =============== */
-.arch-wrap{padding-top:70px}
+.arch-wrap{padding-top:calc(70px + var(--dbar-h))}
 .arch-content{background:#fff;border:1.5px solid var(--ligne);border-radius:14px;padding:22px 24px;margin-top:22px;font-size:.92rem}
 .arch-content h2{font-family:'Barlow Condensed';font-weight:900;text-transform:uppercase;font-size:1.4rem;margin:18px 0 8px;color:#0c3b26}
 .arch-content h3{font-family:'Barlow Condensed';font-weight:700;font-size:1.05rem;margin:12px 0 4px}
